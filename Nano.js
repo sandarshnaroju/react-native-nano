@@ -1,7 +1,8 @@
 import React from 'react';
+import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
 import UniversalElement from './UniversalElement';
-function Mapper({screen, onDataChange}) {
+export const ReactNativeNano = ({screen, onDataChange}) => {
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
     if (rowElementsArray != null && rowElementsArray.length > 0) {
@@ -38,7 +39,12 @@ function Mapper({screen, onDataChange}) {
     return elements;
   };
 
-  return <View style={{flex: 1}}>{getColoumViews(screen)}</View>;
-}
-
-export default Mapper;
+  return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{paddingBottom: 60, paddingTop: 20}}
+      style={{flex: 1}}>
+      {getColoumViews(screen)}
+    </ScrollView>
+  );
+};

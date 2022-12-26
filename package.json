@@ -6,9 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandarshnaroju/react-native-nano.git"
+  },
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "ISC"
+  "author": "sandarshnaroju",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandarshnaroju/react-native-nano/issues"
+  },
+  "homepage": "https://github.com/sandarshnaroju/react-native-nano#readme"
 }
