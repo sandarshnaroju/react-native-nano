@@ -1,25 +1,30 @@
 import React from 'react';
+import {View} from 'react-native';
 import {
-  Text,
-  Button,
   ActivityIndicator,
   Avatar,
   Badge,
+  Banner,
+  Button,
+  Card,
   Checkbox,
   Chip,
+  Divider,
   FAB,
   ProgressBar,
   RadioButton,
   Switch,
+  Text,
   TextInput,
-  Banner,
+  TouchableRipple,
 } from 'react-native-paper';
-import NanoComponents from './Constants';
+import NANO from '../Constants';
+import {Nano} from '../Nano';
 
-function UniversalElement({elemObj, onPress}) {
+function UniversalElement({elemObj, onPress, navigation}) {
   const getElementAsPerComponent = elemOb => {
     switch (elemOb['component']) {
-      case NanoComponents.BUTTON:
+      case NANO.BUTTON:
         return (
           <Button
             {...elemOb['props']}
@@ -28,7 +33,7 @@ function UniversalElement({elemObj, onPress}) {
             {elemOb['value']}
           </Button>
         );
-      case NanoComponents.TEXT:
+      case NANO.TEXT:
         return (
           <Text
             {...elemOb['props']}
@@ -40,7 +45,7 @@ function UniversalElement({elemObj, onPress}) {
           </Text>
         );
 
-      case NanoComponents.ACTIVITYINDICATOR:
+      case NANO.ACTIVITYINDICATOR:
         return (
           <ActivityIndicator
             {...elemOb['props']}
@@ -48,7 +53,7 @@ function UniversalElement({elemObj, onPress}) {
             animating={elemOb['value']}
           />
         );
-      case NanoComponents.ICON:
+      case NANO.ICON:
         return (
           <Avatar.Icon
             {...elemOb['props']}
@@ -57,18 +62,18 @@ function UniversalElement({elemObj, onPress}) {
           />
         );
 
-      case NanoComponents.IMAGE:
+      case NANO.IMAGE:
         return (
           <Avatar.Image {...elemOb['props']} source={{uri: elemOb['value']}} />
         );
 
-      case NanoComponents.TEXTAVATAR:
+      case NANO.TEXTAVATAR:
         return <Avatar.Text {...elemOb['props']} label={elemOb['value']} />;
 
-      case NanoComponents.BADGE:
+      case NANO.BADGE:
         return <Badge {...elemOb['props']}>{elemOb['value']}</Badge>;
 
-      case NanoComponents.CHECKBOX:
+      case NANO.CHECKBOX:
         return (
           <Checkbox
             {...elemOb['props']}
@@ -77,7 +82,7 @@ function UniversalElement({elemObj, onPress}) {
             onLongPress={elemOb['onLongClick']}
           />
         );
-      case NanoComponents.CHIP:
+      case NANO.CHIP:
         return (
           <Chip
             {...elemOb['props']}
@@ -87,7 +92,7 @@ function UniversalElement({elemObj, onPress}) {
             {elemOb['value']}
           </Chip>
         );
-      case NanoComponents.FAB:
+      case NANO.FAB:
         return (
           <FAB
             {...elemOb['props']}
@@ -97,10 +102,10 @@ function UniversalElement({elemObj, onPress}) {
             onLongPress={elemOb['onLongClick']}
           />
         );
-      case NanoComponents.PROGRESSBAR:
+      case NANO.PROGRESSBAR:
         return <ProgressBar progress={elemOb['value']} {...elemOb['props']} />;
 
-      case NanoComponents.RADIOBUTTON:
+      case NANO.RADIOBUTTON:
         return (
           <RadioButton
             value="first"
@@ -110,7 +115,7 @@ function UniversalElement({elemObj, onPress}) {
           />
         );
 
-      case NanoComponents.SWITCH:
+      case NANO.SWITCH:
         return (
           <Switch
             {...elemOb['props']}
@@ -118,7 +123,7 @@ function UniversalElement({elemObj, onPress}) {
             onLongPress={elemOb['onLongClick']}
           />
         );
-      case NanoComponents.TEXTINPUT:
+      case NANO.TEXTINPUT:
         return (
           <TextInput
             {...elemOb['props']}
@@ -126,7 +131,7 @@ function UniversalElement({elemObj, onPress}) {
             onLongPress={elemOb['onLongClick']}
           />
         );
-      case NanoComponents.BANNER:
+      case NANO.BANNER:
         return (
           <Banner
             {...elemOb['props']}
@@ -142,6 +147,49 @@ function UniversalElement({elemObj, onPress}) {
             ]}>
             {elemOb['value']}
           </Banner>
+        );
+      case NANO.CARD:
+        return (
+          <Card>
+            <Card.Title title="Card Title" subtitle="Card Subtitle" />
+            <Card.Content>
+              <Nano screen={elemOb['content']} />
+            </Card.Content>
+            <Card.Actions>
+              <Button>Cancel</Button>
+              <Button>Ok</Button>
+            </Card.Actions>
+          </Card>
+        );
+      case NANO.CUSTOM:
+        return (
+          <TouchableRipple
+            style={{
+              justifyContent: 'space-between',
+              borderWidth: 1,
+              borderColor: 'red',
+            }}
+            onPress={elemOb['onClick']}
+            {...elemOb['props']}>
+            <Nano screen={elemOb['content']} />
+          </TouchableRipple>
+        );
+
+      case NANO.DIVIDER:
+        return <Divider {...elemOb['props']} />;
+
+      case NANO.CUSTOM:
+        return (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              borderWidth: 1,
+              borderColor: 'red',
+            }}
+            onPress={elemOb['onClick']}
+            {...elemOb['props']}>
+            <Nano screen={elemOb['content']} />
+          </View>
         );
       default:
         return;

@@ -1,4 +1,4 @@
-const NanoComponents = {
+const NANO = {
   BUTTON: 'button',
   TEXT: 'text',
   ACTIVITYINDICATOR: 'activityindicator',
@@ -14,5 +14,10 @@ const NanoComponents = {
   SWITCH: 'switch',
   TEXTINPUT: 'textinput',
   BANNER: 'banner',
+  CARD: 'card',
+  DIVIDER: 'divider',
+  LISTVIEW: 'listview',
+  CUSTOM: 'custom',
+  VIEW: 'view',
 };
-export default NanoComponents;
+export default NANO;

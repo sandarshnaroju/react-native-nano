@@ -1,6 +1,6 @@
-import {ReactNativeNano} from './Nano';
-import NanoComponents from './Constants';
+import {Nano} from './Nano';
+import NANO from './Constants';
 module.exports = {
-  ReactNativeNano,
-  NanoComponents,
+  Nano,
+  NANO,
 };

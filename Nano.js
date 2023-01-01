@@ -1,18 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import UniversalElement from './UniversalElement';
-export const ReactNativeNano = ({screen, onDataChange}) => {
+import CheckForListviewAndRender from './elements/CheckForListviewAndRender';
+const getFilteredScreenObject = entireScreenObject => {
+  const filterElements = {};
+
+  Object.entries(entireScreenObject).forEach(keyValueArr => {
+    filterElements[keyValueArr[0]] = keyValueArr[1].filter(
+      elem => elem['canChangeEffect'] !== false,
+    );
+  });
+
+  return filterElements;
+};
+export const Nano = ({screen, style, navigation, scroll}) => {
+  const [uiElements, setUiElements] = useState(screen);
+  const filteredElements = getFilteredScreenObject(screen);
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
     if (rowElementsArray != null && rowElementsArray.length > 0) {
       rowElementsArray.forEach((eleObject, index) => {
         rowelements.push(
-          <UniversalElement
+          <CheckForListviewAndRender
             key={index + 'ss'}
-            elemObj={eleObject}
+            elemOb={eleObject}
+            navigation={navigation}
             onPress={() => {
-              onDataChange(eleObject['onClick'](screen, rowKey, index));
+              eleObject['onClick'](
+                navigation,
+                filteredElements,
+                eleObject['value'],
+              );
             }}
           />,
         );
@@ -26,7 +44,14 @@ export const ReactNativeNano = ({screen, onDataChange}) => {
       Object.keys(totalData).forEach((key, index) => {
         if (key != null && key.slice(0, 1) === 'h') {
           elements.push(
-            <View style={{flexDirection: 'row'}} key={key + index + 1}>
+            <View
+              style={{
+                flexDirection: 'row',
+                borderWidth: 1,
+                borderColor: 'black',
+                justifyContent: 'space-between',
+              }}
+              key={key + index + 1}>
               {getRowElements(totalData[key], key)}
             </View>,
           );
@@ -39,12 +64,15 @@ export const ReactNativeNano = ({screen, onDataChange}) => {
     return elements;
   };
 
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingBottom: 60, paddingTop: 20}}
-      style={{flex: 1}}>
-      {getColoumViews(screen)}
-    </ScrollView>
-  );
+  useEffect(() => {
+    setUiElements(screen);
+  }, [screen]);
+  if (scroll) {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false} style={style}>
+        {getColoumViews(uiElements)}
+      </ScrollView>
+    );
+  }
+  return <View style={style}>{getColoumViews(uiElements)}</View>;
 };

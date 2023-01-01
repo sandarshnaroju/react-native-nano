@@ -18,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/sandarshnaroju/react-native-nano/issues"
   },
-  "homepage": "https://github.com/sandarshnaroju/react-native-nano#readme"
+  "homepage": "https://react-native-nano.gitbook.io/welcome/",
+  "dependencies": {
+    "dep": "^0.18.3"
+  },
+  "peerDependencies": {
+    "recyclerlistview": "^4.2.0",
+    "react-native-paper": "^5.1.0",
+    "react-native-safe-area-context": "^4.4.1"
+  }
 }
