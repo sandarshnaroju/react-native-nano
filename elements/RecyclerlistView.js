@@ -92,7 +92,7 @@ export default class RecycleTestComponent extends React.Component {
               content: this.props.itemview['content'],
             }}
             navigation={this.props.navigation}
-            onPress={this.props.onPress}
+            onPress={() => this.props.onPress(mapper['value'])}
           />
         );
 

@@ -34,6 +34,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
               {elemOb['value']}
             </Button>
           );
+
         case NANO.TEXT:
           return (
             <Text
