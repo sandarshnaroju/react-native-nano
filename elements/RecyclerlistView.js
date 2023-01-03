@@ -40,8 +40,8 @@ export default class RecycleTestComponent extends React.Component {
       (type, dim) => {
         switch (type) {
           case ViewTypes.FULL:
-            dim.width = width;
-            dim.height = 50;
+            dim.width = this.props.itemWidth ? this.props.itemWidth : width;
+            dim.height = this.props.itemHeight ? this.props.itemHeight : 50;
             break;
           default:
             dim.width = 0;
@@ -81,19 +81,20 @@ export default class RecycleTestComponent extends React.Component {
     switch (type) {
       case ViewTypes.FULL:
         const mapper = this.props.mapper(data);
+
         return (
           <UniversalElement
             elemObj={{
-              component: this.props.itemview,
-              props: mapper,
+              component: this.props.itemview['component'],
+
               value: mapper['value'],
+              props: this.props.itemview['props'],
+              content: this.props.itemview['content'],
             }}
             navigation={this.props.navigation}
+            onPress={this.props.onPress}
           />
         );
-
-      case ViewTypes.HALF_LEFT:
-        return this.props.itemview(type, data, this.props.navigation);
 
       default:
         return null;

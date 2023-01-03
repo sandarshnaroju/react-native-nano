@@ -19,5 +19,6 @@ const NANO = {
   LISTVIEW: 'listview',
   CUSTOM: 'custom',
   VIEW: 'view',
+  FLATLIST: 'flatlist',
 };
 export default NANO;
