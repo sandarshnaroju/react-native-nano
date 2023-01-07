@@ -23,7 +23,7 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
       rowElementsArray.forEach((eleObject, index) => {
         rowelements.push(
           <CheckForListviewAndRender
-            key={index}
+            key={index + Math.random()}
             elemOb={eleObject}
             navigation={navigation}
             onPress={value => {

@@ -2,6 +2,7 @@ import {isEqual} from 'lodash';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
+import {replaceValuesInItemViewObjectsAsperDataGiven} from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
 const ViewTypes = {
@@ -59,12 +60,6 @@ export default class RecycleTestComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevStates) {
-    // console.log(
-    //   'component did update',
-    //   prevProps['listdata'],
-    //   this.props['listdata'],
-    // );
-
     if (!isEqual(prevProps['listdata'], this.props['listdata'])) {
       let dataProvider = new DataProvider((r1, r2) => {
         return !isEqual(r1, r2);
@@ -81,7 +76,10 @@ export default class RecycleTestComponent extends React.Component {
     switch (type) {
       case ViewTypes.FULL:
         const mapper = this.props.mapper(data);
-
+        const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
+          this.props.itemview['content'],
+          mapper,
+        );
         return (
           <UniversalElement
             elemObj={{
@@ -89,7 +87,8 @@ export default class RecycleTestComponent extends React.Component {
 
               value: mapper['value'],
               props: this.props.itemview['props'],
-              content: this.props.itemview['content'],
+              content: modifiedContent,
+              onClick: this.props.itemview['onClick'],
             }}
             navigation={this.props.navigation}
             onPress={() => this.props.onPress(mapper['value'])}

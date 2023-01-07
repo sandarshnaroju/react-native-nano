@@ -1,18 +1,25 @@
 import React from 'react';
 import {FlatList, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {replaceValuesInItemViewObjectsAsperDataGiven} from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
 function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
   const renderItem = ({item}) => {
-    const mapperResult = mapper(data);
+    const mapperResult = mapper(item);
+    const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
+      itemview['content'],
+      mapperResult,
+    );
+
     return (
       <UniversalElement
         elemObj={{
           component: itemview['component'],
 
-          value: mapperResult['value'],
+          // value: mapperResult['value'],
           props: itemview['props'],
-          content: itemview['content'],
+          content: modifiedContent,
+          onClick: itemview['onClick'],
         }}
         navigation={navigation}
         onPress={onPress}
@@ -24,7 +31,7 @@ function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={item => item}
+        keyExtractor={item => item.name + Math.random()}
       />
     </SafeAreaView>
   );

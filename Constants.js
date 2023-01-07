@@ -1,7 +1,7 @@
 const NANO = {
   BUTTON: 'button',
   TEXT: 'text',
-  ACTIVITYINDICATOR: 'activityindicator',
+  ACTIVITY_INDICATOR: 'activity_indicator',
   ICON: 'avataricon',
   IMAGE: 'avatarimage',
   TEXTAVATAR: 'avatartext',

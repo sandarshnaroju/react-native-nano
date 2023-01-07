@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {
   ActivityIndicator,
   Avatar,
@@ -16,20 +16,19 @@ import {
   Switch,
   Text,
   TextInput,
-  TouchableRipple,
 } from 'react-native-paper';
 import NANO from '../Constants';
 import {Nano} from '../Nano';
 
 function UniversalElement({elemObj, onPress, navigation}) {
-  const getElementAsPerComponent = (elemOb, index = null) => {
+  const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
       switch (elemOb['component']) {
         case NANO.BUTTON:
           return (
             <Button
               {...elemOb['props']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}>
               {elemOb['value']}
             </Button>
@@ -38,19 +37,17 @@ function UniversalElement({elemObj, onPress, navigation}) {
         case NANO.TEXT:
           return (
             <Text
-              key={index}
+              key={'text' + index + Math.random()}
               {...elemOb['props']}
               style={elemOb['props']['style']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}>
               {' '}
               {elemOb['value']}{' '}
             </Text>
           );
 
-        case NANO.ACTIVITYINDICATOR:
-          console.log('text onjjee', elemOb['value']);
-
+        case NANO.ACTIVITY_INDICATOR:
           return (
             <ActivityIndicator
               {...elemOb['props']}
@@ -84,10 +81,10 @@ function UniversalElement({elemObj, onPress, navigation}) {
         case NANO.CHECKBOX:
           return (
             <Checkbox
-              key={index}
+              key={'checkbox' + index + Math.random()}
               {...elemOb['props']}
               status={elemOb['value'] ? 'checked' : 'unchecked'}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
           );
@@ -96,7 +93,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
             <Chip
               {...elemOb['props']}
               style={elemOb['props']['style']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}>
               {elemOb['value']}
             </Chip>
@@ -107,7 +104,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
               {...elemOb['props']}
               icon={elemOb['value']}
               style={elemOb['props']['style']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
           );
@@ -121,7 +118,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
             <RadioButton
               value="first"
               status={elemOb['value'] ? 'checked' : 'unchecked'}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
           );
@@ -130,7 +127,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
           return (
             <Switch
               {...elemOb['props']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
           );
@@ -138,7 +135,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
           return (
             <TextInput
               {...elemOb['props']}
-              onPress={onPress}
+              onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
           );
@@ -177,25 +174,37 @@ function UniversalElement({elemObj, onPress, navigation}) {
           return <Divider {...elemOb['props']} />;
 
         case NANO.VIEW:
+          if (elemOb['onClick'] != null) {
+            return (
+              <TouchableOpacity
+                key={'TouchableOpacity' + index + Math.random()}
+                onPress={onPress}
+                {...elemOb['props']}>
+                {getViewItems(elemOb['content'], false)}
+              </TouchableOpacity>
+            );
+          }
+
           return (
-            <View {...elemOb['props']}>{getViewItems(elemOb['content'])}</View>
+            <View key={'view' + index + Math.random()} {...elemOb['props']}>
+              {getViewItems(elemOb['content'])}
+            </View>
           );
         default:
           return;
       }
     }
-    return <Text key={'keke'}> {' Error'} </Text>;
+    return <Text key={'error' + index + Math.random()}> {' Error'} </Text>;
   };
-  const getViewItems = content => {
+  const getViewItems = (content, onPressAllowed) => {
     const elements = [];
     content.forEach((elemet, index) => {
-      const item = getElementAsPerComponent(elemet, index);
+      const item = getElementAsPerComponent(elemet, index, onPressAllowed);
       elements.push(item);
     });
     return elements;
   };
-  const displayItem = getElementAsPerComponent(elemObj);
-  // console.log('displayItem', displayItem);
+  const displayItem = getElementAsPerComponent(elemObj, null, true);
 
   return displayItem;
 }
