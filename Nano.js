@@ -16,7 +16,7 @@ const getFilteredScreenObject = entireScreenObject => {
 
 export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
   const [uiElements, setUiElements] = useState(screen);
-  const filteredElements = getFilteredScreenObject(screen);
+  const filteredElements = getFilteredScreenObject(uiElements);
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
     if (rowElementsArray != null && rowElementsArray.length > 0) {
@@ -26,11 +26,14 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
             key={index + Math.random()}
             elemOb={eleObject}
             navigation={navigation}
-            onPress={value => {
-              logicObject[eleObject['onClick']](
-                navigation,
-                filteredElements,
-                value != null ? value : eleObject['value'],
+            onPress={index => {
+              setUiElements(
+                logicObject[eleObject['onClick']](
+                  navigation,
+                  filteredElements,
+                  eleObject['value'],
+                  index,
+                ),
               );
             }}
           />,

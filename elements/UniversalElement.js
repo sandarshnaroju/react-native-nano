@@ -55,7 +55,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
               animating={elemOb['value']}
             />
           );
-        case NANO.ICON:
+        case NANO.AVATAR_ICON:
           return (
             <Avatar.Icon
               {...elemOb['props']}
@@ -64,7 +64,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
             />
           );
 
-        case NANO.IMAGE:
+        case NANO.AVATAR_IMAGE:
           return (
             <Avatar.Image
               {...elemOb['props']}
@@ -72,7 +72,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
             />
           );
 
-        case NANO.TEXTAVATAR:
+        case NANO.AVATAR_TEXT:
           return <Avatar.Text {...elemOb['props']} label={elemOb['value']} />;
 
         case NANO.BADGE:
@@ -108,12 +108,12 @@ function UniversalElement({elemObj, onPress, navigation}) {
               onLongPress={elemOb['onLongClick']}
             />
           );
-        case NANO.PROGRESSBAR:
+        case NANO.PROGRESS_BAR:
           return (
             <ProgressBar progress={elemOb['value']} {...elemOb['props']} />
           );
 
-        case NANO.RADIOBUTTON:
+        case NANO.RADIO_BUTTON:
           return (
             <RadioButton
               value="first"
@@ -131,7 +131,7 @@ function UniversalElement({elemObj, onPress, navigation}) {
               onLongPress={elemOb['onLongClick']}
             />
           );
-        case NANO.TEXTINPUT:
+        case NANO.TEXT_INPUT:
           return (
             <TextInput
               {...elemOb['props']}
@@ -177,6 +177,9 @@ function UniversalElement({elemObj, onPress, navigation}) {
           if (elemOb['onClick'] != null) {
             return (
               <TouchableOpacity
+                // onPress={() => {
+                //   console.log('pressss');
+                // }}
                 key={'TouchableOpacity' + index + Math.random()}
                 onPress={onPress}
                 {...elemOb['props']}>

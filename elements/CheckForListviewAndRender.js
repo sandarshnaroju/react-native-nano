@@ -5,7 +5,7 @@ import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 
 function CheckForListviewAndRender({elemOb, navigation, onPress}) {
-  if (elemOb['component'] === NANO.LISTVIEW) {
+  if (elemOb['component'] === NANO.LIST_VIEW) {
     return (
       <RecycleTestComponent
         {...elemOb}
@@ -13,7 +13,7 @@ function CheckForListviewAndRender({elemOb, navigation, onPress}) {
         onPress={onPress}
       />
     );
-  } else if (elemOb['component'] === NANO.FLATLIST) {
+  } else if (elemOb['component'] === NANO.FLAT_LIST) {
     return (
       <NanoFlatlist {...elemOb} navigation={navigation} onPress={onPress} />
     );

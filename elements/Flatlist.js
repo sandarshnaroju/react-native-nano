@@ -4,7 +4,7 @@ import {replaceValuesInItemViewObjectsAsperDataGiven} from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
 function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     const mapperResult = mapper(item);
     const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
       itemview['content'],
@@ -16,13 +16,12 @@ function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
         elemObj={{
           component: itemview['component'],
 
-          // value: mapperResult['value'],
           props: itemview['props'],
           content: modifiedContent,
           onClick: itemview['onClick'],
         }}
         navigation={navigation}
-        onPress={onPress}
+        onPress={() => onPress(index)}
       />
     );
   };
