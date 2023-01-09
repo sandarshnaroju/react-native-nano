@@ -7,7 +7,16 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
   if (content != null && content.length > 0) {
     content.forEach(element => {
       if (element != null && element.name != null) {
-        element.value = mapperRes[element.name];
+        if (
+          typeof mapperRes[element.name] === 'object' &&
+          !Array.isArray(mapperRes[element.name]) &&
+          mapperRes[element.name] !== null
+        ) {
+          element.value = mapperRes[element.name]['value'];
+          element.props = mapperRes[element.name]['props'];
+        } else {
+          element.value = mapperRes[element.name];
+        }
       }
       if (
         element != null &&

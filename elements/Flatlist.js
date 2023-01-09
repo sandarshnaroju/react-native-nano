@@ -3,9 +3,16 @@ import {FlatList, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {replaceValuesInItemViewObjectsAsperDataGiven} from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
-function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
+function NanoFlatlist({
+  data,
+  itemview,
+  mapper,
+  navigation,
+  onPress,
+  extraItemviewProps,
+}) {
   const renderItem = ({item, index}) => {
-    const mapperResult = mapper(item);
+    const mapperResult = mapper(item, index);
     const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
       itemview['content'],
       mapperResult,
@@ -21,7 +28,7 @@ function NanoFlatlist({data, itemview, mapper, navigation, onPress}) {
           onClick: itemview['onClick'],
         }}
         navigation={navigation}
-        onPress={() => onPress(index)}
+        onPress={() => onPress(index, item, data)}
       />
     );
   };

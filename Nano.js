@@ -4,12 +4,13 @@ import {View} from 'react-native-animatable';
 import CheckForListviewAndRender from './elements/CheckForListviewAndRender';
 const getFilteredScreenObject = entireScreenObject => {
   const filterElements = {};
-
-  Object.entries(entireScreenObject).forEach(keyValueArr => {
-    filterElements[keyValueArr[0]] = keyValueArr[1].filter(
-      elem => elem['canChangeEffect'] !== false,
-    );
-  });
+  if (entireScreenObject != null) {
+    Object.entries(entireScreenObject).forEach(keyValueArr => {
+      filterElements[keyValueArr[0]] = keyValueArr[1].filter(
+        elem => elem['canChangeEffect'] !== false,
+      );
+    });
+  }
 
   return filterElements;
 };
@@ -26,13 +27,17 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
             key={index + Math.random()}
             elemOb={eleObject}
             navigation={navigation}
-            onPress={index => {
+            onPress={(index, item, completeFlatlistData) => {
+              console.log('sssss');
+
               setUiElements(
                 logicObject[eleObject['onClick']](
                   navigation,
                   filteredElements,
-                  eleObject['value'],
+
                   index,
+                  item,
+                  completeFlatlistData,
                 ),
               );
             }}

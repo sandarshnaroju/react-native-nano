@@ -17,7 +17,6 @@ const NANO = {
   CARD: 'card',
   DIVIDER: 'divider',
   LIST_VIEW: 'list_view',
-  CUSTOM: 'custom',
   VIEW: 'view',
   FLAT_LIST: 'flat_list',
 };

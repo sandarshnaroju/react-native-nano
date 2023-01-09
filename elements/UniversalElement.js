@@ -20,7 +20,7 @@ import {
 import NANO from '../Constants';
 import {Nano} from '../Nano';
 
-function UniversalElement({elemObj, onPress, navigation}) {
+function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
       switch (elemOb['component']) {
@@ -83,7 +83,14 @@ function UniversalElement({elemObj, onPress, navigation}) {
             <Checkbox
               key={'checkbox' + index + Math.random()}
               {...elemOb['props']}
-              status={elemOb['value'] ? 'checked' : 'unchecked'}
+              status={
+                elemOb['value'] != null
+                  ? elemOb['value']
+                    ? 'checked'
+                    : 'unchecked'
+                  : 'indeterminate'
+              }
+              // status={'indeterminate'}
               onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />
@@ -156,19 +163,6 @@ function UniversalElement({elemObj, onPress, navigation}) {
               {elemOb['value']}
             </Banner>
           );
-        case NANO.CARD:
-          return (
-            <Card>
-              <Card.Title title="Card Title" subtitle="Card Subtitle" />
-              <Card.Content>
-                <Nano screen={elemOb['content']} />
-              </Card.Content>
-              <Card.Actions>
-                <Button>Cancel</Button>
-                <Button>Ok</Button>
-              </Card.Actions>
-            </Card>
-          );
 
         case NANO.DIVIDER:
           return <Divider {...elemOb['props']} />;
@@ -177,9 +171,6 @@ function UniversalElement({elemObj, onPress, navigation}) {
           if (elemOb['onClick'] != null) {
             return (
               <TouchableOpacity
-                // onPress={() => {
-                //   console.log('pressss');
-                // }}
                 key={'TouchableOpacity' + index + Math.random()}
                 onPress={onPress}
                 {...elemOb['props']}>
