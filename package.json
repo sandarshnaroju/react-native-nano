@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -18,18 +18,5 @@
   "bugs": {
     "url": "https://github.com/sandarshnaroju/react-native-nano/issues"
   },
-  "homepage": "https://react-native-nano.gitbook.io/welcome/",
-  "dependencies": {
-    "dep": "^0.18.3"
-  },
-  "peerDependencies": {
-    "recyclerlistview": "^4.2.0",
-    "react-native-paper": "^5.1.0",
-    "react-native-safe-area-context": "4.4.1",
-    "react-native-screens": "~3.18.0",
-    "@react-navigation/native": "^6.1.1",
-    "@react-navigation/native-stack": "^6.9.7",
-    "lodash": "^4.17.21",
-    "react-native": "^0.70.5"
-  }
+  "homepage": "https://react-native-nano.gitbook.io/welcome/"
 }
