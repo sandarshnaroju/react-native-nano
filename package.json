@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -23,13 +23,13 @@
     "dep": "^0.18.3"
   },
   "peerDependencies": {
-    "recyclerlistview": "^4.2.0",
-    "react-native-paper": "^5.1.0",
-    "react-native-safe-area-context": "^4.4.1",
-    "react-native-screens": "^3.18.2",
-    "@react-navigation/native": "^6.1.1",
-    "@react-navigation/native-stack": "^6.9.7",
-    "lodash": "^4.17.21",
-    "react-native": "^0.70.6"
+    "recyclerlistview": "*",
+    "react-native-paper": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/native-stack": "*",
+    "lodash": "*",
+    "react-native": "*"
   }
 }
