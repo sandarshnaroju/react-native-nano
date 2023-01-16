@@ -19,5 +19,8 @@ const NANO = {
   LIST_VIEW: 'list_view',
   VIEW: 'view',
   FLAT_LIST: 'flat_list',
+  BOTTOM_TABS: 'bottom_tabs',
+  DRAWER: 'drawer',
+  TOP_TABS: 'top_tabs',
 };
 export default NANO;

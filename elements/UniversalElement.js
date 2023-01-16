@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Animated, TouchableOpacity, View} from 'react-native';
 import {
   ActivityIndicator,
   Avatar,
@@ -19,7 +19,21 @@ import {
 } from 'react-native-paper';
 import NANO from '../Constants';
 import {Nano} from '../Nano';
-
+import * as Animatable from 'react-native-animatable';
+class MyCustomComponent extends React.PureComponent {
+  render() {
+    const {style} = this.props;
+    return (
+      <View style={style}>
+        {/* <Text>This is animating now</Text> */}
+        {this.component}
+      </View>
+    );
+  }
+}
+const getClassComponent = funcComponent => {
+  return <MyCustomComponent component={funcComponent} />;
+};
 function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
@@ -37,6 +51,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
         case NANO.TEXT:
           return (
             <Text
+              animation="zoomInUp"
               key={'text' + index + Math.random()}
               {...elemOb['props']}
               style={elemOb['props']['style']}
@@ -199,6 +214,11 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
     return elements;
   };
   const displayItem = getElementAsPerComponent(elemObj, null, true);
+  if (elemObj != null && elemObj['animation']) {
+    return (
+      <Animatable.View {...elemObj['animation']}>{displayItem}</Animatable.View>
+    );
+  }
 
   return displayItem;
 }

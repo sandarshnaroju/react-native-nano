@@ -1,31 +1,53 @@
 import React from 'react';
 import NANO from '../Constants';
+import NanoTopTabs from '../toptabs/TopTabs';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 
 function CheckForListviewAndRender({elemOb, navigation, onPress}) {
-  if (elemOb['component'] === NANO.LIST_VIEW) {
-    return (
-      <RecycleTestComponent
-        {...elemOb}
-        navigation={navigation}
-        onPress={onPress}
-      />
-    );
-  } else if (elemOb['component'] === NANO.FLAT_LIST) {
-    return (
-      <NanoFlatlist {...elemOb} navigation={navigation} onPress={onPress} />
-    );
-  } else {
-    return (
-      <UniversalElement
-        elemObj={elemOb}
-        navigation={navigation}
-        onPress={onPress}
-      />
-    );
+  console.log('elessss', elemOb['component']);
+
+  switch (elemOb['component']) {
+    case NANO.LIST_VIEW:
+      return (
+        <RecycleTestComponent
+          {...elemOb}
+          navigation={navigation}
+          onPress={onPress}
+        />
+      );
+    case NANO.FLAT_LIST:
+      return (
+        <NanoFlatlist {...elemOb} navigation={navigation} onPress={onPress} />
+      );
+    case NANO.TOP_TABS:
+      console.log('top tabs');
+
+      return <NanoTopTabs drawerObj={elemOb} />;
+
+    default:
+      return (
+        <UniversalElement
+          elemObj={elemOb}
+          navigation={navigation}
+          onPress={onPress}
+        />
+      );
   }
 }
+// function areEqual(prevProps, nextProps) {
+//   /*
+//     return true if passing nextProps to render would return
+//     the same result as passing prevProps to render,
+//     otherwise return false
+//     */
+//   if (isEqual(nextProps, prevProps)) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+// export default React.memo(CheckForListviewAndRender, areEqual);
 
 export default CheckForListviewAndRender;

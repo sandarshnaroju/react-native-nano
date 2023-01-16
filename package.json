@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,6 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "lodash": "^4.17.21",
-    "react-native": "0.70.6"
+    "react-native": "^0.70.6"
   }
 }
