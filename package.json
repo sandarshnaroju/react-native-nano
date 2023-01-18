@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "@react-navigation/material-top-tabs": "^6.5.2",
     "@react-navigation/drawer": "^6.5.7",
     "react-native-animatable": "^1.3.3",
-    "react-native-tab-view": "^3.3.4"
+    "react-native-tab-view": "^3.3.4",
+    "react-native-gesture-handler": "^2.9.0"
   }
 }
