@@ -23,6 +23,7 @@ function GenericScreen({
     default:
       break;
   }
+
   return (
     <Nano
       scroll={false}

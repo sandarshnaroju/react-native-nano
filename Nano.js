@@ -17,7 +17,7 @@ const getFilteredScreenObject = entireScreenObject => {
 
 export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
   const [uiElements, setUiElements] = useState(screen);
-  const filteredElements = getFilteredScreenObject(screen);
+  const filteredElements = getFilteredScreenObject(uiElements);
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
     if (rowElementsArray != null && rowElementsArray.length > 0) {

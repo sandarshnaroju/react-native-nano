@@ -6,8 +6,6 @@ import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 
 function CheckForListviewAndRender({elemOb, navigation, onPress}) {
-  console.log('elessss', elemOb['component']);
-
   switch (elemOb['component']) {
     case NANO.LIST_VIEW:
       return (

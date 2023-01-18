@@ -1,10 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {enableScreens} from 'react-native-screens';
 import GenericScreen from './GenericScreen';
 
 const Stack = createNativeStackNavigator();
-
+enableScreens();
 const RNNano = ({screens}) => {
   return (
     <NavigationContainer>
