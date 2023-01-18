@@ -17,6 +17,7 @@ const getFilteredScreenObject = entireScreenObject => {
 
 export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
   const [uiElements, setUiElements] = useState(screen);
+
   const filteredElements = getFilteredScreenObject(uiElements);
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
@@ -32,7 +33,7 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
               setUiElements(
                 logicObject[eleObject['onClick']](
                   navigation,
-                  filteredElements,
+                  uiElements,
                   index,
                   item,
                   completeFlatlistData,
