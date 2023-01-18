@@ -27,13 +27,14 @@ function GenericScreen({
   return (
     <Nano
       scroll={false}
-      style={styles.viewStyle}
+      style={screenObj.style}
       screen={screen}
       navigation={navigation}
       logicObject={logic}
     />
   );
 }
+
 function areEqual(prevProps, nextProps) {
   /*
       return true if passing nextProps to render would return
