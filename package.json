@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "homepage": "https://react-native-nano.gitbook.io/welcome/",
   "dependencies": {
     "recyclerlistview": "^4.2.0",
-    "react-native-paper": "^5.1.0",
+    "react-native-paper": "^4.8.1",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "@react-navigation/native": "^6.1.1",

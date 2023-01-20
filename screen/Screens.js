@@ -6,7 +6,7 @@ import GenericScreen from './GenericScreen';
 
 const Stack = createNativeStackNavigator();
 enableScreens();
-const RNNano = ({screens}) => {
+export const RNNano = ({screens}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator defaultScreenOptions={{animation: 'flip'}}>
@@ -19,11 +19,7 @@ const RNNano = ({screens}) => {
               {props => (
                 <GenericScreen
                   {...props}
-                  screen={screenObj.screen}
                   logic={screenObj.logic}
-                  screenComponent={screenObj.component}
-                  content={screenObj.content}
-                  routes={screenObj.routes}
                   screenObj={screenObj}
                 />
               )}
@@ -35,4 +31,4 @@ const RNNano = ({screens}) => {
   );
 };
 
-export default RNNano;
+// export default RNNano;

@@ -1,4 +1,4 @@
-const NANO = {
+export const NANO = {
   BUTTON: 'button',
   TEXT: 'text',
   ACTIVITY_INDICATOR: 'activity_indicator',
@@ -23,4 +23,3 @@ const NANO = {
   DRAWER: 'drawer',
   TOP_TABS: 'top_tabs',
 };
-export default NANO;

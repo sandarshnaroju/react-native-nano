@@ -1,5 +1,5 @@
 import React from 'react';
-import NANO from '../Constants';
+import {NANO} from '../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';

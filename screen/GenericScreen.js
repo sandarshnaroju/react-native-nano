@@ -1,22 +1,27 @@
 import {isEqual} from 'lodash';
-import React from 'react';
-import {StyleSheet} from 'react-native';
-import NANO from '../Constants';
+import React, {useEffect} from 'react';
+import {NANO} from '../utils/Constants';
 import {Nano} from '../Nano';
 import NanoTopTabs from '../toptabs/TopTabs';
 
 function GenericScreen({
   navigation,
-  screen,
   logic,
-  screenComponent,
-  content,
-  routes,
+
   screenObj,
 }) {
-  // console.log('content', content);
+  useEffect(() => {
+    if (screenObj != null && screenObj.onStart != null) {
+      logic[screenObj.onStart]();
+    }
+    return () => {
+      if (screenObj != null && screenObj.onStart != null) {
+        logic[screenObj.onEnd]();
+      }
+    };
+  }, [screenObj]);
 
-  switch (screenComponent) {
+  switch (screenObj.component) {
     case NANO.TOP_TABS:
       return <NanoTopTabs drawerObj={screenObj} />;
 
@@ -28,7 +33,7 @@ function GenericScreen({
     <Nano
       scroll={false}
       style={screenObj.style}
-      screen={screen}
+      screen={screenObj.screen}
       navigation={navigation}
       logicObject={logic}
     />
@@ -48,9 +53,3 @@ function areEqual(prevProps, nextProps) {
   }
 }
 export default React.memo(GenericScreen, areEqual);
-const styles = StyleSheet.create({
-  viewStyle: {
-    backgroundColor: 'white',
-    flex: 1,
-  },
-});

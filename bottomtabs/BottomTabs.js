@@ -16,22 +16,6 @@ const TabScreen = ({navigation, screen}) => {
   );
 };
 
-const getScreens = content => {
-  const drawerScreens = [];
-
-  if (content != null && content.length > 0) {
-    content.forEach(screen => {
-      drawerScreens.push(
-        <Tab.Screen key={screen.name} name={screen.name}>
-          {props => <TabScreen {...props} screen={screen} />}
-        </Tab.Screen>,
-      );
-    });
-  }
-  return drawerScreens;
-  // return null;
-};
-
 const HomeScreen = () => {
   return <View />;
 };

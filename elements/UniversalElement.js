@@ -1,12 +1,12 @@
 import React from 'react';
-import {Animated, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import {
   ActivityIndicator,
   Avatar,
   Badge,
   Banner,
   Button,
-  Card,
   Checkbox,
   Chip,
   Divider,
@@ -17,23 +17,8 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
-import NANO from '../Constants';
-import {Nano} from '../Nano';
-import * as Animatable from 'react-native-animatable';
-class MyCustomComponent extends React.PureComponent {
-  render() {
-    const {style} = this.props;
-    return (
-      <View style={style}>
-        {/* <Text>This is animating now</Text> */}
-        {this.component}
-      </View>
-    );
-  }
-}
-const getClassComponent = funcComponent => {
-  return <MyCustomComponent component={funcComponent} />;
-};
+import {NANO} from '../utils/Constants';
+
 function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
