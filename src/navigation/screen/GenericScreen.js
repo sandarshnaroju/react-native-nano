@@ -1,7 +1,7 @@
 import {isEqual} from 'lodash';
 import React, {useEffect} from 'react';
-import {NANO} from '../utils/Constants';
-import {Nano} from '../Nano';
+import {NANO} from '../../utils/Constants';
+import {Nano} from '../../nano/Nano';
 import NanoTopTabs from '../toptabs/TopTabs';
 
 function GenericScreen({

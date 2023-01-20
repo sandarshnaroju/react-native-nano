@@ -1,6 +1,6 @@
 import React from 'react';
 import {NANO} from '../utils/Constants';
-import NanoTopTabs from '../toptabs/TopTabs';
+import NanoTopTabs from '../navigation/toptabs/TopTabs';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';

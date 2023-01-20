@@ -1,7 +1,7 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import React from 'react';
-import NANO from '../utils/Constants';
-import {Nano} from './Nano';
+import {NANO} from '../../utils/Constants';
+import {Nano} from '../../nano/Nano';
 const Tab = createMaterialBottomTabNavigator();
 const TabScreen = ({navigation, screen}) => {
   return (

@@ -1,7 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {Nano} from './Nano';
+import {Nano} from '../../nano/Nano';
 
 const Drawer = createDrawerNavigator();
 const DrawerScreen = ({navigation, screen}) => {

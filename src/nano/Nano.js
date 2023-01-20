@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import CheckForListviewAndRender from './elements/CheckForListviewAndRender';
+import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 const getFilteredScreenObject = entireScreenObject => {
   const filterElements = {};
   if (entireScreenObject != null) {
@@ -31,13 +31,13 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
             onPress={(index, item, completeFlatlistData) => {
               // console.log('sssss');
               setUiElements(
-                logicObject[eleObject['onClick']](
+                logicObject[eleObject['onClick']]({
                   navigation,
                   uiElements,
                   index,
                   item,
                   completeFlatlistData,
-                ),
+                }),
               );
             }}
           />,

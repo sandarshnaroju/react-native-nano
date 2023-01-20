@@ -1,6 +1,6 @@
 import {isEqual} from 'lodash';
 import React from 'react';
-import {Nano} from '../Nano';
+import {Nano} from '../../nano/Nano';
 
 function TopTabScreen({screen, navigation}) {
   return (
