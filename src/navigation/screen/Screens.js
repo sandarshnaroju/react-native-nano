@@ -6,29 +6,43 @@ import GenericScreen from './GenericScreen';
 
 const Stack = createNativeStackNavigator();
 enableScreens();
-export const RNNano = ({screens}) => {
+
+const RNNano = ({screens, uriScreens, clientId, clientSecret}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator defaultScreenOptions={{animation: 'flip'}}>
-        {screens.map((screenObj, index) => {
-          return (
-            <Stack.Screen
-              key={screenObj.name}
-              name={screenObj.name}
-              options={{headerShown: false}}>
-              {props => (
-                <GenericScreen
-                  {...props}
-                  logic={screenObj.logic}
-                  screenObj={screenObj}
-                />
-              )}
-            </Stack.Screen>
-          );
-        })}
+        {screens != null && screens.length > 0
+          ? screens.map((screenObj, index) => {
+              return (
+                <Stack.Screen
+                  key={screenObj.name}
+                  name={screenObj.name}
+                  options={{headerShown: false}}>
+                  {props => (
+                    <GenericScreen
+                      {...props}
+                      logic={screenObj.logic}
+                      screenObj={screenObj}
+                    />
+                  )}
+                </Stack.Screen>
+              );
+            })
+          : uriScreens != null
+          ? Object.keys(uriScreens).map((key, index) => {
+              return (
+                <Stack.Screen
+                  key={key}
+                  name={key}
+                  options={{headerShown: false}}>
+                  {props => <GenericScreen {...props} uri={uriScreens[key]} />}
+                </Stack.Screen>
+              );
+            })
+          : null}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-// export default RNNano;
+export default RNNano;

@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
+import {getDatabase} from '../database/RealmDatabase';
 import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
+import {fetchScreen} from '../network/Network';
+
 const getFilteredScreenObject = entireScreenObject => {
   const filterElements = {};
   if (entireScreenObject != null) {
@@ -15,10 +18,10 @@ const getFilteredScreenObject = entireScreenObject => {
   return filterElements;
 };
 
-export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
+const Nano = ({screen, style, navigation, scroll, logicObject}) => {
   const [uiElements, setUiElements] = useState(screen);
-
-  const filteredElements = getFilteredScreenObject(uiElements);
+  const database = getDatabase();
+  // const filteredElements = getFilteredScreenObject(uiElements);
   const getRowElements = (rowElementsArray, rowKey) => {
     const rowelements = [];
     if (rowElementsArray != null && rowElementsArray.length > 0) {
@@ -28,17 +31,25 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
             key={index + Math.random()}
             elemOb={eleObject}
             navigation={navigation}
-            onPress={(index, item, completeFlatlistData) => {
+            onPress={async (index, item, completeFlatlistData) => {
+              if (
+                logicObject != null &&
+                eleObject != null &&
+                eleObject['onClick'] != null &&
+                logicObject[eleObject['onClick']] != null
+              ) {
+                setUiElements(
+                  await logicObject[eleObject['onClick']]({
+                    navigation,
+                    uiElements,
+                    index,
+                    item,
+                    completeFlatlistData,
+                    db: database,
+                  }),
+                );
+              }
               // console.log('sssss');
-              setUiElements(
-                logicObject[eleObject['onClick']]({
-                  navigation,
-                  uiElements,
-                  index,
-                  item,
-                  completeFlatlistData,
-                }),
-              );
             }}
           />,
         );
@@ -74,24 +85,41 @@ export const Nano = ({screen, style, navigation, scroll, logicObject}) => {
     setUiElements(screen);
   }, [screen]);
 
+  const fetchScreenObject = () => {
+    fetchScreen(screen)
+      .then(screenObject => {
+        if (screenObject != null) {
+          setUiElements(screenObject.screen);
+          const Realm = getDatabase();
+          Realm.setNanoConfig(screen, screenObject);
+        }
+      })
+      .catch(e => {
+        console.log('error', e);
+      });
+  };
   useEffect(() => {
-    if (screen != null && screen['url']) {
-      fetch(screen['url'])
-        .then(response => response.json())
-        .then(response => {
-          setUiElements(JSON.parse(response['data']['code']));
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+    if (
+      screen != null &&
+      typeof screen == 'string' &&
+      screen.includes('http')
+    ) {
+      fetchScreenObject();
     }
-  }, []);
+  }, [screen]);
+
   if (scroll) {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={style}>
-        {getColoumViews(uiElements)}
+        {uiElements != null && getColoumViews(uiElements)}
       </ScrollView>
     );
   }
-  return <View style={style}>{getColoumViews(uiElements)}</View>;
+  return (
+    <View style={style}>
+      {uiElements != null && getColoumViews(uiElements)}
+    </View>
+  );
 };
+
+export default Nano;

@@ -35,3 +35,9 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
   }
   return modifiedContent;
 };
+
+export const DATABASE_CONSTANTS = {
+  CLIENT_ID: 'client_id',
+  CLIENT_SECRET: 'client_secret',
+  AUTH: 'auth',
+};

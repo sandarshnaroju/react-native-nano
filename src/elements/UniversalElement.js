@@ -16,8 +16,9 @@ import {
   Switch,
   Text,
   TextInput,
+  TouchableRipple,
 } from 'react-native-paper';
-import {NANO} from '../utils/Constants';
+import NANO from '../utils/Constants';
 
 function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
@@ -57,11 +58,15 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           );
         case NANO.AVATAR_ICON:
           return (
-            <Avatar.Icon
-              {...elemOb['props']}
-              style={elemOb['props']['style']}
-              icon={elemOb['value']}
-            />
+            <TouchableRipple
+              onPress={isOnPressAllowed ? onPress : null}
+              onLongPress={elemOb['onLongClick']}>
+              <Avatar.Icon
+                {...elemOb['props']}
+                style={elemOb['props']['style']}
+                icon={elemOb['value']}
+              />
+            </TouchableRipple>
           );
 
         case NANO.AVATAR_IMAGE:
