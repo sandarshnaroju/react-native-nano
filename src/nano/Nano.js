@@ -1,3 +1,4 @@
+import {cloneDeep} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
@@ -30,9 +31,10 @@ const Nano = ({
   const [uiElements, setUiElements] = useState(screen);
   const database = getDatabase();
   // const filteredElements = getFilteredScreenObject(uiElements);
+  const clonedElements = cloneDeep(uiElements);
   const logicParameters = {
     navigation,
-    uiElements,
+    uiElements: clonedElements,
 
     db: database,
   };
