@@ -12,7 +12,6 @@ const nanoSchema = {
 class Database {
   async init() {
     this.realmInstalnce = await Realm.open({
-      path: 'userdatabase.realm',
       schema: [nanoSchema],
       schemaVersion: 2,
     });
