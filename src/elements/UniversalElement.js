@@ -58,15 +58,11 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           );
         case NANO.AVATAR_ICON:
           return (
-            <TouchableRipple
-              onPress={isOnPressAllowed ? onPress : null}
-              onLongPress={elemOb['onLongClick']}>
-              <Avatar.Icon
-                {...elemOb['props']}
-                style={elemOb['props']['style']}
-                icon={elemOb['value']}
-              />
-            </TouchableRipple>
+            <Avatar.Icon
+              {...elemOb['props']}
+              style={elemOb['props']['style']}
+              icon={elemOb['value']}
+            />
           );
 
         case NANO.AVATAR_IMAGE:

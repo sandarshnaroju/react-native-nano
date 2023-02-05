@@ -1,7 +1,7 @@
 import {isEqual} from 'lodash';
-import React, {useEffect} from 'react';
-import NANO from '../../utils/Constants';
+import React from 'react';
 import Nano from '../../nano/Nano';
+import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
 
 function GenericScreen({
@@ -11,16 +11,6 @@ function GenericScreen({
   screenObj,
   uri = null,
 }) {
-  useEffect(() => {
-    if (screenObj != null && screenObj.onStart != null) {
-      logic[screenObj.onStart]();
-    }
-    return () => {
-      if (screenObj != null && screenObj.onStart != null) {
-        logic[screenObj.onEnd]();
-      }
-    };
-  }, [screenObj]);
   if (screenObj != null) {
     switch (screenObj.component) {
       case NANO.TOP_TABS:
@@ -35,13 +25,12 @@ function GenericScreen({
     <Nano
       scroll={false}
       style={screenObj != null && screenObj.style ? screenObj.style : {}}
-      screen={
-        uri != null
-          ? 'http://192.168.0.4:8400/clients/screen/xB7fqCuGDq3NvpF4Uq2x/'
-          : screenObj.screen
-      }
+      screen={screenObj.screen}
       navigation={navigation}
       logicObject={logic}
+      screenName={screenObj.name}
+      onStart={screenObj.onStart}
+      onEnd={screenObj.onEnd}
     />
   );
 }
