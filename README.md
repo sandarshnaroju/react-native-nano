@@ -90,3 +90,17 @@ const  App = () => {
 export  default  App;
 ```
 
+The above code displays text and button. When button is clicked the number is text gets increased.
+
+
+### Dependencies 
+
+react-native-nano depends on following packages
+
+ 1. [react navigation](https://reactnavigation.org/)
+ 2. [react native paper](https://reactnativepaper.com/)
+ 3. [realm](https://realm.io/)
+ 4. [recyclerlistview](https://github.com/Flipkart/recyclerlistview)
+
+
+
