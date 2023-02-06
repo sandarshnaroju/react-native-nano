@@ -51,7 +51,7 @@ The following code is an app that increases number on button clicks.
 	const  increaseCountButton = {
 	    component:  NANO.BUTTON,
 	    value:  'CLICK ME TO INCREASE',
-	    onClick: onClick: ({ navigation, uiElements}) => {
+	    onClick: ({ navigation, uiElements}) => {
 		
 		// increase count by 1
 		uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1; 
