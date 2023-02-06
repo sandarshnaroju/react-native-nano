@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/sandarshnaroju/react-native-nano/blob/master/nano.png" />
+</p>
+
 ## Overview 
 
 Nano helps you to develop complex mobile apps with negligible/low code.
