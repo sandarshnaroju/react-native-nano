@@ -90,7 +90,7 @@ const  App = () => {
 export  default  App;
 ```
 
-The above code displays text and button. When button is clicked the number is text gets increased.
+The above code displays text and button. When button is clicked the count text gets increased.
 
 
 ### Dependencies 
