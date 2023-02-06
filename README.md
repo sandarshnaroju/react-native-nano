@@ -33,45 +33,31 @@ The above command will install necessary packages to run `react-native-nano` wit
 The following code is an app that increases number on button clicks.
 
     import { NANO } from  'react-native-nano';
- 
-	const countText = {
-		component: NANO.TEXT,
-		value: 1,
+	
+	// creating a text component to display numbers starting from 1.
+	const  countText = {
+		component:  NANO.TEXT,
+		value:  1,
 		props: {
 			style: {
-				fontSize: 30,
-				alignSelf: 'center',
-				justifyContent: 'center',
-				marginTop: 20,
-				marginHorizontal: 20,
-				textAlign: 'center',
-				fontWeight: 'bold',
-			},
-		},
+				fontSize:  50,
+				alignSelf:  'center',
+				justifyContent:  'center',
+			}
+		}
 	};
 	
-	const increaseCountButton = {
-		component: NANO.BUTTON,
-		value: 'INCREASE ',
-		props: {
-			style: {
-				alignSelf: 'center',
-				marginTop: 20,
-				marginHorizontal: 20,
-				borderRadius: 8,
-				backgroundColor: '#0066a7',
-			}
-		},
-		mode: 'contained',
-		textColor: 'white',
-		uppercase: true,
-		},
-		onClick: ({ navigation, uiElements}) => {
+	// creating a button component to click and increase numbers.
+	const  increaseCountButton = {
+		component:  NANO.BUTTON,
+		value:  'CLICK ME TO INCREASE',
+		onClick: onClick: ({ navigation, uiElements}) => {
 			uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1;
 			return uiElements;
 		})
 	};
-
+	
+	// Finally adding both components to screen with v1(vertical) tag.
 	const screen = {
 		name: 'WelcomeScreen',
 		screen: {
