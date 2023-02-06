@@ -1,6 +1,6 @@
 ## Overview 
 
-An introduction to the quickest way of developing complex mobile apps with negligible code.
+Nano helps you to develop complex mobile apps with negligible/low code.
 
 ## What is it ?
 
@@ -13,6 +13,10 @@ An introduction to the quickest way of developing complex mobile apps with negli
  5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `natifications` and `session`.
  6. Separating Ui from Logic 100%.
  7. Ability to load UI (JSON) from your own server.
+
+## Documentation
+
+For more detailed documentation please [click here](https://react-native-nano.gitbook.io/welcome/) 
 
 ## How to Install ?
 
