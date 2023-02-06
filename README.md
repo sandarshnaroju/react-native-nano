@@ -12,4 +12,3 @@ An introduction to the quickest way of developing complex mobile apps with negli
  4. Ability for every component on the screen to access and change the every other component.
  5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `natifications` and `session`.
  6. Separating Ui from Logic 100%.
- 7.  Ability to code complex apps with less code.
