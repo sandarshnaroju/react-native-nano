@@ -3,14 +3,16 @@ import React from 'react';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
-
+import {useRoute} from '@react-navigation/native';
 function GenericScreen({
   navigation,
   logic,
 
   screenObj,
   uri = null,
+  databaseConfigObject,
 }) {
+  const route = useRoute();
   if (screenObj != null) {
     switch (screenObj.component) {
       case NANO.TOP_TABS:
@@ -31,6 +33,8 @@ function GenericScreen({
       screenName={screenObj.name}
       onStart={screenObj.onStart}
       onEnd={screenObj.onEnd}
+      route={route}
+      databaseConfigObject={databaseConfigObject}
     />
   );
 }

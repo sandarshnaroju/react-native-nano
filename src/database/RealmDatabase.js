@@ -10,15 +10,23 @@ const nanoSchema = {
 };
 
 class Database {
-  async init() {
-    this.realmInstalnce = await Realm.open({
-      schema: [nanoSchema],
-      schemaVersion: 2,
-    });
+  async init(configObject) {
+    this.realmInstalnce = await Realm.open(configObject);
   }
 
-  constructor() {
-    this.init();
+  constructor(props) {
+    let realmConfigObj = {
+      schema: [nanoSchema],
+      schemaVersion: 1,
+    };
+    if (props != null && props.schema != null && props.schemaVersion != null) {
+      realmConfigObj = {
+        schema: [nanoSchema, ...props.schema],
+        schemaVersion: props.schemaVersion,
+      };
+    }
+
+    this.init(realmConfigObj);
   }
   setData(table, data) {
     if (this.realmInstalnce != null) {
@@ -56,14 +64,29 @@ class Database {
       }
     }
   }
+
   getNanoConfig(key) {
     return this.realmInstalnce.objectForPrimaryKey(TABLE_NANO_SETUP, key);
   }
+  setDataInDatabase(table, dataObj, primaryKey) {
+    this.realmInstalnce.write(() => {
+      const tableObj = this.realmInstalnce
+        .objects(table)
+        .filtered(`${primaryKey} = '${dataObj[primaryKey]}'`);
+      console.log('tableob', tableObj, primaryKey, dataObj[primaryKey]);
+
+      Object.keys(dataObj).forEach(eachKey => {
+        if (eachKey != primaryKey) {
+          tableObj[eachKey] = dataObj[eachKey];
+        }
+      });
+    });
+  }
 }
 var database = null;
-export const getDatabase = () => {
+export const getDatabase = configObject => {
   if (database == null) {
-    database = new Database();
+    database = new Database(configObject);
   }
   return database;
 };

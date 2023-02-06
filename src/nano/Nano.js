@@ -5,17 +5,30 @@ import {View} from 'react-native-animatable';
 import {getDatabase} from '../database/RealmDatabase';
 import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 
-const getFilteredScreenObject = entireScreenObject => {
-  const filterElements = {};
-  if (entireScreenObject != null) {
-    Object.entries(entireScreenObject).forEach(keyValueArr => {
-      filterElements[keyValueArr[0]] = keyValueArr[1].filter(
-        elem => elem['canChangeEffect'] !== false,
-      );
-    });
-  }
+// const getFilteredScreenObject = entireScreenObject => {
+//   const filterElements = {};
+//   if (entireScreenObject != null) {
+//     Object.entries(entireScreenObject).forEach(keyValueArr => {
+//       filterElements[keyValueArr[0]] = keyValueArr[1].filter(
+//         elem => elem['canChangeEffect'] !== false,
+//       );
+//     });
+//   }
 
-  return filterElements;
+//   return filterElements;
+// };
+
+const isFunction = functionToCheck => {
+  if (functionToCheck instanceof Function) {
+    if (typeof functionToCheck === 'function') {
+      if (
+        Object.prototype.toString.call(functionToCheck) == '[object Function]'
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
 };
 
 const Nano = ({
@@ -27,9 +40,12 @@ const Nano = ({
   screenName,
   onStart,
   onEnd,
+  route,
+  databaseConfigObject,
 }) => {
   const [uiElements, setUiElements] = useState(screen);
-  const database = getDatabase();
+
+  const database = getDatabase(databaseConfigObject);
   // const filteredElements = getFilteredScreenObject(uiElements);
   const clonedElements = cloneDeep(uiElements);
   const logicParameters = {
@@ -37,23 +53,36 @@ const Nano = ({
     uiElements: clonedElements,
 
     db: database,
+    route,
   };
 
   const onElementPress = (eleObject, index, item, completeFlatlistData) => {
     if (
       logicObject != null &&
       eleObject != null &&
-      eleObject['onClick'] != null &&
-      logicObject[eleObject['onClick']] != null
+      eleObject['onClick'] != null
     ) {
-      setUiElements(
-        logicObject[eleObject['onClick']]({
-          index,
-          item,
-          completeFlatlistData,
-          ...logicParameters,
-        }),
-      );
+      const isItFunction = isFunction(eleObject['onClick']);
+
+      if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
+        setUiElements(
+          eleObject['onClick']({
+            index,
+            item,
+            completeFlatlistData,
+            ...logicParameters,
+          }),
+        );
+      } else {
+        setUiElements(
+          logicObject[eleObject['onClick']]({
+            index,
+            item,
+            completeFlatlistData,
+            ...logicParameters,
+          }),
+        );
+      }
     }
   };
   const getRowElements = (rowElementsArray, rowKey) => {
