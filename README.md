@@ -32,39 +32,45 @@ The above command will install necessary packages to run `react-native-nano` wit
 
 The following code is an app that increases number on button clicks.
 
-    import { NANO } from  'react-native-nano';
+	import { NANO } from  'react-native-nano';
 	
 	// creating a text component to display numbers starting from 1.
 	const  countText = {
-		component:  NANO.TEXT,
-		value:  1,
-		props: {
-			style: {
-				fontSize:  50,
-				alignSelf:  'center',
-				justifyContent:  'center',
-			}
+	    component:  NANO.TEXT,
+	    value:  1,
+	    props: {
+		style: {
+		    fontSize:  50,
+		    alignSelf:  'center',
+		    justifyContent:  'center',
 		}
+	    }
 	};
-	
+
 	// creating a button component to click and increase numbers.
 	const  increaseCountButton = {
-		component:  NANO.BUTTON,
-		value:  'CLICK ME TO INCREASE',
-		onClick: onClick: ({ navigation, uiElements}) => {
-			uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1;
-			return uiElements;
-		})
-	};
+	    component:  NANO.BUTTON,
+	    value:  'CLICK ME TO INCREASE',
+	    onClick: onClick: ({ navigation, uiElements}) => {
+		
+		// increase count by 1
+		uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1; 
+		
 	
+		return uiElements;
+
+	    })
+	};
+
 	// Finally adding both components to screen with v1(vertical) tag.
 	const screen = {
-		name: 'WelcomeScreen',
-		screen: {
-			v1: [countText, increaseCountButton],
-		},
-		style: { flex: 1, justifyContent: 'center' },
+	    name: 'WelcomeScreen',
+	    screen: {
+		v1: [countText, increaseCountButton],
+	    },
+	    style: { flex: 1, justifyContent: 'center' },
 	};
+	
 
 Now add the above screen to the `RNNano` component as shown below in the App.js file.
 
@@ -72,7 +78,8 @@ Now add the above screen to the `RNNano` component as shown below in the App.js 
 
 	import {RNNano} from  'react-native-nano';
 	...
+	
 	const  App = () => {
-		return <RNNano screens={[screen]} />;
+	    return <RNNano screens={[screen]} />;
 	};
 	export  default  App;
