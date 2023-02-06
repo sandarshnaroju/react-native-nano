@@ -69,7 +69,7 @@ const  increaseCountButton = {
 
 // Finally adding both components to screen with v1(vertical) tag.
 const screen = {
-    name: 'WelcomeScreen',
+    name: 'CountScreen',
     screen: {
 	v1: [countText, increaseCountButton],
     },
