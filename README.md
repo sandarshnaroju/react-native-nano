@@ -108,9 +108,4 @@ react-native-nano depends on following packages
  4. [react native vector icons](https://oblador.github.io/react-native-vector-icons/)
  5. [react native animatable](https://github.com/oblador/react-native-animatable)
  6. [react native reanimated](https://github.com/software-mansion/react-native-reanimated)
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> e283b22381fb95014554c0cb9e75533d641c615b
