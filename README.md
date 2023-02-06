@@ -85,7 +85,7 @@ Now add the above screen to the `RNNano` component as shown below in the App.js 
 import {RNNano} from  'react-native-nano';
 ...
 const  App = () => {
-	return <RNNano screens={[screen]} />;
+    return <RNNano screens={[screen]} />;
 };
 export  default  App;
 ```
