@@ -4,11 +4,11 @@
 
 ## Overview 
 
-Nano helps you to develop complex mobile apps with negligible/low code.
+Nano helps you to develop complex mobile apps with low code.
 
 ## What is it ?
 
-`react-native-nano` helps you to quickly develop complex mobile apps with negligible/low code. Here are some of the benefits you get out of the box when you use Nano.
+`react-native-nano` helps you to quickly develop complex mobile apps with low code. Here are some of the benefits you get out of the box when you use Nano.
 
  1. No need to manage any `state` variables. 
  2. Ease of creating new components using JSON.
