@@ -14,7 +14,7 @@ Nano helps you to develop complex mobile apps with low code.
  2. Ease of creating new components using JSON.
  3. Easy to place components in `horizontal` and `vertical` directions.
  4. Ability for every component on the screen to access and change the every other component.
- 5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `natifications` and `session`.
+ 5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `notifications` and `session`.
  6. Separating Ui from Logic 100%.
  7. Ability to load UI (JSON) from your own server.
 
