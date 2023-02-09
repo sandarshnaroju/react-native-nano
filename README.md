@@ -96,6 +96,24 @@ export  default  App;
 
 The above code displays text and button. When button is clicked the count text gets increased.
 
+### Adding multiple Screens
+
+You can actually add as many screens as you want to RNNano component just like below
+
+``` javascript
+const  App = () => {
+    return <RNNano screens={[
+                             screen1, 
+                             screen2, 
+                             screen3, 
+                             screen4
+                             ...
+                             
+                             ]} />;
+};
+export  default  App;
+```
+
 
 ### Dependencies 
 
