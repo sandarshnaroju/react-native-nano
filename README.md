@@ -81,9 +81,9 @@ const screen = {
 };
 
 ```	
+Nano makes it easy to place components in horizontal and vertical directions in a screen. it uses keys `v1`, `v2`, `v3`, `v4`, `v5` .....  `vn` to place components vertically and uses keys `h1`, `h2`, `h3`, `h4`, `h5` ..... `hn` to place components horizontally. 
 
 Now add the above screen to the `RNNano` component as shown below in the App.js file.
-
 
 ``` javascript
 import {RNNano} from  'react-native-nano';
