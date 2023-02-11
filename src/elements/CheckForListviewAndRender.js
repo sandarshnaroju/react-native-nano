@@ -1,11 +1,18 @@
+import {isEqual} from 'lodash';
 import React from 'react';
-import NANO from '../utils/Constants';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
+import NANO from '../utils/Constants';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 
-function CheckForListviewAndRender({elemOb, navigation, onPress}) {
+function CheckForListviewAndRender({
+  elemOb,
+  navigation,
+  onPress,
+  route,
+  databaseConfigObject,
+}) {
   switch (elemOb['component']) {
     case NANO.LIST_VIEW:
       return (
@@ -13,16 +20,28 @@ function CheckForListviewAndRender({elemOb, navigation, onPress}) {
           {...elemOb}
           navigation={navigation}
           onPress={onPress}
+          route={route}
         />
       );
     case NANO.FLAT_LIST:
       return (
-        <NanoFlatlist {...elemOb} navigation={navigation} onPress={onPress} />
+        <NanoFlatlist
+          {...elemOb}
+          navigation={navigation}
+          onPress={onPress}
+          route={route}
+        />
       );
-    case NANO.TOP_TABS:
-      console.log('top tabs');
 
-      return <NanoTopTabs drawerObj={elemOb} />;
+    case NANO.TOP_TABS:
+      return (
+        <NanoTopTabs
+          drawerObj={elemOb}
+          navigation={navigation}
+          route={route}
+          databaseConfigObject={databaseConfigObject}
+        />
+      );
 
     default:
       return (
@@ -30,22 +49,23 @@ function CheckForListviewAndRender({elemOb, navigation, onPress}) {
           elemObj={elemOb}
           navigation={navigation}
           onPress={onPress}
+          route={route}
         />
       );
   }
 }
-// function areEqual(prevProps, nextProps) {
-//   /*
-//     return true if passing nextProps to render would return
-//     the same result as passing prevProps to render,
-//     otherwise return false
-//     */
-//   if (isEqual(nextProps, prevProps)) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-// export default React.memo(CheckForListviewAndRender, areEqual);
+function areEqual(prevProps, nextProps) {
+  /*
+    return true if passing nextProps to render would return
+    the same result as passing prevProps to render,
+    otherwise return false
+    */
+  if (isEqual(nextProps, prevProps)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+export default React.memo(CheckForListviewAndRender, areEqual);
 
-export default CheckForListviewAndRender;
+// export default CheckForListviewAndRender;

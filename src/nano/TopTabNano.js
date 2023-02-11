@@ -1,5 +1,5 @@
 import {cloneDeep} from 'lodash';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
 import {getDatabase} from '../database/RealmDatabase';
@@ -7,7 +7,7 @@ import {getNotification} from '../notifications/Notifications';
 import {getPermissionInstance} from '../permissions/Permissions';
 import RenderColoumViews from './RenderColumnAndRows';
 
-const Nano = ({
+export const TopTabNano = ({
   screen,
   style,
   navigation,
@@ -36,9 +36,9 @@ const Nano = ({
     Permissions,
   };
 
-  useEffect(() => {
-    setUiElements(screen);
-  }, [screen]);
+  // useEffect(() => {
+  //   setUiElements(screen);
+  // }, [screen]);
   // useEffect(() => {
   //   if (onStart != null) {
   //     const isItFunction = isFunction(onStart);
@@ -66,7 +66,7 @@ const Nano = ({
   // }, [screenName]);
 
   const onPressCallBack = modifiedElements => {
-    setUiElements(modifiedElements);
+    // setUiElements(modifiedElements);
   };
   if (scroll) {
     return (
@@ -78,6 +78,7 @@ const Nano = ({
             logicObject={logicObject}
             logicParameters={logicParameters}
             onPressCallBack={onPressCallBack}
+            route={route}
             databaseConfigObject={databaseConfigObject}
           />
         )}
@@ -94,10 +95,11 @@ const Nano = ({
           logicObject={logicObject}
           logicParameters={logicParameters}
           onPressCallBack={onPressCallBack}
+          route={route}
           databaseConfigObject={databaseConfigObject}
         />
       )}
     </View>
   );
 };
-export default Nano;
+// export default TopTabNano;

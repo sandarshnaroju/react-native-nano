@@ -37,7 +37,7 @@ function NanoFlatlist({
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={item => item.name + Math.random()}
+        keyExtractor={item => item.name}
       />
     </SafeAreaView>
   );

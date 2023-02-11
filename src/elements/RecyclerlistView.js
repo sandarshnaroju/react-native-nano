@@ -14,6 +14,7 @@ const ViewTypes = {
 /***
  * To test out just copy this component and render in you root component
  */
+
 export default class RecycleTestComponent extends React.Component {
   constructor(args) {
     super(args);
@@ -76,6 +77,7 @@ export default class RecycleTestComponent extends React.Component {
     switch (type) {
       case ViewTypes.FULL:
         const mapper = this.props.mapper(data);
+
         const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
           this.props.itemview['content'],
           mapper,
@@ -91,7 +93,11 @@ export default class RecycleTestComponent extends React.Component {
               onClick: this.props.itemview['onClick'],
             }}
             navigation={this.props.navigation}
-            onPress={() => this.props.onPress(mapper['value'])}
+            onPress={() => {
+              console.log('onpress', data);
+
+              this.props.onPress(mapper['value'], data, this.props.listdata);
+            }}
           />
         );
 

@@ -12,6 +12,7 @@ const RNNano = ({screens, uriScreens, clientId, databaseConfigObject}) => {
   useEffect(() => {
     getDatabase(databaseConfigObject);
   }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -20,7 +21,7 @@ const RNNano = ({screens, uriScreens, clientId, databaseConfigObject}) => {
               return (
                 <Stack.Screen
                   key={screenObj.name}
-                  options={screenObj.screenOptions}
+                  {...screenObj.screenProps}
                   name={screenObj.name}>
                   {props => (
                     <GenericScreen

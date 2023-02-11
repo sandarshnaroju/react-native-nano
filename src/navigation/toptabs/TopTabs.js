@@ -4,26 +4,46 @@ import React from 'react';
 import TopTabScreen from './TopTabScreen';
 const Tab = createMaterialTopTabNavigator();
 
-const getScreens = content => {
+const GetScreens = ({content, navigation}) => {
   const drawerScreens = [];
 
   if (content != null && content.length > 0) {
-    content.forEach(screen => {
+    content.forEach((screen, index) => {
       drawerScreens.push(
-        <Tab.Screen key={screen.name} name={screen.name} kerala={true}>
-          {props => <TopTabScreen {...props} screen={screen} />}
+        <Tab.Screen
+          {...screen.screenProps}
+          key={screen.name}
+          name={screen.name}>
+          {props => (
+            <TopTabScreen {...props} screen={screen} navigation={navigation} />
+          )}
         </Tab.Screen>,
       );
     });
   }
   return drawerScreens;
-  //   return null;
 };
-function NanoTopTabs({drawerObj}) {
-  // console.log('toptabs', drawerObj.content);
 
-  // return null;
-  return <Tab.Navigator>{getScreens(drawerObj['content'])}</Tab.Navigator>;
+function NanoTopTabs({drawerObj, navigation}) {
+  return (
+    <Tab.Navigator {...drawerObj.navigatorProps}>
+      {GetScreens({content: drawerObj['content'], navigation})}
+    </Tab.Navigator>
+  );
 }
 
 export default NanoTopTabs;
+
+// function areEqual(prevProps, nextProps) {
+//   /*
+//     return true if passing nextProps to render would return
+//     the same result as passing prevPropos to render,
+//     otherwise return false
+//     */
+//   if (isEqual(nextProps, prevProps)) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+// export default React.memo(NanoTopTabs, areEqual);

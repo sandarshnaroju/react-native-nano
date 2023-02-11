@@ -37,8 +37,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
         case NANO.TEXT:
           return (
             <Text
-              animation="zoomInUp"
-              key={'text' + index + Math.random()}
+              key={'text' + index}
               {...elemOb['props']}
               style={elemOb['props']['style']}
               onPress={isOnPressAllowed ? onPress : null}
@@ -82,7 +81,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
         case NANO.CHECKBOX:
           return (
             <Checkbox
-              key={'checkbox' + index + Math.random()}
+              key={'checkbox' + index}
               {...elemOb['props']}
               status={
                 elemOb['value'] != null
@@ -172,7 +171,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           if (elemOb['onClick'] != null) {
             return (
               <TouchableOpacity
-                key={'TouchableOpacity' + index + Math.random()}
+                key={'TouchableOpacity' + index}
                 onPress={onPress}
                 {...elemOb['props']}>
                 {getViewItems(elemOb['content'], false)}
@@ -181,7 +180,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           }
 
           return (
-            <View key={'view' + index + Math.random()} {...elemOb['props']}>
+            <View key={'view' + index} {...elemOb['props']}>
               {getViewItems(elemOb['content'])}
             </View>
           );
@@ -189,7 +188,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           return;
       }
     }
-    return <Text key={'error' + index + Math.random()}> {' Error'} </Text>;
+    return <Text key={'error' + index}> {' Error'} </Text>;
   };
   const getViewItems = (content, onPressAllowed) => {
     const elements = [];

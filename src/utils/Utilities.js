@@ -41,3 +41,16 @@ export const DATABASE_CONSTANTS = {
   CLIENT_SECRET: 'client_secret',
   AUTH: 'auth',
 };
+
+export const isFunction = functionToCheck => {
+  if (functionToCheck instanceof Function) {
+    if (typeof functionToCheck === 'function') {
+      if (
+        Object.prototype.toString.call(functionToCheck) == '[object Function]'
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+};

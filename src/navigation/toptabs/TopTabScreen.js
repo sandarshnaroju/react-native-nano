@@ -1,14 +1,27 @@
 import {isEqual} from 'lodash';
 import React from 'react';
-import {Nano} from '../../nano/Nano';
 
-function TopTabScreen({screen, navigation}) {
+import {TopTabNano} from '../../nano/TopTabNano';
+
+function TopTabScreen({
+  screen,
+  navigation,
+
+  route,
+  databaseConfigObject,
+}) {
   return (
-    <Nano
+    <TopTabNano
       scroll={false}
       screen={screen.screen}
       navigation={navigation}
       logicObject={screen.logic}
+      style={screen != null && screen.style ? screen.style : {}}
+      screenName={screen.name}
+      onStart={screen.onStart}
+      onEnd={screen.onEnd}
+      route={route}
+      databaseConfigObject={databaseConfigObject}
     />
   );
 }

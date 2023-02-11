@@ -1,9 +1,10 @@
+import {useRoute} from '@react-navigation/native';
 import {isEqual} from 'lodash';
 import React from 'react';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
-import {useRoute} from '@react-navigation/native';
+
 function GenericScreen({
   navigation,
   logic,
