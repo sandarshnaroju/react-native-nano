@@ -4,17 +4,17 @@
 
 ## Overview 
 
-Nano helps you to develop complex mobile apps with negligible/low code.
+Nano helps you to develop complex mobile apps with low code.
 
 ## What is it ?
 
-`react-native-nano` helps you to quickly develop complex mobile apps with negligible/low code. Here are some of the benefits you get out of the box when you use Nano.
+`react-native-nano` helps you to quickly develop complex mobile apps with low code. Here are some of the benefits you get out of the box when you use Nano.
 
  1. No need to manage any `state` variables. 
  2. Ease of creating new components using JSON.
  3. Easy to place components in `horizontal` and `vertical` directions.
  4. Ability for every component on the screen to access and change the every other component.
- 5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `natifications` and `session`.
+ 5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `notifications` and `session`.
  6. Separating Ui from Logic 100%.
  7. Ability to load UI (JSON) from your own server.
 
@@ -81,9 +81,9 @@ const screen = {
 };
 
 ```	
+Nano makes it easy to place components in horizontal and vertical directions in a screen. it uses keys `v1`, `v2`, `v3`, `v4`, `v5` .....  `vn` to place components vertically and uses keys `h1`, `h2`, `h3`, `h4`, `h5` ..... `hn` to place components horizontally. 
 
 Now add the above screen to the `RNNano` component as shown below in the App.js file.
-
 
 ``` javascript
 import {RNNano} from  'react-native-nano';
@@ -95,6 +95,24 @@ export  default  App;
 ```
 
 The above code displays text and button. When button is clicked the count text gets increased.
+
+### Adding multiple Screens
+
+You can actually add as many screens as you want to RNNano component just like below
+
+``` javascript
+const  App = () => {
+    return <RNNano screens={[
+                             screen1, 
+                             screen2, 
+                             screen3, 
+                             screen4
+                             ...
+                             
+                             ]} />;
+};
+export  default  App;
+```
 
 
 ### Dependencies 
