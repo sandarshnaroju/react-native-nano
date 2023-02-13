@@ -1,6 +1,5 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import {TopTabNano} from '../../nano/TopTabNano';
 import TopTabScreen from '../toptabs/TopTabScreen';
 
 const Drawer = createDrawerNavigator();

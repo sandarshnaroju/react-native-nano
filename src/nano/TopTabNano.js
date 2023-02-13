@@ -1,5 +1,5 @@
-import {cloneDeep} from 'lodash';
-import React, {useState} from 'react';
+import {cloneDeep, isFunction} from 'lodash';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
 import {getDatabase} from '../database/RealmDatabase';
@@ -36,37 +36,37 @@ export const TopTabNano = ({
     Permissions,
   };
 
-  // useEffect(() => {
-  //   setUiElements(screen);
-  // }, [screen]);
-  // useEffect(() => {
-  //   if (onStart != null) {
-  //     const isItFunction = isFunction(onStart);
-  //     if (isItFunction) {
-  //       setUiElements(onStart({...logicParameters}));
-  //     } else {
-  //       if (logicObject != null && logicObject[onStart] != null) {
-  //         setUiElements(logicObject[onStart]({...logicParameters}));
-  //       }
-  //     }
-  //   }
+  useEffect(() => {
+    setUiElements(screen);
+  }, [screen]);
+  useEffect(() => {
+    if (onStart != null) {
+      const isItFunction = isFunction(onStart);
+      if (isItFunction) {
+        setUiElements(onStart({...logicParameters}));
+      } else {
+        if (logicObject != null && logicObject[onStart] != null) {
+          setUiElements(logicObject[onStart]({...logicParameters}));
+        }
+      }
+    }
 
-  //   return () => {
-  //     if (onEnd != null) {
-  //       const isItFunction = isFunction(onEnd);
-  //       if (isItFunction) {
-  //         setUiElements(onEnd({...logicParameters}));
-  //       } else {
-  //         if (logicObject != null && logicObject[onEnd] != null) {
-  //           setUiElements(logicObject[onEnd]({...logicParameters}));
-  //         }
-  //       }
-  //     }
-  //   };
-  // }, [screenName]);
+    return () => {
+      if (onEnd != null) {
+        const isItFunction = isFunction(onEnd);
+        if (isItFunction) {
+          setUiElements(onEnd({...logicParameters}));
+        } else {
+          if (logicObject != null && logicObject[onEnd] != null) {
+            setUiElements(logicObject[onEnd]({...logicParameters}));
+          }
+        }
+      }
+    };
+  }, [screenName]);
 
   const onPressCallBack = modifiedElements => {
-    // setUiElements(modifiedElements);
+    setUiElements(modifiedElements);
   };
   if (scroll) {
     return (

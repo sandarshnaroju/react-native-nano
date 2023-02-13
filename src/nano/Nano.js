@@ -5,6 +5,7 @@ import {View} from 'react-native-animatable';
 import {getDatabase} from '../database/RealmDatabase';
 import {getNotification} from '../notifications/Notifications';
 import {getPermissionInstance} from '../permissions/Permissions';
+import {isFunction} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
 
 const Nano = ({
@@ -39,31 +40,31 @@ const Nano = ({
   useEffect(() => {
     setUiElements(screen);
   }, [screen]);
-  // useEffect(() => {
-  //   if (onStart != null) {
-  //     const isItFunction = isFunction(onStart);
-  //     if (isItFunction) {
-  //       setUiElements(onStart({...logicParameters}));
-  //     } else {
-  //       if (logicObject != null && logicObject[onStart] != null) {
-  //         setUiElements(logicObject[onStart]({...logicParameters}));
-  //       }
-  //     }
-  //   }
+  useEffect(() => {
+    if (onStart != null) {
+      const isItFunction = isFunction(onStart);
+      if (isItFunction) {
+        setUiElements(onStart({...logicParameters}));
+      } else {
+        if (logicObject != null && logicObject[onStart] != null) {
+          setUiElements(logicObject[onStart]({...logicParameters}));
+        }
+      }
+    }
 
-  //   return () => {
-  //     if (onEnd != null) {
-  //       const isItFunction = isFunction(onEnd);
-  //       if (isItFunction) {
-  //         setUiElements(onEnd({...logicParameters}));
-  //       } else {
-  //         if (logicObject != null && logicObject[onEnd] != null) {
-  //           setUiElements(logicObject[onEnd]({...logicParameters}));
-  //         }
-  //       }
-  //     }
-  //   };
-  // }, [screenName]);
+    return () => {
+      if (onEnd != null) {
+        const isItFunction = isFunction(onEnd);
+        if (isItFunction) {
+          setUiElements(onEnd({...logicParameters}));
+        } else {
+          if (logicObject != null && logicObject[onEnd] != null) {
+            setUiElements(logicObject[onEnd]({...logicParameters}));
+          }
+        }
+      }
+    };
+  }, [screenName]);
 
   const onPressCallBack = modifiedElements => {
     setUiElements(modifiedElements);
