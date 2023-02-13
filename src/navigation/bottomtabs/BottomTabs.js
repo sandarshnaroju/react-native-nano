@@ -1,34 +1,34 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {View} from 'react-native';
-import {Nano} from '../../nano/Nano';
+import TopTabScreen from '../toptabs/TopTabScreen';
 
 const Tab = createMaterialBottomTabNavigator();
-const TabScreen = ({navigation, screen}) => {
-  return (
-    <Nano
-      scroll={false}
-      screen={screen.screen}
-      navigation={navigation}
-      logicObject={screen.logic}
-    />
-  );
+
+const GetScreens = ({content, navigation}) => {
+  const drawerScreens = [];
+
+  if (content != null && content.length > 0) {
+    content.forEach((screen, index) => {
+      drawerScreens.push(
+        <Tab.Screen
+          {...screen.screenProps}
+          key={screen.name}
+          name={screen.name}>
+          {props => (
+            <TopTabScreen {...props} screen={screen} navigation={navigation} />
+          )}
+        </Tab.Screen>,
+      );
+    });
+  }
+  return drawerScreens;
 };
 
-const HomeScreen = () => {
-  return <View />;
-};
-function NanoBottomTabs({bottomTabsObj}) {
+function NanoBottomTabs({drawerObj, navigation}) {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={HomeScreen} />
-
-        {/* {getScreens(bottomTabsObj['content'])} */}
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator {...drawerObj.navigatorProps}>
+      {GetScreens({content: drawerObj['content'], navigation: navigation})}
+    </Tab.Navigator>
   );
 }
 
