@@ -23,6 +23,9 @@ import NANO from '../utils/Constants';
 function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
+      if (elemOb['hide'] == true) {
+        return null;
+      }
       switch (elemOb['component']) {
         case NANO.BUTTON:
           return (
