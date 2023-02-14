@@ -22,7 +22,10 @@ class Notification {
     });
   }
 }
+let notif = null;
 export const getNotification = () => {
-  const notif = new Notification();
+  if (notif == null) {
+    notif = new Notification();
+  }
   return notif;
 };

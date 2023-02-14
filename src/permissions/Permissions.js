@@ -26,8 +26,10 @@ class Permissions {
       });
   }
 }
-
+let perm = null;
 export const getPermissionInstance = () => {
-  const perm = new Permissions();
+  if (perm == null) {
+    perm = new Permissions();
+  }
   return perm;
 };
