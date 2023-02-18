@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {

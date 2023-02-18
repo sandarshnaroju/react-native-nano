@@ -8,7 +8,19 @@ class Permissions {
     return request(permission);
   }
   checkPermissionGrantStatus(permission) {
-    return request(permission);
+    return request(permission)
+      .then(res => {
+        if (res != null) {
+          if (res === 'granted') {
+            return new Promise.resolve(true);
+          } else {
+            return new Promise.resolve(false);
+          }
+        }
+      })
+      .catch(() => {
+        return new Promise.resolve(false);
+      });
   }
   checkIfPermissionsGranted(permissionsArray) {
     return requestMultiple(permissionsArray)
