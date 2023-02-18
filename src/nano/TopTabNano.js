@@ -6,7 +6,7 @@ import getDatabase from '../database/RealmDatabase';
 import getNotification from '../notifications/Notifications';
 import getPermissionInstance from '../permissions/Permissions';
 import RenderColoumViews from './RenderColumnAndRows';
-
+import getSession from '../session/Session';
 export const TopTabNano = ({
   screen,
   style,
@@ -22,18 +22,20 @@ export const TopTabNano = ({
   const [uiElements, setUiElements] = useState(screen);
 
   const database = getDatabase(databaseConfigObject);
-  const notification = getNotification();
+  const notifications = getNotification();
   const Permissions = getPermissionInstance();
   // const filteredElements = getFilteredScreenObject(uiElements);
   const clonedElements = cloneDeep(uiElements);
+  const session = getSession();
   const logicParameters = {
     navigation,
     uiElements: clonedElements,
 
     db: database,
     route,
-    notification,
+    notifications,
     Permissions,
+    session,
   };
 
   useEffect(() => {

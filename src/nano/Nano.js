@@ -7,7 +7,7 @@ import getNotification from '../notifications/Notifications';
 import getPermissionInstance from '../permissions/Permissions';
 import {isFunction} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
-
+import getSession from '../session/Session';
 const Nano = ({
   screen,
   style,
@@ -23,18 +23,20 @@ const Nano = ({
   const [uiElements, setUiElements] = useState(screen);
 
   const database = getDatabase(databaseConfigObject);
-  const notification = getNotification();
+  const notifications = getNotification();
   const Permissions = getPermissionInstance();
   // const filteredElements = getFilteredScreenObject(uiElements);
   const clonedElements = cloneDeep(uiElements);
+  const session = getSession();
   const logicParameters = {
     navigation,
     uiElements: clonedElements,
 
     db: database,
     route,
-    notification,
+    notifications,
     Permissions,
+    session,
   };
 
   useEffect(() => {

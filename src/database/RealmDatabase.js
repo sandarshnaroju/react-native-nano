@@ -73,7 +73,6 @@ class Database {
       const tableObj = this.realmInstalnce
         .objects(table)
         .filtered(`${primaryKey} = '${dataObj[primaryKey]}'`);
-      console.log('tableob', tableObj, primaryKey, dataObj[primaryKey]);
 
       Object.keys(dataObj).forEach(eachKey => {
         if (eachKey != primaryKey) {
