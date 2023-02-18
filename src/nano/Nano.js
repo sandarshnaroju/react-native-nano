@@ -2,9 +2,9 @@ import {cloneDeep} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import {getDatabase} from '../database/RealmDatabase';
-import {getNotification} from '../notifications/Notifications';
-import {getPermissionInstance} from '../permissions/Permissions';
+import getDatabase from '../database/RealmDatabase';
+import getNotification from '../notifications/Notifications';
+import getPermissionInstance from '../permissions/Permissions';
 import {isFunction} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
 

@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {enableScreens} from 'react-native-screens';
-import {getDatabase} from '../../database/RealmDatabase';
+import getDatabase from '../../database/RealmDatabase';
 import GenericScreen from './GenericScreen';
 
 const Stack = createNativeStackNavigator();

@@ -84,9 +84,10 @@ class Database {
   }
 }
 var database = null;
-export const getDatabase = configObject => {
+const getDatabase = configObject => {
   if (database == null) {
     database = new Database(configObject);
   }
   return database;
 };
+export default getDatabase;

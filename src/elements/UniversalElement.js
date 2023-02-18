@@ -42,7 +42,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
             <Text
               key={'text' + index}
               {...elemOb['props']}
-              style={elemOb['props']['style']}
+              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
               onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}>
               {' '}
@@ -54,7 +54,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           return (
             <ActivityIndicator
               {...elemOb['props']}
-              style={elemOb['props']['style']}
+              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
               animating={elemOb['value']}
             />
           );
@@ -62,7 +62,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           return (
             <Avatar.Icon
               {...elemOb['props']}
-              style={elemOb['props']['style']}
+              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
               icon={elemOb['value']}
             />
           );
@@ -102,7 +102,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
           return (
             <Chip
               {...elemOb['props']}
-              style={elemOb['props']['style']}
+              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
               onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}>
               {elemOb['value']}
@@ -113,7 +113,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
             <FAB
               {...elemOb['props']}
               icon={elemOb['value']}
-              style={elemOb['props']['style']}
+              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
               onPress={isOnPressAllowed ? onPress : null}
               onLongPress={elemOb['onLongClick']}
             />

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/sandarshnaroju/react-native-nano/blob/master/nano.png" />
+  <img src="https://github.com/sandarshnaroju/react-native-nano/blob/master/nano-logo.png" />
 </p>
 
 ## Overview 

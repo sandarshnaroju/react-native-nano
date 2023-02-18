@@ -1,35 +1,39 @@
-import {
-  check,
-  PERMISSIONS,
-  request,
-  requestMultiple,
-  RESULTS,
-} from 'react-native-permissions';
+import {requestMultiple, request} from 'react-native-permissions';
 class Permissions {
   constructor(props) {}
   requestPermissions(permissionsArray) {
-    requestMultiple(permissionsArray)
+    return requestMultiple(permissionsArray);
+  }
+  requestAPermission(permission) {
+    return request(permission);
+  }
+  checkPermissionGrantStatus(permission) {
+    return request(permission);
+  }
+  checkIfPermissionsGranted(permissionsArray) {
+    return requestMultiple(permissionsArray)
       .then(res => {
         if (res != null) {
           const checkIfNotGranted = permissionsArray.find(
             permission => res[permission] !== 'granted',
           );
           if (checkIfNotGranted != null) {
-            return false;
+            return new Promise.resolve(false);
           } else {
-            return true;
+            return new Promise.resolve(true);
           }
         }
       })
       .catch(() => {
-        return false;
+        return new Promise.resolve(false);
       });
   }
 }
-let perm = null;
-export const getPermissionInstance = () => {
+var perm = null;
+const getPermissionInstance = () => {
   if (perm == null) {
     perm = new Permissions();
   }
   return perm;
 };
+export default getPermissionInstance;
