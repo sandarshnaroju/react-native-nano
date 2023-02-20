@@ -150,22 +150,7 @@ function UniversalElement({elemObj, onPress, navigation, mergeDataAsProps}) {
             />
           );
         case NANO.BANNER:
-          return (
-            <Banner
-              {...elemOb['props']}
-              actions={[
-                {
-                  label: 'Fix it',
-                  onPress: () => {},
-                },
-                {
-                  label: 'Learn more',
-                  onPress: () => {},
-                },
-              ]}>
-              {elemOb['value']}
-            </Banner>
-          );
+          return <Banner {...elemOb['props']}>{elemOb['value']}</Banner>;
 
         case NANO.DIVIDER:
           return <Divider {...elemOb['props']} />;

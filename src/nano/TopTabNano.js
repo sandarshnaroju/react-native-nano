@@ -2,11 +2,8 @@ import {cloneDeep, isFunction} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import getDatabase from '../database/RealmDatabase';
-import getNotification from '../notifications/Notifications';
-import getPermissionInstance from '../permissions/Permissions';
+import GetModuleParams from '../modules';
 import RenderColoumViews from './RenderColumnAndRows';
-import getSession from '../session/Session';
 export const TopTabNano = ({
   screen,
   style,
@@ -21,21 +18,14 @@ export const TopTabNano = ({
 }) => {
   const [uiElements, setUiElements] = useState(screen);
 
-  const database = getDatabase(databaseConfigObject);
-  const notifications = getNotification();
-  const Permissions = getPermissionInstance();
-  // const filteredElements = getFilteredScreenObject(uiElements);
   const clonedElements = cloneDeep(uiElements);
-  const session = getSession();
-  const logicParameters = {
+  const moduleParameters = GetModuleParams({databaseConfigObject});
+  const propParameters = {
     navigation,
     uiElements: clonedElements,
 
-    db: database,
     route,
-    notifications,
-    Permissions,
-    session,
+    ...moduleParameters,
   };
 
   useEffect(() => {
@@ -45,10 +35,10 @@ export const TopTabNano = ({
     if (onStart != null) {
       const isItFunction = isFunction(onStart);
       if (isItFunction) {
-        setUiElements(onStart({...logicParameters}));
+        setUiElements(onStart({...propParameters}));
       } else {
         if (logicObject != null && logicObject[onStart] != null) {
-          setUiElements(logicObject[onStart]({...logicParameters}));
+          setUiElements(logicObject[onStart]({...propParameters}));
         }
       }
     }
@@ -57,10 +47,10 @@ export const TopTabNano = ({
       if (onEnd != null) {
         const isItFunction = isFunction(onEnd);
         if (isItFunction) {
-          setUiElements(onEnd({...logicParameters}));
+          setUiElements(onEnd({...propParameters}));
         } else {
           if (logicObject != null && logicObject[onEnd] != null) {
-            setUiElements(logicObject[onEnd]({...logicParameters}));
+            setUiElements(logicObject[onEnd]({...propParameters}));
           }
         }
       }
@@ -78,7 +68,7 @@ export const TopTabNano = ({
             totalData={uiElements}
             navigation={navigation}
             logicObject={logicObject}
-            logicParameters={logicParameters}
+            propParameters={propParameters}
             onPressCallBack={onPressCallBack}
             route={route}
             databaseConfigObject={databaseConfigObject}
@@ -95,7 +85,7 @@ export const TopTabNano = ({
           totalData={uiElements}
           navigation={navigation}
           logicObject={logicObject}
-          logicParameters={logicParameters}
+          propParameters={propParameters}
           onPressCallBack={onPressCallBack}
           route={route}
           databaseConfigObject={databaseConfigObject}

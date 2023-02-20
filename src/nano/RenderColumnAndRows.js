@@ -8,7 +8,7 @@ const onElementPress = (
   item,
   completeFlatlistData,
   logicObject,
-  logicParameters,
+  propParameters,
 ) => {
   if (
     logicObject != null &&
@@ -22,14 +22,14 @@ const onElementPress = (
         index,
         item,
         completeFlatlistData,
-        ...logicParameters,
+        ...propParameters,
       });
     } else {
       return logicObject[eleObject['onClick']]({
         index,
         item,
         completeFlatlistData,
-        ...logicParameters,
+        ...propParameters,
       });
     }
   }
@@ -41,7 +41,7 @@ const GetRowElements = ({
   navigation,
   onPressCallBack,
   logicObject,
-  logicParameters,
+  propParameters,
   databaseConfigObject,
   route,
 }) => {
@@ -55,7 +55,7 @@ const GetRowElements = ({
           navigation={navigation}
           route={route}
           databaseConfigObject={databaseConfigObject}
-          logicParameters={logicParameters}
+          propParameters={propParameters}
           onPress={(index, item, completeFlatlistData) => {
             const res = onElementPress(
               eleObject,
@@ -63,7 +63,7 @@ const GetRowElements = ({
               item,
               completeFlatlistData,
               logicObject,
-              logicParameters,
+              propParameters,
             );
 
             onPressCallBack(res);
@@ -79,7 +79,7 @@ const RenderColoumViews = ({
   totalData,
   navigation,
   logicObject,
-  logicParameters,
+  propParameters,
   onPressCallBack,
   route,
   databaseConfigObject,
@@ -99,7 +99,7 @@ const RenderColoumViews = ({
               rowElementsArray={totalData[key]}
               rowKey={key}
               logicObject={logicObject}
-              logicParameters={logicParameters}
+              propParameters={propParameters}
               onPressCallBack={onPressCallBack}
               route={route}
               databaseConfigObject={databaseConfigObject}
@@ -114,7 +114,7 @@ const RenderColoumViews = ({
             rowKey={key}
             key={key + index + 1}
             logicObject={logicObject}
-            logicParameters={logicParameters}
+            propParameters={propParameters}
             onPressCallBack={onPressCallBack}
             route={route}
             databaseConfigObject={databaseConfigObject}
