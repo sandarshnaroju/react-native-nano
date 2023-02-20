@@ -2,7 +2,7 @@ import {cloneDeep, isFunction} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import GetModuleParams from '../modules';
+import getModuleParams from '../modules';
 import RenderColoumViews from './RenderColumnAndRows';
 export const TopTabNano = ({
   screen,
@@ -19,7 +19,7 @@ export const TopTabNano = ({
   const [uiElements, setUiElements] = useState(screen);
 
   const clonedElements = cloneDeep(uiElements);
-  const moduleParameters = GetModuleParams({databaseConfigObject});
+  const moduleParameters = getModuleParams({databaseConfigObject});
   const propParameters = {
     navigation,
     uiElements: clonedElements,

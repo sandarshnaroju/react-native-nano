@@ -3,7 +3,7 @@ import getNotification from './notifications/Notifications';
 import getPermissionInstance from './permissions/Permissions';
 import getSession from './session/Session';
 
-const GetModuleParams = ({databaseConfigObject}) => {
+const getModuleParams = ({databaseConfigObject}) => {
   const database = getDatabase(databaseConfigObject);
   const notifications = getNotification();
   const Permissions = getPermissionInstance();
@@ -16,4 +16,4 @@ const GetModuleParams = ({databaseConfigObject}) => {
   };
   return moduleParameters;
 };
-export default GetModuleParams;
+export default getModuleParams;

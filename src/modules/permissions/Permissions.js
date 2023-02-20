@@ -43,7 +43,14 @@ class Permissions {
 }
 var perm = null;
 const getPermissionInstance = () => {
-  if (perm == null) {
+  let isModuleExists = false;
+  try {
+    require('react-native-permissions');
+    isModuleExists = true;
+  } catch (e) {
+    isModuleExists = false;
+  }
+  if (isModuleExists && perm == null) {
     perm = new Permissions();
   }
   return perm;

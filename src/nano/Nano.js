@@ -2,7 +2,7 @@ import {cloneDeep} from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import GetModuleParams from '../modules';
+import getModuleParams from '../modules';
 import {isFunction} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
 const Nano = ({
@@ -20,7 +20,7 @@ const Nano = ({
   const [uiElements, setUiElements] = useState(screen);
 
   const clonedElements = cloneDeep(uiElements);
-  const moduleParameters = GetModuleParams({databaseConfigObject});
+  const moduleParameters = getModuleParams({databaseConfigObject});
   const propParameters = {
     navigation,
     uiElements: clonedElements,

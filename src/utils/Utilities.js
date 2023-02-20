@@ -1,3 +1,4 @@
+// var fs = require('fs');
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
   mapperRes,
