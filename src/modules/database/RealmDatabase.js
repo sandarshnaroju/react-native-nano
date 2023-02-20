@@ -1,9 +1,5 @@
 import Realm from 'realm';
-// import {isModuleAvailable} from '../../utils/Utilities';
-// import {isModuleExists} from '../../utils/Utilities';
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-// const yourData = require("./your.json");
+
 const TABLE_NANO_SETUP = 'nano-setup';
 const nanoSchema = {
   name: TABLE_NANO_SETUP,
@@ -90,18 +86,12 @@ class Database {
 var database = null;
 
 const getDatabase = configObject => {
-  let isModuleExists = false;
   try {
     require('realm');
-    isModuleExists = true;
-  } catch (e) {
-    isModuleExists = false;
-  }
-  if (isModuleExists) {
     if (database == null) {
       database = new Database(configObject);
     }
-  }
+  } catch (e) {}
 
   return database;
 };

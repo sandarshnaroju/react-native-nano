@@ -24,16 +24,13 @@ class Notification {
 }
 var notif = null;
 const getNotification = () => {
-  let isModuleExists = false;
   try {
     require('@notifee/react-native');
-    isModuleExists = true;
-  } catch (e) {
-    isModuleExists = false;
-  }
-  if (isModuleExists && notif == null) {
-    notif = new Notification();
-  }
+    if (notif == null) {
+      notif = new Notification();
+    }
+  } catch (e) {}
+
   return notif;
 };
 export default getNotification;
