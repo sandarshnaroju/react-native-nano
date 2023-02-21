@@ -87,11 +87,14 @@ var database = null;
 
 const getDatabase = configObject => {
   try {
-    require('realm');
     if (database == null) {
+      require('realm');
+
       database = new Database(configObject);
     }
-  } catch (e) {}
+  } catch (e) {
+    database = null;
+  }
 
   return database;
 };

@@ -25,11 +25,14 @@ class Notification {
 var notif = null;
 const getNotification = () => {
   try {
-    require('@notifee/react-native');
     if (notif == null) {
+      require('@notifee/react-native');
+
       notif = new Notification();
     }
-  } catch (e) {}
+  } catch (e) {
+    notif = null;
+  }
 
   return notif;
 };

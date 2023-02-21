@@ -44,11 +44,14 @@ class Permissions {
 var perm = null;
 const getPermissionInstance = () => {
   try {
-    require('react-native-permissions');
     if (perm == null) {
+      require('react-native-permissions');
+
       perm = new Permissions();
     }
-  } catch (e) {}
+  } catch (e) {
+    perm = null;
+  }
 
   return perm;
 };
