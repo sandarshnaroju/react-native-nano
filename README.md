@@ -4,14 +4,14 @@
 
 ## Overview 
 
-Nano helps you to develop complex mobile apps with low code.
+Nano helps you to develop complex mobile apps with low code (in JSON).
 
 ## What is it ?
 
-`react-native-nano` helps you to quickly develop complex mobile apps with low code. Here are some of the benefits you get out of the box when you use Nano.
+`react-native-nano` helps you to quickly develop complex mobile apps with low code (in JSON). Here are some of the benefits you get out of the box when you use Nano.
 
  1. No need to manage any `state` variables. 
- 2. Ease of creating new components using JSON.
+ 2. Ease of creating new components using `JSON`.
  3. Easy to place components in `horizontal` and `vertical` directions.
  4. Ability for every component on the screen to access and change the every other component.
  5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `notifications` and `session`.
@@ -37,6 +37,71 @@ For newer apps, we recommend you to create new Nano app by using below command.
 The above command will install necessary packages to run `react-native-nano` with `react-native` . You can use all `react-native` commands to `start` and `run` in Android and IOS.
 
 ## How to use ?
+
+### Adding single screen:
+
+When using Nano, creating components is little bit different from a typical react native project. In Nano, we create component in the form of JSON and add it to RNNano component. Nano will render the component on screen. 
+
+For example, below is the text component.
+
+
+``` javascript
+
+import { NANO } from  'react-native-nano';
+
+const text = {
+  component: NANO.TEXT,
+  name: 'text',
+  value: 'This is the sample text',
+};
+
+
+const screen = {
+    name: 'WelcomeScreen',
+    screen: {
+	v1: [text],
+    },
+    style: { flex: 1, justifyContent: 'center' },
+};
+
+```
+
+Nano makes it easy to place components in horizontal and vertical directions in a screen. it uses horizontal and vertical keys read more about them [here](https://react-native-nano.gitbook.io/welcome/guide/understanding-layout). 
+
+And after that simply add it to the RNNano component like below
+
+``` javascript
+
+import {RNNano} from  'react-native-nano';
+...
+const  App = () => {
+    return <RNNano screens={[screen]} />;
+};
+
+export  default  App;
+
+```
+
+### Adding multiple Screens
+
+You can actually add as many screens as you want to RNNano component just like below
+
+``` javascript
+const  App = () => {
+    return <RNNano screens={[
+                             screen1, 
+                             screen2, 
+                             screen3, 
+                             screen4
+                             ...
+                             
+                             ]} />;
+};
+export  default  App;
+
+```
+
+### Simple Counter App
 
 The following code is an app that increases number on button clicks.
 
@@ -66,7 +131,6 @@ const  increaseCountButton = {
 	// increase count by 1
 	uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1; 
 	
-
 	return uiElements;
     })
 };
@@ -96,23 +160,7 @@ export  default  App;
 
 The above code displays text and button. When button is clicked the count text gets increased.
 
-### Adding multiple Screens
 
-You can actually add as many screens as you want to RNNano component just like below
-
-``` javascript
-const  App = () => {
-    return <RNNano screens={[
-                             screen1, 
-                             screen2, 
-                             screen3, 
-                             screen4
-                             ...
-                             
-                             ]} />;
-};
-export  default  App;
-```
 
 
 ### Dependencies 
