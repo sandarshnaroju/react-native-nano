@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react';
-
+import {useEffect, useState} from 'react';
+import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import {isEqual} from 'lodash';
+import isEqual from 'lodash/isEqual';
 import getModuleParams from '../../modules';
 // import {fetchScreen} from '../../modules/nano-sync/NanoSync';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
-import {View} from 'react-native';
-import {Button} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
 const GenericScreen = ({
   navigation,
   logic,

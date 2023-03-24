@@ -2,9 +2,14 @@
   <img src="https://github.com/sandarshnaroju/react-native-nano/blob/master/nano-logo.png" />
 </p>
 
+
 ## Overview 
 
 Nano helps you to develop complex mobile apps with low code (in JSON).
+
+## Links 
+
+[nanoapp.dev](https://www.nanoapp.dev/) | [Playground](https://www.nanoapp.dev/#live)
 
 ## What is it ?
 
@@ -14,9 +19,14 @@ Nano helps you to develop complex mobile apps with low code (in JSON).
  2. Ease of creating new components using `JSON`.
  3. Easy to place components in `horizontal` and `vertical` directions.
  4. Ability for every component on the screen to access and change the every other component.
- 5. Ability for most used methods to have control over `database`, `navigation`, `uiElements`, `notifications` and `session`.
+ 5. Ability for all action/life-cycle event methods to have control over `database`, `navigation`, `uiElements`, `notifications` and `session`.
  6. Separating Ui from Logic 100%.
  7. Ability to load UI (JSON) from your own server.
+
+## DEMO
+
+Live Demo is [here](https://www.nanoapp.dev/#live). 
+
 
 ## Documentation
 

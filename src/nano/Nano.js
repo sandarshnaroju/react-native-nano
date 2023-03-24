@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {cloneDeep} from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
 import {isFunction} from '../utils/Utilities';

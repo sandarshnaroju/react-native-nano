@@ -1,5 +1,5 @@
-import {DataBaseConfig} from '../../../../../nano.config';
-import {createRow, readRow, updateRow} from './db';
+// import {DataBaseConfig} from '../../../../../nano.config';
+const DataBaseConfig = null;
 const TABLE_NANO_SETUP = 'nano-setup';
 const nanoSchema = {
   name: TABLE_NANO_SETUP,

@@ -1,5 +1,6 @@
 import Realm from 'realm';
-import {DataBaseConfig} from '../../../../../nano.config';
+// import {DataBaseConfig} from '../../../../../nano.config';
+const DataBaseConfig = null;
 const TABLE_NANO_SETUP = 'nano-setup';
 const nanoSchema = {
   name: TABLE_NANO_SETUP,
