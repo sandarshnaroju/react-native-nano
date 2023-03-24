@@ -10,14 +10,8 @@ const onElementPress = (
   logicObject,
   propParameters,
 ) => {
-  if (
-    eleObject != null &&
-    eleObject['onClick'] != null &&
-    typeof eleObject['onClick'] === 'string'
-  ) {
-    let copy = new Function('return ' + eleObject['onClick'])();
-    return copy({index, item, completeFlatlistData, ...propParameters});
-  }
+  // console.log('sss', eleObject['onClick'], logicObject);
+
   if (
     logicObject != null &&
     eleObject != null &&
@@ -25,7 +19,6 @@ const onElementPress = (
   ) {
     const isItFunction = isFunction(eleObject['onClick']);
     // console.log('elele', isItFunction, typeof eleObject['onClick']);
-
     if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
       return eleObject['onClick']({
         index,
@@ -41,6 +34,16 @@ const onElementPress = (
         ...propParameters,
       });
     }
+  }
+  if (
+    eleObject != null &&
+    eleObject['onClick'] != null &&
+    typeof eleObject['onClick'] === 'string'
+  ) {
+    let copy = new Function('return ' + logicObject[eleObject['onClick']])();
+    console.log(' copy', copy);
+
+    return copy({index, item, completeFlatlistData, ...propParameters});
   }
 };
 const onElementLongPress = (

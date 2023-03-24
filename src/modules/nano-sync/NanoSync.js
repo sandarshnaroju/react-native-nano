@@ -4,7 +4,8 @@ import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../nano.config';
 import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
-const BASE_URL = 'http://192.168.0.5:8400/';
+
+const BASE_URL = 'https://nanoapp.dev/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
 const FETCH_ALL_SCREENS = BASE_URL + APP_URL;
 const Realm = getDatabase();
@@ -59,7 +60,6 @@ const checkValidityAndGetAuth = async () => {
     expiryTime['value'] < curr
   ) {
     authToken = {};
-    console.log('refetching auth token');
 
     authToken['value'] = await getAuthTokenAndStoreInRealm();
   }
@@ -163,7 +163,6 @@ export const fetchScreen = async ({screenUrl}) => {
     Accept: 'application/json',
     Authorization: 'Bearer ' + auth,
   };
-  console.log('urlss', screenUrl);
 
   return axios({
     method: 'POST'.toLowerCase(),
@@ -212,8 +211,6 @@ export const fetchScreen = async ({screenUrl}) => {
 };
 
 export const fetchAllScreens = async () => {
-  console.log('fetch all screen');
-
   const auth = await checkValidityAndGetAuth();
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
