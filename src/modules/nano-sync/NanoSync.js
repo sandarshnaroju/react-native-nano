@@ -1,11 +1,12 @@
 import axios from 'axios';
 import {RSA} from 'react-native-rsa-native';
-import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../nano.config';
+import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../../nano.config';
 import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
 
-const BASE_URL = 'https://nanoapp.dev/';
+// const BASE_URL = 'https://nanoapp.dev/';
+const BASE_URL = 'http://192.168.0.5:8400/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
 const FETCH_ALL_SCREENS = BASE_URL + APP_URL;
 const Realm = getDatabase();
@@ -223,6 +224,8 @@ export const fetchAllScreens = async () => {
     headers: headers,
   })
     .then(async json => {
+      console.log('screeens', json);
+
       if (json != null && json.status == 200) {
         const isVerified = await isDataVerified({
           message: json.data.data.config,

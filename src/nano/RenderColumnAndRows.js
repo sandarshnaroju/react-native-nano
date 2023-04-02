@@ -10,40 +10,70 @@ const onElementPress = (
   logicObject,
   propParameters,
 ) => {
-  // console.log('sss', eleObject['onClick'], logicObject);
+  if (logicObject == null) {
+    if (eleObject != null && eleObject['onClick'] != null) {
+      const isItFunction = isFunction(eleObject['onClick']);
+      if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
+        return eleObject['onClick']({
+          index,
+          item,
+          completeFlatlistData,
+          ...propParameters,
+        });
+      } else {
+        if (
+          eleObject != null &&
+          eleObject['onClick'] != null &&
+          typeof eleObject['onClick'] === 'string'
+        ) {
+          let copy = new Function('return ' + eleObject['onClick'])();
 
-  if (
-    logicObject != null &&
-    eleObject != null &&
-    eleObject['onClick'] != null
-  ) {
-    const isItFunction = isFunction(eleObject['onClick']);
-    // console.log('elele', isItFunction, typeof eleObject['onClick']);
-    if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
-      return eleObject['onClick']({
-        index,
-        item,
-        completeFlatlistData,
-        ...propParameters,
-      });
-    } else {
-      return logicObject[eleObject['onClick']]({
-        index,
-        item,
-        completeFlatlistData,
-        ...propParameters,
-      });
+          return copy({index, item, completeFlatlistData, ...propParameters});
+        }
+      }
     }
-  }
-  if (
-    eleObject != null &&
-    eleObject['onClick'] != null &&
-    typeof eleObject['onClick'] === 'string'
-  ) {
-    let copy = new Function('return ' + logicObject[eleObject['onClick']])();
-    console.log(' copy', copy);
+  } else {
+    if (eleObject != null && eleObject['onClick'] != null) {
+      const isItFunction = isFunction(eleObject['onClick']);
 
-    return copy({index, item, completeFlatlistData, ...propParameters});
+      if (isItFunction) {
+        return eleObject['onClick']({
+          index,
+          item,
+          completeFlatlistData,
+          ...propParameters,
+        });
+      } else {
+        if (typeof eleObject['onClick'] === 'string') {
+          if (logicObject[eleObject['onClick']] != null) {
+            if (typeof logicObject[eleObject['onClick']] === 'string') {
+              let copy = new Function(
+                'return ' + logicObject[eleObject['onClick']],
+              )();
+
+              return copy({
+                index,
+                item,
+                completeFlatlistData,
+                ...propParameters,
+              });
+            }
+            if (typeof logicObject[eleObject['onClick']] === 'object') {
+              return logicObject[eleObject['onClick']]({
+                index,
+                item,
+                completeFlatlistData,
+                ...propParameters,
+              });
+            }
+          } else {
+            let copy = new Function('return ' + eleObject['onClick'])();
+
+            return copy({index, item, completeFlatlistData, ...propParameters});
+          }
+        }
+      }
+    }
   }
 };
 const onElementLongPress = (
@@ -54,36 +84,69 @@ const onElementLongPress = (
   logicObject,
   propParameters,
 ) => {
-  if (
-    eleObject != null &&
-    eleObject['onLongClick'] != null &&
-    typeof eleObject['onLongClick'] === 'string'
-  ) {
-    let copy = new Function('return ' + eleObject['onLongClick'])();
-    return copy({index, item, completeFlatlistData, ...propParameters});
-  }
-  if (
-    logicObject != null &&
-    eleObject != null &&
-    eleObject['onLongClick'] != null
-  ) {
-    const isItFunction = isFunction(eleObject['onLongClick']);
-    // console.log('elele', isItFunction, typeof eleObject['onLongClick']);
+  if (logicObject == null) {
+    if (eleObject != null && eleObject['onLongClick'] != null) {
+      const isItFunction = isFunction(eleObject['onLongClick']);
+      if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
+        return eleObject['onLongClick']({
+          index,
+          item,
+          completeFlatlistData,
+          ...propParameters,
+        });
+      } else {
+        if (
+          eleObject != null &&
+          eleObject['onLongClick'] != null &&
+          typeof eleObject['onLongClick'] === 'string'
+        ) {
+          let copy = new Function('return ' + eleObject['onLongClick'])();
 
-    if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
-      return eleObject['onLongClick']({
-        index,
-        item,
-        completeFlatlistData,
-        ...propParameters,
-      });
-    } else {
-      return logicObject[eleObject['onLongClick']]({
-        index,
-        item,
-        completeFlatlistData,
-        ...propParameters,
-      });
+          return copy({index, item, completeFlatlistData, ...propParameters});
+        }
+      }
+    }
+  } else {
+    if (eleObject != null && eleObject['onLongClick'] != null) {
+      const isItFunction = isFunction(eleObject['onLongClick']);
+
+      if (isItFunction) {
+        return eleObject['onLongClick']({
+          index,
+          item,
+          completeFlatlistData,
+          ...propParameters,
+        });
+      } else {
+        if (typeof eleObject['onLongClick'] === 'string') {
+          if (logicObject[eleObject['onLongClick']] != null) {
+            if (typeof logicObject[eleObject['onLongClick']] === 'string') {
+              let copy = new Function(
+                'return ' + logicObject[eleObject['onLongClick']],
+              )();
+
+              return copy({
+                index,
+                item,
+                completeFlatlistData,
+                ...propParameters,
+              });
+            }
+            if (typeof logicObject[eleObject['onLongClick']] === 'object') {
+              return logicObject[eleObject['onLongClick']]({
+                index,
+                item,
+                completeFlatlistData,
+                ...propParameters,
+              });
+            }
+          } else {
+            let copy = new Function('return ' + eleObject['onLongClick'])();
+
+            return copy({index, item, completeFlatlistData, ...propParameters});
+          }
+        }
+      }
     }
   }
 };

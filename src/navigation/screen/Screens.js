@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -7,6 +7,7 @@ import getModuleParams from '../../modules';
 // import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
+import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
@@ -32,23 +33,29 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   const realDbInitCallback = db => {
     database = db;
     if (database != null) {
-      // fetchScreenFromNetwork(uri);
-      // fetchAllScreens()
-      //   .then(s => {
-      //     // console.log('all screens', s, typeof s);
-      //     setNetworkScreens(s);
-      //   })
-      //   .catch(e => {
-      //     console.log('eeee', e);
-      //   });
+      fetchAllScreens()
+        .then(s => {
+          console.log('all screens', s, typeof s);
+          setNetworkScreens(s);
+        })
+        .catch(e => {
+          console.log('eeee', e);
+        });
     }
   };
   const moduleParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
-  // useEffect(() => {
-  //   setTimeout(() => {}, 400);
-  // }, []);
+  useEffect(() => {
+    fetchAllScreens()
+      .then(s => {
+        console.log('all screens', s, typeof s);
+        setNetworkScreens(s);
+      })
+      .catch(e => {
+        console.log('eeee', e);
+      });
+  }, []);
   const preProcessedCustomCompArray = processCustomComp(customComponents);
   return (
     <NavigationContainer>

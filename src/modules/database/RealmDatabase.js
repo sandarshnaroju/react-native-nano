@@ -140,6 +140,8 @@ var database = null;
 
 const getDatabase = callBack => {
   const initCallBack = () => {
+    console.log('first call back');
+
     callBack(database);
   };
   try {

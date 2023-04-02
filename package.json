@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/sandarshnaroju/react-native-nano/issues"
   },
-  "homepage": "https://react-native-nano.gitbook.io/welcome/",
+  "homepage": "https://docs.nanoapp.dev/docs/intro",
   "dependencies": {
     "recyclerlistview": "^4.2.0",
     "react-native-paper": "^4.8.1",
