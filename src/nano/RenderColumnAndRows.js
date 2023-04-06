@@ -62,7 +62,7 @@ const onElementPress = (
                 ...propParameters,
               });
             }
-            if (typeof logicObject[eleObject['onClick']] === 'object') {
+            if (typeof logicObject[eleObject['onClick']] === 'function') {
               return logicObject[eleObject['onClick']]({
                 index,
                 item,
