@@ -10,6 +10,8 @@ const onElementPress = (
   logicObject,
   propParameters,
 ) => {
+  // console.log('on press', eleObject['onClick'], typeof eleObject['onClick']);
+
   if (logicObject == null) {
     if (eleObject != null && eleObject['onClick'] != null) {
       const isItFunction = isFunction(eleObject['onClick']);
@@ -26,6 +28,8 @@ const onElementPress = (
           eleObject['onClick'] != null &&
           typeof eleObject['onClick'] === 'string'
         ) {
+          // console.log('runnning function');
+
           let copy = new Function('return ' + eleObject['onClick'])();
 
           return copy({index, item, completeFlatlistData, ...propParameters});

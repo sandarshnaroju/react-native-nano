@@ -1,18 +1,19 @@
 import {useEffect, useState} from 'react';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import isEqual from 'lodash/isEqual';
+// import isEqual from 'lodash/isEqual';
 import getModuleParams from '../../modules';
 // import {fetchScreen} from '../../modules/nano-sync/NanoSync';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
+import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
 const GenericScreen = ({
   navigation,
   logic,
 
   screenObj,
-  uri = null,
+  screenUrl = null,
   isMultiScreen,
   customComponents,
   moduleParameters,
@@ -21,24 +22,24 @@ const GenericScreen = ({
   const [screenData, setScreenData] = useState(screenObj);
   let database;
 
-  const fetchScreenFromNetwork = url => {
-    // fetchScreen({
-    //   screenUrl: url,
-    // })
-    //   .then(screenN => {
-    //     console.log('ssc', screenN);
-    //     setScreenData(screenN);
-    //   })
-    //   .catch(e => {
-    //     console.log('eerer', e);
-    //   });
+  const fetchScreenFromNetwork = uri => {
+    fetchScreenFromDb({
+      screenUrl: uri,
+    })
+      .then(screenN => {
+        // console.log('ssc', screenN);
+        setScreenData(screenN);
+      })
+      .catch(e => {
+        console.log('eerer', e);
+      });
   };
 
   const realDbInitCallback = db => {
     database = db;
     if (database != null) {
-      if (uri != null) {
-        fetchScreenFromNetwork(uri);
+      if (screenUrl != null) {
+        fetchScreenFromNetwork(screenUrl);
       }
     }
   };
@@ -51,9 +52,9 @@ const GenericScreen = ({
   useEffect(() => {
     // console.log(' in useeffect', isMultiScreen);
 
-    if (isMultiScreen && uri != null) {
+    if (isMultiScreen && screenUrl != null) {
       // console.log('fetching in useeffect');
-      fetchScreenFromNetwork(uri);
+      fetchScreenFromNetwork(screenUrl);
     }
   }, []);
   useEffect(() => {
@@ -98,16 +99,16 @@ const GenericScreen = ({
   );
 };
 
-const areEqual = (prevProps, nextProps) => {
-  /*
-      return true if passing nextProps to render would return
-      the same result as passing prevProps to render,
-      otherwise return false
-      */
-  if (isEqual(nextProps, prevProps)) {
-    return true;
-  } else {
-    return false;
-  }
-};
+// const areEqual = (prevProps, nextProps) => {
+//   /*
+//       return true if passing nextProps to render would return
+//       the same result as passing prevProps to render,
+//       otherwise return false
+//       */
+//   if (isEqual(nextProps, prevProps)) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
 export default GenericScreen;

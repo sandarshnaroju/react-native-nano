@@ -26,6 +26,7 @@ const processCustomComp = custArray => {
 
 const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   const [networkScreens, setNetworkScreens] = useState([]);
+
   let database;
   if (screens == null) {
     screens = [LoadingScreen];
@@ -35,11 +36,11 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
     if (database != null) {
       fetchAllScreens()
         .then(s => {
-          console.log('all screens', s, typeof s);
+          // console.log('all screens', s, typeof s);
           setNetworkScreens(s);
         })
         .catch(e => {
-          console.log('eeee', e);
+          // console.log('eeee', e);
         });
     }
   };
@@ -49,11 +50,11 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   useEffect(() => {
     fetchAllScreens()
       .then(s => {
-        console.log('all screens', s, typeof s);
+        // console.log('all screens', s, typeof s);
         setNetworkScreens(s);
       })
       .catch(e => {
-        console.log('eeee', e);
+        // console.log('eeee', e);
       });
   }, []);
   const preProcessedCustomCompArray = processCustomComp(customComponents);
@@ -70,7 +71,7 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
                   {props => (
                     <GenericScreen
                       {...props}
-                      uri={screnObj['url']}
+                      screenUrl={screnObj['url']}
                       isMultiScreen={true}
                       moduleParameters={moduleParameters}
                       customComponents={preProcessedCustomCompArray}
