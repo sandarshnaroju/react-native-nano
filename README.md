@@ -30,7 +30,7 @@ Live Demo is [here](https://www.nanoapp.dev/#live).
 
 ## Documentation
 
-For more detailed documentation please [click here](https://react-native-nano.gitbook.io/welcome/) 
+For more detailed documentation please [click here](https://docs.nanoapp.dev/docs/intro) 
 
 ## How to Install ?
 
