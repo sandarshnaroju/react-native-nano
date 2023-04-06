@@ -126,23 +126,6 @@ export const fetchScreen = async ({screenUrl}) => {
     .then(async json => {
       // console.log('data', json.data);
       if (json != null && json.status == 200) {
-        // const publicKeyObj = Realm.getNanoConfig(
-        //   DATABASE_CONSTANTS.PUBLIC_KEY,
-        // );
-        // const publicKey = Base64.atob(publicKeyObj['value']);
-
-        // const isVerified = await RSA.verifyWithAlgorithm(
-        //   json.data.data.signature,
-
-        //   json.data.data.json,
-
-        //   publicKey,
-        //   RSA.SHA256withRSA,
-        // ).catch(e => {
-        //   console.log('err', e);
-        // });
-        // console.log('hello', json.data.data.signature, json.data.data.json);
-
         const isVerified = await isDataVerified({
           message: json.data.data.json,
           signature: json.data.data.signature,
