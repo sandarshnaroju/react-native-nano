@@ -18,9 +18,22 @@ function CheckForListviewAndRender({
   customComponents,
   databaseConfigObject,
   propParameters,
+  funProps,
+  onPressCallBack,
+  logicObject,
 }) {
   switch (elemOb['component']) {
     case NANO.LIST_VIEW:
+      // console.log('list data', elemOb);
+      // console.log(
+      //   'ssssss',
+      //   elemOb['listData'],
+      //   propParameters['uiElements']['v1'][0]['listData'],
+      // );
+
+      if (elemOb['hide'] != null && elemOb['hide'] == true) {
+        return null;
+      }
       return (
         <RecycleTestComponent
           {...elemOb}
@@ -28,9 +41,16 @@ function CheckForListviewAndRender({
           onPress={onPress}
           route={route}
           onLongPress={onLongPress}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
+          funProps={funProps}
+          logicObject={logicObject}
         />
       );
+
     case NANO.FLAT_LIST:
+      // console.log('flatlist', elemOb);
+      // return null;
       return (
         <NanoFlatlist
           {...elemOb}
@@ -38,6 +58,10 @@ function CheckForListviewAndRender({
           onPress={onPress}
           onLongPress={onLongPress}
           route={route}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
+          funProps={funProps}
+          logicObject={logicObject}
         />
       );
 
@@ -49,6 +73,10 @@ function CheckForListviewAndRender({
           route={route}
           onLongPress={onLongPress}
           databaseConfigObject={databaseConfigObject}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
+          funProps={funProps}
+          logicObject={logicObject}
         />
       );
     case NANO.BOTTOM_TABS:
@@ -59,6 +87,10 @@ function CheckForListviewAndRender({
           route={route}
           databaseConfigObject={databaseConfigObject}
           onLongPress={onLongPress}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
+          funProps={funProps}
+          logicObject={logicObject}
         />
       );
 
@@ -78,7 +110,6 @@ function CheckForListviewAndRender({
         compsArray: customComponents,
         props: propParameters,
       });
-      // console.log('ssssss', elemOb['component'], customComponents);
 
       if (Custom) {
         return Custom;
@@ -92,6 +123,10 @@ function CheckForListviewAndRender({
           onLongPress={onLongPress}
           route={route}
           customComponents={customComponents}
+          funProps={funProps}
+          logicObject={logicObject}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
         />
       );
   }

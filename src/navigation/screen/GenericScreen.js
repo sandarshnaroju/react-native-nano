@@ -7,7 +7,15 @@ import getModuleParams from '../../modules';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
-import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
+import {
+  fetchScreenAndStoreInDb,
+  fetchScreenFromDb,
+} from '../../modules/nano-sync/NanoSync';
+import {Platform} from 'react-native';
+if (Platform.OS == 'android') {
+  var messaging = require('@react-native-firebase/messaging');
+}
+
 const GenericScreen = ({
   navigation,
   logic,
@@ -21,14 +29,19 @@ const GenericScreen = ({
   const route = navigation ? useRoute() : null;
   const [screenData, setScreenData] = useState(screenObj);
   let database;
-
+  var timeut = null;
   const fetchScreenFromNetwork = uri => {
+    // console.log('fetching screen');
+
     fetchScreenFromDb({
       screenUrl: uri,
     })
       .then(screenN => {
-        // console.log('ssc', screenN);
+        // console.log('ssc', screenN['screen']['v1'][0]['itemView']);
         setScreenData(screenN);
+        timeut = setTimeout(() => {
+          // fetchScreenFromNetwork(uri);
+        }, 6000);
       })
       .catch(e => {
         console.log('eerer', e);
@@ -56,10 +69,52 @@ const GenericScreen = ({
       // console.log('fetching in useeffect');
       fetchScreenFromNetwork(screenUrl);
     }
+    return () => {
+      if (timeut) {
+        clearTimeout(timeut);
+      }
+    };
   }, []);
   useEffect(() => {
     setScreenData(screenObj);
   }, [screenObj]);
+  const checkUpdatedScreenUrlAndChangeUi = async ({
+    instantUpdate,
+    remoteMessage,
+  }) => {
+    const changedScreen = JSON.parse(remoteMessage['data']['updated']);
+    const updatedUiElements = await fetchScreenAndStoreInDb({
+      screenUrl: changedScreen['url'],
+      code_hash: remoteMessage['data']['code_hash'],
+    });
+    // console.log('screen url', screenUrl, changedScreen['url']);
+
+    if (
+      screenUrl != null &&
+      screenUrl === changedScreen['url'] &&
+      instantUpdate
+    ) {
+      setScreenData(updatedUiElements);
+    }
+  };
+  useEffect(() => {
+    if (Platform.OS == 'android') {
+      const unsubscribe = messaging.default().onMessage(async remoteMessage => {
+        if (
+          remoteMessage != null &&
+          remoteMessage['data'] != null &&
+          remoteMessage['data']['updated'] != null
+        ) {
+          checkUpdatedScreenUrlAndChangeUi({
+            instantUpdate: remoteMessage['data']['reload'],
+            remoteMessage,
+          });
+        }
+      });
+
+      return unsubscribe;
+    }
+  }, []);
   // console.log('in genericscreen.js', screenData['screen']['v1'][0]['value']);
   if (screenData != null) {
     switch (screenData.component) {

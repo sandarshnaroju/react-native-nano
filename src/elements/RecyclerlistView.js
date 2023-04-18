@@ -1,8 +1,12 @@
+import {isFunction} from 'lodash';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
-import {replaceValuesInItemViewObjectsAsperDataGiven} from '../utils/Utilities';
+import {
+  executeAFunction,
+  replaceValuesInItemViewObjectsAsperDataGiven,
+} from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
 const ViewTypes = {
@@ -14,7 +18,29 @@ const ViewTypes = {
 /***
  * To test out just copy this component and render in you root component
  */
+const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
+  return function (...args) {
+    const newArgs = {
+      methodValues: args,
+      ...extraParams,
+    };
+    executeAFunction(originalFn, newArgs);
+  };
+};
+const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
+  const funArray = {};
+  Object.keys(eleObject)
+    .filter(propKey => propKey.indexOf('on') === 0)
+    .forEach(propKey => {
+      funArray[propKey] = withExtraParams(
+        eleObject[propKey],
+        props,
+        onPressCallBack,
+      );
+    });
 
+  return funArray;
+};
 export default class RecycleTestComponent extends React.Component {
   constructor(args) {
     super(args);
@@ -55,49 +81,87 @@ export default class RecycleTestComponent extends React.Component {
     this._rowRenderer = this._rowRenderer.bind(this);
 
     //Since component should always render once data has changed, make data provider part of the state
+    // console.log('list data', this.props.listData);
     this.state = {
-      dataProvider: dataProvider.cloneWithRows(this.props.listdata),
+      dataProvider: dataProvider.cloneWithRows(this.props.listData),
     };
   }
 
   componentDidUpdate(prevProps, prevStates) {
-    if (!isEqual(prevProps['listdata'], this.props['listdata'])) {
+    if (!isEqual(prevProps['listData'], this.props['listData'])) {
       let dataProvider = new DataProvider((r1, r2) => {
         return !isEqual(r1, r2);
       });
       this.setState({
-        dataProvider: dataProvider.cloneWithRows(this.props.listdata),
+        dataProvider: dataProvider.cloneWithRows(this.props.listData),
       });
     }
   }
 
   //Given type and data return the view component
-  _rowRenderer(type, data) {
+  _rowRenderer(type, data, index) {
     //You can return any view here, CellContainer has no special significance
     switch (type) {
       case ViewTypes.FULL:
-        const mapper = this.props.mapper(data);
+        let mapper = null;
+        if (this.props && this.props.mapper) {
+          mapper = executeAFunction(this.props.mapper, data);
+        }
+
+        // ! mapper takes value of data supplied to listview one by one and returns an object with name of the element as key and value as the required value to be set to the element.
+        // console.log('mapper', mapper);
 
         const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
-          this.props.itemview['content'],
+          this.props.itemView['content'],
           mapper,
         );
+        const uniq = executeAFunction(this.props.uniqueKey, data);
+        const elemOb = {
+          component: this.props.itemView['component'],
+
+          value: mapper['value'],
+          props: this.props.itemView['props'],
+          content: modifiedContent,
+          onClick: this.props.itemView['onClick'],
+        };
+
+        const funProps = getInterceptedFunctionProps({
+          eleObject: elemOb,
+          props: {
+            elemOb,
+            logicObject: this.props.logicObject,
+            ...this.props.propParameters,
+            index,
+            itemData: data,
+            listData: this.props.listData,
+            setUi: this.props.onPressCallBack,
+          },
+          onPressCallBack: this.props.onPressCallBack,
+        });
+
+        // console.log('data', this.props.listData.length);
+
         return (
           <UniversalElement
-            elemObj={{
-              component: this.props.itemview['component'],
-
-              value: mapper['value'],
-              props: this.props.itemview['props'],
-              content: modifiedContent,
-              onClick: this.props.itemview['onClick'],
-            }}
+            key={uniq + index}
+            uniqueKey={uniq + index}
+            elemObj={elemOb}
             navigation={this.props.navigation}
-            onPress={() => {
-              // console.log('onpress', data);
-
-              this.props.onPress(mapper['value'], data, this.props.listdata);
+            onPress={({itemJson}) => {
+              this.props.onPress({
+                index,
+                itemData: data,
+                listData: this.props.listData,
+                itemJson,
+              });
             }}
+            onPressCallBack={this.props.onPressCallBack}
+            propParameters={this.props.propParameters}
+            recyclerListViewFunctionProps={funProps}
+            logicObject={this.props.logicObject}
+            listData={this.props.listData}
+            item={data}
+            listViewIndex={index}
           />
         );
 
@@ -107,12 +171,35 @@ export default class RecycleTestComponent extends React.Component {
   }
 
   render() {
+    const viewStyle =
+      this.props != null &&
+      this.props.props != null &&
+      this.props.props.containerStyle != null
+        ? this.props.props.containerStyle
+        : {};
+
+    const recyclerProps = getInterceptedFunctionProps({
+      eleObject: this.props,
+      props: {
+        ...this.props.propParameters,
+        setUi: this.props.onPressCallBack,
+      },
+      onPressCallBack: this.props.onPressCallBack,
+    });
     return (
-      <View style={{height: this.totalHeight, width: this.totalWidth}}>
+      <View
+        style={[
+          {height: this.totalHeight, width: this.totalWidth},
+          {
+            ...viewStyle,
+          },
+        ]}>
         <RecyclerListView
           layoutProvider={this._layoutProvider}
           dataProvider={this.state.dataProvider}
           rowRenderer={this._rowRenderer}
+          {...this.props.props}
+          {...recyclerProps}
         />
       </View>
     );

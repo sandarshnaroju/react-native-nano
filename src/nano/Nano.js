@@ -4,7 +4,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import {isFunction} from '../utils/Utilities';
+import {executeAFunction, isFunction} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
 
 const Nano = ({
@@ -24,11 +24,12 @@ const Nano = ({
   const [uiElements, setUiElements] = useState(screen);
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElements = cloneDeep(uiElements);
+  const clonedElementsRef = cloneDeep(uiElements);
+  // console.log('nanoo', clonedElementsRef['v1']);
 
   const propParameters = {
     navigation,
-    uiElements: clonedElements,
+    uiElements: clonedElementsRef,
 
     route,
     ...moduleParameters,
@@ -39,38 +40,42 @@ const Nano = ({
   }, [screen]);
   useEffect(() => {
     if (onStart != null) {
-      const isItFunction = isFunction(onStart);
-      if (isItFunction) {
-        setUiElements(onStart({...propParameters}));
+      if (logicObject != null && logicObject[onStart] != null) {
+        logicObject[onStart]({...propParameters, setUi: onPressCallBack});
       } else {
-        if (logicObject != null && logicObject[onStart] != null) {
-          setUiElements(logicObject[onStart]({...propParameters}));
-        }
+        executeAFunction(onStart, {
+          ...propParameters,
+          setUi: onPressCallBack,
+        });
       }
     }
 
     return () => {
       if (onEnd != null) {
-        const isItFunction = isFunction(onEnd);
-        if (isItFunction) {
-          setUiElements(onEnd({...propParameters}));
+        if (logicObject != null && logicObject[onEnd] != null) {
+          logicObject[onEnd]({...propParameters, setUi: onPressCallBack});
         } else {
-          if (logicObject != null && logicObject[onEnd] != null) {
-            setUiElements(logicObject[onEnd]({...propParameters}));
-          }
+          executeAFunction(onEnd, {
+            ...propParameters,
+            setUi: onPressCallBack,
+          });
         }
       }
     };
-  }, [screenName]);
+  }, [screenName, route]);
 
   const onPressCallBack = modifiedElements => {
     if (modifiedElements) {
-      setUiElements(modifiedElements);
+      const cloned = cloneDeep(modifiedElements);
+
+      setUiElements(cloned);
     }
   };
   const onLongPressCallBack = modifiedElements => {
     if (modifiedElements) {
-      setUiElements(modifiedElements);
+      const cloned = cloneDeep(modifiedElements);
+
+      setUiElements(cloned);
     }
   };
   // console.log('NANO', customeCompsRef.current);

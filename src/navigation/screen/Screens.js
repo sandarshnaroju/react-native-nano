@@ -7,7 +7,12 @@ import getModuleParams from '../../modules';
 // import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
-import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
+import {
+  fetchAllScreens,
+  fetchScreenAndStoreInDb,
+} from '../../modules/nano-sync/NanoSync';
+import messaging from '@react-native-firebase/messaging';
+import {Alert} from 'react-native';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
@@ -47,6 +52,7 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   const moduleParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
+
   useEffect(() => {
     fetchAllScreens()
       .then(s => {
@@ -67,7 +73,8 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
                 <Stack.Screen
                   key={screnObj.screen_identifier}
                   name={screnObj.name}
-                  options={{headerShown: false}}>
+                  options={{headerShown: false}}
+                  {...screnObj.screenProps}>
                   {props => (
                     <GenericScreen
                       {...props}

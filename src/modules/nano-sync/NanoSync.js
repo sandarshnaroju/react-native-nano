@@ -1,13 +1,16 @@
 import axios from 'axios';
+import {Platform} from 'react-native';
+import {getAndroidId, getApplicationName} from 'react-native-device-info';
 import {RSA} from 'react-native-rsa-native';
 import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../../nano.config';
 import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
-
 const BASE_URL = 'https://nanoapp.dev/';
-// const BASE_URL = 'http://192.168.0.5:8400/';
+// const BASE_URL = 'http://192.168.0.6:8400/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
+
+const FIREBASE_REGISTER = BASE_URL + 'clients/app/register_device/';
 const FETCH_ALL_SCREENS = APP_URL;
 const Realm = getDatabase();
 
@@ -82,8 +85,10 @@ const checkValidityAndGetAuth = async () => {
 const isDataVerified = async ({message, signature}) => {
   const publicKeyObj = Realm.getNanoConfig(DATABASE_CONSTANTS.PUBLIC_KEY);
   const publicKey = Base64.atob(publicKeyObj['value']);
+  let isVerified = false;
+  // console.log('values', signature, message, publicKeyObj, RSA.SHA256withRSA);
 
-  const isVerified = await RSA.verifyWithAlgorithm(
+  isVerified = await RSA.verifyWithAlgorithm(
     signature,
 
     message,
@@ -91,58 +96,41 @@ const isDataVerified = async ({message, signature}) => {
     publicKey,
     RSA.SHA256withRSA,
   ).catch(e => {
+    isVerified = false;
     console.log('err', e);
   });
+  // console.log('isVerified', isVerified);
 
   return isVerified;
 };
 
-export const fetchScreen = async ({screenUrl}) => {
+export const registerFirebase = async ({token, deviceId}) => {
   const auth = await checkValidityAndGetAuth();
   if (auth == null) {
     return null;
   }
-  if (screenUrl) {
-    const existingScreenCodeObj = Realm.getNanoConfig(screenUrl);
-    if (
-      existingScreenCodeObj != null &&
-      existingScreenCodeObj['signature'] != null &&
-      existingScreenCodeObj['json'] != null
-    ) {
-    }
-  }
+
+  const body = {
+    registration_id: token,
+    device_id: getAndroidId(),
+    name: getApplicationName(),
+    type: Platform.OS,
+  };
+
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     Accept: 'application/json',
     Authorization: 'Bearer ' + auth,
-    code_hash: '',
   };
 
   return axios({
     method: 'POST'.toLowerCase(),
-    url: screenUrl,
+    url: FIREBASE_REGISTER,
     headers: headers,
+    data: body,
   })
     .then(async json => {
-      // console.log('data', json.data);
-      if (json != null && json.status == 200) {
-        const isVerified = await isDataVerified({
-          message: json.data.data.json,
-          signature: json.data.data.signature,
-        });
-        if (isVerified) {
-          console.log('response', json.data.data);
-
-          const decoded = Base64.atob(json.data.data.json);
-          const parsed = JSON.parse(decoded);
-          Realm.setNanoConfig(screenUrl, JSON.stringify(json.data.data));
-          return parsed;
-        } else {
-          return null;
-        }
-      } else {
-        return null;
-      }
+      // console.log('data', json);
     })
     .catch(err => {
       console.log('errowwr', err);
@@ -150,65 +138,51 @@ export const fetchScreen = async ({screenUrl}) => {
     });
 };
 export const fetchScreenAndStoreInDb = async ({screenUrl, code_hash = ''}) => {
-  const auth = await checkValidityAndGetAuth();
-  if (auth == null) {
-    return null;
-  }
+  try {
+    const auth = await checkValidityAndGetAuth();
+    if (auth == null) {
+      return null;
+    }
 
-  const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    Accept: 'application/json',
-    Authorization: 'Bearer ' + auth,
-    code_hash,
-  };
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + auth,
+      code_hash,
+    };
 
-  return axios({
-    method: 'POST'.toLowerCase(),
-    url: screenUrl,
-    headers: headers,
-  })
-    .then(async json => {
-      // console.log('data', json.data);
-      if (json != null && json.status == 200) {
-        // const publicKeyObj = Realm.getNanoConfig(
-        //   DATABASE_CONSTANTS.PUBLIC_KEY,
-        // );
-        // const publicKey = Base64.atob(publicKeyObj['value']);
+    return axios({
+      method: 'POST'.toLowerCase(),
+      url: screenUrl,
+      headers: headers,
+    })
+      .then(async json => {
+        if (json != null && json.status == 200) {
+          const isVerified = await isDataVerified({
+            message: json.data.data.json,
+            signature: json.data.data.signature,
+          });
+          if (isVerified) {
+            const decoded = Base64.atob(json.data.data.json);
+            const parsedCode = JSON.parse(decoded);
+            // console.log('parsed', parsedCode['screen']['v1']);
 
-        // const isVerified = await RSA.verifyWithAlgorithm(
-        //   json.data.data.signature,
-
-        //   json.data.data.json,
-
-        //   publicKey,
-        //   RSA.SHA256withRSA,
-        // ).catch(e => {
-        //   console.log('err', e);
-        // });
-        // console.log('hello', json.data.data.signature, json.data.data.json);
-
-        const isVerified = await isDataVerified({
-          message: json.data.data.json,
-          signature: json.data.data.signature,
-        });
-        if (isVerified) {
-          const decoded = Base64.atob(json.data.data.json);
-          const parsedCode = JSON.parse(decoded);
-          // console.log('parsed', parsedCode);
-
-          Realm.setNanoConfig(screenUrl, JSON.stringify(json.data.data));
-          return parsedCode;
+            Realm.setNanoConfig(screenUrl, JSON.stringify(json.data.data));
+            return parsedCode;
+          } else {
+            return null;
+          }
         } else {
           return null;
         }
-      } else {
+      })
+      .catch(err => {
+        console.log('errowwr', err);
         return null;
-      }
-    })
-    .catch(err => {
-      console.log('errowwr', err);
-      return null;
-    });
+      });
+  } catch (error) {
+    console.log('error fetchAndStoreInDb', error);
+  }
 };
 export const fetchScreenFromDb = async ({screenUrl}) => {
   const auth = await checkValidityAndGetAuth();
@@ -226,6 +200,8 @@ export const fetchScreenFromDb = async ({screenUrl}) => {
       const parsed = JSON.parse(existingScreenCodeObj['value']);
       if (parsed['signature'] != null && parsed['json'] != null) {
         const decoded = Base64.atob(parsed['json']);
+        // console.log('decoded', decoded);
+
         if (decoded) {
           const parsedCode = JSON.parse(decoded);
           if (parsedCode) {
@@ -233,6 +209,8 @@ export const fetchScreenFromDb = async ({screenUrl}) => {
               screenUrl,
               code_hash: parsed['signature'],
             });
+            // console.log('parsed', parsedCode['screen']['v1'][0]['itemView']);
+
             return parsedCode;
           }
         }
@@ -262,8 +240,6 @@ export const fetchAllScreens = async () => {
     headers: headers,
   })
     .then(async json => {
-      // console.log('screeens', json);
-
       if (json != null && json.status == 200) {
         const isVerified = await isDataVerified({
           message: json.data.data.config,
@@ -272,7 +248,6 @@ export const fetchAllScreens = async () => {
         if (isVerified) {
           const decoded = Base64.atob(json.data.data.config);
           const parsed = JSON.parse(decoded);
-
           return parsed;
         } else {
           return null;

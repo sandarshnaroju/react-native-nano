@@ -1,25 +1,28 @@
-import React, {useRef} from 'react';
 import {View} from 'react-native';
 import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 import {isFunction} from '../utils/Utilities';
+import React from 'react';
 const onElementPress = (
   eleObject,
   index,
-  item,
-  completeFlatlistData,
+  itemData,
+  listData,
   logicObject,
   propParameters,
+  itemJson,
+  onPressCallBack,
 ) => {
-  // console.log('on press', eleObject['onClick'], typeof eleObject['onClick']);
-
   if (logicObject == null) {
     if (eleObject != null && eleObject['onClick'] != null) {
       const isItFunction = isFunction(eleObject['onClick']);
       if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
         return eleObject['onClick']({
           index,
-          item,
-          completeFlatlistData,
+          itemData,
+          listData,
+          itemJson,
+          setUi: onPressCallBack,
+
           ...propParameters,
         });
       } else {
@@ -32,7 +35,15 @@ const onElementPress = (
 
           let copy = new Function('return ' + eleObject['onClick'])();
 
-          return copy({index, item, completeFlatlistData, ...propParameters});
+          return copy({
+            index,
+            itemData,
+            listData,
+            itemJson,
+            setUi: onPressCallBack,
+
+            ...propParameters,
+          });
         }
       }
     }
@@ -43,8 +54,11 @@ const onElementPress = (
       if (isItFunction) {
         return eleObject['onClick']({
           index,
-          item,
-          completeFlatlistData,
+          itemData,
+          listData,
+          itemJson,
+          setUi: onPressCallBack,
+
           ...propParameters,
         });
       } else {
@@ -57,23 +71,37 @@ const onElementPress = (
 
               return copy({
                 index,
-                item,
-                completeFlatlistData,
+                itemData,
+                listData,
+                itemJson,
+                setUi: onPressCallBack,
+
                 ...propParameters,
               });
             }
             if (typeof logicObject[eleObject['onClick']] === 'function') {
               return logicObject[eleObject['onClick']]({
                 index,
-                item,
-                completeFlatlistData,
+                itemData,
+                listData,
+                itemJson,
+                setUi: onPressCallBack,
+
                 ...propParameters,
               });
             }
           } else {
             let copy = new Function('return ' + eleObject['onClick'])();
 
-            return copy({index, item, completeFlatlistData, ...propParameters});
+            return copy({
+              index,
+              itemData,
+              listData,
+              itemJson,
+              setUi: onPressCallBack,
+
+              ...propParameters,
+            });
           }
         }
       }
@@ -83,10 +111,12 @@ const onElementPress = (
 const onElementLongPress = (
   eleObject,
   index,
-  item,
-  completeFlatlistData,
+  itemData,
+  listData,
   logicObject,
   propParameters,
+  itemJson,
+  onPressCallBack,
 ) => {
   if (logicObject == null) {
     if (eleObject != null && eleObject['onLongClick'] != null) {
@@ -94,8 +124,11 @@ const onElementLongPress = (
       if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
         return eleObject['onLongClick']({
           index,
-          item,
-          completeFlatlistData,
+          itemData,
+          listData,
+          itemJson,
+          setUi: onPressCallBack,
+
           ...propParameters,
         });
       } else {
@@ -106,7 +139,15 @@ const onElementLongPress = (
         ) {
           let copy = new Function('return ' + eleObject['onLongClick'])();
 
-          return copy({index, item, completeFlatlistData, ...propParameters});
+          return copy({
+            index,
+            itemData,
+            listData,
+            itemJson,
+            setUi: onPressCallBack,
+
+            ...propParameters,
+          });
         }
       }
     }
@@ -117,8 +158,11 @@ const onElementLongPress = (
       if (isItFunction) {
         return eleObject['onLongClick']({
           index,
-          item,
-          completeFlatlistData,
+          itemData,
+          listData,
+          itemJson,
+          setUi: onPressCallBack,
+
           ...propParameters,
         });
       } else {
@@ -131,29 +175,44 @@ const onElementLongPress = (
 
               return copy({
                 index,
-                item,
-                completeFlatlistData,
+                itemData,
+                listData,
+                itemJson,
+                setUi: onPressCallBack,
+
                 ...propParameters,
               });
             }
             if (typeof logicObject[eleObject['onLongClick']] === 'object') {
               return logicObject[eleObject['onLongClick']]({
                 index,
-                item,
-                completeFlatlistData,
+                itemData,
+                listData,
+                itemJson,
+                setUi: onPressCallBack,
+
                 ...propParameters,
               });
             }
           } else {
             let copy = new Function('return ' + eleObject['onLongClick'])();
 
-            return copy({index, item, completeFlatlistData, ...propParameters});
+            return copy({
+              index,
+              itemData,
+              listData,
+              itemJson,
+              setUi: onPressCallBack,
+
+              ...propParameters,
+            });
           }
         }
       }
     }
   }
 };
+
 const GetRowElements = ({
   rowElementsArray,
   rowKey,
@@ -165,10 +224,16 @@ const GetRowElements = ({
   route,
   customComponents,
 }) => {
-  // console.log('GetRowElements', customComponents);
-
+  const onCalll = e => {
+    // console.log('Render modifiedElements', e['v1'][0]['listData'].length);
+    onPressCallBack(e);
+  };
   const rowelements = [];
-  if (rowElementsArray != null && rowElementsArray.length > 0) {
+  if (
+    rowElementsArray != null &&
+    typeof rowElementsArray == 'object' &&
+    rowElementsArray.length > 0
+  ) {
     rowElementsArray.forEach((eleObject, index) => {
       rowelements.push(
         <CheckForListviewAndRender
@@ -178,31 +243,32 @@ const GetRowElements = ({
           route={route}
           propParameters={propParameters}
           customComponents={customComponents}
-          onPress={(index, item, completeFlatlistData) => {
-            const res = onElementPress(
+          // funProps={funProps}
+          logicObject={logicObject}
+          onPressCallBack={onCalll}
+          onPress={({index, itemData, listData, itemJson}) => {
+            onElementPress(
               eleObject,
               index,
-              item,
-              completeFlatlistData,
+              itemData,
+              listData,
               logicObject,
               propParameters,
+              itemJson,
+              onPressCallBack,
             );
-
-            onPressCallBack(res);
-            // onElementPress(eleObject, index, item, completeFlatlistData);
           }}
-          onLongPress={(index, item, completeFlatlistData) => {
-            const res = onElementLongPress(
+          onLongPress={(index, itemData, listData, itemJson) => {
+            onElementLongPress(
               eleObject,
               index,
-              item,
-              completeFlatlistData,
+              itemData,
+              listData,
               logicObject,
               propParameters,
+              itemJson,
+              onPressCallBack,
             );
-
-            onLongPressCallBack(res);
-            // onElementPress(eleObject, index, item, completeFlatlistData);
           }}
         />,
       );

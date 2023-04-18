@@ -1,5 +1,18 @@
 // var fs = require('fs');
+
 import * as React from 'react';
+
+const mergeObjects = (firstObj, secondObj) => {
+  for (var p in secondObj) {
+    if (typeof firstObj[p] == 'object') {
+      firstObj[p] = mergeObjects(firstObj[p], secondObj[p]);
+    } else {
+      firstObj[p] = secondObj[p];
+    }
+  }
+  return firstObj;
+};
+
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
   mapperRes,
@@ -15,7 +28,15 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
           mapperRes[element.name] !== null
         ) {
           element.value = mapperRes[element.name]['value'];
-          element.props = mapperRes[element.name]['props'];
+          // const newProps = {
+          //   ...element.props,
+          //   ...mapperRes[element.name]['props'],
+          // };
+          const newProps = mergeObjects(
+            element.props,
+            mapperRes[element.name]['props'],
+          );
+          element.props = newProps;
         } else {
           element.value = mapperRes[element.name];
         }
@@ -77,5 +98,20 @@ export const checkNameAndRenderCustomComponent = ({
     }
   } else {
     return null;
+  }
+};
+
+export const executeAFunction = (func, props) => {
+  const isItFunction = isFunction(func);
+  if (typeof mapper !== 'string' && isItFunction) {
+    return func(props);
+  } else {
+    if (func != null && typeof func === 'string') {
+      // console.log('runnning function');
+
+      let copy = new Function('return ' + func)();
+
+      return copy(props);
+    }
   }
 };
