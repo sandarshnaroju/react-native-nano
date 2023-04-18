@@ -7,12 +7,7 @@ import getModuleParams from '../../modules';
 // import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
-import {
-  fetchAllScreens,
-  fetchScreenAndStoreInDb,
-} from '../../modules/nano-sync/NanoSync';
-import messaging from '@react-native-firebase/messaging';
-import {Alert} from 'react-native';
+import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
