@@ -38,7 +38,7 @@ class Database {
         props.initCallBack(true);
       })
       .catch(() => {
-        console.log('Instance create failed');
+        // console.log('Instance create failed');
         props.initCallBack(null);
       });
   }

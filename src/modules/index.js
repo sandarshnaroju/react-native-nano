@@ -9,6 +9,7 @@ const getModuleParams = ({callBack}) => {
   const notifications = getNotification();
   const Permissions = getPermissionInstance();
   const session = getSession();
+
   const moduleParameters = {
     db: database,
     notifications,

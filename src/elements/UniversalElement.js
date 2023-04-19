@@ -394,7 +394,17 @@ function UniversalElement({
           // console.log('cardd', Object.keys(elemOb));
 
           return (
-            <Card key={'CARD' + index} {...elemOb['props']} {...funProps}>
+            <Card
+              key={'CARD' + index}
+              {...elemOb['props']}
+              onPress={
+                isOnPressAllowed
+                  ? () => {
+                      onPress({itemJson: elemOb});
+                    }
+                  : null
+              }
+              {...funProps}>
               {getViewItems(elemOb['content'], true)}
             </Card>
           );
@@ -406,11 +416,13 @@ function UniversalElement({
             return (
               <TouchableOpacity
                 key={'TouchableOpacity' + index}
-                onPress={() => {
-                  console.log('helll');
-
-                  onPress();
-                }}
+                onPress={
+                  isOnPressAllowed
+                    ? () => {
+                        onPress({itemJson: elemOb});
+                      }
+                    : null
+                }
                 {...elemOb['props']}>
                 {getViewItems(elemOb['content'], false)}
               </TouchableOpacity>

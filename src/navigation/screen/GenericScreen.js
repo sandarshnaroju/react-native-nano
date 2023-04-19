@@ -1,9 +1,7 @@
 import {useEffect, useState} from 'react';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
-// import isEqual from 'lodash/isEqual';
 import getModuleParams from '../../modules';
-// import {fetchScreen} from '../../modules/nano-sync/NanoSync';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
@@ -11,10 +9,8 @@ import {
   fetchScreenAndStoreInDb,
   fetchScreenFromDb,
 } from '../../modules/nano-sync/NanoSync';
-import {Platform} from 'react-native';
-if (Platform.OS == 'android') {
-  var messaging = require('@react-native-firebase/messaging');
-}
+import getFirebase from '../../modules/firebase/Firebase';
+const Firebase = getFirebase();
 
 const GenericScreen = ({
   navigation,
@@ -98,8 +94,8 @@ const GenericScreen = ({
     }
   };
   useEffect(() => {
-    if (Platform.OS == 'android') {
-      const unsubscribe = messaging.default().onMessage(async remoteMessage => {
+    if (Firebase) {
+      Firebase.getOnMessage(async remoteMessage => {
         if (
           remoteMessage != null &&
           remoteMessage['data'] != null &&
@@ -111,9 +107,26 @@ const GenericScreen = ({
           });
         }
       });
-
-      return unsubscribe;
     }
+    if (Firebase) {
+      return Firebase.unSubscribeOnMessage();
+    }
+
+    // if (Platform.OS == 'android') {
+    //   const unsubscribe = messaging.default().onMessage(async remoteMessage => {
+    //     if (
+    //       remoteMessage != null &&
+    //       remoteMessage['data'] != null &&
+    //       remoteMessage['data']['updated'] != null
+    //     ) {
+    //       checkUpdatedScreenUrlAndChangeUi({
+    //         instantUpdate: remoteMessage['data']['reload'],
+    //         remoteMessage,
+    //       });
+    //     }
+    //   });
+    //   return unsubscribe;
+    // }
   }, []);
   // console.log('in genericscreen.js', screenData['screen']['v1'][0]['value']);
   if (screenData != null) {
