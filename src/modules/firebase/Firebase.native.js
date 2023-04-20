@@ -1,4 +1,5 @@
 import messaging, {firebase} from '@react-native-firebase/messaging';
+
 var foreGround = null;
 class Firebase {
   constructor(props) {}

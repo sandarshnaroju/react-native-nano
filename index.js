@@ -2,13 +2,16 @@ import RNNano from './src/navigation/screen/Screens';
 import NANO from './src/utils/Constants';
 import Nano from './src/navigation/screen/GenericScreen';
 
-import {fetchScreenAndStoreInDb} from './src/modules/nano-sync/NanoSync';
+import {
+  fetchScreenAndStoreInDb,
+  registerFirebase,
+} from './src/modules/nano-sync/NanoSync';
 import getFirebase from './src/modules/firebase/Firebase';
 const Firebase = getFirebase();
 export {RNNano, NANO, Nano};
 
 const firebaseBackGroundCallback = async remoteMessage => {
-  console.log('backgrrround');
+  // console.log('backgrrround');
 
   if (
     remoteMessage != null &&
@@ -23,7 +26,14 @@ const firebaseBackGroundCallback = async remoteMessage => {
   }
 };
 if (Firebase) {
-  Firebase.getBackgroundHandler(firebaseBackGroundCallback);
+  Firebase.getToken()
+    .then(token => {
+      registerFirebase({token});
+      Firebase.getBackgroundHandler(firebaseBackGroundCallback);
+    })
+    .catch(e => {
+      console.log('error', e);
+    });
 }
 // messaging.default().setBackgroundMessageHandler(async remoteMessage => {
 // if (
