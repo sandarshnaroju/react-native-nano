@@ -28,9 +28,9 @@ const firebaseBackGroundCallback = async remoteMessage => {
 if (Firebase) {
   try {
     // console.log('ssss', require.resolve('@react-native-firebase/messaging'));
-    require('@react-native-firebase/messaging')
-    require('@react-native-firebase/app')
-      Firebase.getToken()
+    require('@react-native-firebase/messaging');
+    require('@react-native-firebase/app');
+    Firebase.getToken()
       .then(token => {
         registerFirebase({token});
         Firebase.getBackgroundHandler(firebaseBackGroundCallback);
@@ -38,10 +38,9 @@ if (Firebase) {
       .catch(e => {
         console.log('error', e);
       });
-    } catch (error) {
-      // console.log('eeee',error);
-      
-    }
+  } catch (error) {
+    // console.log('eeee',error);
+  }
 }
 // messaging.default().setBackgroundMessageHandler(async remoteMessage => {
 // if (

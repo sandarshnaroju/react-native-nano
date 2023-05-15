@@ -1,4 +1,4 @@
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import React from 'react';
 import {
@@ -20,8 +20,15 @@ import {
   Card,
 } from 'react-native-paper';
 import NANO from '../utils/Constants';
-import {executeAFunction} from '../utils/Utilities';
-
+import {
+  executeAFunction,
+  heightAndWidthFormatter,
+  heightAndWidthFormatterForComponentObj,
+} from '../utils/Utilities';
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
+const SCREEN_WIDTH = Dimensions.get('screen').width;
 const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
   return function (...args) {
     const newArgs = {
@@ -67,9 +74,11 @@ function UniversalElement({
 
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
-      if (elemOb['hide'] == true) {
+      if (elemOb['hide'] != null && elemOb['hide'] === true) {
         return null;
       }
+      const heightWeightFormattedElemObj =
+        heightAndWidthFormatterForComponentObj(elemOb);
       let funProps = null;
       // console.log('PROSPPSPS', propParameters['uiElements']['v1'][1]);
       if (recyclerListViewFunctionProps) {
@@ -85,12 +94,21 @@ function UniversalElement({
             itemData: item,
             index: listViewIndex,
             setUi: onPressCallBack,
+            windowHeight: WINDOW_HEIGHT,
+            windowWidth: WINDOW_WIDTH,
+            screenHeight: SCREEN_HEIGHT,
+            screenWidth: SCREEN_WIDTH,
           },
           // onPressCallBack: onPressCallBack,
         });
       }
       // ! onPressCallback is a function that takes the complete JSON data and setstates it.
       // ! Use this funtion to modify UI.
+      // const dimensionallyFormattedProps = heightAndWidthFormatter(
+      //   elemOb['props'],
+      // );
+
+      // console.log('ddddd', dimensionallyFormattedProps);
 
       switch (elemOb['component']) {
         case NANO.BUTTON:
@@ -98,7 +116,7 @@ function UniversalElement({
 
           return (
             <Button
-              {...elemOb['props']}
+              // {...dimensionallyFormattedProps}
               // onPress={
               //   isOnPressAllowed
               //     ? () => {
@@ -116,15 +134,27 @@ function UniversalElement({
           );
 
         case NANO.TEXT:
+          // console.log(
+          //   'valuuee',
+          //   heightWeightFormattedElemObj['props']['style']['height'],
+
+          //   typeof heightWeightFormattedElemObj['props']['style']['height'],
+          // );
+
           return (
             <Text
               key={'text' + index}
-              {...elemOb['props']}
-              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
+              {...heightWeightFormattedElemObj['props']}
+              style={
+                heightWeightFormattedElemObj != null &&
+                heightWeightFormattedElemObj['props'] != null
+                  ? heightWeightFormattedElemObj['props']['style']
+                  : null
+              }
               onPress={
                 isOnPressAllowed
                   ? () => {
-                      onPress({itemJson: elemOb});
+                      onPress({itemJson: heightWeightFormattedElemObj});
                     }
                   : null
               }
@@ -137,15 +167,20 @@ function UniversalElement({
               onLongPress={isOnPressAllowed ? onLongPress : null}
               {...funProps}>
               {' '}
-              {elemOb['value']}{' '}
+              {heightWeightFormattedElemObj['value']}{' '}
             </Text>
           );
 
         case NANO.ACTIVITY_INDICATOR:
           return (
             <ActivityIndicator
-              {...elemOb['props']}
-              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
+              {...heightWeightFormattedElemObj['props']}
+              style={
+                heightWeightFormattedElemObj != null &&
+                heightWeightFormattedElemObj['props'] != null
+                  ? heightWeightFormattedElemObj['props']['style']
+                  : null
+              }
               animating={elemOb['value']}
               key={'activityindicator' + index}
               {...funProps}
@@ -170,33 +205,37 @@ function UniversalElement({
                     : null
                 }
                 {...funProps}>
-                <Image {...elemOb['props']} {...funProps} source={imgSource} />
+                <Image
+                  {...heightWeightFormattedElemObj['props']}
+                  {...funProps}
+                  source={imgSource}
+                />
               </TouchableOpacity>
             );
           } else {
             return null;
           }
 
-        case NANO.AVATAR_ICON:
-          // console.log('aaaaa', elemOb);
-          const styless =
-            elemOb != null &&
-            elemOb['props'] != null &&
-            elemOb['props']['style'] != null &&
-            typeof elemOb['props']['style'] === 'object'
-              ? elemOb['props']['style']
-              : {};
+        // case NANO.AVATAR_ICON:
+        //   // console.log('aaaaa', elemOb);
+        //   const styless =
+        //     elemOb != null &&
+        //     dimensionallyFormattedProps != null &&
+        //     dimensionallyFormattedProps['style'] != null &&
+        //     typeof dimensionallyFormattedProps['style'] === 'object'
+        //       ? dimensionallyFormattedProps['style']
+        //       : {};
 
-          return (
-            <Avatar.Icon
-              {...elemOb['props']}
-              // style={elemOb['props'] != null ? elemOb['props']['style'] : null}
-              icon={elemOb['value']}
-              key={'avataricon' + index}
-              style={[{fontFamily: 'FontAwesome'}, {...styless}]}
-              {...funProps}
-            />
-          );
+        //   return (
+        //     <Avatar.Icon
+        //       // {...dimensionallyFormattedProps}
+        //       // style={dimensionallyFormattedProps != null ? dimensionallyFormattedProps['style'] : null}
+        //       icon={elemOb['value']}
+        //       key={'avataricon' + index}
+        //       style={[{fontFamily: 'FontAwesome'}, {...styless}]}
+        //       {...funProps}
+        //     />
+        //   );
         case NANO.ICON_BUTTON:
           // console.log(
           //   'ssssss',
@@ -208,7 +247,7 @@ function UniversalElement({
 
           return (
             <IconButton
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               icon={elemOb['value']}
               key={'iconbutton' + index}
               onPress={
@@ -224,7 +263,7 @@ function UniversalElement({
         case NANO.AVATAR_IMAGE:
           return (
             <Avatar.Image
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               source={{uri: elemOb['value']}}
               key={'avatarimage' + index}
               {...funProps}
@@ -235,7 +274,7 @@ function UniversalElement({
           return (
             <Avatar.Text
               key={'avatar text' + index}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               label={elemOb['value']}
               {...funProps}
             />
@@ -245,7 +284,7 @@ function UniversalElement({
           return (
             <Badge
               key={'badge text' + index}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               {...funProps}>
               {elemOb['value']}
             </Badge>
@@ -257,7 +296,7 @@ function UniversalElement({
           return (
             <Checkbox
               key={'checkbox' + index}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               status={
                 elemOb['value'] != null
                   ? elemOb['value']
@@ -279,8 +318,13 @@ function UniversalElement({
         case NANO.CHIP:
           return (
             <Chip
-              {...elemOb['props']}
-              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
+              {...heightWeightFormattedElemObj['props']}
+              style={
+                heightWeightFormattedElemObj != null &&
+                heightWeightFormattedElemObj['props'] != null
+                  ? heightWeightFormattedElemObj['props']['style']
+                  : null
+              }
               onPress={
                 isOnPressAllowed
                   ? () => {
@@ -298,9 +342,15 @@ function UniversalElement({
           return (
             <FAB
               key={'fab' + index}
-              {...elemOb['props']}
-              icon={elemOb['value']}
-              style={elemOb['props'] != null ? elemOb['props']['style'] : null}
+              {...heightWeightFormattedElemObj['props']}
+              // icon={elemOb['value']}
+              icon={'plus'}
+              style={
+                heightWeightFormattedElemObj != null &&
+                heightWeightFormattedElemObj['props'] != null
+                  ? heightWeightFormattedElemObj['props']['style']
+                  : null
+              }
               onPress={
                 isOnPressAllowed
                   ? () => {
@@ -317,7 +367,7 @@ function UniversalElement({
             <ProgressBar
               key={'progress bar' + index}
               progress={elemOb['value']}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               {...funProps}
             />
           );
@@ -343,7 +393,7 @@ function UniversalElement({
         case NANO.SWITCH:
           return (
             <Switch
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               onPress={
                 isOnPressAllowed
                   ? () => {
@@ -361,7 +411,7 @@ function UniversalElement({
 
           return (
             <TextInput
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               onPress={
                 isOnPressAllowed
                   ? () => {
@@ -369,6 +419,8 @@ function UniversalElement({
                     }
                   : null
               }
+              // style={{}}
+              scrollEnabled={false}
               value={elemOb['value']}
               key={'textinput' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
@@ -377,7 +429,7 @@ function UniversalElement({
           );
         case NANO.BANNER:
           return (
-            <Banner {...elemOb['props']} {...funProps}>
+            <Banner {...heightWeightFormattedElemObj['props']} {...funProps}>
               {elemOb['value']}
             </Banner>
           );
@@ -386,7 +438,7 @@ function UniversalElement({
           return (
             <Divider
               key={'divider' + index}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               {...funProps}
             />
           );
@@ -396,7 +448,7 @@ function UniversalElement({
           return (
             <Card
               key={'CARD' + index}
-              {...elemOb['props']}
+              {...heightWeightFormattedElemObj['props']}
               onPress={
                 isOnPressAllowed
                   ? () => {
@@ -423,14 +475,17 @@ function UniversalElement({
                       }
                     : null
                 }
-                {...elemOb['props']}>
+                {...heightWeightFormattedElemObj['props']}>
                 {getViewItems(elemOb['content'], false)}
               </TouchableOpacity>
             );
           }
 
           return (
-            <View key={'view' + index} {...elemOb['props']} {...funProps}>
+            <View
+              key={'view' + index}
+              {...heightWeightFormattedElemObj['props']}
+              {...funProps}>
               {getViewItems(elemOb['content'], true)}
             </View>
           );
@@ -459,12 +514,12 @@ function UniversalElement({
       //   onPressCallBack,
       // });
 
-      const item = getElementAsPerComponent(
+      const oitem = getElementAsPerComponent(
         elemet,
         index + uniqueKey,
         onPressAllowed,
       );
-      elements.push(item);
+      elements.push(oitem);
     });
     return elements;
   };

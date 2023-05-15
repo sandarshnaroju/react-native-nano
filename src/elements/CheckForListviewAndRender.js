@@ -4,7 +4,10 @@ import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
 // import DrawerNavigation from '../navigation/drawer/Drawer';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
 import NANO from '../utils/Constants';
-import {checkNameAndRenderCustomComponent} from '../utils/Utilities';
+import {
+  checkNameAndRenderCustomComponent,
+  heightAndWidthFormatterForComponentObj,
+} from '../utils/Utilities';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
@@ -34,9 +37,11 @@ function CheckForListviewAndRender({
       if (elemOb['hide'] != null && elemOb['hide'] == true) {
         return null;
       }
+      const heightWeightFormattedElemObj =
+        heightAndWidthFormatterForComponentObj(elemOb);
       return (
         <RecycleTestComponent
-          {...elemOb}
+          {...heightWeightFormattedElemObj}
           navigation={navigation}
           onPress={onPress}
           route={route}

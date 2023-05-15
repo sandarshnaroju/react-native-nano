@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.63",
+  "version": "1.0.64",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,6 @@
     "@notifee/react-native": "^7.4.0",
     "react-native-pager-view": "^6.1.4",
     "react-native-permissions": "^3.6.1",
-   
     "react-native-device-info": "^10.6.0"
   },
   "peerDependencies": {

@@ -7,7 +7,7 @@ import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
 const BASE_URL = 'https://nanoapp.dev/';
-// const BASE_URL = 'http://192.168.0.6:8400/';
+// const BASE_URL = 'http://192.168.0.5:8400/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
 
 const FIREBASE_REGISTER = BASE_URL + 'clients/app/register_device/';
@@ -177,7 +177,7 @@ export const fetchScreenAndStoreInDb = async ({screenUrl, code_hash = ''}) => {
         }
       })
       .catch(err => {
-        console.log('errowwr', err);
+        console.log('errowwr fetch screen and store in db', err);
         return null;
       });
   } catch (error) {
@@ -224,6 +224,8 @@ export const fetchScreenFromDb = async ({screenUrl}) => {
 
 export const fetchAllScreens = async () => {
   const auth = await checkValidityAndGetAuth();
+  // console.log('authht', auth);
+
   if (auth == null) {
     return null;
   }
@@ -240,14 +242,18 @@ export const fetchAllScreens = async () => {
     headers: headers,
   })
     .then(async json => {
+      // console.log('JSSON', json);
       if (json != null && json.status == 200) {
         const isVerified = await isDataVerified({
           message: json.data.data.config,
           signature: json.data.data.signature,
         });
+        // console.log('isVerified', isVerified);
+
         if (isVerified) {
           const decoded = Base64.atob(json.data.data.config);
           const parsed = JSON.parse(decoded);
+          // console.log('parsed', parsed);
           return parsed;
         } else {
           return null;
@@ -259,7 +265,7 @@ export const fetchAllScreens = async () => {
       }
     })
     .catch(err => {
-      // console.log('fetch all screens error', err);
+      console.log('fetch all screens  error', err);
       return null;
     });
 };

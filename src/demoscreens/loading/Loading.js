@@ -1,6 +1,6 @@
 import NANO from '../../utils/Constants';
 
-const activityIndicator = {
+let activityIndicator = {
   component: NANO.ACTIVITY_INDICATOR,
   value: 'Loading...',
 
@@ -8,17 +8,13 @@ const activityIndicator = {
     style: {
       fontSize: 20,
 
-      alignSelf: 'center',
-      justifyContent: 'center',
       marginTop: 20,
       marginHorizontal: 20,
-      textAlign: 'center',
     },
   },
-  onClick: 'textpress',
 };
 
-const LoadingScreen = {
+let LoadingScreen = {
   name: 'Welcome',
   screen: {
     v1: [activityIndicator],
