@@ -7,7 +7,7 @@ import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
 const BASE_URL = 'https://nanoapp.dev/';
-// const BASE_URL = 'http://192.168.0.5:8400/';
+// const BASE_URL = 'http://192.168.43.94:8400/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
 
 const FIREBASE_REGISTER = BASE_URL + 'clients/app/register_device/';
@@ -235,7 +235,9 @@ export const fetchAllScreens = async () => {
     Authorization: 'Bearer ' + auth,
   };
   // console.log('all screens url', FETCH_ALL_SCREENS, auth);
-
+  //   fontSize: (({ screenHeight }) => {
+  //     return 10 + screenHeight/100;
+  // }),
   return axios({
     method: 'POST'.toLowerCase(),
     url: FETCH_ALL_SCREENS,

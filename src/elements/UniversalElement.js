@@ -38,20 +38,25 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
     executeAFunction(originalFn, newArgs);
   };
 };
+
 const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
   const funArray = {};
-  Object.keys(eleObject)
-    .filter(propKey => propKey.indexOf('on') === 0)
-    .forEach(propKey => {
-      funArray[propKey] = withExtraParams(
-        eleObject[propKey],
-        props,
-        // onPressCallBack,
-      );
-    });
+
+  const functionWithOnKeys = Object.keys(eleObject).filter(
+    propKey => propKey.indexOf('on') === 0,
+  );
+
+  functionWithOnKeys.forEach(propKey => {
+    funArray[propKey] = withExtraParams(
+      eleObject[propKey],
+      props,
+      // onPressCallBack,
+    );
+  });
 
   return funArray;
 };
+
 function UniversalElement({
   elemObj,
   onPress,
@@ -69,8 +74,9 @@ function UniversalElement({
   listData,
   item,
   listViewIndex,
+  getElement,
 }) {
-  // console.log('starttt', onPressCallBack);
+  // console.log('universal ellemetn', getElement);
 
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
@@ -94,6 +100,7 @@ function UniversalElement({
             itemData: item,
             index: listViewIndex,
             setUi: onPressCallBack,
+            getElement: getElement,
             windowHeight: WINDOW_HEIGHT,
             windowWidth: WINDOW_WIDTH,
             screenHeight: SCREEN_HEIGHT,
@@ -151,13 +158,18 @@ function UniversalElement({
                   ? heightWeightFormattedElemObj['props']['style']
                   : null
               }
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: heightWeightFormattedElemObj});
-                    }
-                  : null
-              }
+              // style={{
+              //   fontSize: eval(strigifiedIIF),
+              // }}
+              // onPress={
+              //   isOnPressAllowed
+              //     ? () => {
+              //         console.log('hee');
+
+              //         onPress({itemJson: heightWeightFormattedElemObj});
+              //       }
+              //     : null
+              // }
               // style={{
               //   textDecorationLine: 'line-through',
               //   borderWidth: 1,

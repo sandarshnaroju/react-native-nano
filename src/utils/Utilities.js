@@ -6,7 +6,14 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
+const functionDimensionsProps = {
+  windowHeight: WINDOW_HEIGHT,
+  windowWidth: WINDOW_WIDTH,
+  screenHeight: SCREEN_HEIGHT,
+  screenWidth: SCREEN_WIDTH,
+};
 
+export const nameShortcutObject = {};
 const mergeObjects = (firstObj, secondObj) => {
   for (var p in secondObj) {
     if (typeof firstObj[p] == 'object') {
@@ -17,7 +24,22 @@ const mergeObjects = (firstObj, secondObj) => {
   }
   return firstObj;
 };
+export const modifyNestedValue = (obj, keys, newValue) => {
+  let currentObj = obj;
 
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+    if (currentObj.hasOwnProperty(key)) {
+      currentObj = currentObj[key];
+    } else {
+      // Key doesn't exist in the object
+      return;
+    }
+  }
+
+  const lastKey = keys[keys.length - 1];
+  currentObj[lastKey] = newValue;
+};
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
   mapperRes,
@@ -107,8 +129,10 @@ export const checkNameAndRenderCustomComponent = ({
 };
 
 export const executeAFunction = (func, props) => {
+  // console.log('executeAFunction', func);
   const isItFunction = isFunction(func);
   if (typeof mapper !== 'string' && isItFunction) {
+    // console.log('runnning function it is function');
     return func(props);
   } else {
     if (func != null && typeof func === 'string') {
@@ -252,6 +276,74 @@ function replaceStringsWithNumbers(obj) {
     }
   }
 }
+const functionKeysArray = [
+  'fontSize',
+  'height',
+  'width',
+  'zIndex',
+  'lineHeight',
+  'textShadowRadius',
+  'elevation',
+  'borderTopEndRadius',
+  'borderTopLeftRadius',
+  'borderTopRightRadius',
+  'borderTopStartRadius',
+  'borderTopWidth',
+  'borderRightWidth',
+  'borderRadius',
+  'borderWidth',
+  'borderBottomEndRadius',
+  'borderBottomLeftRadius',
+  'borderBottomRightRadius',
+  'borderBottomStartRadius',
+  'borderBottomWidth',
+  'letterSpacing',
+  'right',
+  'start',
+  'top',
+  'padding',
+  'paddingBottom',
+  'paddingEnd',
+  'paddingHorizontal',
+  'paddingLeft',
+  'paddingRight',
+  'paddingStart',
+  'paddingTop',
+  'paddingVertical',
+  'left',
+  'margin',
+  'marginBottom',
+  'marginEnd',
+  'marginHorizontal',
+  'marginLeft',
+  'marginRight',
+  'marginStart',
+  'marginTop',
+  'marginVertical',
+  'maxHeight',
+  'maxWidth',
+  'minHeight',
+  'minWidth',
+  'itemHeight',
+  'itemWidth',
+];
+function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
+  if (typeof obj === 'object') {
+    for (var key in obj) {
+      if (obj[key] != null) {
+        if (typeof obj[key] === 'string' && functionKeysArray.includes(key)) {
+          obj[key] = executeAFunction(obj[key], functionDimensionsProps);
+          // console.log('keyyy', key, obj[key], obj);
+          // if (obj[key].includes('((') === 0) {
+          //   obj[key] = eval(obj[key]);
+          // }
+        } else if (typeof obj[key] === 'object') {
+          findAndSendPropsToImmediatlyInvokedFunctions(obj[key]); // Recursively handle nested objects
+        }
+      }
+    }
+  }
+}
 export const heightAndWidthFormatterForComponentObj = compObj => {
   // var dynamicValues = {
   //   'window.height': 200.0,
@@ -266,8 +358,8 @@ export const heightAndWidthFormatterForComponentObj = compObj => {
   //   'screen.width',
   // ];
   // var regex = new RegExp(stringsArray.join('|'), 'g');
-
-  replaceStringsWithNumbers(compObj);
+  findAndSendPropsToImmediatlyInvokedFunctions(compObj);
+  // replaceStringsWithNumbers(compObj);
   // if (compObj != null) {
   //   console.log('helllo', compObj['itemHeight'], compObj['component']);
   // }

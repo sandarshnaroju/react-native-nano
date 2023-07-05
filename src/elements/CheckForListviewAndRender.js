@@ -24,6 +24,7 @@ function CheckForListviewAndRender({
   funProps,
   onPressCallBack,
   logicObject,
+  getElement,
 }) {
   switch (elemOb['component']) {
     case NANO.LIST_VIEW:
@@ -49,6 +50,7 @@ function CheckForListviewAndRender({
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
           funProps={funProps}
+          getElement={getElement}
           logicObject={logicObject}
         />
       );
@@ -119,6 +121,7 @@ function CheckForListviewAndRender({
       if (Custom) {
         return Custom;
       }
+      // console.log('check List and render', getElement);
 
       return (
         <UniversalElement
@@ -132,6 +135,7 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
+          getElement={getElement}
         />
       );
   }

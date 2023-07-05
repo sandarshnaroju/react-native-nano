@@ -5,6 +5,7 @@ import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
 import {
   executeAFunction,
+  nameShortcutObject,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
@@ -124,6 +125,7 @@ export default class RecycleTestComponent extends React.Component {
           content: modifiedContent,
           onClick: this.props.itemView['onClick'],
         };
+        // console.log('inside listrecyceler', elemOb);
 
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
@@ -140,6 +142,7 @@ export default class RecycleTestComponent extends React.Component {
         });
 
         // console.log('data', this.props.listData.length);
+        // console.log('shortcur', nameShortcutObject);
 
         return (
           <UniversalElement
@@ -186,6 +189,13 @@ export default class RecycleTestComponent extends React.Component {
       },
       onPressCallBack: this.props.onPressCallBack,
     });
+
+    // if (this.props != null && this.props['name'] != null) {
+    //   // console.log('inside');
+
+    //   nameShortcutObject[this.props['name']] = [];
+    // }
+
     return (
       <View
         style={[

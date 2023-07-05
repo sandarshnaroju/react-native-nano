@@ -2,6 +2,7 @@ import {View} from 'react-native';
 import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 import {isFunction} from '../utils/Utilities';
 import React from 'react';
+
 const onElementPress = (
   eleObject,
   index,
@@ -11,29 +12,31 @@ const onElementPress = (
   propParameters,
   itemJson,
   onPressCallBack,
+  getElement,
 ) => {
   if (logicObject == null) {
-    if (eleObject != null && eleObject['onClick'] != null) {
-      const isItFunction = isFunction(eleObject['onClick']);
-      if (typeof eleObject['onClick'] !== 'string' && isItFunction) {
-        return eleObject['onClick']({
+    if (eleObject != null && eleObject['onPress'] != null) {
+      const isItFunction = isFunction(eleObject['onPress']);
+      if (typeof eleObject['onPress'] !== 'string' && isItFunction) {
+        return eleObject['onPress']({
           index,
           itemData,
           listData,
           itemJson,
           setUi: onPressCallBack,
+          getElement,
 
           ...propParameters,
         });
       } else {
         if (
           eleObject != null &&
-          eleObject['onClick'] != null &&
-          typeof eleObject['onClick'] === 'string'
+          eleObject['onPress'] != null &&
+          typeof eleObject['onPress'] === 'string'
         ) {
           // console.log('runnning function');
 
-          let copy = new Function('return ' + eleObject['onClick'])();
+          let copy = new Function('return ' + eleObject['onPress'])();
 
           return copy({
             index,
@@ -41,6 +44,7 @@ const onElementPress = (
             listData,
             itemJson,
             setUi: onPressCallBack,
+            getElement,
 
             ...propParameters,
           });
@@ -48,25 +52,25 @@ const onElementPress = (
       }
     }
   } else {
-    if (eleObject != null && eleObject['onClick'] != null) {
-      const isItFunction = isFunction(eleObject['onClick']);
+    if (eleObject != null && eleObject['onPress'] != null) {
+      const isItFunction = isFunction(eleObject['onPress']);
 
       if (isItFunction) {
-        return eleObject['onClick']({
+        return eleObject['onPress']({
           index,
           itemData,
           listData,
           itemJson,
           setUi: onPressCallBack,
-
+          getElement,
           ...propParameters,
         });
       } else {
-        if (typeof eleObject['onClick'] === 'string') {
-          if (logicObject[eleObject['onClick']] != null) {
-            if (typeof logicObject[eleObject['onClick']] === 'string') {
+        if (typeof eleObject['onPress'] === 'string') {
+          if (logicObject[eleObject['onPress']] != null) {
+            if (typeof logicObject[eleObject['onPress']] === 'string') {
               let copy = new Function(
-                'return ' + logicObject[eleObject['onClick']],
+                'return ' + logicObject[eleObject['onPress']],
               )();
 
               return copy({
@@ -75,23 +79,23 @@ const onElementPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-
+                getElement,
                 ...propParameters,
               });
             }
-            if (typeof logicObject[eleObject['onClick']] === 'function') {
-              return logicObject[eleObject['onClick']]({
+            if (typeof logicObject[eleObject['onPress']] === 'function') {
+              return logicObject[eleObject['onPress']]({
                 index,
                 itemData,
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-
+                getElement,
                 ...propParameters,
               });
             }
           } else {
-            let copy = new Function('return ' + eleObject['onClick'])();
+            let copy = new Function('return ' + eleObject['onPress'])();
 
             return copy({
               index,
@@ -99,7 +103,7 @@ const onElementPress = (
               listData,
               itemJson,
               setUi: onPressCallBack,
-
+              getElement,
               ...propParameters,
             });
           }
@@ -117,6 +121,7 @@ const onElementLongPress = (
   propParameters,
   itemJson,
   onPressCallBack,
+  getElement,
 ) => {
   if (logicObject == null) {
     if (eleObject != null && eleObject['onLongClick'] != null) {
@@ -128,7 +133,7 @@ const onElementLongPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-
+          getElement,
           ...propParameters,
         });
       } else {
@@ -145,7 +150,7 @@ const onElementLongPress = (
             listData,
             itemJson,
             setUi: onPressCallBack,
-
+            getElement,
             ...propParameters,
           });
         }
@@ -162,7 +167,7 @@ const onElementLongPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-
+          getElement,
           ...propParameters,
         });
       } else {
@@ -179,7 +184,7 @@ const onElementLongPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-
+                getElement,
                 ...propParameters,
               });
             }
@@ -190,7 +195,7 @@ const onElementLongPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-
+                getElement,
                 ...propParameters,
               });
             }
@@ -203,7 +208,7 @@ const onElementLongPress = (
               listData,
               itemJson,
               setUi: onPressCallBack,
-
+              getElement,
               ...propParameters,
             });
           }
@@ -223,11 +228,8 @@ const GetRowElements = ({
   propParameters,
   route,
   customComponents,
+  getElement,
 }) => {
-  const onCalll = e => {
-    // console.log('Render modifiedElements', e['v1'][0]['listData'].length);
-    onPressCallBack(e);
-  };
   const rowelements = [];
   if (
     rowElementsArray != null &&
@@ -235,6 +237,14 @@ const GetRowElements = ({
     rowElementsArray.length > 0
   ) {
     rowElementsArray.forEach((eleObject, index) => {
+      // console.log('nammme', eleObject['name']);
+
+      // if (eleObject != null && eleObject['name'] != null) {
+      //   // console.log('inside');
+
+      //   nameShortcutObject[eleObject['name']] = [rowKey, index];
+      // }
+
       rowelements.push(
         <CheckForListviewAndRender
           key={index}
@@ -245,7 +255,8 @@ const GetRowElements = ({
           customComponents={customComponents}
           // funProps={funProps}
           logicObject={logicObject}
-          onPressCallBack={onCalll}
+          onPressCallBack={onPressCallBack}
+          getElement={getElement}
           onPress={({index, itemData, listData, itemJson}) => {
             onElementPress(
               eleObject,
@@ -256,6 +267,7 @@ const GetRowElements = ({
               propParameters,
               itemJson,
               onPressCallBack,
+              getElement,
             );
           }}
           onLongPress={(index, itemData, listData, itemJson) => {
@@ -268,12 +280,15 @@ const GetRowElements = ({
               propParameters,
               itemJson,
               onPressCallBack,
+              getElement,
             );
           }}
         />,
       );
     });
   }
+  // console.log('rowshortcut ', nameShortcutObject);
+
   return rowelements;
 };
 const RenderColoumViews = ({
@@ -285,6 +300,7 @@ const RenderColoumViews = ({
   onLongPressCallBack,
   route,
   customComponents,
+  getElement,
 }) => {
   // console.log('RenderColoumViews', customCompRef.current);
 
@@ -308,6 +324,7 @@ const RenderColoumViews = ({
               onLongPressCallBack={onLongPressCallBack}
               customComponents={customComponents}
               route={route}
+              getElement={getElement}
             />
           </View>,
         );
@@ -324,6 +341,7 @@ const RenderColoumViews = ({
             onLongPressCallBack={onLongPressCallBack}
             customComponents={customComponents}
             route={route}
+            getElement={getElement}
           />,
         );
       }

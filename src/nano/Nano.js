@@ -4,8 +4,14 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import {executeAFunction, isFunction} from '../utils/Utilities';
+import {executeAFunction, modifyNestedValue} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
+import {
+  getElementObjectByKey,
+  getNameSHortcutObject,
+  traverseThroughInputJsonAndCreateNameSHortcut,
+} from '../utils/UiKeysMapper';
+import {useLayoutEffect} from 'react';
 
 const Nano = ({
   screen,
@@ -20,8 +26,10 @@ const Nano = ({
   moduleParameters,
   customComponents,
 }) => {
-  let database;
-  const [uiElements, setUiElements] = useState(screen);
+  let createShortCutTimeout = null;
+  const uiElementsRef = useRef(screen);
+  const [uiElements, setUiElements] = useState(uiElementsRef.current);
+
   const customeCompsRef = useRef(customComponents);
 
   const clonedElementsRef = cloneDeep(uiElements);
@@ -36,7 +44,8 @@ const Nano = ({
   };
 
   useEffect(() => {
-    setUiElements(screen);
+    uiElementsRef.current = screen;
+    setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
     if (onStart != null) {
@@ -64,22 +73,51 @@ const Nano = ({
     };
   }, [screenName, route]);
 
-  const onPressCallBack = modifiedElements => {
-    if (modifiedElements) {
-      const cloned = cloneDeep(modifiedElements);
+  const onPressCallBack = (key = null, keyObject = null, commit = true) => {
+    // if (modifiedElements) {
+    //   const cloned = cloneDeep(modifiedElements);
+    //   uiElementsRef.current = cloned;
+    //   setUiElements(uiElementsRef.current);
+    // }
+    if (key != null) {
+      const objNameShortcuts = getNameSHortcutObject();
+      const pathArray = objNameShortcuts[key];
+      if (pathArray && pathArray.length > 0) {
+        const cloned = cloneDeep(uiElements);
 
-      setUiElements(cloned);
+        modifyNestedValue(cloned, pathArray, keyObject);
+        console.log('commit', commit);
+
+        if (commit) {
+          uiElementsRef.current = cloned;
+          setUiElements(uiElementsRef.current);
+        }
+      }
     }
   };
+
   const onLongPressCallBack = modifiedElements => {
     if (modifiedElements) {
       const cloned = cloneDeep(modifiedElements);
-
-      setUiElements(cloned);
+      uiElementsRef.current = cloned;
+      setUiElements(uiElementsRef.current);
     }
   };
-  // console.log('NANO', customeCompsRef.current);
 
+  useEffect(() => {
+    createShortCutTimeout = setTimeout(() => {
+      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+    }, 1);
+    return () => {
+      if (createShortCutTimeout) {
+        clearTimeout(createShortCutTimeout);
+      }
+    };
+  }, []);
+
+  const getElement = nameKey => {
+    return getElementObjectByKey(uiElements, nameKey);
+  };
   if (scroll) {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={style}>
@@ -92,6 +130,7 @@ const Nano = ({
             onPressCallBack={onPressCallBack}
             customComponents={customeCompsRef.current}
             onLongPressCallBack={onLongPressCallBack}
+            getElement={getElement}
           />
         )}
       </ScrollView>
@@ -109,6 +148,7 @@ const Nano = ({
           onPressCallBack={onPressCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
+          getElement={getElement}
         />
       )}
     </View>
