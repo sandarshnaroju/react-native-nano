@@ -86,7 +86,6 @@ const Nano = ({
         const cloned = cloneDeep(uiElements);
 
         modifyNestedValue(cloned, pathArray, keyObject);
-        console.log('commit', commit);
 
         if (commit) {
           uiElementsRef.current = cloned;
@@ -115,7 +114,7 @@ const Nano = ({
     };
   }, []);
 
-  const getElement = nameKey => {
+  const getUi = nameKey => {
     return getElementObjectByKey(uiElements, nameKey);
   };
   if (scroll) {
@@ -130,7 +129,7 @@ const Nano = ({
             onPressCallBack={onPressCallBack}
             customComponents={customeCompsRef.current}
             onLongPressCallBack={onLongPressCallBack}
-            getElement={getElement}
+            getUi={getUi}
           />
         )}
       </ScrollView>
@@ -148,7 +147,7 @@ const Nano = ({
           onPressCallBack={onPressCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
-          getElement={getElement}
+          getUi={getUi}
         />
       )}
     </View>

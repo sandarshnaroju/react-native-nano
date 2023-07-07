@@ -74,9 +74,9 @@ function UniversalElement({
   listData,
   item,
   listViewIndex,
-  getElement,
+  getUi,
 }) {
-  // console.log('universal ellemetn', getElement);
+  // console.log('universal ellemetn', getUi);
 
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
@@ -100,7 +100,7 @@ function UniversalElement({
             itemData: item,
             index: listViewIndex,
             setUi: onPressCallBack,
-            getElement: getElement,
+            getUi: getUi,
             windowHeight: WINDOW_HEIGHT,
             windowWidth: WINDOW_WIDTH,
             screenHeight: SCREEN_HEIGHT,

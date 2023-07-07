@@ -12,7 +12,7 @@ const onElementPress = (
   propParameters,
   itemJson,
   onPressCallBack,
-  getElement,
+  getUi,
 ) => {
   if (logicObject == null) {
     if (eleObject != null && eleObject['onPress'] != null) {
@@ -24,7 +24,7 @@ const onElementPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-          getElement,
+          getUi,
 
           ...propParameters,
         });
@@ -44,7 +44,7 @@ const onElementPress = (
             listData,
             itemJson,
             setUi: onPressCallBack,
-            getElement,
+            getUi,
 
             ...propParameters,
           });
@@ -62,7 +62,7 @@ const onElementPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-          getElement,
+          getUi,
           ...propParameters,
         });
       } else {
@@ -79,7 +79,7 @@ const onElementPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-                getElement,
+                getUi,
                 ...propParameters,
               });
             }
@@ -90,7 +90,7 @@ const onElementPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-                getElement,
+                getUi,
                 ...propParameters,
               });
             }
@@ -103,7 +103,7 @@ const onElementPress = (
               listData,
               itemJson,
               setUi: onPressCallBack,
-              getElement,
+              getUi,
               ...propParameters,
             });
           }
@@ -121,7 +121,7 @@ const onElementLongPress = (
   propParameters,
   itemJson,
   onPressCallBack,
-  getElement,
+  getUi,
 ) => {
   if (logicObject == null) {
     if (eleObject != null && eleObject['onLongClick'] != null) {
@@ -133,7 +133,7 @@ const onElementLongPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-          getElement,
+          getUi,
           ...propParameters,
         });
       } else {
@@ -150,7 +150,7 @@ const onElementLongPress = (
             listData,
             itemJson,
             setUi: onPressCallBack,
-            getElement,
+            getUi,
             ...propParameters,
           });
         }
@@ -167,7 +167,7 @@ const onElementLongPress = (
           listData,
           itemJson,
           setUi: onPressCallBack,
-          getElement,
+          getUi,
           ...propParameters,
         });
       } else {
@@ -184,7 +184,7 @@ const onElementLongPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-                getElement,
+                getUi,
                 ...propParameters,
               });
             }
@@ -195,7 +195,7 @@ const onElementLongPress = (
                 listData,
                 itemJson,
                 setUi: onPressCallBack,
-                getElement,
+                getUi,
                 ...propParameters,
               });
             }
@@ -208,7 +208,7 @@ const onElementLongPress = (
               listData,
               itemJson,
               setUi: onPressCallBack,
-              getElement,
+              getUi,
               ...propParameters,
             });
           }
@@ -228,7 +228,7 @@ const GetRowElements = ({
   propParameters,
   route,
   customComponents,
-  getElement,
+  getUi,
 }) => {
   const rowelements = [];
   if (
@@ -256,7 +256,7 @@ const GetRowElements = ({
           // funProps={funProps}
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
-          getElement={getElement}
+          getUi={getUi}
           onPress={({index, itemData, listData, itemJson}) => {
             onElementPress(
               eleObject,
@@ -267,7 +267,7 @@ const GetRowElements = ({
               propParameters,
               itemJson,
               onPressCallBack,
-              getElement,
+              getUi,
             );
           }}
           onLongPress={(index, itemData, listData, itemJson) => {
@@ -280,7 +280,7 @@ const GetRowElements = ({
               propParameters,
               itemJson,
               onPressCallBack,
-              getElement,
+              getUi,
             );
           }}
         />,
@@ -300,7 +300,7 @@ const RenderColoumViews = ({
   onLongPressCallBack,
   route,
   customComponents,
-  getElement,
+  getUi,
 }) => {
   // console.log('RenderColoumViews', customCompRef.current);
 
@@ -324,7 +324,7 @@ const RenderColoumViews = ({
               onLongPressCallBack={onLongPressCallBack}
               customComponents={customComponents}
               route={route}
-              getElement={getElement}
+              getUi={getUi}
             />
           </View>,
         );
@@ -341,7 +341,7 @@ const RenderColoumViews = ({
             onLongPressCallBack={onLongPressCallBack}
             customComponents={customComponents}
             route={route}
-            getElement={getElement}
+            getUi={getUi}
           />,
         );
       }
