@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
 import isFunction from 'lodash/isFunction';
@@ -7,6 +7,11 @@ import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
 import getModuleParams from '../modules';
 import RenderColoumViews from './RenderColumnAndRows';
+import {
+  getElementObjectByKey,
+  getNameSHortcutObject,
+} from '../utils/UiKeysMapper';
+import {modifyNestedValue} from '../utils/Utilities';
 export const TopTabNano = ({
   screen,
   style,
@@ -20,20 +25,25 @@ export const TopTabNano = ({
   databaseConfigObject,
   customComponents,
 }) => {
-  const [uiElements, setUiElements] = useState(screen);
+  const uiElementsRef = useRef(screen);
+  const [uiElements, setUiElements] = useState(uiElementsRef.current);
 
   const clonedElements = cloneDeep(uiElements);
   const moduleParameters = getModuleParams({databaseConfigObject});
+  const getUi = nameKey => {
+    return getElementObjectByKey(uiElements, nameKey);
+  };
   const propParameters = {
     navigation,
     uiElements: clonedElements,
-
+    getUi: getUi,
     route,
     ...moduleParameters,
   };
 
   useEffect(() => {
-    setUiElements(screen);
+    uiElementsRef.current = screen;
+    setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
     if (onStart != null) {
@@ -61,11 +71,28 @@ export const TopTabNano = ({
     };
   }, [screenName]);
 
-  const onPressCallBack = modifiedElements => {
-    if (modifiedElements) {
-      setUiElements(modifiedElements);
+  const onPressCallBack = (key = null, keyObject = null, commit = true) => {
+    // if (modifiedElements) {
+    //   const cloned = cloneDeep(modifiedElements);
+    //   uiElementsRef.current = cloned;
+    //   setUiElements(uiElementsRef.current);
+    // }
+    if (key != null) {
+      const objNameShortcuts = getNameSHortcutObject();
+      const pathArray = objNameShortcuts[key];
+      if (pathArray && pathArray.length > 0) {
+        const cloned = cloneDeep(uiElements);
+
+        modifyNestedValue(cloned, pathArray, keyObject);
+
+        if (commit) {
+          uiElementsRef.current = cloned;
+          setUiElements(uiElementsRef.current);
+        }
+      }
     }
   };
+
   if (scroll) {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={style}>

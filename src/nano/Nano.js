@@ -26,7 +26,6 @@ const Nano = ({
   moduleParameters,
   customComponents,
 }) => {
-  let createShortCutTimeout = null;
   const uiElementsRef = useRef(screen);
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
 
@@ -34,10 +33,16 @@ const Nano = ({
 
   const clonedElementsRef = cloneDeep(uiElements);
   // console.log('nanoo', clonedElementsRef['v1']);
+  const getUi = nameKey => {
+    // console.log('uiellele', uiElementsRef.current);
+
+    return getElementObjectByKey(uiElementsRef.current, nameKey);
+  };
 
   const propParameters = {
     navigation,
     uiElements: clonedElementsRef,
+    getUi: getUi,
 
     route,
     ...moduleParameters,
@@ -48,28 +53,36 @@ const Nano = ({
     setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
-    if (onStart != null) {
-      if (logicObject != null && logicObject[onStart] != null) {
-        logicObject[onStart]({...propParameters, setUi: onPressCallBack});
-      } else {
-        executeAFunction(onStart, {
-          ...propParameters,
-          setUi: onPressCallBack,
-        });
-      }
-    }
+    let createShortCutTimeout = setTimeout(() => {
+      // console.log('callled traverse function', uiElementsRef.current);
 
-    return () => {
-      if (onEnd != null) {
-        if (logicObject != null && logicObject[onEnd] != null) {
-          logicObject[onEnd]({...propParameters, setUi: onPressCallBack});
+      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+      if (onStart != null) {
+        // console.log('onStart', clonedElementsRef, uiElementsRef.current);
+        if (logicObject != null && logicObject[onStart] != null) {
+          logicObject[onStart]({...propParameters, setUi: onPressCallBack});
         } else {
-          executeAFunction(onEnd, {
+          executeAFunction(onStart, {
             ...propParameters,
             setUi: onPressCallBack,
           });
         }
       }
+    }, 1);
+    return () => {
+      if (createShortCutTimeout) {
+        clearTimeout(createShortCutTimeout);
+      }
+      // if (onEnd != null) {
+      //   if (logicObject != null && logicObject[onEnd] != null) {
+      //     logicObject[onEnd]({...propParameters, setUi: onPressCallBack});
+      //   } else {
+      //     executeAFunction(onEnd, {
+      //       ...propParameters,
+      //       setUi: onPressCallBack,
+      //     });
+      //   }
+      // }
     };
   }, [screenName, route]);
 
@@ -83,7 +96,7 @@ const Nano = ({
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
       if (pathArray && pathArray.length > 0) {
-        const cloned = cloneDeep(uiElements);
+        const cloned = cloneDeep(uiElementsRef.current);
 
         modifyNestedValue(cloned, pathArray, keyObject);
 
@@ -103,20 +116,8 @@ const Nano = ({
     }
   };
 
-  useEffect(() => {
-    createShortCutTimeout = setTimeout(() => {
-      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
-    }, 1);
-    return () => {
-      if (createShortCutTimeout) {
-        clearTimeout(createShortCutTimeout);
-      }
-    };
-  }, []);
+  // console.log('traversingg', uiElementsRef.current);
 
-  const getUi = nameKey => {
-    return getElementObjectByKey(uiElements, nameKey);
-  };
   if (scroll) {
     return (
       <ScrollView showsVerticalScrollIndicator={false} style={style}>

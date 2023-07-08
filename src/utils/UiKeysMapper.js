@@ -7,12 +7,17 @@ export const getNameSHortcutObject = () => {
 export const getElementObjectByKey = (uiElements, nameKey) => {
   if (nameShortcutObject != null && nameShortcutObject !== {}) {
     const pathsArray = nameShortcutObject[nameKey];
-    let temp = uiElements;
+    // console.log('nameshortcut object', pathsArray, uiElements);
 
-    for (let index = 0; index < pathsArray.length - 1; index++) {
-      temp = temp[pathsArray[index]];
+    let temp = uiElements;
+    if (pathsArray != null && pathsArray.length > 0) {
+      for (let index = 0; index < pathsArray.length - 1; index++) {
+        temp = temp[pathsArray[index]];
+      }
+      return temp;
     }
-    return temp;
+
+    // return null;
   }
 };
 
