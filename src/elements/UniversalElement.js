@@ -1,28 +1,28 @@
-import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import {Text} from 'react-native-paper';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Avatar,
-  Badge,
-  Banner,
-  Button,
-  Checkbox,
-  Chip,
-  Divider,
-  FAB,
-  ProgressBar,
-  RadioButton,
-  Switch,
-  Text,
-  TextInput,
-  IconButton,
-  Card,
-} from 'react-native-paper';
+import NanoActivityIndicator from '../components/ActivityIndicator';
+import NanoAvatarImage from '../components/AvatarImage';
+import NanoAvatarText from '../components/AvatarText/AvatarText';
+import Badge from '../components/Badge/Badge';
+import NanoBanner from '../components/Banner/Banner';
+import NanoButton from '../components/Button/Button';
+import NanoCard from '../components/Card/Card';
+import NanoCheckBox from '../components/CheckBox/CheckBox';
+import NanoChip from '../components/Chip/Chip';
+import NanoDivider from '../components/Divider/Divider';
+import NanoFab from '../components/Fab/Fab';
+import NanoIconButton from '../components/IconButton/IconButton';
+import NanoImage from '../components/Image/Image';
+import NanoProgressbar from '../components/Progressbar/Progressbar';
+import NanoRadioButton from '../components/RadioButton/RadioButton';
+import NanoSwitch from '../components/Switch/Switch';
+import NanoText from '../components/Text/Text';
+import NanoTextInput from '../components/TextInput/TextInput';
 import NANO from '../utils/Constants';
 import {
   executeAFunction,
-  heightAndWidthFormatter,
   heightAndWidthFormatterForComponentObj,
 } from '../utils/Utilities';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -47,11 +47,7 @@ const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
   );
 
   functionWithOnKeys.forEach(propKey => {
-    funArray[propKey] = withExtraParams(
-      eleObject[propKey],
-      props,
-      // onPressCallBack,
-    );
+    funArray[propKey] = withExtraParams(eleObject[propKey], props);
   });
 
   return funArray;
@@ -76,8 +72,6 @@ function UniversalElement({
   listViewIndex,
   getUi,
 }) {
-  // console.log('universal ellemetn', getUi);
-
   const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
     if (elemOb != null && elemOb['component'] != null) {
       if (elemOb['hide'] != null && elemOb['hide'] === true) {
@@ -86,7 +80,6 @@ function UniversalElement({
       const heightWeightFormattedElemObj =
         heightAndWidthFormatterForComponentObj(elemOb);
       let funProps = null;
-      // console.log('PROSPPSPS', propParameters['uiElements']['v1'][1]);
       if (recyclerListViewFunctionProps) {
         funProps = recyclerListViewFunctionProps;
       } else {
@@ -106,189 +99,86 @@ function UniversalElement({
             screenHeight: SCREEN_HEIGHT,
             screenWidth: SCREEN_WIDTH,
           },
-          // onPressCallBack: onPressCallBack,
         });
       }
       // ! onPressCallback is a function that takes the complete JSON data and setstates it.
       // ! Use this funtion to modify UI.
-      // const dimensionallyFormattedProps = heightAndWidthFormatter(
-      //   elemOb['props'],
-      // );
-
-      // console.log('ddddd', dimensionallyFormattedProps);
 
       switch (elemOb['component']) {
         case NANO.BUTTON:
-          // console.log('funnn button', onPress);
-
           return (
-            <Button
-              // {...dimensionallyFormattedProps}
-              // onPress={
-              //   isOnPressAllowed
-              //     ? () => {
-              //         console.log('clickee', onPress);
-
-              //         onPress({itemJson: elemOb});
-              //       }
-              //     : null
-              // }
+            <NanoButton
               key={'button' + index}
-              onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}>
-              {elemOb['value']}
-            </Button>
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
+              onLongPress={onLongPress}
+              funProps={funProps}
+            />
           );
 
         case NANO.TEXT:
-          // console.log(
-          //   'valuuee',
-          //   heightWeightFormattedElemObj['props']['style']['height'],
-
-          //   typeof heightWeightFormattedElemObj['props']['style']['height'],
-          // );
-
           return (
-            <Text
+            <NanoText
               key={'text' + index}
-              {...heightWeightFormattedElemObj['props']}
-              style={
-                heightWeightFormattedElemObj != null &&
-                heightWeightFormattedElemObj['props'] != null
-                  ? heightWeightFormattedElemObj['props']['style']
-                  : null
-              }
-              // style={{
-              //   fontSize: eval(strigifiedIIF),
-              // }}
-              // onPress={
-              //   isOnPressAllowed
-              //     ? () => {
-              //         console.log('hee');
-
-              //         onPress({itemJson: heightWeightFormattedElemObj});
-              //       }
-              //     : null
-              // }
-              // style={{
-              //   textDecorationLine: 'line-through',
-              //   borderWidth: 1,
-              //   borderColor: 'red',
-              // }}
-
-              onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}>
-              {' '}
-              {heightWeightFormattedElemObj['value']}{' '}
-            </Text>
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              isOnPressAllowed={isOnPressAllowed}
+              onLongPress={onLongPress}
+              funProps={funProps}
+              index={index}
+            />
           );
 
         case NANO.ACTIVITY_INDICATOR:
           return (
-            <ActivityIndicator
-              {...heightWeightFormattedElemObj['props']}
-              style={
-                heightWeightFormattedElemObj != null &&
-                heightWeightFormattedElemObj['props'] != null
-                  ? heightWeightFormattedElemObj['props']['style']
-                  : null
-              }
-              animating={elemOb['value']}
+            <NanoActivityIndicator
               key={'activityindicator' + index}
-              {...funProps}
+              elemOb={elemOb}
+              funProps={funProps}
+              index={index}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
             />
           );
         case NANO.IMAGE:
-          const imgSource =
-            elemOb != null && elemOb['value'] != null
-              ? elemOb['value'].indexOf('http') == 0
-                ? {uri: elemOb['value']}
-                : elemOb['value']
-              : null;
-          if (imgSource) {
-            return (
-              <TouchableOpacity
-                key={'image' + index}
-                onPress={
-                  isOnPressAllowed
-                    ? () => {
-                        onPress({itemJson: elemOb});
-                      }
-                    : null
-                }
-                {...funProps}>
-                <Image
-                  {...heightWeightFormattedElemObj['props']}
-                  {...funProps}
-                  source={imgSource}
-                />
-              </TouchableOpacity>
-            );
-          } else {
-            return null;
-          }
-
-        // case NANO.AVATAR_ICON:
-        //   // console.log('aaaaa', elemOb);
-        //   const styless =
-        //     elemOb != null &&
-        //     dimensionallyFormattedProps != null &&
-        //     dimensionallyFormattedProps['style'] != null &&
-        //     typeof dimensionallyFormattedProps['style'] === 'object'
-        //       ? dimensionallyFormattedProps['style']
-        //       : {};
-
-        //   return (
-        //     <Avatar.Icon
-        //       // {...dimensionallyFormattedProps}
-        //       // style={dimensionallyFormattedProps != null ? dimensionallyFormattedProps['style'] : null}
-        //       icon={elemOb['value']}
-        //       key={'avataricon' + index}
-        //       style={[{fontFamily: 'FontAwesome'}, {...styless}]}
-        //       {...funProps}
-        //     />
-        //   );
-        case NANO.ICON_BUTTON:
-          // console.log(
-          //   'ssssss',
-          //   elemOb,
-          //   typeof funProps['onPress'],
-          //   onPressCallBack,
-          // );
-          // console.log('funppr', funProps);
-
           return (
-            <IconButton
-              {...heightWeightFormattedElemObj['props']}
-              icon={elemOb['value']}
+            <NanoImage
+              elemOb={elemOb}
+              funProps={funProps}
+              index={index}
+              isOnPressAllowed={isOnPressAllowed}
+              onPress={onPress}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              key={'image' + index}
+            />
+          );
+
+        case NANO.ICON_BUTTON:
+          return (
+            <NanoIconButton
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
               key={'iconbutton' + index}
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
-              {...funProps}
+              onPress={onPress}
+              funProps={funProps}
             />
           );
         case NANO.AVATAR_IMAGE:
           return (
-            <Avatar.Image
-              {...heightWeightFormattedElemObj['props']}
-              source={{uri: elemOb['value']}}
+            <NanoAvatarImage
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               key={'avatarimage' + index}
-              {...funProps}
+              elemOb={elemOb}
+              funProps={funProps}
             />
           );
 
         case NANO.AVATAR_TEXT:
           return (
-            <Avatar.Text
+            <NanoAvatarText
               key={'avatar text' + index}
-              {...heightWeightFormattedElemObj['props']}
-              label={elemOb['value']}
-              {...funProps}
+              elemOb={elemOb}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              funProps={funProps}
             />
           );
 
@@ -296,181 +186,124 @@ function UniversalElement({
           return (
             <Badge
               key={'badge text' + index}
-              {...heightWeightFormattedElemObj['props']}
-              {...funProps}>
-              {elemOb['value']}
-            </Badge>
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              funProps={funProps}
+              elemOb={elemOb}
+            />
           );
 
         case NANO.CHECKBOX:
-          // console.log('checkk', funProps);
-
           return (
-            <Checkbox
+            <NanoCheckBox
               key={'checkbox' + index}
-              {...heightWeightFormattedElemObj['props']}
-              status={
-                elemOb['value'] != null
-                  ? elemOb['value']
-                    ? 'checked'
-                    : 'unchecked'
-                  : 'indeterminate'
-              }
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
+              onPress={onPress}
+              funProps={funProps}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}
             />
           );
         case NANO.CHIP:
           return (
-            <Chip
-              {...heightWeightFormattedElemObj['props']}
-              style={
-                heightWeightFormattedElemObj != null &&
-                heightWeightFormattedElemObj['props'] != null
-                  ? heightWeightFormattedElemObj['props']['style']
-                  : null
-              }
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
+            <NanoChip
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              isOnPressAllowed={isOnPressAllowed}
+              onPress={onPress}
+              elemOb={elemOb}
               key={'chip' + index}
+              funProps={funProps}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}>
-              {elemOb['value']}
-            </Chip>
+            />
           );
         case NANO.FAB:
           return (
-            <FAB
+            <NanoFab
               key={'fab' + index}
-              {...heightWeightFormattedElemObj['props']}
-              // icon={elemOb['value']}
-              icon={'plus'}
-              style={
-                heightWeightFormattedElemObj != null &&
-                heightWeightFormattedElemObj['props'] != null
-                  ? heightWeightFormattedElemObj['props']['style']
-                  : null
-              }
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              funProps={funProps}
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
+              onPress={onPress}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}
             />
           );
         case NANO.PROGRESS_BAR:
           return (
-            <ProgressBar
+            <NanoProgressbar
               key={'progress bar' + index}
-              progress={elemOb['value']}
-              {...heightWeightFormattedElemObj['props']}
-              {...funProps}
+              elemOb={elemOb}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              funProps={funProps}
             />
           );
 
         case NANO.RADIO_BUTTON:
           return (
-            <RadioButton
-              value="first"
-              status={elemOb['value'] ? 'checked' : 'unchecked'}
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
+            <NanoRadioButton
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
+              funProps={funProps}
+              onPress={onPress}
               key={'radio button' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}
             />
           );
 
         case NANO.SWITCH:
           return (
-            <Switch
-              {...heightWeightFormattedElemObj['props']}
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
+            <NanoSwitch
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              onPress={onPress}
               key={'switch' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}
+              funProps={funProps}
+              elemOb={elemOb}
+              isOnPressAllowed={isOnPressAllowed}
             />
           );
         case NANO.TEXT_INPUT:
           // console.log('funnn text input', funProps);
 
           return (
-            <TextInput
-              {...heightWeightFormattedElemObj['props']}
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
-              // style={{}}
-              scrollEnabled={false}
-              value={elemOb['value']}
+            <NanoTextInput
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              onPress={onPress}
+              elemOb={elemOb}
+              funProps={funProps}
+              isOnPressAllowed={isOnPressAllowed}
               key={'textinput' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
-              {...funProps}
             />
           );
         case NANO.BANNER:
           return (
-            <Banner {...heightWeightFormattedElemObj['props']} {...funProps}>
-              {elemOb['value']}
-            </Banner>
+            <NanoBanner
+              funProps={funProps}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              elemOb={elemOb}
+            />
           );
 
         case NANO.DIVIDER:
           return (
-            <Divider
+            <NanoDivider
+              funProps={funProps}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               key={'divider' + index}
-              {...heightWeightFormattedElemObj['props']}
-              {...funProps}
             />
           );
         case NANO.CARD:
-          // console.log('cardd', Object.keys(elemOb));
-
           return (
-            <Card
+            <NanoCard
               key={'CARD' + index}
-              {...heightWeightFormattedElemObj['props']}
-              onPress={
-                isOnPressAllowed
-                  ? () => {
-                      onPress({itemJson: elemOb});
-                    }
-                  : null
-              }
-              {...funProps}>
-              {getViewItems(elemOb['content'], true)}
-            </Card>
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              isOnPressAllowed={isOnPressAllowed}
+              onPress={onPress}
+              funProps={funProps}
+              elemOb={elemOb}
+              getViewItems={getViewItems}
+            />
           );
 
         case NANO.VIEW:
