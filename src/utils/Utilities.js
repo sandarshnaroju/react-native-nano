@@ -358,7 +358,7 @@ export const heightAndWidthFormatterForComponentObj = compObj => {
   //   'screen.width',
   // ];
   // var regex = new RegExp(stringsArray.join('|'), 'g');
-  findAndSendPropsToImmediatlyInvokedFunctions(compObj);
+  // findAndSendPropsToImmediatlyInvokedFunctions(compObj);
   // replaceStringsWithNumbers(compObj);
   // if (compObj != null) {
   //   console.log('helllo', compObj['itemHeight'], compObj['component']);

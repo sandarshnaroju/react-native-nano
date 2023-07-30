@@ -33,7 +33,14 @@ const GenericScreen = ({
       screenUrl: uri,
     })
       .then(screenN => {
-        // console.log('ssc', screenN['screen']['v1'][0]['itemView']);
+        // console.log('total screen', screenN);
+
+        // console.log(
+        //   'Submit button',
+        //   screenN['screen']['h1'][0]['content'][1],
+        //   screenN['screen']['h1'][0]['content'][1]['onPress'],
+        // );
+
         setScreenData(screenN);
         timeut = setTimeout(() => {
           // fetchScreenFromNetwork(uri);

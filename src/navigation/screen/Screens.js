@@ -47,15 +47,8 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   const moduleParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
-  const hellelelel = async () => {
-    const nScreens = await fetchAllScreens().catch(e => {
-      console.log('eeee all screens', e);
-    });
-    console.log('nscreens', nScreens);
-    setNetworkScreens(nScreens);
-  };
+
   useEffect(() => {
-    // hellelelel();
     fetchAllScreens()
       .then(s => {
         console.log('all screens');

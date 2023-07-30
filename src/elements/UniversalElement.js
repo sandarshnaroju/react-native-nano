@@ -1,7 +1,7 @@
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Text} from 'react-native-paper';
-import React from 'react';
+import React, {useEffect} from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
 import NanoAvatarImage from '../components/AvatarImage';
 import NanoAvatarText from '../components/AvatarText/AvatarText';
@@ -25,6 +25,7 @@ import {
   executeAFunction,
   heightAndWidthFormatterForComponentObj,
 } from '../utils/Utilities';
+import {requestDataFromUrlAsPerNetworkData} from '../modules/networkObject/NetworkObject';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -38,6 +39,14 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
     executeAFunction(originalFn, newArgs);
   };
 };
+const dummy = (props, elemObj) => {
+  executeAFunction(elemObj['network']['onSuccess'], props);
+};
+
+const onPressNetwork = (onPressFunc, props, eleObject) => {
+  executeAFunction(onPressFunc, props);
+  return dummy(props, eleObject);
+};
 
 const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
   const funArray = {};
@@ -46,8 +55,29 @@ const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
     propKey => propKey.indexOf('on') === 0,
   );
 
+  if (
+    eleObject != null &&
+    eleObject['network'] != null &&
+    eleObject['network']['action'] === 'onPress'
+  ) {
+    functionWithOnKeys.push('onPress');
+  }
+
   functionWithOnKeys.forEach(propKey => {
-    funArray[propKey] = withExtraParams(eleObject[propKey], props);
+    // console.log('sssss', eleObject['component']);
+
+    if (
+      eleObject != null &&
+      eleObject['network'] != null &&
+      eleObject['network']['action'] === 'onPress'
+    ) {
+      funArray[propKey] = withExtraParams(() => {
+        onPressNetwork(eleObject[propKey], props, eleObject);
+      }, props);
+      // funArray[propKey] = withExtraParams(eleObject[propKey], props);
+    } else {
+      funArray[propKey] = withExtraParams(eleObject[propKey], props);
+    }
   });
 
   return funArray;
@@ -79,6 +109,9 @@ function UniversalElement({
       }
       const heightWeightFormattedElemObj =
         heightAndWidthFormatterForComponentObj(elemOb);
+      if (elemOb != null && elemOb['component'] === 'icon_button') {
+        // console.log('helll0', elemOb['component']);
+      }
       let funProps = null;
       if (recyclerListViewFunctionProps) {
         funProps = recyclerListViewFunctionProps;
@@ -358,16 +391,48 @@ function UniversalElement({
       //   props: {elemet, logicObject, ...propParameters},
       //   onPressCallBack,
       // });
-
+      // console.log('contentnt', elemet);
       const oitem = getElementAsPerComponent(
         elemet,
         index + uniqueKey,
         onPressAllowed,
       );
+
       elements.push(oitem);
     });
     return elements;
   };
+
+  useEffect(() => {
+    if (elemObj != null && elemObj['network'] != null) {
+      if (elemObj['network']['action'] === 'onStart') {
+        requestDataFromUrlAsPerNetworkData({
+          requestType:
+            elemObj['network']['fetch'] != null
+              ? 'fetch'
+              : elemObj['network']['axios'] != null
+              ? 'axios'
+              : '',
+          requestObj: elemObj['network'],
+          props: {
+            logicObject,
+            ...propParameters,
+            itemJson: elemObj,
+            listData,
+            itemData: item,
+            index: listViewIndex,
+            setUi: onPressCallBack,
+            getUi: getUi,
+            windowHeight: WINDOW_HEIGHT,
+            windowWidth: WINDOW_WIDTH,
+            screenHeight: SCREEN_HEIGHT,
+            screenWidth: SCREEN_WIDTH,
+          },
+        });
+      }
+    }
+  }, []);
+
   const displayItem = getElementAsPerComponent(elemObj, null, true);
   if (elemObj != null && elemObj['animation']) {
     return (
