@@ -8,6 +8,11 @@ jobs:
         steps:
             - name: checkout
               uses: actions/checkout@v3
+              with:
+                fetch-depth: 0
+            - name: Automatic GitHub Release
+              uses: justincy/github-action-npm-release@2.0.2
+              id: release
             - name: node
               uses: actions/setup-node@v3
               with:

@@ -25,7 +25,7 @@ import {
   executeAFunction,
   heightAndWidthFormatterForComponentObj,
 } from '../utils/Utilities';
-import {requestDataFromUrlAsPerNetworkData} from '../modules/networkObject/NetworkObject';
+import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
