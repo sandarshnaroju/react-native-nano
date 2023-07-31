@@ -146,6 +146,7 @@ function UniversalElement({
               isOnPressAllowed={isOnPressAllowed}
               onLongPress={onLongPress}
               funProps={funProps}
+              heightWeightFormattedElemObj={heightWeightFormattedElemObj}
             />
           );
 
