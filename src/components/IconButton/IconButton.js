@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {IconButton as PaperIconButton} from 'react-native-paper';
 
 function IconButton({
@@ -7,7 +7,11 @@ function IconButton({
   onPress,
   funProps,
   heightWeightFormattedElemObj,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperIconButton
       {...heightWeightFormattedElemObj['props']}

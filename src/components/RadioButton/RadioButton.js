@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {RadioButton as PaperRadioButton} from 'react-native-paper';
 
 function RadioButton({
@@ -7,7 +7,11 @@ function RadioButton({
   onLongPress,
   onPress,
   funProps,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperRadioButton
       value="first"

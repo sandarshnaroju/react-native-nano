@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Chip as PaperChip} from 'react-native-paper';
 
 function Chip({
@@ -8,7 +8,11 @@ function Chip({
   elemOb,
   funProps,
   onLongPress,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperChip
       {...heightWeightFormattedElemObj['props']}

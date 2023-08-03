@@ -8,7 +8,7 @@ export const requestDataFromUrlAsPerNetworkData = ({
 }) => {
   switch (requestType) {
     case 'fetch':
-      fetch(requestObj['fetch']['url'])
+      fetch(requestObj['fetch']['url'], requestObj['fetch'])
         .then(response => response.json())
         .then(response => {
           executeAFunction(requestObj['onSuccess'], {response, ...props});
@@ -19,8 +19,7 @@ export const requestDataFromUrlAsPerNetworkData = ({
         });
       break;
     case 'axios':
-      axios
-        .get(requestObj['axios']['url'])
+      axios(requestObj['axios'])
         .then(response => {
           executeAFunction(requestObj['onSuccess'], {response, ...props});
         })

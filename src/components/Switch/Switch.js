@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Switch as PaperSwitch} from 'react-native-paper';
 
 function Switch({
@@ -8,7 +8,11 @@ function Switch({
   onLongPress,
   funProps,
   elemOb,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperSwitch
       {...heightWeightFormattedElemObj['props']}

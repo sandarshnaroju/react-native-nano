@@ -1,7 +1,7 @@
 import {Dimensions, TouchableOpacity, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Text} from 'react-native-paper';
-import React, {useEffect} from 'react';
+import React from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
 import NanoAvatarImage from '../components/AvatarImage';
 import NanoAvatarText from '../components/AvatarText/AvatarText';
@@ -102,7 +102,12 @@ function UniversalElement({
   listViewIndex,
   getUi,
 }) {
-  const getElementAsPerComponent = (elemOb, index = null, isOnPressAllowed) => {
+  const getElementAsPerComponent = (
+    elemOb,
+    index = null,
+    isOnPressAllowed,
+    onElementLoaded,
+  ) => {
     if (elemOb != null && elemOb['component'] != null) {
       if (elemOb['hide'] != null && elemOb['hide'] === true) {
         return null;
@@ -147,6 +152,7 @@ function UniversalElement({
               onLongPress={onLongPress}
               funProps={funProps}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -159,6 +165,7 @@ function UniversalElement({
               onLongPress={onLongPress}
               funProps={funProps}
               index={index}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -170,6 +177,7 @@ function UniversalElement({
               funProps={funProps}
               index={index}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.IMAGE:
@@ -182,6 +190,7 @@ function UniversalElement({
               onPress={onPress}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               key={'image' + index}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -193,6 +202,7 @@ function UniversalElement({
               isOnPressAllowed={isOnPressAllowed}
               key={'iconbutton' + index}
               onPress={onPress}
+              onElementLoaded={onElementLoaded}
               funProps={funProps}
             />
           );
@@ -203,6 +213,7 @@ function UniversalElement({
               key={'avatarimage' + index}
               elemOb={elemOb}
               funProps={funProps}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -213,6 +224,7 @@ function UniversalElement({
               elemOb={elemOb}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               funProps={funProps}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -223,6 +235,7 @@ function UniversalElement({
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               funProps={funProps}
               elemOb={elemOb}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -236,6 +249,7 @@ function UniversalElement({
               onPress={onPress}
               funProps={funProps}
               onLongPress={isOnPressAllowed ? onLongPress : null}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.CHIP:
@@ -248,6 +262,7 @@ function UniversalElement({
               key={'chip' + index}
               funProps={funProps}
               onLongPress={isOnPressAllowed ? onLongPress : null}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.FAB:
@@ -260,6 +275,7 @@ function UniversalElement({
               isOnPressAllowed={isOnPressAllowed}
               onPress={onPress}
               onLongPress={isOnPressAllowed ? onLongPress : null}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.PROGRESS_BAR:
@@ -269,6 +285,7 @@ function UniversalElement({
               elemOb={elemOb}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               funProps={funProps}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -281,6 +298,7 @@ function UniversalElement({
               onPress={onPress}
               key={'radio button' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -294,6 +312,7 @@ function UniversalElement({
               funProps={funProps}
               elemOb={elemOb}
               isOnPressAllowed={isOnPressAllowed}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.TEXT_INPUT:
@@ -308,6 +327,7 @@ function UniversalElement({
               isOnPressAllowed={isOnPressAllowed}
               key={'textinput' + index}
               onLongPress={isOnPressAllowed ? onLongPress : null}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.BANNER:
@@ -316,6 +336,7 @@ function UniversalElement({
               funProps={funProps}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               elemOb={elemOb}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -325,6 +346,7 @@ function UniversalElement({
               funProps={funProps}
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
               key={'divider' + index}
+              onElementLoaded={onElementLoaded}
             />
           );
         case NANO.CARD:
@@ -337,6 +359,7 @@ function UniversalElement({
               funProps={funProps}
               elemOb={elemOb}
               getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
             />
           );
 
@@ -355,7 +378,7 @@ function UniversalElement({
                     : null
                 }
                 {...heightWeightFormattedElemObj['props']}>
-                {getViewItems(elemOb['content'], false)}
+                {getViewItems(elemOb['content'], false, onElementLoaded)}
               </TouchableOpacity>
             );
           }
@@ -365,7 +388,7 @@ function UniversalElement({
               key={'view' + index}
               {...heightWeightFormattedElemObj['props']}
               {...funProps}>
-              {getViewItems(elemOb['content'], true)}
+              {getViewItems(elemOb['content'], true, onElementLoaded)}
             </View>
           );
 
@@ -384,7 +407,7 @@ function UniversalElement({
     return <Text key={'error' + index}> {' Error'} </Text>;
   };
 
-  const getViewItems = (content, onPressAllowed) => {
+  const getViewItems = (content, onPressAllowed, onElementLoaded) => {
     const elements = [];
     content.forEach((elemet, index) => {
       // const elementsInsideViewPropFunctions = getInterceptedFunctionProps({
@@ -397,6 +420,7 @@ function UniversalElement({
         elemet,
         index + uniqueKey,
         onPressAllowed,
+        onElementLoaded,
       );
 
       elements.push(oitem);
@@ -404,21 +428,21 @@ function UniversalElement({
     return elements;
   };
 
-  useEffect(() => {
-    if (elemObj != null && elemObj['network'] != null) {
-      if (elemObj['network']['action'] === 'onStart') {
+  const fetchDataBasedOnNetworkObject = elementObject => {
+    if (elementObject != null && elementObject['network'] != null) {
+      if (elementObject['network']['action'] === 'onStart') {
         requestDataFromUrlAsPerNetworkData({
           requestType:
-            elemObj['network']['fetch'] != null
+            elementObject['network']['fetch'] != null
               ? 'fetch'
-              : elemObj['network']['axios'] != null
+              : elementObject['network']['axios'] != null
               ? 'axios'
               : '',
-          requestObj: elemObj['network'],
+          requestObj: elementObject['network'],
           props: {
             logicObject,
             ...propParameters,
-            itemJson: elemObj,
+            itemJson: elementObject,
             listData,
             itemData: item,
             index: listViewIndex,
@@ -432,9 +456,19 @@ function UniversalElement({
         });
       }
     }
-  }, []);
+  };
 
-  const displayItem = getElementAsPerComponent(elemObj, null, true);
+  const onElementLoaded = loadedElemObject => {
+    // console.log('onElement loaded', loadedElemObject['component']);
+    fetchDataBasedOnNetworkObject(loadedElemObject);
+  };
+
+  const displayItem = getElementAsPerComponent(
+    elemObj,
+    null,
+    true,
+    onElementLoaded,
+  );
   if (elemObj != null && elemObj['animation']) {
     return (
       <Animatable.View {...elemObj['animation']}>{displayItem}</Animatable.View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Checkbox as PaperCheckBox} from 'react-native-paper';
 
 function CheckBox({
@@ -8,7 +8,11 @@ function CheckBox({
   onPress,
   onLongPress,
   funProps,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperCheckBox
       {...heightWeightFormattedElemObj['props']}

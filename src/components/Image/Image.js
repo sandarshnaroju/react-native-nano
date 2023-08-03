@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button} from 'react-native-paper';
 import {TouchableOpacity, Image as PaperImage} from 'react-native';
 
@@ -9,7 +9,11 @@ function Image({
   funProps,
   heightWeightFormattedElemObj,
   index,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   const imgSource =
     elemOb != null && elemOb['value'] != null
       ? elemOb['value'].indexOf('http') == 0

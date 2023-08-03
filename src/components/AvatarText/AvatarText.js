@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Avatar} from 'react-native-paper';
 
-function AvatarText({heightWeightFormattedElemObj, elemOb, funProps}) {
+function AvatarText({
+  heightWeightFormattedElemObj,
+  elemOb,
+  funProps,
+  onElementLoaded,
+}) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <Avatar.Text
       {...heightWeightFormattedElemObj['props']}

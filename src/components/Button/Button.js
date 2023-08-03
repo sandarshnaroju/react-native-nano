@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button as PaperButton} from 'react-native-paper';
 
 function Button({
@@ -7,7 +7,11 @@ function Button({
   funProps,
   elemOb,
   heightWeightFormattedElemObj,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperButton
       onLongPress={isOnPressAllowed ? onLongPress : null}

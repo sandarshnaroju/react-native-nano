@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FAB as PaperFAB} from 'react-native-paper';
 
 function Fab({
@@ -8,7 +8,11 @@ function Fab({
   onLongPress,
   elemOb,
   funProps,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperFAB
       {...heightWeightFormattedElemObj['props']}

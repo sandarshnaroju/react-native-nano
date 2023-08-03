@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ActivityIndicator as PaperActivityIndicator} from 'react-native-paper';
 
 function ActivityIndicator({
@@ -6,7 +6,11 @@ function ActivityIndicator({
   heightWeightFormattedElemObj,
   elemOb,
   index,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperActivityIndicator
       {...heightWeightFormattedElemObj['props']}

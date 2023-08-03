@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text as PaperText} from 'react-native-paper';
 
 function Text({
@@ -7,7 +7,11 @@ function Text({
   isOnPressAllowed,
   onLongPress,
   funProps,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(heightWeightFormattedElemObj);
+  }, []);
   return (
     <PaperText
       {...heightWeightFormattedElemObj['props']}

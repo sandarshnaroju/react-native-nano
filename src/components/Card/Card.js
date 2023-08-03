@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Card as PaperCard} from 'react-native-paper';
 
 function Card({
@@ -8,7 +8,11 @@ function Card({
   funProps,
   elemOb,
   getViewItems,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperCard
       {...heightWeightFormattedElemObj['props']}

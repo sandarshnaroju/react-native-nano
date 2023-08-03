@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TextInput as PaperTextInput} from 'react-native-paper';
 
 function TextInput({
@@ -8,7 +8,11 @@ function TextInput({
   onLongPress,
   funProps,
   elemOb,
+  onElementLoaded,
 }) {
+  useEffect(() => {
+    onElementLoaded(elemOb);
+  }, []);
   return (
     <PaperTextInput
       {...heightWeightFormattedElemObj['props']}
