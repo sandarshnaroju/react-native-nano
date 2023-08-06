@@ -1,4 +1,4 @@
-import {Dimensions, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Platform, TouchableOpacity, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Text} from 'react-native-paper';
 import React from 'react';
@@ -26,6 +26,7 @@ import {
   heightAndWidthFormatterForComponentObj,
 } from '../utils/Utilities';
 import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
+import {getPlatform} from '../modules/platform/platform';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -110,6 +111,13 @@ function UniversalElement({
   ) => {
     if (elemOb != null && elemOb['component'] != null) {
       if (elemOb['hide'] != null && elemOb['hide'] === true) {
+        return null;
+      }
+      if (
+        elemOb['platform'] != null &&
+        elemOb['platform'].length > 0 &&
+        !elemOb['platform'].includes(getPlatform())
+      ) {
         return null;
       }
       const heightWeightFormattedElemObj =

@@ -1,5 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
+import {getPlatform} from '../modules/platform/platform';
 import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
 // import DrawerNavigation from '../navigation/drawer/Drawer';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
@@ -26,6 +27,13 @@ function CheckForListviewAndRender({
   logicObject,
   getUi,
 }) {
+  if (
+    elemOb['platform'] != null &&
+    elemOb['platform'].length > 0 &&
+    !elemOb['platform'].includes(getPlatform())
+  ) {
+    return null;
+  }
   switch (elemOb['component']) {
     case NANO.LIST_VIEW:
       // console.log('list data', elemOb);
