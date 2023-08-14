@@ -122,6 +122,7 @@ import { NANO } from  'react-native-nano';
 // creating a text component to display numbers starting from 1.
 const  countText = {
     component:  NANO.TEXT,
+    name:'text',
     value:  1,
     props: {
 	style: {
@@ -136,13 +137,14 @@ const  countText = {
 const  increaseCountButton = {
     component:  NANO.BUTTON,
     value:  'CLICK ME TO INCREASE',
-    onClick: ({ navigation, uiElements}) => {
-	
-	// increase count by 1
-	uiElements['v1'][0]['value'] = uiElements['v1'][0]['value'] + 1; 
-	
-	return uiElements;
-    })
+    onPress: ({setUi, getUi}) => {
+
+            // increase count by 1
+            const textObj = getUi("text")
+            textObj.value = textObj.value + 1
+            setUi("text", textObj)
+
+    }
 };
 
 // Finally adding both components to screen with v1(vertical) tag.
