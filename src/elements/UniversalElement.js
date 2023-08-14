@@ -37,11 +37,22 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
       methodValues: args,
       ...extraParams,
     };
+
     executeAFunction(originalFn, newArgs);
   };
 };
+
 const dummy = (props, elemObj) => {
-  executeAFunction(elemObj['network']['onSuccess'], props);
+  requestDataFromUrlAsPerNetworkData({
+    requestType:
+      elemObj['network']['fetch'] != null
+        ? 'fetch'
+        : elemObj['network']['axios'] != null
+        ? 'axios'
+        : '',
+    requestObj: elemObj['network'],
+    props,
+  });
 };
 
 const onPressNetwork = (onPressFunc, props, eleObject) => {
@@ -65,7 +76,16 @@ const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
   }
 
   functionWithOnKeys.forEach(propKey => {
-    // console.log('sssss', eleObject['component']);
+    let func = null;
+    if (
+      props != null &&
+      props['logicObject'] != null &&
+      props['logicObject'][eleObject[propKey]] != null
+    ) {
+      func = props['logicObject'][eleObject[propKey]];
+    } else {
+      func = eleObject[propKey];
+    }
 
     if (
       eleObject != null &&
@@ -73,11 +93,11 @@ const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
       eleObject['network']['action'] === 'onPress'
     ) {
       funArray[propKey] = withExtraParams(() => {
-        onPressNetwork(eleObject[propKey], props, eleObject);
+        onPressNetwork(func, props, eleObject);
       }, props);
       // funArray[propKey] = withExtraParams(eleObject[propKey], props);
     } else {
-      funArray[propKey] = withExtraParams(eleObject[propKey], props);
+      funArray[propKey] = withExtraParams(func, props);
     }
   });
 

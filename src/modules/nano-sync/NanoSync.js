@@ -2,7 +2,7 @@ import axios from 'axios';
 import {Platform} from 'react-native';
 import {getAndroidId, getApplicationName} from 'react-native-device-info';
 import {RSA} from 'react-native-rsa-native';
-// import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../../nano.config';
+import {APP_URL, CLIENT_ID, CLIENT_SECRET} from '../../../../../nano.config';
 import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
@@ -10,10 +10,6 @@ const BASE_URL = 'https://nanoapp.dev/';
 // const BASE_URL = 'http://192.168.43.94:8400/';
 const GET_TOKEN_URL = BASE_URL + 'auth/token/';
 
-const APP_URL = 'https://nanoapp.dev/clients/app/dYY81RyMNVwg6SA1VypS/';
-const CLIENT_ID = 'eOV9g2dLR75nVhocvoeavpdl0uxIDQUA4rjLOGCL';
-const CLIENT_SECRET =
-  'X8ixr7di0jF3jvXejQPvkvtmW6xv5nZk2INAQikO6BsXKBwMDcgaJMPV7Gqa57J22uJThz5OQUk1HUGUCyC3SoMMPdPvLaTQMzDg1p8aGRpaLuyzfDaW6Q1udqt3NvUq';
 const FIREBASE_REGISTER = BASE_URL + 'clients/app/register_device/';
 const FETCH_ALL_SCREENS = APP_URL;
 const Realm = getDatabase();

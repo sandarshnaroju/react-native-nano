@@ -34,8 +34,6 @@ const onElementPress = (
           eleObject['onPress'] != null &&
           typeof eleObject['onPress'] === 'string'
         ) {
-          // console.log('runnning function');
-
           let copy = new Function('return ' + eleObject['onPress'])();
 
           return copy({
