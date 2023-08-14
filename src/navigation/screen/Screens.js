@@ -51,11 +51,11 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
   useEffect(() => {
     fetchAllScreens()
       .then(s => {
-        console.log('all screens');
+        // console.log('all screens');
         setNetworkScreens(s);
       })
       .catch(e => {
-        console.log('eeee all screens', e);
+        // console.log('eeee all screens', e);
       });
   }, []);
   const preProcessedCustomCompArray = processCustomComp(customComponents);
