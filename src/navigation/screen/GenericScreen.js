@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import getModuleParams from '../../modules';
-import {View} from 'react-native';
 import Nano from '../../nano/Nano';
 import NANO from '../../utils/Constants';
 import NanoTopTabs from '../toptabs/TopTabs';
@@ -11,7 +10,6 @@ import {
   fetchScreenFromDb,
 } from '../../modules/nano-sync/NanoSync';
 import getFirebase from '../../modules/firebase/Firebase';
-import YoutubePlayer from '../../modules/youtube/YoutubePlayer';
 const Firebase = getFirebase();
 
 const GenericScreen = ({
@@ -152,11 +150,6 @@ const GenericScreen = ({
         break;
     }
   }
-  // return (
-  //   <View>
-  //     <YoutubePlayer />
-  //   </View>
-  // );
 
   return (
     <Nano
