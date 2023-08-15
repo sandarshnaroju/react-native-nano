@@ -9,8 +9,8 @@ import {
   fetchScreenAndStoreInDb,
   fetchScreenFromDb,
 } from '../../modules/nano-sync/NanoSync';
-import getFirebase from '../../modules/firebase/Firebase';
-const Firebase = getFirebase();
+// import getFirebase from '../../modules/firebase/Firebase';
+// const Firebase = getFirebase();
 
 const GenericScreen = ({
   navigation,
@@ -42,9 +42,6 @@ const GenericScreen = ({
         // );
 
         setScreenData(screenN);
-        timeut = setTimeout(() => {
-          // fetchScreenFromNetwork(uri);
-        }, 6000);
       })
       .catch(e => {
         console.log('eerer', e);
@@ -69,7 +66,6 @@ const GenericScreen = ({
     // console.log(' in useeffect', isMultiScreen);
 
     if (isMultiScreen && screenUrl != null) {
-      // console.log('fetching in useeffect');
       fetchScreenFromNetwork(screenUrl);
     }
     return () => {
@@ -100,41 +96,41 @@ const GenericScreen = ({
       setScreenData(updatedUiElements);
     }
   };
-  useEffect(() => {
-    if (Firebase) {
-      Firebase.getOnMessage(async remoteMessage => {
-        if (
-          remoteMessage != null &&
-          remoteMessage['data'] != null &&
-          remoteMessage['data']['updated'] != null
-        ) {
-          checkUpdatedScreenUrlAndChangeUi({
-            instantUpdate: remoteMessage['data']['reload'],
-            remoteMessage,
-          });
-        }
-      });
-    }
-    if (Firebase) {
-      return Firebase.unSubscribeOnMessage();
-    }
+  // useEffect(() => {
+  //   if (Firebase) {
+  //     Firebase.getOnMessage(async remoteMessage => {
+  //       if (
+  //         remoteMessage != null &&
+  //         remoteMessage['data'] != null &&
+  //         remoteMessage['data']['updated'] != null
+  //       ) {
+  //         checkUpdatedScreenUrlAndChangeUi({
+  //           instantUpdate: remoteMessage['data']['reload'],
+  //           remoteMessage,
+  //         });
+  //       }
+  //     });
+  //   }
+  //   if (Firebase) {
+  //     return Firebase.unSubscribeOnMessage();
+  //   }
 
-    // if (Platform.OS == 'android') {
-    //   const unsubscribe = messaging.default().onMessage(async remoteMessage => {
-    //     if (
-    //       remoteMessage != null &&
-    //       remoteMessage['data'] != null &&
-    //       remoteMessage['data']['updated'] != null
-    //     ) {
-    //       checkUpdatedScreenUrlAndChangeUi({
-    //         instantUpdate: remoteMessage['data']['reload'],
-    //         remoteMessage,
-    //       });
-    //     }
-    //   });
-    //   return unsubscribe;
-    // }
-  }, []);
+  //   // if (Platform.OS == 'android') {
+  //   //   const unsubscribe = messaging.default().onMessage(async remoteMessage => {
+  //   //     if (
+  //   //       remoteMessage != null &&
+  //   //       remoteMessage['data'] != null &&
+  //   //       remoteMessage['data']['updated'] != null
+  //   //     ) {
+  //   //       checkUpdatedScreenUrlAndChangeUi({
+  //   //         instantUpdate: remoteMessage['data']['reload'],
+  //   //         remoteMessage,
+  //   //       });
+  //   //     }
+  //   //   });
+  //   //   return unsubscribe;
+  //   // }
+  // }, []);
   // console.log('in genericscreen.js', screenData['screen']['v1'][0]['value']);
   if (screenData != null) {
     switch (screenData.component) {
