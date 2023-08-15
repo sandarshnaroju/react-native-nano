@@ -26,6 +26,7 @@ function CheckForListviewAndRender({
   onPressCallBack,
   logicObject,
   getUi,
+  index,
 }) {
   if (
     elemOb['platform'] != null &&
@@ -144,6 +145,8 @@ function CheckForListviewAndRender({
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
           getUi={getUi}
+          key={index}
+          uniqueKey={index}
         />
       );
   }

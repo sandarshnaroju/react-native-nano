@@ -246,6 +246,7 @@ const GetRowElements = ({
       rowelements.push(
         <CheckForListviewAndRender
           key={index}
+          index={index}
           elemOb={eleObject}
           navigation={navigation}
           route={route}

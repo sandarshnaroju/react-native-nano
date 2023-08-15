@@ -169,7 +169,6 @@ function UniversalElement({
       }
       // ! onPressCallback is a function that takes the complete JSON data and setstates it.
       // ! Use this funtion to modify UI.
-
       switch (elemOb['component']) {
         case NANO.BUTTON:
           return (
@@ -344,8 +343,6 @@ function UniversalElement({
             />
           );
         case NANO.TEXT_INPUT:
-          // console.log('funnn text input', funProps);
-
           return (
             <NanoTextInput
               heightWeightFormattedElemObj={heightWeightFormattedElemObj}
@@ -392,8 +389,6 @@ function UniversalElement({
           );
 
         case NANO.VIEW:
-          // console.log('touahah', elemOb['onClick']);
-
           if (elemOb['onClick'] != null) {
             return (
               <TouchableOpacity
@@ -493,7 +488,7 @@ function UniversalElement({
 
   const displayItem = getElementAsPerComponent(
     elemObj,
-    null,
+    uniqueKey,
     true,
     onElementLoaded,
   );
