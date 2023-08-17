@@ -9,6 +9,7 @@ import {
   fetchScreenAndStoreInDb,
   fetchScreenFromDb,
 } from '../../modules/nano-sync/NanoSync';
+import {RELOAD_TIME} from '../../../../../nano.config';
 // import getFirebase from '../../modules/firebase/Firebase';
 // const Firebase = getFirebase();
 
@@ -40,6 +41,9 @@ const GenericScreen = ({
         //   screenN['screen']['h1'][0]['content'][1],
         //   screenN['screen']['h1'][0]['content'][1]['onPress'],
         // );
+        timeut = setTimeout(() => {
+          fetchScreenFromNetwork(uri);
+        }, RELOAD_TIME);
 
         setScreenData(screenN);
       })
