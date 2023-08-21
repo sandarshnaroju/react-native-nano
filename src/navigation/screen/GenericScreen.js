@@ -41,10 +41,11 @@ const GenericScreen = ({
         //   screenN['screen']['h1'][0]['content'][1],
         //   screenN['screen']['h1'][0]['content'][1]['onPress'],
         // );
-        timeut = setTimeout(() => {
-          fetchScreenFromNetwork(uri);
-        }, RELOAD_TIME);
-
+        if (__DEV__) {
+          timeut = setTimeout(() => {
+            fetchScreenFromNetwork(uri);
+          }, RELOAD_TIME);
+        }
         setScreenData(screenN);
       })
       .catch(e => {
