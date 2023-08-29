@@ -1,23 +1,13 @@
 import React, {useEffect} from 'react';
 import {Button as PaperButton} from 'react-native-paper';
 
-function Button({
-  isOnPressAllowed,
-  onLongPress,
-  funProps,
-  elemOb,
-  heightWeightFormattedElemObj,
-  onElementLoaded,
-}) {
+function Button({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
-    <PaperButton
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...heightWeightFormattedElemObj['props']}
-      {...funProps}>
-      {elemOb['value']}
+    <PaperButton {...elementProps['props']} {...elementProps}>
+      {elementProps['value']}
     </PaperButton>
   );
 }

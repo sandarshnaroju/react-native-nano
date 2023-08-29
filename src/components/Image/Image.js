@@ -2,39 +2,22 @@ import React, {useEffect} from 'react';
 import {Button} from 'react-native-paper';
 import {TouchableOpacity, Image as PaperImage} from 'react-native';
 
-function Image({
-  elemOb,
-  isOnPressAllowed,
-  onPress,
-  funProps,
-  heightWeightFormattedElemObj,
-  index,
-  onElementLoaded,
-}) {
+function Image({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   const imgSource =
-    elemOb != null && elemOb['value'] != null
-      ? elemOb['value'].indexOf('http') == 0
-        ? {uri: elemOb['value']}
-        : elemOb['value']
+    elementProps != null && elementProps['value'] != null
+      ? elementProps['value'].indexOf('http') == 0
+        ? {uri: elementProps['value']}
+        : elementProps['value']
       : null;
   if (imgSource) {
     return (
-      <TouchableOpacity
-        key={'image' + index}
-        onPress={
-          isOnPressAllowed
-            ? () => {
-                onPress({itemJson: elemOb});
-              }
-            : null
-        }
-        {...funProps}>
+      <TouchableOpacity {...elementProps}>
         <PaperImage
-          {...heightWeightFormattedElemObj['props']}
-          {...funProps}
+          {...elementProps['props']}
+          {...elementProps}
           source={imgSource}
         />
       </TouchableOpacity>

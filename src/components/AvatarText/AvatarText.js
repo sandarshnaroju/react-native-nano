@@ -1,20 +1,15 @@
 import React, {useEffect} from 'react';
 import {Avatar} from 'react-native-paper';
 
-function AvatarText({
-  heightWeightFormattedElemObj,
-  elemOb,
-  funProps,
-  onElementLoaded,
-}) {
+function AvatarText({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <Avatar.Text
-      {...heightWeightFormattedElemObj['props']}
-      label={elemOb['value']}
-      {...funProps}
+      {...elementProps['props']}
+      label={elementProps['value']}
+      {...elementProps}
     />
   );
 }

@@ -1,18 +1,13 @@
 import React, {useEffect} from 'react';
 import {Banner as PaperBanner} from 'react-native-paper';
 
-function Banner({
-  heightWeightFormattedElemObj,
-  funProps,
-  elemOb,
-  onElementLoaded,
-}) {
+function Banner({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
-    <PaperBanner {...heightWeightFormattedElemObj['props']} {...funProps}>
-      {elemOb['value']}
+    <PaperBanner {...elementProps['props']} {...elementProps}>
+      {elementProps['value']}
     </PaperBanner>
   );
 }

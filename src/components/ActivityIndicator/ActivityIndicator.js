@@ -1,28 +1,20 @@
 import React, {useEffect} from 'react';
 import {ActivityIndicator as PaperActivityIndicator} from 'react-native-paper';
 
-function ActivityIndicator({
-  funProps,
-  heightWeightFormattedElemObj,
-  elemOb,
-  index,
-  onElementLoaded,
-}) {
+function ActivityIndicator({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <PaperActivityIndicator
-      {...heightWeightFormattedElemObj['props']}
+      {...elementProps['props']}
       style={
-        heightWeightFormattedElemObj != null &&
-        heightWeightFormattedElemObj['props'] != null
-          ? heightWeightFormattedElemObj['props']['style']
+        elementProps != null && elementProps['props'] != null
+          ? elementProps['props']['style']
           : null
       }
-      animating={elemOb['value']}
-      key={'activityindicator' + index}
-      {...funProps}
+      animating={elementProps['value']}
+      {...elementProps}
     />
   );
 }

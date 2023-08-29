@@ -3,9 +3,7 @@ import {RadioButton as PaperRadioButton} from 'react-native-paper';
 
 function RadioButton({
   elemOb,
-  isOnPressAllowed,
-  onLongPress,
-  onPress,
+
   funProps,
   onElementLoaded,
 }) {
@@ -16,14 +14,6 @@ function RadioButton({
     <PaperRadioButton
       value="first"
       status={elemOb['value'] ? 'checked' : 'unchecked'}
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
       {...funProps}
     />
   );

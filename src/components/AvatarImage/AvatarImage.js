@@ -2,19 +2,19 @@ import React, {useEffect} from 'react';
 import {Avatar} from 'react-native-paper';
 
 function AvatarImage({
-  heightWeightFormattedElemObj,
-  elemOb,
-  funProps,
+  elementProps,
+
+  getViewItems,
   onElementLoaded,
 }) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <Avatar.Image
-      {...heightWeightFormattedElemObj['props']}
-      source={{uri: elemOb['value']}}
-      {...funProps}
+      {...elementProps['props']}
+      source={{uri: elementProps['value']}}
+      {...elementProps}
     />
   );
 }

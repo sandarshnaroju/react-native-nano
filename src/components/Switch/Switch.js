@@ -1,32 +1,11 @@
 import React, {useEffect} from 'react';
 import {Switch as PaperSwitch} from 'react-native-paper';
 
-function Switch({
-  heightWeightFormattedElemObj,
-  isOnPressAllowed,
-  onPress,
-  onLongPress,
-  funProps,
-  elemOb,
-  onElementLoaded,
-}) {
+function Switch({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
-  return (
-    <PaperSwitch
-      {...heightWeightFormattedElemObj['props']}
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}
-    />
-  );
+  return <PaperSwitch {...elementProps['props']} {...elementProps} />;
 }
 
 export default Switch;

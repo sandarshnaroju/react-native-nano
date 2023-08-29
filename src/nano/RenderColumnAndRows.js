@@ -3,218 +3,218 @@ import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 import {isFunction} from '../utils/Utilities';
 import React from 'react';
 
-const onElementPress = (
-  eleObject,
-  index,
-  itemData,
-  listData,
-  logicObject,
-  propParameters,
-  itemJson,
-  onPressCallBack,
-  getUi,
-) => {
-  if (logicObject == null) {
-    if (eleObject != null && eleObject['onPress'] != null) {
-      const isItFunction = isFunction(eleObject['onPress']);
-      if (typeof eleObject['onPress'] !== 'string' && isItFunction) {
-        return eleObject['onPress']({
-          index,
-          itemData,
-          listData,
-          itemJson,
-          setUi: onPressCallBack,
-          getUi,
+// const onElementPress = (
+//   eleObject,
+//   index,
+//   itemData,
+//   listData,
+//   logicObject,
+//   propParameters,
+//   itemJson,
+//   onPressCallBack,
+//   getUi,
+// ) => {
+//   if (logicObject == null) {
+//     if (eleObject != null && eleObject['onPress'] != null) {
+//       const isItFunction = isFunction(eleObject['onPress']);
+//       if (typeof eleObject['onPress'] !== 'string' && isItFunction) {
+//         return eleObject['onPress']({
+//           index,
+//           itemData,
+//           listData,
+//           itemJson,
+//           setUi: onPressCallBack,
+//           getUi,
 
-          ...propParameters,
-        });
-      } else {
-        if (
-          eleObject != null &&
-          eleObject['onPress'] != null &&
-          typeof eleObject['onPress'] === 'string'
-        ) {
-          let copy = new Function('return ' + eleObject['onPress'])();
+//           ...propParameters,
+//         });
+//       } else {
+//         if (
+//           eleObject != null &&
+//           eleObject['onPress'] != null &&
+//           typeof eleObject['onPress'] === 'string'
+//         ) {
+//           let copy = new Function('return ' + eleObject['onPress'])();
 
-          return copy({
-            index,
-            itemData,
-            listData,
-            itemJson,
-            setUi: onPressCallBack,
-            getUi,
+//           return copy({
+//             index,
+//             itemData,
+//             listData,
+//             itemJson,
+//             setUi: onPressCallBack,
+//             getUi,
 
-            ...propParameters,
-          });
-        }
-      }
-    }
-  } else {
-    if (eleObject != null && eleObject['onPress'] != null) {
-      const isItFunction = isFunction(eleObject['onPress']);
+//             ...propParameters,
+//           });
+//         }
+//       }
+//     }
+//   } else {
+//     if (eleObject != null && eleObject['onPress'] != null) {
+//       const isItFunction = isFunction(eleObject['onPress']);
 
-      if (isItFunction) {
-        return eleObject['onPress']({
-          index,
-          itemData,
-          listData,
-          itemJson,
-          setUi: onPressCallBack,
-          getUi,
-          ...propParameters,
-        });
-      } else {
-        if (typeof eleObject['onPress'] === 'string') {
-          if (logicObject[eleObject['onPress']] != null) {
-            if (typeof logicObject[eleObject['onPress']] === 'string') {
-              let copy = new Function(
-                'return ' + logicObject[eleObject['onPress']],
-              )();
+//       if (isItFunction) {
+//         return eleObject['onPress']({
+//           index,
+//           itemData,
+//           listData,
+//           itemJson,
+//           setUi: onPressCallBack,
+//           getUi,
+//           ...propParameters,
+//         });
+//       } else {
+//         if (typeof eleObject['onPress'] === 'string') {
+//           if (logicObject[eleObject['onPress']] != null) {
+//             if (typeof logicObject[eleObject['onPress']] === 'string') {
+//               let copy = new Function(
+//                 'return ' + logicObject[eleObject['onPress']],
+//               )();
 
-              return copy({
-                index,
-                itemData,
-                listData,
-                itemJson,
-                setUi: onPressCallBack,
-                getUi,
-                ...propParameters,
-              });
-            }
-            if (typeof logicObject[eleObject['onPress']] === 'function') {
-              return logicObject[eleObject['onPress']]({
-                index,
-                itemData,
-                listData,
-                itemJson,
-                setUi: onPressCallBack,
-                getUi,
-                ...propParameters,
-              });
-            }
-          } else {
-            let copy = new Function('return ' + eleObject['onPress'])();
+//               return copy({
+//                 index,
+//                 itemData,
+//                 listData,
+//                 itemJson,
+//                 setUi: onPressCallBack,
+//                 getUi,
+//                 ...propParameters,
+//               });
+//             }
+//             if (typeof logicObject[eleObject['onPress']] === 'function') {
+//               return logicObject[eleObject['onPress']]({
+//                 index,
+//                 itemData,
+//                 listData,
+//                 itemJson,
+//                 setUi: onPressCallBack,
+//                 getUi,
+//                 ...propParameters,
+//               });
+//             }
+//           } else {
+//             let copy = new Function('return ' + eleObject['onPress'])();
 
-            return copy({
-              index,
-              itemData,
-              listData,
-              itemJson,
-              setUi: onPressCallBack,
-              getUi,
-              ...propParameters,
-            });
-          }
-        }
-      }
-    }
-  }
-};
-const onElementLongPress = (
-  eleObject,
-  index,
-  itemData,
-  listData,
-  logicObject,
-  propParameters,
-  itemJson,
-  onPressCallBack,
-  getUi,
-) => {
-  if (logicObject == null) {
-    if (eleObject != null && eleObject['onLongClick'] != null) {
-      const isItFunction = isFunction(eleObject['onLongClick']);
-      if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
-        return eleObject['onLongClick']({
-          index,
-          itemData,
-          listData,
-          itemJson,
-          setUi: onPressCallBack,
-          getUi,
-          ...propParameters,
-        });
-      } else {
-        if (
-          eleObject != null &&
-          eleObject['onLongClick'] != null &&
-          typeof eleObject['onLongClick'] === 'string'
-        ) {
-          let copy = new Function('return ' + eleObject['onLongClick'])();
+//             return copy({
+//               index,
+//               itemData,
+//               listData,
+//               itemJson,
+//               setUi: onPressCallBack,
+//               getUi,
+//               ...propParameters,
+//             });
+//           }
+//         }
+//       }
+//     }
+//   }
+// };
+// const onElementLongPress = (
+//   eleObject,
+//   index,
+//   itemData,
+//   listData,
+//   logicObject,
+//   propParameters,
+//   itemJson,
+//   onPressCallBack,
+//   getUi,
+// ) => {
+//   if (logicObject == null) {
+//     if (eleObject != null && eleObject['onLongClick'] != null) {
+//       const isItFunction = isFunction(eleObject['onLongClick']);
+//       if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
+//         return eleObject['onLongClick']({
+//           index,
+//           itemData,
+//           listData,
+//           itemJson,
+//           setUi: onPressCallBack,
+//           getUi,
+//           ...propParameters,
+//         });
+//       } else {
+//         if (
+//           eleObject != null &&
+//           eleObject['onLongClick'] != null &&
+//           typeof eleObject['onLongClick'] === 'string'
+//         ) {
+//           let copy = new Function('return ' + eleObject['onLongClick'])();
 
-          return copy({
-            index,
-            itemData,
-            listData,
-            itemJson,
-            setUi: onPressCallBack,
-            getUi,
-            ...propParameters,
-          });
-        }
-      }
-    }
-  } else {
-    if (eleObject != null && eleObject['onLongClick'] != null) {
-      const isItFunction = isFunction(eleObject['onLongClick']);
+//           return copy({
+//             index,
+//             itemData,
+//             listData,
+//             itemJson,
+//             setUi: onPressCallBack,
+//             getUi,
+//             ...propParameters,
+//           });
+//         }
+//       }
+//     }
+//   } else {
+//     if (eleObject != null && eleObject['onLongClick'] != null) {
+//       const isItFunction = isFunction(eleObject['onLongClick']);
 
-      if (isItFunction) {
-        return eleObject['onLongClick']({
-          index,
-          itemData,
-          listData,
-          itemJson,
-          setUi: onPressCallBack,
-          getUi,
-          ...propParameters,
-        });
-      } else {
-        if (typeof eleObject['onLongClick'] === 'string') {
-          if (logicObject[eleObject['onLongClick']] != null) {
-            if (typeof logicObject[eleObject['onLongClick']] === 'string') {
-              let copy = new Function(
-                'return ' + logicObject[eleObject['onLongClick']],
-              )();
+//       if (isItFunction) {
+//         return eleObject['onLongClick']({
+//           index,
+//           itemData,
+//           listData,
+//           itemJson,
+//           setUi: onPressCallBack,
+//           getUi,
+//           ...propParameters,
+//         });
+//       } else {
+//         if (typeof eleObject['onLongClick'] === 'string') {
+//           if (logicObject[eleObject['onLongClick']] != null) {
+//             if (typeof logicObject[eleObject['onLongClick']] === 'string') {
+//               let copy = new Function(
+//                 'return ' + logicObject[eleObject['onLongClick']],
+//               )();
 
-              return copy({
-                index,
-                itemData,
-                listData,
-                itemJson,
-                setUi: onPressCallBack,
-                getUi,
-                ...propParameters,
-              });
-            }
-            if (typeof logicObject[eleObject['onLongClick']] === 'object') {
-              return logicObject[eleObject['onLongClick']]({
-                index,
-                itemData,
-                listData,
-                itemJson,
-                setUi: onPressCallBack,
-                getUi,
-                ...propParameters,
-              });
-            }
-          } else {
-            let copy = new Function('return ' + eleObject['onLongClick'])();
+//               return copy({
+//                 index,
+//                 itemData,
+//                 listData,
+//                 itemJson,
+//                 setUi: onPressCallBack,
+//                 getUi,
+//                 ...propParameters,
+//               });
+//             }
+//             if (typeof logicObject[eleObject['onLongClick']] === 'object') {
+//               return logicObject[eleObject['onLongClick']]({
+//                 index,
+//                 itemData,
+//                 listData,
+//                 itemJson,
+//                 setUi: onPressCallBack,
+//                 getUi,
+//                 ...propParameters,
+//               });
+//             }
+//           } else {
+//             let copy = new Function('return ' + eleObject['onLongClick'])();
 
-            return copy({
-              index,
-              itemData,
-              listData,
-              itemJson,
-              setUi: onPressCallBack,
-              getUi,
-              ...propParameters,
-            });
-          }
-        }
-      }
-    }
-  }
-};
+//             return copy({
+//               index,
+//               itemData,
+//               listData,
+//               itemJson,
+//               setUi: onPressCallBack,
+//               getUi,
+//               ...propParameters,
+//             });
+//           }
+//         }
+//       }
+//     }
+//   }
+// };
 
 const GetRowElements = ({
   rowElementsArray,
@@ -256,32 +256,32 @@ const GetRowElements = ({
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           getUi={getUi}
-          onPress={({index, itemData, listData, itemJson}) => {
-            onElementPress(
-              eleObject,
-              index,
-              itemData,
-              listData,
-              logicObject,
-              propParameters,
-              itemJson,
-              onPressCallBack,
-              getUi,
-            );
-          }}
-          onLongPress={(index, itemData, listData, itemJson) => {
-            onElementLongPress(
-              eleObject,
-              index,
-              itemData,
-              listData,
-              logicObject,
-              propParameters,
-              itemJson,
-              onPressCallBack,
-              getUi,
-            );
-          }}
+          // onPress={({index, itemData, listData, itemJson}) => {
+          //   onElementPress(
+          //     eleObject,
+          //     index,
+          //     itemData,
+          //     listData,
+          //     logicObject,
+          //     propParameters,
+          //     itemJson,
+          //     onPressCallBack,
+          //     getUi,
+          //   );
+          // }}
+          // onLongPress={(index, itemData, listData, itemJson) => {
+          //   onElementLongPress(
+          //     eleObject,
+          //     index,
+          //     itemData,
+          //     listData,
+          //     logicObject,
+          //     propParameters,
+          //     itemJson,
+          //     onPressCallBack,
+          //     getUi,
+          //   );
+          // }}
         />,
       );
     });

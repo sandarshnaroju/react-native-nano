@@ -1,30 +1,21 @@
 import React, {useEffect} from 'react';
 import {Text as PaperText} from 'react-native-paper';
 
-function Text({
-  index,
-  heightWeightFormattedElemObj,
-  isOnPressAllowed,
-  onLongPress,
-  funProps,
-  onElementLoaded,
-}) {
+function Text({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(heightWeightFormattedElemObj);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <PaperText
-      {...heightWeightFormattedElemObj['props']}
+      {...elementProps['props']}
       style={
-        heightWeightFormattedElemObj != null &&
-        heightWeightFormattedElemObj['props'] != null
-          ? heightWeightFormattedElemObj['props']['style']
+        elementProps != null && elementProps['props'] != null
+          ? elementProps['props']['style']
           : null
       }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}>
+      {...elementProps}>
       {' '}
-      {heightWeightFormattedElemObj['value']}{' '}
+      {elementProps['value']}{' '}
     </PaperText>
   );
 }

@@ -1,18 +1,13 @@
 import React, {useEffect} from 'react';
 import {Badge as PaperBadge} from 'react-native-paper';
 
-function Badge({
-  heightWeightFormattedElemObj,
-  funProps,
-  elemOb,
-  onElementLoaded,
-}) {
+function Badge({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
-    <PaperBadge {...heightWeightFormattedElemObj['props']} {...funProps}>
-      {elemOb['value']}
+    <PaperBadge {...elementProps['props']} {...elementProps}>
+      {elementProps['value']}
     </PaperBadge>
   );
 }

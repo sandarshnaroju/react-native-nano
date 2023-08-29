@@ -43,6 +43,8 @@ const GenericScreen = ({
         // );
         if (__DEV__) {
           timeut = setTimeout(() => {
+            // console.log('fetching again');
+
             fetchScreenFromNetwork(uri);
           }, RELOAD_TIME);
         }

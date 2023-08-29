@@ -1,36 +1,19 @@
 import React, {useEffect} from 'react';
 import {FAB as PaperFAB} from 'react-native-paper';
 
-function Fab({
-  heightWeightFormattedElemObj,
-  isOnPressAllowed,
-  onPress,
-  onLongPress,
-  elemOb,
-  funProps,
-  onElementLoaded,
-}) {
+function Fab({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <PaperFAB
-      {...heightWeightFormattedElemObj['props']}
+      {...elementProps['props']}
       style={
-        heightWeightFormattedElemObj != null &&
-        heightWeightFormattedElemObj['props'] != null
-          ? heightWeightFormattedElemObj['props']['style']
+        elementProps != null && elementProps['props'] != null
+          ? elementProps['props']['style']
           : null
       }
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}
+      {...elementProps}
     />
   );
 }

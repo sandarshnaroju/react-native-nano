@@ -1,37 +1,20 @@
 import React, {useEffect} from 'react';
 import {Chip as PaperChip} from 'react-native-paper';
 
-function Chip({
-  heightWeightFormattedElemObj,
-  isOnPressAllowed,
-  onPress,
-  elemOb,
-  funProps,
-  onLongPress,
-  onElementLoaded,
-}) {
+function Chip({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <PaperChip
-      {...heightWeightFormattedElemObj['props']}
+      {...elementProps['props']}
       style={
-        heightWeightFormattedElemObj != null &&
-        heightWeightFormattedElemObj['props'] != null
-          ? heightWeightFormattedElemObj['props']['style']
+        elementProps != null && elementProps['props'] != null
+          ? elementProps['props']['style']
           : null
       }
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}>
-      {elemOb['value']}
+      {...elementProps}>
+      {elementProps['value']}
     </PaperChip>
   );
 }

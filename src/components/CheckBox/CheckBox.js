@@ -2,36 +2,26 @@ import React, {useEffect} from 'react';
 import {Checkbox as PaperCheckBox} from 'react-native-paper';
 
 function CheckBox({
-  heightWeightFormattedElemObj,
-  elemOb,
-  isOnPressAllowed,
-  onPress,
-  onLongPress,
-  funProps,
+  elementProps,
+
+  getViewItems,
   onElementLoaded,
 }) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
+
   return (
     <PaperCheckBox
-      {...heightWeightFormattedElemObj['props']}
+      {...elementProps['props']}
       status={
-        elemOb['value'] != null
-          ? elemOb['value']
+        elementProps['value'] != null
+          ? elementProps['value']
             ? 'checked'
             : 'unchecked'
           : 'indeterminate'
       }
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}
+      {...elementProps}
     />
   );
 }

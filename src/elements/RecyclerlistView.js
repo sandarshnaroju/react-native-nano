@@ -118,14 +118,15 @@ export default class RecycleTestComponent extends React.Component {
         );
         const uniq = executeAFunction(this.props.uniqueKey, data);
         const elemOb = {
-          component: this.props.itemView['component'],
+          ...this.props.itemView,
+          // component: this.props.itemView['component'],
 
           value: mapper['value'],
-          props: this.props.itemView['props'],
+          // props: this.props.itemView['props'],
           content: modifiedContent,
-          onClick: this.props.itemView['onClick'],
+          // onPress: this.props.itemView['onPress'],
         };
-        // console.log('inside listrecyceler', elemOb);
+        // console.log('inside listrecyceler', this.props.itemView['onPress']);
 
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
@@ -133,6 +134,7 @@ export default class RecycleTestComponent extends React.Component {
             elemOb,
             logicObject: this.props.logicObject,
             ...this.props.propParameters,
+            itemJson: elemOb,
             index,
             itemData: data,
             listData: this.props.listData,
@@ -142,7 +144,6 @@ export default class RecycleTestComponent extends React.Component {
         });
 
         // console.log('data', this.props.listData.length);
-        // console.log('shortcur', nameShortcutObject);
 
         return (
           <UniversalElement
@@ -150,14 +151,14 @@ export default class RecycleTestComponent extends React.Component {
             uniqueKey={uniq + index}
             elemObj={elemOb}
             navigation={this.props.navigation}
-            onPress={({itemJson}) => {
-              this.props.onPress({
-                index,
-                itemData: data,
-                listData: this.props.listData,
-                itemJson,
-              });
-            }}
+            // onPress={({itemJson}) => {
+            //   this.props.onPress({
+            //     index,
+            //     itemData: data,
+            //     listData: this.props.listData,
+            //     itemJson,
+            //   });
+            // }}
             onPressCallBack={this.props.onPressCallBack}
             propParameters={this.props.propParameters}
             recyclerListViewFunctionProps={funProps}

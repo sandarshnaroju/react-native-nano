@@ -1,33 +1,17 @@
 import React, {useEffect} from 'react';
 import {TextInput as PaperTextInput} from 'react-native-paper';
 
-function TextInput({
-  heightWeightFormattedElemObj,
-  isOnPressAllowed,
-  onPress,
-  onLongPress,
-  funProps,
-  elemOb,
-  onElementLoaded,
-}) {
+function TextInput({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
-    onElementLoaded(elemOb);
+    onElementLoaded(elementProps);
   }, []);
   return (
     <PaperTextInput
-      {...heightWeightFormattedElemObj['props']}
-      onPress={
-        isOnPressAllowed
-          ? () => {
-              onPress({itemJson: elemOb});
-            }
-          : null
-      }
+      {...elementProps['props']}
       // style={{}}
       scrollEnabled={false}
-      value={elemOb['value']}
-      onLongPress={isOnPressAllowed ? onLongPress : null}
-      {...funProps}
+      value={elementProps['value']}
+      {...elementProps}
     />
   );
 }
