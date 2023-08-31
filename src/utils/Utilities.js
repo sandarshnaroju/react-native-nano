@@ -109,10 +109,17 @@ export const checkNameAndRenderCustomComponent = ({
   compsArray,
   componentName,
   props,
+  onElementLoaded,
+  elementProps,
+  getViewItems,
 }) => {
   // console.log('namee utilities', compsArray, componentName);
 
-  if (compsArray) {
+  if (
+    compsArray != null &&
+    Array.isArray(compsArray) &&
+    compsArray.length > 0
+  ) {
     const reqComp = compsArray.find(comp => comp['name'] === componentName);
 
     if (reqComp) {
@@ -120,7 +127,14 @@ export const checkNameAndRenderCustomComponent = ({
       // console.log('custome comp', Comp);
 
       if (Comp) {
-        return <Comp props={props} />;
+        return (
+          <Comp
+            props={props}
+            elementProps={elementProps}
+            getViewItems={getViewItems}
+            onElementLoaded={onElementLoaded}
+          />
+        );
       }
     }
   } else {

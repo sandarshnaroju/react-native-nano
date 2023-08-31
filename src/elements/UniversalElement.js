@@ -22,6 +22,7 @@ import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
 import NANO from '../utils/Constants';
 import {
+  checkNameAndRenderCustomComponent,
   executeAFunction,
   heightAndWidthFormatterForComponentObj,
 } from '../utils/Utilities';
@@ -346,13 +347,16 @@ function UniversalElement({
           );
 
         default:
-          // const custom = checkNameAndRenderCustomComponent({
-          //   componentName: elemOb['component'],
-          //   compsArray: customComponents,
-          // });
-          // if (custom) {
-          //   return custom;
-          // }
+          const custom = checkNameAndRenderCustomComponent({
+            componentName: elemOb['component'],
+            compsArray: customComponents,
+            onElementLoaded,
+            elementProps,
+            getViewItems,
+          });
+          if (custom) {
+            return custom;
+          }
 
           return;
       }
