@@ -20,6 +20,8 @@ import NanoRadioButton from '../components/RadioButton/RadioButton';
 import NanoSwitch from '../components/Switch/Switch';
 import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
+import NanoSearchBar from '../components/searchbar/SearchBar';
+
 import NANO from '../utils/Constants';
 import {
   checkNameAndRenderCustomComponent,
@@ -288,6 +290,14 @@ function UniversalElement({
             <NanoTextInput
               elementProps={elementProps}
               key={'textinput' + index}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.SEARCH_BAR:
+          return (
+            <NanoSearchBar
+              elementProps={elementProps}
+              key={'searchbar' + index}
               onElementLoaded={onElementLoaded}
             />
           );

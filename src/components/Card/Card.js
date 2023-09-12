@@ -7,7 +7,7 @@ function Card({elementProps, getViewItems, onElementLoaded}) {
   }, []);
   return (
     <PaperCard {...elementProps['props']} {...elementProps}>
-      {getViewItems(elementProps['content'], true)}
+      {getViewItems(elementProps['content'], true, onElementLoaded)}
     </PaperCard>
   );
 }
