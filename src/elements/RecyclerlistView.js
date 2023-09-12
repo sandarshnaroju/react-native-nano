@@ -131,13 +131,14 @@ export default class RecycleTestComponent extends React.Component {
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
           props: {
-            elemOb,
             logicObject: this.props.logicObject,
-            ...this.props.propParameters,
-            itemJson: elemOb,
-            index,
-            itemData: data,
-            listData: this.props.listData,
+            moduleParams: this.props.propParameters,
+            componentParams: {
+              index,
+              itemData: data,
+              listData: this.props.listData,
+            },
+
             setUi: this.props.onPressCallBack,
           },
           onPressCallBack: this.props.onPressCallBack,

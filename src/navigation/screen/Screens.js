@@ -24,7 +24,13 @@ const processCustomComp = custArray => {
   return custArray;
 };
 
-const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
+const RNNano = ({
+  screens,
+  uriScreens,
+  clientId,
+  customComponents,
+  customModules,
+}) => {
   const [networkScreens, setNetworkScreens] = useState([]);
 
   let database;
@@ -44,9 +50,11 @@ const RNNano = ({screens, uriScreens, clientId, customComponents}) => {
         });
     }
   };
-  const moduleParameters = getModuleParams({
+  const defaultParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
+
+  const moduleParameters = {...customModules, ...defaultParameters};
 
   useEffect(() => {
     fetchAllScreens()

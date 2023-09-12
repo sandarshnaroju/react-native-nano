@@ -28,10 +28,7 @@ import {
 } from '../utils/Utilities';
 import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
 import {getPlatform} from '../modules/platform/platform';
-const WINDOW_HEIGHT = Dimensions.get('window').height;
-const WINDOW_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
-const SCREEN_WIDTH = Dimensions.get('screen').width;
+
 const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
   return function (...args) {
     const newArgs = {
@@ -148,18 +145,14 @@ function UniversalElement({
         funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
           props: {
-            logicObject,
-            ...propParameters,
-            itemJson: elemOb,
-            listData,
-            itemData: item,
-            index: listViewIndex,
+            moduleParams: propParameters,
+
+            // itemJson: elemOb,
+            // listData,
+            // itemData: item,
+            // index: listViewIndex,
             setUi: onPressCallBack,
             getUi: getUi,
-            windowHeight: WINDOW_HEIGHT,
-            windowWidth: WINDOW_WIDTH,
-            screenHeight: SCREEN_HEIGHT,
-            screenWidth: SCREEN_WIDTH,
           },
         });
       }
@@ -396,18 +389,13 @@ function UniversalElement({
               : '',
           requestObj: elementObject['network'],
           props: {
-            logicObject,
-            ...propParameters,
-            itemJson: elementObject,
-            listData,
-            itemData: item,
-            index: listViewIndex,
+            moduleParams: propParameters,
+            // itemJson: elementObject,
+            // listData,
+            // itemData: item,
+            // index: listViewIndex,
             setUi: onPressCallBack,
             getUi: getUi,
-            windowHeight: WINDOW_HEIGHT,
-            windowWidth: WINDOW_WIDTH,
-            screenHeight: SCREEN_HEIGHT,
-            screenWidth: SCREEN_WIDTH,
           },
         });
       }

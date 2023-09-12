@@ -41,8 +41,8 @@ const Nano = ({
 
   const propParameters = {
     navigation,
-    uiElements: clonedElementsRef,
-    getUi: getUi,
+    // uiElements: clonedElementsRef,
+    // getUi: getUi,
 
     route,
     ...moduleParameters,
