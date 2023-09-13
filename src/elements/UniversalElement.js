@@ -5,6 +5,7 @@ import React from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
 import NanoAvatarImage from '../components/AvatarImage';
 import NanoAvatarText from '../components/AvatarText/AvatarText';
+import NanoAvatarIcon from '../components/AvatarIcon/AvatarIcon';
 import Badge from '../components/Badge/Badge';
 import NanoBanner from '../components/Banner/Banner';
 import NanoButton from '../components/Button/Button';
@@ -21,7 +22,7 @@ import NanoSwitch from '../components/Switch/Switch';
 import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
 import NanoSearchBar from '../components/searchbar/SearchBar';
-
+import NanoModal from '../components/modal/Modal';
 import NANO from '../utils/Constants';
 import {
   checkNameAndRenderCustomComponent,
@@ -162,6 +163,7 @@ function UniversalElement({
         ...elemOb,
         ...funProps,
       };
+
       // ! onPressCallback is a function that takes the complete JSON data and setstates it.
       // ! Use this funtion to modify UI.
       switch (elemOb['component']) {
@@ -171,6 +173,7 @@ function UniversalElement({
               elementProps={elementProps}
               key={'button' + index}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
 
@@ -180,15 +183,25 @@ function UniversalElement({
               key={'text' + index}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
-
+        case NANO.MODAL:
+          return (
+            <NanoModal
+              key={'text' + index}
+              elementProps={elementProps}
+              onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
+            />
+          );
         case NANO.ACTIVITY_INDICATOR:
           return (
             <NanoActivityIndicator
               key={'activityindicator' + index}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
         case NANO.IMAGE:
@@ -197,6 +210,7 @@ function UniversalElement({
               elementProps={elementProps}
               key={'image' + index}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
 
@@ -206,6 +220,16 @@ function UniversalElement({
               elementProps={elementProps}
               key={'iconbutton' + index}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
+            />
+          );
+        case NANO.AVATAR_ICON:
+          return (
+            <NanoAvatarIcon
+              elementProps={elementProps}
+              key={'avatarIcon' + index}
+              onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
         case NANO.AVATAR_IMAGE:
@@ -213,6 +237,7 @@ function UniversalElement({
             <NanoAvatarImage
               elementProps={elementProps}
               key={'avatarimage' + index}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );
@@ -222,6 +247,7 @@ function UniversalElement({
             <NanoAvatarText
               key={'avatar text' + index}
               elementProps={elementProps}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );
@@ -230,6 +256,7 @@ function UniversalElement({
           return (
             <Badge
               key={'badge text' + index}
+              getViewItems={getViewItems}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
             />
@@ -241,6 +268,7 @@ function UniversalElement({
               key={'checkbox' + index}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
         case NANO.CHIP:
@@ -249,6 +277,7 @@ function UniversalElement({
               elementProps={elementProps}
               key={'chip' + index}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
         case NANO.FAB:
@@ -257,6 +286,7 @@ function UniversalElement({
               key={'fab' + index}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
+              getViewItems={getViewItems}
             />
           );
         case NANO.PROGRESS_BAR:
@@ -264,6 +294,7 @@ function UniversalElement({
             <NanoProgressbar
               key={'progress bar' + index}
               elementProps={elementProps}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );
@@ -272,6 +303,7 @@ function UniversalElement({
           return (
             <NanoRadioButton
               elemOb={elemOb}
+              getViewItems={getViewItems}
               key={'radio button' + index}
               onElementLoaded={onElementLoaded}
             />
@@ -282,6 +314,7 @@ function UniversalElement({
             <NanoSwitch
               elementProps={elementProps}
               key={'switch' + index}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );
@@ -290,12 +323,14 @@ function UniversalElement({
             <NanoTextInput
               elementProps={elementProps}
               key={'textinput' + index}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );
         case NANO.SEARCH_BAR:
           return (
             <NanoSearchBar
+              getViewItems={getViewItems}
               elementProps={elementProps}
               key={'searchbar' + index}
               onElementLoaded={onElementLoaded}
@@ -305,6 +340,7 @@ function UniversalElement({
           return (
             <NanoBanner
               key={'banner' + index}
+              getViewItems={getViewItems}
               elementProps={elementProps}
               onElementLoaded={onElementLoaded}
             />
@@ -315,6 +351,7 @@ function UniversalElement({
             <NanoDivider
               elementProps={elementProps}
               key={'divider' + index}
+              getViewItems={getViewItems}
               onElementLoaded={onElementLoaded}
             />
           );

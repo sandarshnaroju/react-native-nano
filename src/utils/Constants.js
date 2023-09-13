@@ -33,5 +33,6 @@ const NANO = {
   BOTTOM_BAR: 'bottom_bar',
   TOP_BAR: 'top_bar',
   YOUTUBE_PLAYER: 'youtube_player',
+  MODAL: 'modal',
 };
 export default NANO;
