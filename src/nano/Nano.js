@@ -60,11 +60,16 @@ const Nano = ({
       if (onStart != null) {
         // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
-          logicObject[onStart]({...propParameters, setUi: onPressCallBack});
+          logicObject[onStart]({
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
         } else {
           executeAFunction(onStart, {
-            ...propParameters,
+            moduleParams: propParameters,
             setUi: onPressCallBack,
+            getUi,
           });
         }
       }
@@ -73,16 +78,21 @@ const Nano = ({
       if (createShortCutTimeout) {
         clearTimeout(createShortCutTimeout);
       }
-      // if (onEnd != null) {
-      //   if (logicObject != null && logicObject[onEnd] != null) {
-      //     logicObject[onEnd]({...propParameters, setUi: onPressCallBack});
-      //   } else {
-      //     executeAFunction(onEnd, {
-      //       ...propParameters,
-      //       setUi: onPressCallBack,
-      //     });
-      //   }
-      // }
+      if (onEnd != null) {
+        if (logicObject != null && logicObject[onEnd] != null) {
+          logicObject[onEnd]({
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
+        } else {
+          executeAFunction(onEnd, {
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
+        }
+      }
     };
   }, [screenName, route]);
 
