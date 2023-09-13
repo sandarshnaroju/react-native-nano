@@ -10,6 +10,16 @@ import Badge from '../components/Badge/Badge';
 import NanoBanner from '../components/Banner/Banner';
 import NanoButton from '../components/Button/Button';
 import NanoCard from '../components/Card/Card';
+import NanoCardTitle from '../components/CardTitle/CardTitle';
+import NanoCardContent from '../components/CardContent/CardContent';
+import NanoCardActions from '../components/CardActions/CardActions';
+import NanoCardCover from '../components/CardCover/CardCover';
+
+import NanoDialog from '../components/Dialog/Dialog';
+import NanoDialogTitle from '../components/DialogTitle/DialogTitle';
+import NanoDialogContent from '../components/DialogContent/DialogContent';
+import NanoDialogActions from '../components/DialogActions/DialogActions';
+import NanoDialogScrollArea from '../components/DialogScrollArea/DialogScrollArea';
 import NanoCheckBox from '../components/CheckBox/CheckBox';
 import NanoChip from '../components/Chip/Chip';
 import NanoDivider from '../components/Divider/Divider';
@@ -23,6 +33,7 @@ import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
 import NanoSearchBar from '../components/searchbar/SearchBar';
 import NanoModal from '../components/modal/Modal';
+
 import NANO from '../utils/Constants';
 import {
   checkNameAndRenderCustomComponent,
@@ -364,7 +375,87 @@ function UniversalElement({
               onElementLoaded={onElementLoaded}
             />
           );
-
+        case NANO.CARD_CONTENT:
+          return (
+            <NanoCardContent
+              key={'CARD_CONTENT' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.CARD_ACTION:
+          return (
+            <NanoCardActions
+              key={'CARD_ACTIONS' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.CARD_TITLE:
+          return (
+            <NanoCardTitle
+              key={'CARD_title' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.CARD_COVER:
+          return (
+            <NanoCardCover
+              key={'CARD_cover' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.DIALOG:
+          return (
+            <NanoDialog
+              key={'dialog' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.DIALOG_CONTENT:
+          return (
+            <NanoDialogContent
+              key={'dialog_content' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.DIALOG_ACTION:
+          return (
+            <NanoDialogActions
+              key={'dialog_ACTIONS' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.DIALOG_TITLE:
+          return (
+            <NanoDialogTitle
+              key={'dialog_title' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
+        case NANO.DIALOG_SCROLLAREA:
+          return (
+            <NanoDialogScrollArea
+              key={'dialog_scrollview' + index}
+              elementProps={elementProps}
+              getViewItems={getViewItems}
+              onElementLoaded={onElementLoaded}
+            />
+          );
         case NANO.VIEW:
           if (elemOb['onPress'] != null) {
             return (

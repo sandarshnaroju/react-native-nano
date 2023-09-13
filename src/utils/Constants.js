@@ -17,6 +17,17 @@ const NANO = {
   TEXT_INPUT: 'text_input',
   BANNER: 'banner',
   CARD: 'card',
+  CARD_TITLE: 'card_title',
+  CARD_CONTENT: 'card_content',
+  CARD_ACTION: 'card_action',
+  CARD_COVER: 'card_cover',
+
+  DIALOG: 'dialog',
+  DIALOG_TITLE: 'dialog_title',
+  DIALOG_CONTENT: 'dialog_content',
+  DIALOG_ACTION: 'dialog_action',
+  DIALOG_SCROLLAREA: 'dialog_scrollarea',
+
   SEARCH_BAR: 'search_bar',
   SEGMENTED_BUTTONS: 'segmented_buttons',
   SNACKBAR: 'snackbar',
