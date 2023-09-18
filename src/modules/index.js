@@ -4,6 +4,9 @@ import getNotification from './notifications/Notifications';
 import getPermissionInstance from './permissions/Permissions';
 import getSession from './session/Session';
 import {Dimensions} from 'react-native';
+import CustomGoogleSignIn from './googleSignin/GoogleSignIn.native';
+import ImagePicker from './imagepicker/ImagePicker';
+import DeviceInfo from './deviceinfo/DeviceInfo';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -27,6 +30,9 @@ const getModuleParams = ({callBack}) => {
     Permissions,
     session,
     deviceDimensions,
+    ...CustomGoogleSignIn,
+    ImagePicker,
+    ...DeviceInfo,
   };
   return moduleParameters;
   // return {};

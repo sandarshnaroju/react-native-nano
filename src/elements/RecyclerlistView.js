@@ -138,7 +138,7 @@ export default class RecycleTestComponent extends React.Component {
               itemData: data,
               listData: this.props.listData,
             },
-
+            getUi: this.props.getUi,
             setUi: this.props.onPressCallBack,
           },
           onPressCallBack: this.props.onPressCallBack,

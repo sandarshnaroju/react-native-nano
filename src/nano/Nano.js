@@ -11,7 +11,6 @@ import {
   getNameSHortcutObject,
   traverseThroughInputJsonAndCreateNameSHortcut,
 } from '../utils/UiKeysMapper';
-import {useLayoutEffect} from 'react';
 
 const Nano = ({
   screen,
@@ -43,6 +42,22 @@ const Nano = ({
     navigation,
     // uiElements: clonedElementsRef,
     // getUi: getUi,
+    // theme: {
+    //   dark: () => {
+    //     console.log('dark called');
+
+    //     if (moduleParameters != null && moduleParameters.session != null) {
+    //       moduleParameters.session.setValue('theme', 'dark');
+    //       const vaal = traverseThroughInputJsonAndCreateNameSHortcut(
+    //         uiElementsRef.current,
+    //         [],
+    //       );
+    //       uiElementsRef.current = vaal;
+    //       setUiElements(uiElementsRef.current);
+    //     }
+    //   },
+    //   light: () => {},
+    // },
 
     route,
     ...moduleParameters,

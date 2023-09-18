@@ -1,3 +1,5 @@
+import getSession from '../modules/session/Session';
+
 var nameShortcutObject = {};
 
 export const getNameSHortcutObject = () => {
@@ -44,13 +46,31 @@ export const traverseThroughInputJsonAndCreateNameSHortcut = (
               keys.concat(key),
               nameShortcutObject,
             );
-          } else if (key === 'name') {
-            // console.log('valll', key, result, keys, value);
+          } else {
+            if (key === 'name') {
+              // console.log('valll', key, result, keys, value);
 
-            if (!nameShortcutObject[value]) {
-              nameShortcutObject[value] = [];
+              if (!nameShortcutObject[value]) {
+                nameShortcutObject[value] = [];
+              }
+              nameShortcutObject[value] = keys.concat(key);
+            } else {
+              // if (
+              //   key != null &&
+              //   (key.includes('Color') || key.includes('color'))
+              // ) {
+              //   if (jsonData[key] != null && jsonData[key].includes('|')) {
+              //     const session = getSession();
+              //     const givenValue = jsonData[key];
+              //     const theme = session.getValue('theme');
+              //     const updatedColor =
+              //       givenValue.split(' | ')[theme === 'dark' ? 1 : 0];
+              //     jsonData[key] = updatedColor;
+              //     console.log('hello', givenValue, theme, updatedColor);
+              //   }
+              // }
             }
-            nameShortcutObject[value] = keys.concat(key);
+            // return jsonData;
           }
         }
       }

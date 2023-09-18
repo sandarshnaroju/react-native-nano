@@ -10,8 +10,9 @@ import RenderColoumViews from './RenderColumnAndRows';
 import {
   getElementObjectByKey,
   getNameSHortcutObject,
+  traverseThroughInputJsonAndCreateNameSHortcut,
 } from '../utils/UiKeysMapper';
-import {modifyNestedValue} from '../utils/Utilities';
+import {executeAFunction, modifyNestedValue} from '../utils/Utilities';
 export const TopTabNano = ({
   screen,
   style,
@@ -35,8 +36,8 @@ export const TopTabNano = ({
   };
   const propParameters = {
     navigation,
-    uiElements: clonedElements,
-    getUi: getUi,
+    // uiElements: clonedElements,
+    // getUi: getUi,
     route,
     ...moduleParameters,
   };
@@ -46,30 +47,48 @@ export const TopTabNano = ({
     setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
-    if (onStart != null) {
-      const isItFunction = isFunction(onStart);
-      if (isItFunction) {
-        setUiElements(onStart({...propParameters}));
-      } else {
+    let createShortCutTimeout = setTimeout(() => {
+      // console.log('callled traverse function', uiElementsRef.current);
+
+      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+      if (onStart != null) {
+        // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
-          setUiElements(logicObject[onStart]({...propParameters}));
+          logicObject[onStart]({
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
+        } else {
+          executeAFunction(onStart, {
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
         }
       }
-    }
-
+    }, 1);
     return () => {
+      if (createShortCutTimeout) {
+        clearTimeout(createShortCutTimeout);
+      }
       if (onEnd != null) {
-        const isItFunction = isFunction(onEnd);
-        if (isItFunction) {
-          setUiElements(onEnd({...propParameters}));
+        if (logicObject != null && logicObject[onEnd] != null) {
+          logicObject[onEnd]({
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
         } else {
-          if (logicObject != null && logicObject[onEnd] != null) {
-            setUiElements(logicObject[onEnd]({...propParameters}));
-          }
+          executeAFunction(onEnd, {
+            moduleParams: propParameters,
+            setUi: onPressCallBack,
+            getUi,
+          });
         }
       }
     };
-  }, [screenName]);
+  }, [screenName, route]);
 
   const onPressCallBack = (key = null, keyObject = null, commit = true) => {
     // if (modifiedElements) {

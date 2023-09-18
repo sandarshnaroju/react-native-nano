@@ -290,6 +290,7 @@ const GetRowElements = ({
 
   return rowelements;
 };
+
 const RenderColoumViews = ({
   totalData,
   navigation,

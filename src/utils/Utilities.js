@@ -2,6 +2,8 @@ import {cloneDeep} from 'lodash';
 import * as React from 'react';
 
 import {Dimensions} from 'react-native';
+import getElementAsPerComponent from '../elements/ElementByComponent';
+import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -113,18 +115,17 @@ export const checkNameAndRenderCustomComponent = ({
   elementProps,
   getViewItems,
 }) => {
-  // console.log('namee utilities', compsArray, componentName);
-
   if (
     compsArray != null &&
     Array.isArray(compsArray) &&
     compsArray.length > 0
   ) {
     const reqComp = compsArray.find(comp => comp['name'] === componentName);
-
+    if (componentName === 'video') {
+      // console.log('custome comp', elementProps, onElementLoaded);
+    }
     if (reqComp) {
       const Comp = reqComp['component'];
-      // console.log('custome comp', Comp);
 
       if (Comp) {
         return (
@@ -487,4 +488,155 @@ export const heightAndWidthFormatter = props => {
     });
   }
   return props;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+////////////////////////// Universal Element Functions ///////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+export const fetchDataBasedOnNetworkObject = ({
+  elementObject,
+  propParameters,
+  onPressCallBack,
+  getUi,
+}) => {
+  if (elementObject != null && elementObject['network'] != null) {
+    if (elementObject['network']['action'] === 'onStart') {
+      requestDataFromUrlAsPerNetworkData({
+        requestType:
+          elementObject['network']['fetch'] != null
+            ? 'fetch'
+            : elementObject['network']['axios'] != null
+            ? 'axios'
+            : '',
+        requestObj: elementObject['network'],
+        props: {
+          moduleParams: propParameters,
+
+          setUi: onPressCallBack,
+          getUi: getUi,
+        },
+      });
+    }
+  }
+};
+export const onElementLoaded = ({
+  loadedElemObject,
+  getUi,
+  onPressCallBack,
+  propParameters,
+}) => {
+  // console.log('onElement loaded', loadedElemObject['component']);
+  fetchDataBasedOnNetworkObject({
+    elementObject: loadedElemObject,
+    getUi,
+    onPressCallBack,
+    propParameters,
+  });
+};
+
+const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
+  return function (...args) {
+    const newArgs = {
+      methodValues: args,
+      ...extraParams,
+    };
+
+    executeAFunction(originalFn, newArgs);
+  };
+};
+
+const dummy = (props, elemObj) => {
+  requestDataFromUrlAsPerNetworkData({
+    requestType:
+      elemObj['network']['fetch'] != null
+        ? 'fetch'
+        : elemObj['network']['axios'] != null
+        ? 'axios'
+        : '',
+    requestObj: elemObj['network'],
+    props,
+  });
+};
+const onPressNetwork = (onPressFunc, props, eleObject) => {
+  executeAFunction(onPressFunc, props);
+  return dummy(props, eleObject);
+};
+export const getInterceptedFunctionProps = ({
+  eleObject,
+  props,
+  onPressCallBack,
+}) => {
+  const funArray = {};
+
+  const functionWithOnKeys = Object.keys(eleObject).filter(
+    propKey => propKey.indexOf('on') === 0,
+  );
+
+  if (
+    eleObject != null &&
+    eleObject['network'] != null &&
+    eleObject['network']['action'] === 'onPress'
+  ) {
+    functionWithOnKeys.push('onPress');
+  }
+
+  functionWithOnKeys.forEach(propKey => {
+    let func = null;
+    if (
+      props != null &&
+      props['logicObject'] != null &&
+      props['logicObject'][eleObject[propKey]] != null
+    ) {
+      func = props['logicObject'][eleObject[propKey]];
+    } else {
+      func = eleObject[propKey];
+    }
+
+    if (
+      eleObject != null &&
+      eleObject['network'] != null &&
+      eleObject['network']['action'] === 'onPress'
+    ) {
+      funArray[propKey] = withExtraParams(() => {
+        onPressNetwork(func, props, eleObject);
+      }, props);
+      // funArray[propKey] = withExtraParams(eleObject[propKey], props);
+    } else {
+      funArray[propKey] = withExtraParams(func, props);
+    }
+  });
+
+  return funArray;
+};
+export const getViewItems = ({
+  content,
+
+  uniqueKey,
+  customComponents,
+  onPressCallBack,
+  propParameters,
+  getUi,
+  recyclerListViewFunctionProps,
+}) => {
+  const elements = [];
+  if (content != null && content.length > 0) {
+    content.forEach((elemet, index) => {
+      const oitem = getElementAsPerComponent({
+        customComponents,
+        elemOb: elemet,
+        index: index + uniqueKey,
+
+        onPressCallBack,
+        propParameters,
+        getUi,
+        recyclerListViewFunctionProps,
+      });
+
+      elements.push(oitem);
+    });
+  }
+
+  return elements;
 };

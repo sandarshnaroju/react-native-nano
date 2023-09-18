@@ -7,7 +7,10 @@ import NanoTopTabs from '../navigation/toptabs/TopTabs';
 import NANO from '../utils/Constants';
 import {
   checkNameAndRenderCustomComponent,
+  getInterceptedFunctionProps,
+  getViewItems,
   heightAndWidthFormatterForComponentObj,
+  onElementLoaded,
 } from '../utils/Utilities';
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
@@ -121,10 +124,43 @@ function CheckForListviewAndRender({
     //   );
 
     default:
+      const funProps = getInterceptedFunctionProps({
+        eleObject: elemOb,
+        props: {
+          moduleParams: propParameters,
+
+          setUi: onPressCallBack,
+          getUi: getUi,
+        },
+      });
+      const elementProps = {
+        ...elemOb,
+        ...funProps,
+      };
+      const getViewItemsUpdated = (
+        contentArr,
+        shouldOnpPressAllowed,
+        onComponentLoaded,
+        uniKey = index,
+      ) => {
+        return getViewItems({
+          content: contentArr,
+          customComponents,
+          getUi,
+          onElementLoaded,
+          onPressCallBack,
+          propParameters,
+
+          uniqueKey: uniKey,
+        });
+      };
       const Custom = checkNameAndRenderCustomComponent({
         componentName: elemOb['component'],
         compsArray: customComponents,
         props: propParameters,
+        onElementLoaded: onElementLoaded,
+        elementProps,
+        getViewItems: getViewItemsUpdated,
       });
 
       if (Custom) {
@@ -135,13 +171,7 @@ function CheckForListviewAndRender({
       return (
         <UniversalElement
           elemObj={elemOb}
-          navigation={navigation}
-          onPress={onPress}
-          onLongPress={onLongPress}
-          route={route}
           customComponents={customComponents}
-          funProps={funProps}
-          logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
           getUi={getUi}
