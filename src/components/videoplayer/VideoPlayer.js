@@ -7,12 +7,7 @@ function VideoPlayer({elementProps, getViewItems, onElementLoaded}) {
 
   return (
     <Video
-      source={{
-        uri:
-          elementProps != null && elementProps['value'] != null
-            ? elementProps['value']
-            : '',
-      }} // Can be a URL or a local file.
+      source={elementProps['value']} // Can be a URL or a local file.
       {...(elementProps != null && elementProps['props'] != null
         ? elementProps['props']
         : {})}
