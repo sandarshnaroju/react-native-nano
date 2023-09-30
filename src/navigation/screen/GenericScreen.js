@@ -36,20 +36,13 @@ const GenericScreen = ({
       screenUrl: uri,
     })
       .then(screenN => {
-        // console.log('total screen', screenN);
+        if (__DEV__) {
+          timeut = setTimeout(() => {
+            // console.log('fetching again');
 
-        // console.log(
-        //   'Submit button',
-        //   screenN['screen']['h1'][0]['content'][1],
-        //   screenN['screen']['h1'][0]['content'][1]['onPress'],
-        // );
-        // if (__DEV__) {
-        //   timeut = setTimeout(() => {
-        //     // console.log('fetching again');
-
-        //     fetchScreenFromNetwork(uri);
-        //   }, RELOAD_TIME);
-        // }
+            fetchScreenFromNetwork(uri);
+          }, RELOAD_TIME);
+        }
 
         setScreenData(screenN);
       })

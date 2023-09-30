@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {Appearance} from 'react-native';
 export const Context = React.createContext('DEFAULT');
 
@@ -8,15 +8,26 @@ export function GetContextProvider() {
 
 function ContextProvider(props) {
   const [isDark, setIsDark] = useState(Appearance.getColorScheme() == 'dark');
-  const [themeString, setThemeString] = useState(null);
+  const themeStringRef = useRef(null);
+  const [themeString, setThemeString] = useState(themeStringRef.current);
+  const themesRef = useRef(props.themes);
+  // console.log('sss', props.themes);
 
   const setTheme = themeName => {
-    setThemeString(themeName);
+    themeStringRef.current = themeName;
+    setThemeString(themeStringRef.current);
   };
   const listener = () => {
     const theme = Appearance.getColorScheme();
-
-    setIsDark(theme == 'dark' ? true : false);
+    const isDarkTh = theme == 'dark' ? true : false;
+    setIsDark(isDarkTh);
+    if (themesRef.current != null && themesRef.current.length > 0) {
+      const selectedThemObj = themesRef.current.find(themeObj => {
+        return themeObj['isDark'] == isDarkTh;
+      });
+      themeStringRef.current = selectedThemObj['name'];
+      setThemeString(themeStringRef.current);
+    }
   };
 
   React.useEffect(() => {

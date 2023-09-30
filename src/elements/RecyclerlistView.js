@@ -130,12 +130,15 @@ export default class RecycleTestComponent extends React.Component {
         // console.log('inside listrecyceler', this.props.itemView['onPress']);
 
         const originalObj = cloneDeep(this.props.unModifiedElemOb);
+        let elemObjAfterThemesSet = originalObj;
 
-        const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-          originalObj,
-          this.props.themes,
-          this.props.context,
-        );
+        if (this.props.themes != null && this.props.themes.length > 0) {
+          elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+            originalObj,
+            this.props.themes,
+            this.props.context,
+          );
+        }
 
         const funProps = getInterceptedFunctionProps({
           eleObject: elemObjAfterThemesSet,

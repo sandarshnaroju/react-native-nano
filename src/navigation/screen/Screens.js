@@ -10,6 +10,7 @@ import LoadingScreen from '../../demoscreens/loading/Loading';
 import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import {Provider} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
+import {THEMES} from '../../../../../nano.config';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
@@ -35,7 +36,9 @@ const RNNano = ({
   themes,
 }) => {
   const [networkScreens, setNetworkScreens] = useState([]);
-
+  if (themes == null) {
+    themes = THEMES;
+  }
   let database;
   if (screens == null) {
     screens = [LoadingScreen];
@@ -70,9 +73,10 @@ const RNNano = ({
       });
   }, []);
   const preProcessedCustomCompArray = processCustomComp(customComponents);
+
   return (
     <Provider>
-      <DataContext>
+      <DataContext themes={themes}>
         <NavigationContainer>
           <Stack.Navigator>
             {networkScreens != null && networkScreens.length > 0

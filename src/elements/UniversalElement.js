@@ -22,12 +22,14 @@ function UniversalElement({
   const elemObjRef = useRef(unModifiedElemOb);
 
   const originalObj = cloneDeep(elemObjRef.current);
-
-  const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-    originalObj,
-    themes,
-    context,
-  );
+  let elemObjAfterThemesSet = originalObj;
+  if (themes != null && themes.length > 0) {
+    elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+      originalObj,
+      themes,
+      context,
+    );
+  }
 
   const displayItem = getElementAsPerComponent({
     elemOb: elemObjAfterThemesSet,

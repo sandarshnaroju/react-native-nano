@@ -40,11 +40,14 @@ const Nano = ({
 
   const clonedElements = cloneDeep(screen);
   const clonedScreenStyles = cloneDeep(style);
-  const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-    clonedScreenStyles,
-    themes,
-    context,
-  );
+  let elemObjAfterThemesSet = clonedScreenStyles;
+  if (themes != null && themes.length > 0) {
+    elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+      clonedScreenStyles,
+      themes,
+      context,
+    );
+  }
 
   // console.log('nanoo', clonedScreenStyles, style);
   const getUi = nameKey => {
