@@ -119,6 +119,7 @@ export const TopTabNano = ({
           <RenderColoumViews
             totalData={uiElements}
             navigation={navigation}
+            unModifiedTotalData={uiElementsRef.current}
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onPressCallBack}
@@ -137,6 +138,7 @@ export const TopTabNano = ({
         <RenderColoumViews
           totalData={uiElements}
           navigation={navigation}
+          unModifiedTotalData={uiElementsRef.current}
           logicObject={logicObject}
           propParameters={propParameters}
           onPressCallBack={onPressCallBack}

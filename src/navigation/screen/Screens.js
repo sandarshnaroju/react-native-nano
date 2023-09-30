@@ -9,6 +9,7 @@ import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
 import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import {Provider} from 'react-native-paper';
+import DataContext from '../../context/DataContext';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
@@ -31,6 +32,7 @@ const RNNano = ({
   clientId,
   customComponents,
   customModules,
+  themes,
 }) => {
   const [networkScreens, setNetworkScreens] = useState([]);
 
@@ -70,51 +72,55 @@ const RNNano = ({
   const preProcessedCustomCompArray = processCustomComp(customComponents);
   return (
     <Provider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {networkScreens != null && networkScreens.length > 0
-            ? networkScreens.map((screnObj, index) => {
-                return (
-                  <Stack.Screen
-                    key={screnObj.screen_identifier}
-                    name={screnObj.name}
-                    options={{headerShown: false}}
-                    {...screnObj.screenProps}>
-                    {props => (
-                      <GenericScreen
-                        {...props}
-                        screenUrl={screnObj['url']}
-                        isMultiScreen={true}
-                        moduleParameters={moduleParameters}
-                        customComponents={preProcessedCustomCompArray}
-                      />
-                    )}
-                  </Stack.Screen>
-                );
-              })
-            : screens != null && screens.length > 0
-            ? screens.map((screenObj, index) => {
-                return (
-                  <Stack.Screen
-                    key={screenObj.name}
-                    {...screenObj.screenProps}
-                    name={screenObj.name}>
-                    {props => (
-                      <GenericScreen
-                        {...props}
-                        logic={screenObj.logic}
-                        screenObj={screenObj}
-                        isMultiScreen={true}
-                        moduleParameters={moduleParameters}
-                        customComponents={preProcessedCustomCompArray}
-                      />
-                    )}
-                  </Stack.Screen>
-                );
-              })
-            : null}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <DataContext>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {networkScreens != null && networkScreens.length > 0
+              ? networkScreens.map((screnObj, index) => {
+                  return (
+                    <Stack.Screen
+                      key={screnObj.screen_identifier}
+                      name={screnObj.name}
+                      options={{headerShown: false}}
+                      {...screnObj.screenProps}>
+                      {props => (
+                        <GenericScreen
+                          {...props}
+                          screenUrl={screnObj['url']}
+                          isMultiScreen={true}
+                          moduleParameters={moduleParameters}
+                          customComponents={preProcessedCustomCompArray}
+                          themes={themes}
+                        />
+                      )}
+                    </Stack.Screen>
+                  );
+                })
+              : screens != null && screens.length > 0
+              ? screens.map((screenObj, index) => {
+                  return (
+                    <Stack.Screen
+                      key={screenObj.name}
+                      {...screenObj.screenProps}
+                      name={screenObj.name}>
+                      {props => (
+                        <GenericScreen
+                          {...props}
+                          logic={screenObj.logic}
+                          screenObj={screenObj}
+                          isMultiScreen={true}
+                          moduleParameters={moduleParameters}
+                          customComponents={preProcessedCustomCompArray}
+                          themes={themes}
+                        />
+                      )}
+                    </Stack.Screen>
+                  );
+                })
+              : null}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </DataContext>
     </Provider>
   );
 };

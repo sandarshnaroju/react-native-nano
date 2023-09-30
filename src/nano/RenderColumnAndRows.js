@@ -3,219 +3,6 @@ import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
 import {isFunction} from '../utils/Utilities';
 import React from 'react';
 
-// const onElementPress = (
-//   eleObject,
-//   index,
-//   itemData,
-//   listData,
-//   logicObject,
-//   propParameters,
-//   itemJson,
-//   onPressCallBack,
-//   getUi,
-// ) => {
-//   if (logicObject == null) {
-//     if (eleObject != null && eleObject['onPress'] != null) {
-//       const isItFunction = isFunction(eleObject['onPress']);
-//       if (typeof eleObject['onPress'] !== 'string' && isItFunction) {
-//         return eleObject['onPress']({
-//           index,
-//           itemData,
-//           listData,
-//           itemJson,
-//           setUi: onPressCallBack,
-//           getUi,
-
-//           ...propParameters,
-//         });
-//       } else {
-//         if (
-//           eleObject != null &&
-//           eleObject['onPress'] != null &&
-//           typeof eleObject['onPress'] === 'string'
-//         ) {
-//           let copy = new Function('return ' + eleObject['onPress'])();
-
-//           return copy({
-//             index,
-//             itemData,
-//             listData,
-//             itemJson,
-//             setUi: onPressCallBack,
-//             getUi,
-
-//             ...propParameters,
-//           });
-//         }
-//       }
-//     }
-//   } else {
-//     if (eleObject != null && eleObject['onPress'] != null) {
-//       const isItFunction = isFunction(eleObject['onPress']);
-
-//       if (isItFunction) {
-//         return eleObject['onPress']({
-//           index,
-//           itemData,
-//           listData,
-//           itemJson,
-//           setUi: onPressCallBack,
-//           getUi,
-//           ...propParameters,
-//         });
-//       } else {
-//         if (typeof eleObject['onPress'] === 'string') {
-//           if (logicObject[eleObject['onPress']] != null) {
-//             if (typeof logicObject[eleObject['onPress']] === 'string') {
-//               let copy = new Function(
-//                 'return ' + logicObject[eleObject['onPress']],
-//               )();
-
-//               return copy({
-//                 index,
-//                 itemData,
-//                 listData,
-//                 itemJson,
-//                 setUi: onPressCallBack,
-//                 getUi,
-//                 ...propParameters,
-//               });
-//             }
-//             if (typeof logicObject[eleObject['onPress']] === 'function') {
-//               return logicObject[eleObject['onPress']]({
-//                 index,
-//                 itemData,
-//                 listData,
-//                 itemJson,
-//                 setUi: onPressCallBack,
-//                 getUi,
-//                 ...propParameters,
-//               });
-//             }
-//           } else {
-//             let copy = new Function('return ' + eleObject['onPress'])();
-
-//             return copy({
-//               index,
-//               itemData,
-//               listData,
-//               itemJson,
-//               setUi: onPressCallBack,
-//               getUi,
-//               ...propParameters,
-//             });
-//           }
-//         }
-//       }
-//     }
-//   }
-// };
-// const onElementLongPress = (
-//   eleObject,
-//   index,
-//   itemData,
-//   listData,
-//   logicObject,
-//   propParameters,
-//   itemJson,
-//   onPressCallBack,
-//   getUi,
-// ) => {
-//   if (logicObject == null) {
-//     if (eleObject != null && eleObject['onLongClick'] != null) {
-//       const isItFunction = isFunction(eleObject['onLongClick']);
-//       if (typeof eleObject['onLongClick'] !== 'string' && isItFunction) {
-//         return eleObject['onLongClick']({
-//           index,
-//           itemData,
-//           listData,
-//           itemJson,
-//           setUi: onPressCallBack,
-//           getUi,
-//           ...propParameters,
-//         });
-//       } else {
-//         if (
-//           eleObject != null &&
-//           eleObject['onLongClick'] != null &&
-//           typeof eleObject['onLongClick'] === 'string'
-//         ) {
-//           let copy = new Function('return ' + eleObject['onLongClick'])();
-
-//           return copy({
-//             index,
-//             itemData,
-//             listData,
-//             itemJson,
-//             setUi: onPressCallBack,
-//             getUi,
-//             ...propParameters,
-//           });
-//         }
-//       }
-//     }
-//   } else {
-//     if (eleObject != null && eleObject['onLongClick'] != null) {
-//       const isItFunction = isFunction(eleObject['onLongClick']);
-
-//       if (isItFunction) {
-//         return eleObject['onLongClick']({
-//           index,
-//           itemData,
-//           listData,
-//           itemJson,
-//           setUi: onPressCallBack,
-//           getUi,
-//           ...propParameters,
-//         });
-//       } else {
-//         if (typeof eleObject['onLongClick'] === 'string') {
-//           if (logicObject[eleObject['onLongClick']] != null) {
-//             if (typeof logicObject[eleObject['onLongClick']] === 'string') {
-//               let copy = new Function(
-//                 'return ' + logicObject[eleObject['onLongClick']],
-//               )();
-
-//               return copy({
-//                 index,
-//                 itemData,
-//                 listData,
-//                 itemJson,
-//                 setUi: onPressCallBack,
-//                 getUi,
-//                 ...propParameters,
-//               });
-//             }
-//             if (typeof logicObject[eleObject['onLongClick']] === 'object') {
-//               return logicObject[eleObject['onLongClick']]({
-//                 index,
-//                 itemData,
-//                 listData,
-//                 itemJson,
-//                 setUi: onPressCallBack,
-//                 getUi,
-//                 ...propParameters,
-//               });
-//             }
-//           } else {
-//             let copy = new Function('return ' + eleObject['onLongClick'])();
-
-//             return copy({
-//               index,
-//               itemData,
-//               listData,
-//               itemJson,
-//               setUi: onPressCallBack,
-//               getUi,
-//               ...propParameters,
-//             });
-//           }
-//         }
-//       }
-//     }
-//   }
-// };
-
 const GetRowElements = ({
   rowElementsArray,
   rowKey,
@@ -227,6 +14,8 @@ const GetRowElements = ({
   route,
   customComponents,
   getUi,
+  themes,
+  unModifiedRowElementsArray,
 }) => {
   const rowelements = [];
   if (
@@ -248,6 +37,7 @@ const GetRowElements = ({
           key={index}
           index={index}
           elemOb={eleObject}
+          unModifiedElemOb={unModifiedRowElementsArray[index]}
           navigation={navigation}
           route={route}
           propParameters={propParameters}
@@ -256,32 +46,7 @@ const GetRowElements = ({
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           getUi={getUi}
-          // onPress={({index, itemData, listData, itemJson}) => {
-          //   onElementPress(
-          //     eleObject,
-          //     index,
-          //     itemData,
-          //     listData,
-          //     logicObject,
-          //     propParameters,
-          //     itemJson,
-          //     onPressCallBack,
-          //     getUi,
-          //   );
-          // }}
-          // onLongPress={(index, itemData, listData, itemJson) => {
-          //   onElementLongPress(
-          //     eleObject,
-          //     index,
-          //     itemData,
-          //     listData,
-          //     logicObject,
-          //     propParameters,
-          //     itemJson,
-          //     onPressCallBack,
-          //     getUi,
-          //   );
-          // }}
+          themes={themes}
         />,
       );
     });
@@ -301,6 +66,8 @@ const RenderColoumViews = ({
   route,
   customComponents,
   getUi,
+  themes,
+  unModifiedTotalData,
 }) => {
   // console.log('RenderColoumViews', customCompRef.current);
 
@@ -317,6 +84,7 @@ const RenderColoumViews = ({
             <GetRowElements
               navigation={navigation}
               rowElementsArray={totalData[key]}
+              unModifiedRowElementsArray={unModifiedTotalData[key]}
               rowKey={key}
               logicObject={logicObject}
               propParameters={propParameters}
@@ -325,6 +93,7 @@ const RenderColoumViews = ({
               customComponents={customComponents}
               route={route}
               getUi={getUi}
+              themes={themes}
             />
           </View>,
         );
@@ -334,6 +103,7 @@ const RenderColoumViews = ({
             navigation={navigation}
             rowElementsArray={totalData[key]}
             rowKey={key}
+            unModifiedRowElementsArray={unModifiedTotalData[key]}
             key={key + index + 1}
             logicObject={logicObject}
             propParameters={propParameters}
@@ -342,6 +112,7 @@ const RenderColoumViews = ({
             customComponents={customComponents}
             route={route}
             getUi={getUi}
+            themes={themes}
           />,
         );
       }

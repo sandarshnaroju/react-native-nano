@@ -1,10 +1,11 @@
-import {isFunction} from 'lodash';
+import {cloneDeep, isFunction} from 'lodash';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
 import {
   executeAFunction,
+  modifyElemObjAsPerTheme,
   nameShortcutObject,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
@@ -128,8 +129,16 @@ export default class RecycleTestComponent extends React.Component {
         };
         // console.log('inside listrecyceler', this.props.itemView['onPress']);
 
+        const originalObj = cloneDeep(this.props.unModifiedElemOb);
+
+        const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+          originalObj,
+          this.props.themes,
+          this.props.context,
+        );
+
         const funProps = getInterceptedFunctionProps({
-          eleObject: elemOb,
+          eleObject: elemObjAfterThemesSet,
           props: {
             logicObject: this.props.logicObject,
             moduleParams: this.props.propParameters,

@@ -619,6 +619,7 @@ export const getViewItems = ({
   propParameters,
   getUi,
   recyclerListViewFunctionProps,
+  themes,
 }) => {
   const elements = [];
   if (content != null && content.length > 0) {
@@ -632,6 +633,7 @@ export const getViewItems = ({
         propParameters,
         getUi,
         recyclerListViewFunctionProps,
+        themes,
       });
 
       elements.push(oitem);
@@ -639,4 +641,50 @@ export const getViewItems = ({
   }
 
   return elements;
+};
+
+export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
+  // console.log('he;p', compObj);
+
+  if (typeof compObj === 'object') {
+    for (var key in compObj) {
+      if (compObj[key] != null) {
+        if (
+          typeof compObj[key] === 'string' &&
+          (key.includes('color') || key.includes('Color'))
+        ) {
+          const userGivenColorString = compObj[key];
+
+          const selectedThemObj = themes.find(themeObj => {
+            if (contextObj.theme) {
+              return themeObj['name'] == contextObj.theme;
+            }
+
+            return themeObj['isDark'] == contextObj.isDark;
+          });
+          // console.log(
+          //   'selectedThemObj',
+          //   selectedThemObj['colors'],
+          //   userGivenColorString,
+          // );
+
+          if (
+            selectedThemObj != null &&
+            selectedThemObj['colors'] != null &&
+            selectedThemObj['colors'][userGivenColorString] != null
+          ) {
+            // console.log(
+            //   'modified color',
+            //   selectedThemObj['colors'][userGivenColorString],
+            // );
+
+            compObj[key] = selectedThemObj['colors'][userGivenColorString];
+          }
+        } else if (typeof compObj[key] === 'object') {
+          modifyElemObjAsPerTheme(compObj[key], themes, contextObj); // Recursively handle nested objects
+        }
+      }
+    }
+  }
+  return compObj;
 };

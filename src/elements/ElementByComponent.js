@@ -1,41 +1,40 @@
-import React from 'react';
-
+import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
-import {Dimensions, Platform, TouchableOpacity, View} from 'react-native';
-
+import React from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
+import NanoAvatarIcon from '../components/AvatarIcon/AvatarIcon';
 import NanoAvatarImage from '../components/AvatarImage';
 import NanoAvatarText from '../components/AvatarText/AvatarText';
-import NanoAvatarIcon from '../components/AvatarIcon/AvatarIcon';
 import Badge from '../components/Badge/Badge';
 import NanoBanner from '../components/Banner/Banner';
 import NanoButton from '../components/Button/Button';
 import NanoCard from '../components/Card/Card';
-import NanoCardTitle from '../components/CardTitle/CardTitle';
-import NanoCardContent from '../components/CardContent/CardContent';
 import NanoCardActions from '../components/CardActions/CardActions';
+import NanoCardContent from '../components/CardContent/CardContent';
 import NanoCardCover from '../components/CardCover/CardCover';
+import NanoCardTitle from '../components/CardTitle/CardTitle';
 
-import NanoDialog from '../components/Dialog/Dialog';
-import NanoDialogTitle from '../components/DialogTitle/DialogTitle';
-import NanoDialogContent from '../components/DialogContent/DialogContent';
-import NanoDialogActions from '../components/DialogActions/DialogActions';
-import NanoDialogScrollArea from '../components/DialogScrollArea/DialogScrollArea';
 import NanoCheckBox from '../components/CheckBox/CheckBox';
 import NanoChip from '../components/Chip/Chip';
+import NanoDialog from '../components/Dialog/Dialog';
+import NanoDialogActions from '../components/DialogActions/DialogActions';
+import NanoDialogContent from '../components/DialogContent/DialogContent';
+import NanoDialogScrollArea from '../components/DialogScrollArea/DialogScrollArea';
+import NanoDialogTitle from '../components/DialogTitle/DialogTitle';
 import NanoDivider from '../components/Divider/Divider';
 import NanoFab from '../components/Fab/Fab';
 import NanoIconButton from '../components/IconButton/IconButton';
 import NanoImage from '../components/Image/Image';
+import NanoModal from '../components/modal/Modal';
 import NanoProgressbar from '../components/Progressbar/Progressbar';
 import NanoRadioButton from '../components/RadioButton/RadioButton';
+import NanoSearchBar from '../components/searchbar/SearchBar';
 import NanoSwitch from '../components/Switch/Switch';
 import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
-import NanoSearchBar from '../components/searchbar/SearchBar';
-import NanoModal from '../components/modal/Modal';
 import NanoVideoPlayer from '../components/videoplayer/VideoPlayer';
 import NanoYoutubePlayer from '../components/youtube/YoutubePlayer';
+import {getPlatform} from '../modules/platform/platform';
 import NANO from '../utils/Constants';
 import {
   checkNameAndRenderCustomComponent,
@@ -43,7 +42,7 @@ import {
   getViewItems,
   onElementLoaded,
 } from '../utils/Utilities';
-import {getPlatform} from '../modules/platform/platform';
+
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -54,7 +53,11 @@ const getElementAsPerComponent = ({
   getUi,
   customComponents,
   uniqueKey,
+  themes,
 }) => {
+  // const context = GetContextProvider();
+  // console.log('isisi', context);
+
   if (elemOb != null && elemOb['component'] != null) {
     if (elemOb['hide'] != null && elemOb['hide'] === true) {
       return null;
@@ -66,6 +69,7 @@ const getElementAsPerComponent = ({
     ) {
       return null;
     }
+
     // const heightWeightFormattedElemObj =
     //   heightAndWidthFormatterForComponentObj(elemOb);
 
@@ -105,6 +109,7 @@ const getElementAsPerComponent = ({
         propParameters,
         recyclerListViewFunctionProps,
         uniqueKey: uniKey,
+        themes,
       });
     };
     // ! onPressCallback is a function that takes the complete JSON data and setstates it.
@@ -427,6 +432,7 @@ const getElementAsPerComponent = ({
                 propParameters,
                 recyclerListViewFunctionProps,
                 uniqueKey,
+                themes,
               })}
             </TouchableOpacity>
           );
@@ -448,6 +454,7 @@ const getElementAsPerComponent = ({
               propParameters,
               recyclerListViewFunctionProps,
               uniqueKey,
+              themes,
             })}
           </View>
         );

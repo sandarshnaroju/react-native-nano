@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import getModuleParams from '../../modules';
@@ -22,9 +22,11 @@ const GenericScreen = ({
   isMultiScreen,
   customComponents,
   moduleParameters,
+  themes,
 }) => {
   const route = navigation ? useRoute() : null;
   const [screenData, setScreenData] = useState(screenObj);
+
   let database;
   var timeut = null;
   const fetchScreenFromNetwork = uri => {
@@ -41,13 +43,14 @@ const GenericScreen = ({
         //   screenN['screen']['h1'][0]['content'][1],
         //   screenN['screen']['h1'][0]['content'][1]['onPress'],
         // );
-        if (__DEV__) {
-          timeut = setTimeout(() => {
-            // console.log('fetching again');
+        // if (__DEV__) {
+        //   timeut = setTimeout(() => {
+        //     // console.log('fetching again');
 
-            fetchScreenFromNetwork(uri);
-          }, RELOAD_TIME);
-        }
+        //     fetchScreenFromNetwork(uri);
+        //   }, RELOAD_TIME);
+        // }
+
         setScreenData(screenN);
       })
       .catch(e => {
@@ -84,25 +87,25 @@ const GenericScreen = ({
   useEffect(() => {
     setScreenData(screenObj);
   }, [screenObj]);
-  const checkUpdatedScreenUrlAndChangeUi = async ({
-    instantUpdate,
-    remoteMessage,
-  }) => {
-    const changedScreen = JSON.parse(remoteMessage['data']['updated']);
-    const updatedUiElements = await fetchScreenAndStoreInDb({
-      screenUrl: changedScreen['url'],
-      code_hash: remoteMessage['data']['code_hash'],
-    });
-    // console.log('screen url', screenUrl, changedScreen['url']);
+  // const checkUpdatedScreenUrlAndChangeUi = async ({
+  //   instantUpdate,
+  //   remoteMessage,
+  // }) => {
+  //   const changedScreen = JSON.parse(remoteMessage['data']['updated']);
+  //   const updatedUiElements = await fetchScreenAndStoreInDb({
+  //     screenUrl: changedScreen['url'],
+  //     code_hash: remoteMessage['data']['code_hash'],
+  //   });
+  //   // console.log('screen url', screenUrl, changedScreen['url']);
 
-    if (
-      screenUrl != null &&
-      screenUrl === changedScreen['url'] &&
-      instantUpdate
-    ) {
-      setScreenData(updatedUiElements);
-    }
-  };
+  //   if (
+  //     screenUrl != null &&
+  //     screenUrl === changedScreen['url'] &&
+  //     instantUpdate
+  //   ) {
+  //     setScreenData(updatedUiElements);
+  //   }
+  // };
   // useEffect(() => {
   //   if (Firebase) {
   //     Firebase.getOnMessage(async remoteMessage => {
@@ -167,6 +170,7 @@ const GenericScreen = ({
       route={route}
       moduleParameters={moduleParameters}
       customComponents={customComponents}
+      themes={themes}
     />
   );
 };

@@ -1,5 +1,6 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
+import {GetContextProvider} from '../context/DataContext';
 import {getPlatform} from '../modules/platform/platform';
 import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
 // import DrawerNavigation from '../navigation/drawer/Drawer';
@@ -30,7 +31,10 @@ function CheckForListviewAndRender({
   logicObject,
   getUi,
   index,
+  themes,
+  unModifiedElemOb,
 }) {
+  const context = GetContextProvider();
   if (
     elemOb['platform'] != null &&
     elemOb['platform'].length > 0 &&
@@ -64,6 +68,9 @@ function CheckForListviewAndRender({
           funProps={funProps}
           getUi={getUi}
           logicObject={logicObject}
+          themes={themes}
+          unModifiedElemOb={unModifiedElemOb}
+          context={context}
         />
       );
 
@@ -81,6 +88,8 @@ function CheckForListviewAndRender({
           propParameters={propParameters}
           funProps={funProps}
           logicObject={logicObject}
+          themes={themes}
+          unModifiedElemOb={unModifiedElemOb}
         />
       );
 
@@ -94,8 +103,10 @@ function CheckForListviewAndRender({
           databaseConfigObject={databaseConfigObject}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
+          unModifiedElemOb={unModifiedElemOb}
           funProps={funProps}
           logicObject={logicObject}
+          themes={themes}
         />
       );
     case NANO.BOTTOM_TABS:
@@ -108,8 +119,10 @@ function CheckForListviewAndRender({
           onLongPress={onLongPress}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
+          unModifiedElemOb={unModifiedElemOb}
           funProps={funProps}
           logicObject={logicObject}
+          themes={themes}
         />
       );
 
@@ -177,6 +190,8 @@ function CheckForListviewAndRender({
           getUi={getUi}
           key={index}
           uniqueKey={index}
+          themes={themes}
+          unModifiedElemOb={unModifiedElemOb}
         />
       );
   }

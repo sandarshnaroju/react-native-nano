@@ -7,6 +7,7 @@ import {Dimensions} from 'react-native';
 import CustomGoogleSignIn from './googleSignin/GoogleSignIn';
 import ImagePicker from './imagepicker/ImagePicker';
 import DeviceInfo from './deviceinfo/DeviceInfo';
+
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -31,9 +32,12 @@ const getModuleParams = ({callBack}) => {
     session,
     deviceDimensions,
     ...CustomGoogleSignIn,
-    ImagePicker,
+
     ...DeviceInfo,
   };
+  if (ImagePicker) {
+    moduleParameters['ImagePicker'] = ImagePicker;
+  }
   return moduleParameters;
   // return {};
 };

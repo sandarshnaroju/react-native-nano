@@ -4,13 +4,18 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import {executeAFunction, modifyNestedValue} from '../utils/Utilities';
+import {
+  executeAFunction,
+  modifyElemObjAsPerTheme,
+  modifyNestedValue,
+} from '../utils/Utilities';
 import RenderColoumViews from './RenderColumnAndRows';
 import {
   getElementObjectByKey,
   getNameSHortcutObject,
   traverseThroughInputJsonAndCreateNameSHortcut,
 } from '../utils/UiKeysMapper';
+import {GetContextProvider} from '../context/DataContext';
 
 const Nano = ({
   screen,
@@ -24,14 +29,24 @@ const Nano = ({
   route,
   moduleParameters,
   customComponents,
+  themes,
+  unModifiedScreen,
 }) => {
   const uiElementsRef = useRef(screen);
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
+  const context = GetContextProvider();
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElementsRef = cloneDeep(uiElements);
-  // console.log('nanoo', clonedElementsRef['v1']);
+  const clonedElements = cloneDeep(screen);
+  const clonedScreenStyles = cloneDeep(style);
+  const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+    clonedScreenStyles,
+    themes,
+    context,
+  );
+
+  // console.log('nanoo', clonedScreenStyles, style);
   const getUi = nameKey => {
     // console.log('uiellele', uiElementsRef.current);
 
@@ -145,10 +160,13 @@ const Nano = ({
 
   if (scroll) {
     return (
-      <ScrollView showsVerticalScrollIndicator={false} style={style}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={elemObjAfterThemesSet}>
         {uiElements != null && (
           <RenderColoumViews
             totalData={uiElements}
+            unModifiedTotalData={clonedElements}
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
@@ -156,6 +174,7 @@ const Nano = ({
             customComponents={customeCompsRef.current}
             onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
+            themes={themes}
           />
         )}
       </ScrollView>
@@ -163,17 +182,19 @@ const Nano = ({
   }
 
   return (
-    <View style={[style, {flex: 1}]}>
+    <View style={[elemObjAfterThemesSet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
           totalData={uiElements}
           navigation={navigation}
           logicObject={logicObject}
+          unModifiedTotalData={clonedElements}
           propParameters={propParameters}
           onPressCallBack={onPressCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
           getUi={getUi}
+          themes={themes}
         />
       )}
     </View>
