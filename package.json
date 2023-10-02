@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.96",
+  "version": "1.0.97",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,6 @@
     "@notifee/react-native": "^7.4.0",
     "react-native-pager-view": "^6.1.4",
     "react-native-permissions": "^3.6.1",
-    "@react-native-google-signin/google-signin": "^10.0.1",
     "react-native-youtube-iframe": "^2.3.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^13.3.1",
