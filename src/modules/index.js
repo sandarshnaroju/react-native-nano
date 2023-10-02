@@ -4,7 +4,7 @@ import getNotification from './notifications/Notifications';
 import getPermissionInstance from './permissions/Permissions';
 import getSession from './session/Session';
 import {Dimensions} from 'react-native';
-import CustomGoogleSignIn from './googleSignin/GoogleSignIn';
+// import CustomGoogleSignIn from './googleSignin/GoogleSignIn';
 import ImagePicker from './imagepicker/ImagePicker';
 import DeviceInfo from './deviceinfo/DeviceInfo';
 
@@ -31,7 +31,7 @@ const getModuleParams = ({callBack}) => {
     Permissions,
     session,
     deviceDimensions,
-    ...CustomGoogleSignIn,
+    // ...CustomGoogleSignIn,
 
     ...DeviceInfo,
   };

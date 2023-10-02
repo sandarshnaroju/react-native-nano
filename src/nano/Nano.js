@@ -53,7 +53,7 @@ const Nano = ({
   const getUi = nameKey => {
     // console.log('uiellele', uiElementsRef.current);
 
-    return getElementObjectByKey(uiElementsRef.current, nameKey);
+    return getElementObjectByKey(clonedElements, nameKey);
   };
 
   const propParameters = {
@@ -135,14 +135,15 @@ const Nano = ({
     //   uiElementsRef.current = cloned;
     //   setUiElements(uiElementsRef.current);
     // }
+    
     if (key != null) {
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
       if (pathArray && pathArray.length > 0) {
         const cloned = cloneDeep(uiElementsRef.current);
-
+        // const clonedUnModified = cloneDeep(clonedElements);
         modifyNestedValue(cloned, pathArray, keyObject);
-
+        // modifyNestedValue(clonedUnModified, pathArray, keyObject);
         if (commit) {
           uiElementsRef.current = cloned;
           setUiElements(uiElementsRef.current);
@@ -159,7 +160,9 @@ const Nano = ({
     }
   };
 
-  // console.log('traversingg', uiElementsRef.current);
+  // console.log('traversingg', uiElements['v1'][0]['value']);
+
+
 
   if (scroll) {
     return (

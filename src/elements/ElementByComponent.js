@@ -126,6 +126,7 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.TEXT:
+        
         return (
           <NanoText
             key={'text' + index}

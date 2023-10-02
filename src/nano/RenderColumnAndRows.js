@@ -18,6 +18,8 @@ const GetRowElements = ({
   unModifiedRowElementsArray,
 }) => {
   const rowelements = [];
+  // console.log('roww arra', rowElementsArray[0]['value']);
+  
   if (
     rowElementsArray != null &&
     typeof rowElementsArray == 'object' &&
@@ -98,6 +100,7 @@ const RenderColoumViews = ({
           </View>,
         );
       } else if (key != null && key.slice(0, 1) === 'v') {
+
         elements.push(
           <GetRowElements
             navigation={navigation}
