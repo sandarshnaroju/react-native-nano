@@ -13,7 +13,7 @@ export const getElementObjectByKey = (uiElements, nameKey) => {
 
     let temp = uiElements;
     if (pathsArray != null && pathsArray.length > 0) {
-      for (let index = 0; index < pathsArray.length - 1; index++) {
+      for (let index = 0; index < pathsArray.length; index++) {
         temp = temp[pathsArray[index]];
       }
       return temp;
@@ -53,7 +53,17 @@ export const traverseThroughInputJsonAndCreateNameSHortcut = (
               if (!nameShortcutObject[value]) {
                 nameShortcutObject[value] = [];
               }
-              nameShortcutObject[value] = keys.concat(key);
+
+              // nameShortcutObject[value] = keys.concat(key);
+              // console.log(
+              //   '🚀 ~ file: UiKeysMapper.js:58 ~ keys:',
+              //   key,
+              //   keys,
+              //   nameShortcutObject,
+              //   value,
+              // );
+
+              nameShortcutObject[value] = keys;
             } else {
               // if (
               //   key != null &&

@@ -43,17 +43,20 @@ const RNNano = ({
   if (screens == null) {
     screens = [LoadingScreen];
   }
+  const getAllScreensData = () => {
+    fetchAllScreens()
+      .then(s => {
+        // console.log('all screens', s, typeof s);
+        setNetworkScreens(s);
+      })
+      .catch(e => {
+        // console.log('eeee', e);
+      });
+  };
   const realDbInitCallback = db => {
     database = db;
     if (database != null) {
-      fetchAllScreens()
-        .then(s => {
-          // console.log('all screens', s, typeof s);
-          setNetworkScreens(s);
-        })
-        .catch(e => {
-          // console.log('eeee', e);
-        });
+      getAllScreensData();
     }
   };
   const defaultParameters = getModuleParams({
@@ -63,14 +66,7 @@ const RNNano = ({
   const moduleParameters = {...customModules, ...defaultParameters};
 
   useEffect(() => {
-    fetchAllScreens()
-      .then(s => {
-        // console.log('all screens');
-        setNetworkScreens(s);
-      })
-      .catch(e => {
-        // console.log('eeee all screens', e);
-      });
+    getAllScreensData();
   }, []);
   const preProcessedCustomCompArray = processCustomComp(customComponents);
 

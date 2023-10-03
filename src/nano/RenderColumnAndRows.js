@@ -19,7 +19,7 @@ const GetRowElements = ({
 }) => {
   const rowelements = [];
   // console.log('roww arra', rowElementsArray[0]['value']);
-  
+
   if (
     rowElementsArray != null &&
     typeof rowElementsArray == 'object' &&
@@ -39,7 +39,11 @@ const GetRowElements = ({
           key={index}
           index={index}
           elemOb={eleObject}
-          unModifiedElemOb={unModifiedRowElementsArray[index]}
+          unModifiedElemOb={
+            unModifiedRowElementsArray != null
+              ? unModifiedRowElementsArray[index]
+              : null
+          }
           navigation={navigation}
           route={route}
           propParameters={propParameters}
@@ -86,7 +90,9 @@ const RenderColoumViews = ({
             <GetRowElements
               navigation={navigation}
               rowElementsArray={totalData[key]}
-              unModifiedRowElementsArray={unModifiedTotalData[key]}
+              unModifiedRowElementsArray={
+                unModifiedTotalData != null ? unModifiedTotalData[key] : null
+              }
               rowKey={key}
               logicObject={logicObject}
               propParameters={propParameters}
@@ -100,13 +106,14 @@ const RenderColoumViews = ({
           </View>,
         );
       } else if (key != null && key.slice(0, 1) === 'v') {
-
         elements.push(
           <GetRowElements
             navigation={navigation}
             rowElementsArray={totalData[key]}
             rowKey={key}
-            unModifiedRowElementsArray={unModifiedTotalData[key]}
+            unModifiedRowElementsArray={
+              unModifiedTotalData != null ? unModifiedTotalData[key] : null
+            }
             key={key + index + 1}
             logicObject={logicObject}
             propParameters={propParameters}

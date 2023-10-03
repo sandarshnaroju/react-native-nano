@@ -37,11 +37,11 @@ const GenericScreen = ({
     })
       .then(screenN => {
         if (__DEV__) {
-          // timeut = setTimeout(() => {
-          //   // console.log('fetching again');
+          timeut = setTimeout(() => {
+            // console.log('fetching again');
 
-          //   fetchScreenFromNetwork(uri);
-          // }, RELOAD_TIME);
+            fetchScreenFromNetwork(uri);
+          }, RELOAD_TIME);
         }
 
         setScreenData(screenN);

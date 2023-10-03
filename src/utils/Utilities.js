@@ -41,6 +41,7 @@ export const modifyNestedValue = (obj, keys, newValue) => {
 
   const lastKey = keys[keys.length - 1];
   currentObj[lastKey] = newValue;
+  // currentObj = newValue;
 };
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
@@ -632,7 +633,7 @@ export const getViewItems = ({
         onPressCallBack,
         propParameters,
         getUi,
-        recyclerListViewFunctionProps,
+        recyclerListViewFunctionProps: null,
         themes,
       });
 
@@ -644,8 +645,6 @@ export const getViewItems = ({
 };
 
 export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
-  // console.log('he;p', compObj);
-
   if (typeof compObj === 'object') {
     for (var key in compObj) {
       if (compObj[key] != null) {
@@ -662,22 +661,12 @@ export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
 
             return themeObj['isDark'] == contextObj.isDark;
           });
-          // console.log(
-          //   'selectedThemObj',
-          //   selectedThemObj['colors'],
-          //   userGivenColorString,
-          // );
 
           if (
             selectedThemObj != null &&
             selectedThemObj['colors'] != null &&
             selectedThemObj['colors'][userGivenColorString] != null
           ) {
-            // console.log(
-            //   'modified color',
-            //   selectedThemObj['colors'][userGivenColorString],
-            // );
-
             compObj[key] = selectedThemObj['colors'][userGivenColorString];
           }
         } else if (typeof compObj[key] === 'object') {

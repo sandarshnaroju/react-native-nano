@@ -40,8 +40,10 @@ import {
   checkNameAndRenderCustomComponent,
   getInterceptedFunctionProps,
   getViewItems,
+  modifyElemObjAsPerTheme,
   onElementLoaded,
 } from '../utils/Utilities';
+import {GetContextProvider} from '../context/DataContext';
 
 const getElementAsPerComponent = ({
   elemOb,
@@ -55,34 +57,46 @@ const getElementAsPerComponent = ({
   uniqueKey,
   themes,
 }) => {
-  // const context = GetContextProvider();
-  // console.log('isisi', context);
+  const context = GetContextProvider();
+  let elemObjAfterThemesSet = elemOb;
 
-  if (elemOb != null && elemOb['component'] != null) {
-    if (elemOb['hide'] != null && elemOb['hide'] === true) {
+  if (themes != null && themes.length > 0) {
+    elemObjAfterThemesSet = modifyElemObjAsPerTheme(elemOb, themes, context);
+  }
+
+  if (
+    elemObjAfterThemesSet != null &&
+    elemObjAfterThemesSet['component'] != null
+  ) {
+    if (
+      elemObjAfterThemesSet['hide'] != null &&
+      elemObjAfterThemesSet['hide'] === true
+    ) {
       return null;
     }
     if (
-      elemOb['platform'] != null &&
-      elemOb['platform'].length > 0 &&
-      !elemOb['platform'].includes(getPlatform())
+      elemObjAfterThemesSet['platform'] != null &&
+      elemObjAfterThemesSet['platform'].length > 0 &&
+      !elemObjAfterThemesSet['platform'].includes(getPlatform())
     ) {
       return null;
     }
 
     // const heightWeightFormattedElemObj =
-    //   heightAndWidthFormatterForComponentObj(elemOb);
+    //   heightAndWidthFormatterForComponentObj(elemObjAfterThemesSet);
 
     let funProps = null;
 
     if (recyclerListViewFunctionProps != null) {
       funProps = recyclerListViewFunctionProps;
+      // this has to be for the parent view of the itemview. Its children wont have recyclerListViewFunctionProps
+
       // console.log('funccc', funProps !== {});
     } else {
       funProps = getInterceptedFunctionProps({
-        eleObject: elemOb,
+        eleObject: elemObjAfterThemesSet,
         props: {
-          moduleParams: propParameters,
+          moduleParams: {...propParameters, theme: context},
 
           setUi: onPressCallBack,
           getUi: getUi,
@@ -91,7 +105,7 @@ const getElementAsPerComponent = ({
     }
 
     const elementProps = {
-      ...elemOb,
+      ...elemObjAfterThemesSet,
       ...funProps,
     };
     const renderChildren = (
@@ -114,8 +128,11 @@ const getElementAsPerComponent = ({
     };
     // ! onPressCallback is a function that takes the complete JSON data and setstates it.
     // ! Use this funtion to modify UI.
-    switch (elemOb['component']) {
+
+    switch (elemObjAfterThemesSet['component']) {
       case NANO.BUTTON:
+        // const gggg = elementProps['onPress'];
+        // console.log('BUTTTon', gggg(), gggg);
         return (
           <NanoButton
             elementProps={elementProps}
@@ -126,7 +143,6 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.TEXT:
-        
         return (
           <NanoText
             key={'text' + index}
@@ -213,6 +229,9 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.CHECKBOX:
+        // const ddd = elementProps['onPress'];
+        // console.log('elel', ddd(), ddd);
+
         return (
           <NanoCheckBox
             key={'checkbox' + index}
@@ -252,7 +271,7 @@ const getElementAsPerComponent = ({
       case NANO.RADIO_BUTTON:
         return (
           <NanoRadioButton
-            elemOb={elemOb}
+            elemObjAfterThemesSet={elemObjAfterThemesSet}
             getViewItems={renderChildren}
             key={'radio button' + index}
             onElementLoaded={onElementLoaded}
@@ -416,16 +435,14 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.VIEW:
-        if (elemOb['onPress'] != null) {
+        if (elemObjAfterThemesSet['onPress'] != null) {
           return (
             <TouchableOpacity
               key={'TouchableOpacity' + index}
               {...elementProps['props']}
               {...elementProps}>
-              {/* {getViewItems(elemOb['content'], false, onElementLoaded)} */}
-
               {getViewItems({
-                content: elemOb['content'],
+                content: elemObjAfterThemesSet['content'],
                 customComponents,
                 getUi,
 
@@ -444,10 +461,8 @@ const getElementAsPerComponent = ({
             key={'view' + index}
             {...elementProps['props']}
             {...elementProps}>
-            {/* {getViewItems(elemOb['content'], true, onElementLoaded)} */}
-
             {getViewItems({
-              content: elemOb['content'],
+              content: elemObjAfterThemesSet['content'],
               customComponents,
               getUi,
 
@@ -464,7 +479,7 @@ const getElementAsPerComponent = ({
         // console.log('custome comp', elementProps, onElementLoaded);
 
         const custom = checkNameAndRenderCustomComponent({
-          componentName: elemOb['component'],
+          componentName: elemObjAfterThemesSet['component'],
           compsArray: customComponents,
           onElementLoaded,
           elementProps,
@@ -477,7 +492,7 @@ const getElementAsPerComponent = ({
         return;
     }
   }
-  return <Text key={'error' + index}> {' Error'} </Text>;
+  return <Text key={'error' + index}> {' Error   jj'} </Text>;
 };
 
 export default getElementAsPerComponent;

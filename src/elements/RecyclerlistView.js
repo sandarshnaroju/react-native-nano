@@ -117,6 +117,10 @@ export default class RecycleTestComponent extends React.Component {
           this.props.itemView['content'],
           mapper,
         );
+        // console.log(
+        //   '🚀 ~ file: RecyclerlistView.js:120 ~ RecycleTestComponent ~ _rowRenderer ~ modifiedContent:',
+        //   modifiedContent,
+        // );
         const uniq = executeAFunction(this.props.uniqueKey, data);
         const elemOb = {
           ...this.props.itemView,
@@ -129,19 +133,19 @@ export default class RecycleTestComponent extends React.Component {
         };
         // console.log('inside listrecyceler', this.props.itemView['onPress']);
 
-        const originalObj = cloneDeep(this.props.unModifiedElemOb);
-        let elemObjAfterThemesSet = originalObj;
+        // const originalObj = cloneDeep(this.props.unModifiedElemOb);
+        // let elemObjAfterThemesSet = originalObj;
 
-        if (this.props.themes != null && this.props.themes.length > 0) {
-          elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-            originalObj,
-            this.props.themes,
-            this.props.context,
-          );
-        }
+        // if (this.props.themes != null && this.props.themes.length > 0) {
+        //   elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+        //     originalObj,
+        //     this.props.themes,
+        //     this.props.context,
+        //   );
+        // }
 
         const funProps = getInterceptedFunctionProps({
-          eleObject: elemObjAfterThemesSet,
+          eleObject: elemOb,
           props: {
             logicObject: this.props.logicObject,
             moduleParams: this.props.propParameters,
@@ -155,8 +159,6 @@ export default class RecycleTestComponent extends React.Component {
           },
           onPressCallBack: this.props.onPressCallBack,
         });
-
-        // console.log('data', this.props.listData.length);
 
         return (
           <UniversalElement
@@ -172,6 +174,7 @@ export default class RecycleTestComponent extends React.Component {
             //     itemJson,
             //   });
             // }}
+            unModifiedElemOb={elemOb}
             onPressCallBack={this.props.onPressCallBack}
             propParameters={this.props.propParameters}
             recyclerListViewFunctionProps={funProps}
@@ -179,6 +182,9 @@ export default class RecycleTestComponent extends React.Component {
             listData={this.props.listData}
             item={data}
             listViewIndex={index}
+            themes={this.props.themes}
+            customComponents={this.props.customComponents}
+            getUi={this.props.getUi}
           />
         );
 
@@ -224,6 +230,7 @@ export default class RecycleTestComponent extends React.Component {
           rowRenderer={this._rowRenderer}
           {...this.props.props}
           {...recyclerProps}
+          extendedState={this.props.context}
         />
       </View>
     );

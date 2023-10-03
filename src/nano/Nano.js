@@ -38,51 +38,35 @@ const Nano = ({
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElements = cloneDeep(screen);
+  const clonedElementsRef = useRef(cloneDeep(screen));
   const clonedScreenStyles = cloneDeep(style);
-  let elemObjAfterThemesSet = clonedScreenStyles;
-  if (themes != null && themes.length > 0) {
-    elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-      clonedScreenStyles,
-      themes,
-      context,
-    );
-  }
 
-  // console.log('nanoo', clonedScreenStyles, style);
   const getUi = nameKey => {
-    // console.log('uiellele', uiElementsRef.current);
+    // console.log(
+    //   'sssss',
+    //   getElementObjectByKey(uiElementsRef.current, nameKey)['props']['style'][
+    //     'color'
+    //   ],
+    //   getElementObjectByKey(uiElementsRef.current, nameKey)['value'],
+    //   getElementObjectByKey(uiElements, nameKey)['value'],
+    //   getElementObjectByKey(uiElements, nameKey)['props']['style']['color'],
+    // );
 
-    return getElementObjectByKey(clonedElements, nameKey);
+    return getElementObjectByKey(clonedElementsRef.current, nameKey);
   };
 
   const propParameters = {
     navigation,
-    // uiElements: clonedElementsRef,
-    // getUi: getUi,
-    // theme: {
-    //   dark: () => {
-    //     console.log('dark called');
-
-    //     if (moduleParameters != null && moduleParameters.session != null) {
-    //       moduleParameters.session.setValue('theme', 'dark');
-    //       const vaal = traverseThroughInputJsonAndCreateNameSHortcut(
-    //         uiElementsRef.current,
-    //         [],
-    //       );
-    //       uiElementsRef.current = vaal;
-    //       setUiElements(uiElementsRef.current);
-    //     }
-    //   },
-    //   light: () => {},
-    // },
 
     route,
     ...moduleParameters,
   };
 
   useEffect(() => {
+    clonedElementsRef.current = cloneDeep(screen);
+
     uiElementsRef.current = screen;
+
     setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
@@ -90,6 +74,7 @@ const Nano = ({
       // console.log('callled traverse function', uiElementsRef.current);
 
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+
       if (onStart != null) {
         // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
@@ -129,23 +114,17 @@ const Nano = ({
     };
   }, [screenName, route]);
 
-  const onPressCallBack = (key = null, keyObject = null, commit = true) => {
-    // if (modifiedElements) {
-    //   const cloned = cloneDeep(modifiedElements);
-    //   uiElementsRef.current = cloned;
-    //   setUiElements(uiElementsRef.current);
-    // }
-    
+  const onPressCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
       if (pathArray && pathArray.length > 0) {
-        const cloned = cloneDeep(uiElementsRef.current);
-        // const clonedUnModified = cloneDeep(clonedElements);
-        modifyNestedValue(cloned, pathArray, keyObject);
-        // modifyNestedValue(clonedUnModified, pathArray, keyObject);
+        const clonedTotalData = cloneDeep(uiElementsRef.current);
+
+        modifyNestedValue(clonedTotalData, pathArray, valueObject);
+
         if (commit) {
-          uiElementsRef.current = cloned;
+          uiElementsRef.current = clonedTotalData;
           setUiElements(uiElementsRef.current);
         }
       }
@@ -161,18 +140,23 @@ const Nano = ({
   };
 
   // console.log('traversingg', uiElements['v1'][0]['value']);
-
-
-
+  let screenStylesWithThemet = clonedScreenStyles;
+  if (themes != null && themes.length > 0) {
+    screenStylesWithThemet = modifyElemObjAsPerTheme(
+      clonedScreenStyles,
+      themes,
+      context,
+    );
+  }
   if (scroll) {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={elemObjAfterThemesSet}>
+        style={screenStylesWithThemet}>
         {uiElements != null && (
           <RenderColoumViews
             totalData={uiElements}
-            unModifiedTotalData={clonedElements}
+            unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
@@ -188,13 +172,13 @@ const Nano = ({
   }
 
   return (
-    <View style={[elemObjAfterThemesSet, {flex: 1}]}>
+    <View style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
           totalData={uiElements}
           navigation={navigation}
           logicObject={logicObject}
-          unModifiedTotalData={clonedElements}
+          unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onPressCallBack}
           onLongPressCallBack={onLongPressCallBack}

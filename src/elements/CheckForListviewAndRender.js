@@ -11,6 +11,7 @@ import {
   getInterceptedFunctionProps,
   getViewItems,
   heightAndWidthFormatterForComponentObj,
+  modifyElemObjAsPerTheme,
   onElementLoaded,
 } from '../utils/Utilities';
 import NanoFlatlist from './Flatlist';
@@ -36,13 +37,13 @@ function CheckForListviewAndRender({
 }) {
   const context = GetContextProvider();
   if (
-    elemOb['platform'] != null &&
-    elemOb['platform'].length > 0 &&
-    !elemOb['platform'].includes(getPlatform())
+    unModifiedElemOb['platform'] != null &&
+    unModifiedElemOb['platform'].length > 0 &&
+    !unModifiedElemOb['platform'].includes(getPlatform())
   ) {
     return null;
   }
-  switch (elemOb['component']) {
+  switch (unModifiedElemOb['component']) {
     case NANO.LIST_VIEW:
       // console.log('list data', elemOb);
       // console.log(
@@ -51,11 +52,14 @@ function CheckForListviewAndRender({
       //   propParameters['uiElements']['v1'][0]['listData'],
       // );
 
-      if (elemOb['hide'] != null && elemOb['hide'] == true) {
+      if (
+        unModifiedElemOb['hide'] != null &&
+        unModifiedElemOb['hide'] == true
+      ) {
         return null;
       }
       const heightWeightFormattedElemObj =
-        heightAndWidthFormatterForComponentObj(elemOb);
+        heightAndWidthFormatterForComponentObj(unModifiedElemOb);
       return (
         <RecycleTestComponent
           {...heightWeightFormattedElemObj}
@@ -71,6 +75,7 @@ function CheckForListviewAndRender({
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
           context={context}
+          customComponents={customComponents}
         />
       );
 
@@ -79,7 +84,7 @@ function CheckForListviewAndRender({
       // return null;
       return (
         <NanoFlatlist
-          {...elemOb}
+          {...unModifiedElemOb}
           navigation={navigation}
           onPress={onPress}
           onLongPress={onLongPress}
@@ -96,7 +101,7 @@ function CheckForListviewAndRender({
     case NANO.TOP_TABS:
       return (
         <NanoTopTabs
-          drawerObj={elemOb}
+          drawerObj={unModifiedElemOb}
           navigation={navigation}
           route={route}
           onLongPress={onLongPress}
@@ -112,7 +117,7 @@ function CheckForListviewAndRender({
     case NANO.BOTTOM_TABS:
       return (
         <NanoBottomTabs
-          drawerObj={elemOb}
+          drawerObj={unModifiedElemOb}
           navigation={navigation}
           route={route}
           databaseConfigObject={databaseConfigObject}
@@ -129,7 +134,7 @@ function CheckForListviewAndRender({
     // case NANO.DRAWER:
     //   return (
     //     <DrawerNavigation
-    //       drawerObj={elemOb}
+    //       drawerObj={unModifiedElemOb}
     //       navigation={navigation}
     //       route={route}
     //       databaseConfigObject={databaseConfigObject}
@@ -137,18 +142,23 @@ function CheckForListviewAndRender({
     //   );
 
     default:
-      const funProps = getInterceptedFunctionProps({
-        eleObject: elemOb,
+      const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+        unModifiedElemOb,
+        themes,
+        context,
+      );
+      const customfunProps = getInterceptedFunctionProps({
+        eleObject: elemObjAfterThemesSet,
         props: {
-          moduleParams: propParameters,
+          moduleParams: {...propParameters, theme: context},
 
           setUi: onPressCallBack,
           getUi: getUi,
         },
       });
       const elementProps = {
-        ...elemOb,
-        ...funProps,
+        ...elemObjAfterThemesSet,
+        ...customfunProps,
       };
       const getViewItemsUpdated = (
         contentArr,
@@ -168,7 +178,7 @@ function CheckForListviewAndRender({
         });
       };
       const Custom = checkNameAndRenderCustomComponent({
-        componentName: elemOb['component'],
+        componentName: elemObjAfterThemesSet['component'],
         compsArray: customComponents,
         props: propParameters,
         onElementLoaded: onElementLoaded,
@@ -179,8 +189,6 @@ function CheckForListviewAndRender({
       if (Custom) {
         return Custom;
       }
-      
-
 
       return (
         <UniversalElement

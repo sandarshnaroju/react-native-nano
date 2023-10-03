@@ -1,9 +1,7 @@
 import * as Animatable from 'react-native-animatable';
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import getElementAsPerComponent from './ElementByComponent';
-import {GetContextProvider} from '../context/DataContext';
-import {modifyElemObjAsPerTheme} from '../utils/Utilities';
-import {cloneDeep} from 'lodash';
+
 function UniversalElement({
   elemObj,
 
@@ -18,18 +16,7 @@ function UniversalElement({
   themes,
   unModifiedElemOb,
 }) {
-  const context = GetContextProvider();
-  const elemObjRef = useRef(unModifiedElemOb);
-
-  const originalObj = cloneDeep(elemObjRef.current);
-  let elemObjAfterThemesSet = originalObj;
-  if (themes != null && themes.length > 0) {
-    elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-      originalObj,
-      themes,
-      context,
-    );
-  }
+  const elemObjAfterThemesSet = unModifiedElemOb;
 
   const displayItem = getElementAsPerComponent({
     elemOb: elemObjAfterThemesSet,
@@ -38,11 +25,12 @@ function UniversalElement({
     customComponents,
     getUi,
     onPressCallBack,
-    propParameters: {...propParameters, theme: context},
+    propParameters,
     recyclerListViewFunctionProps,
     uniqueKey,
     themes,
   });
+
   if (elemObjAfterThemesSet != null && elemObjAfterThemesSet['animation']) {
     return (
       <Animatable.View {...elemObjAfterThemesSet['animation']}>
