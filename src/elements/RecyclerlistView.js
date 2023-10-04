@@ -166,14 +166,6 @@ export default class RecycleTestComponent extends React.Component {
             uniqueKey={uniq + index}
             elemObj={elemOb}
             navigation={this.props.navigation}
-            // onPress={({itemJson}) => {
-            //   this.props.onPress({
-            //     index,
-            //     itemData: data,
-            //     listData: this.props.listData,
-            //     itemJson,
-            //   });
-            // }}
             unModifiedElemOb={elemOb}
             onPressCallBack={this.props.onPressCallBack}
             propParameters={this.props.propParameters}

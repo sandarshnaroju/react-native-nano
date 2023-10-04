@@ -12,7 +12,12 @@ import {
   getNameSHortcutObject,
   traverseThroughInputJsonAndCreateNameSHortcut,
 } from '../utils/UiKeysMapper';
-import {executeAFunction, modifyNestedValue} from '../utils/Utilities';
+import {
+  executeAFunction,
+  modifyElemObjAsPerTheme,
+  modifyNestedValue,
+} from '../utils/Utilities';
+import {GetContextProvider} from '../context/DataContext';
 export const TopTabNano = ({
   screen,
   style,
@@ -23,27 +28,36 @@ export const TopTabNano = ({
   onStart,
   onEnd,
   route,
-  databaseConfigObject,
+  moduleParameters,
   customComponents,
+  themes,
+  unModifiedScreen,
 }) => {
   const uiElementsRef = useRef(screen);
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
+  const context = GetContextProvider();
 
-  const clonedElements = cloneDeep(uiElements);
-  const moduleParameters = getModuleParams({databaseConfigObject});
+  const customeCompsRef = useRef(customComponents);
+
+  const clonedElementsRef = useRef(cloneDeep(screen));
+  const clonedScreenStyles = cloneDeep(style);
+
   const getUi = nameKey => {
-    return getElementObjectByKey(uiElements, nameKey);
+    return getElementObjectByKey(clonedElementsRef.current, nameKey);
   };
+
   const propParameters = {
     navigation,
-    // uiElements: clonedElements,
-    // getUi: getUi,
+
     route,
     ...moduleParameters,
   };
 
   useEffect(() => {
+    clonedElementsRef.current = cloneDeep(screen);
+
     uiElementsRef.current = screen;
+
     setUiElements(uiElementsRef.current);
   }, [screen]);
   useEffect(() => {
@@ -51,6 +65,7 @@ export const TopTabNano = ({
       // console.log('callled traverse function', uiElementsRef.current);
 
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+
       if (onStart != null) {
         // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
@@ -90,42 +105,57 @@ export const TopTabNano = ({
     };
   }, [screenName, route]);
 
-  const onPressCallBack = (key = null, keyObject = null, commit = true) => {
-    // if (modifiedElements) {
-    //   const cloned = cloneDeep(modifiedElements);
-    //   uiElementsRef.current = cloned;
-    //   setUiElements(uiElementsRef.current);
-    // }
+  const onPressCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
       if (pathArray && pathArray.length > 0) {
-        const cloned = cloneDeep(uiElements);
+        const clonedTotalData = cloneDeep(uiElementsRef.current);
 
-        modifyNestedValue(cloned, pathArray, keyObject);
+        modifyNestedValue(clonedTotalData, pathArray, valueObject);
 
         if (commit) {
-          uiElementsRef.current = cloned;
+          uiElementsRef.current = clonedTotalData;
           setUiElements(uiElementsRef.current);
         }
       }
     }
   };
 
+  const onLongPressCallBack = modifiedElements => {
+    if (modifiedElements) {
+      const cloned = cloneDeep(modifiedElements);
+      uiElementsRef.current = cloned;
+      setUiElements(uiElementsRef.current);
+    }
+  };
+
+  // console.log('traversingg', uiElements['v1'][0]['value']);
+  let screenStylesWithThemet = clonedScreenStyles;
+  if (themes != null && themes.length > 0) {
+    screenStylesWithThemet = modifyElemObjAsPerTheme(
+      clonedScreenStyles,
+      themes,
+      context,
+    );
+  }
   if (scroll) {
     return (
-      <ScrollView showsVerticalScrollIndicator={false} style={style}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={screenStylesWithThemet}>
         {uiElements != null && (
           <RenderColoumViews
             totalData={uiElements}
+            unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
             navigation={navigation}
-            unModifiedTotalData={uiElementsRef.current}
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onPressCallBack}
-            route={route}
-            databaseConfigObject={databaseConfigObject}
-            customComponents={customComponents}
+            customComponents={customeCompsRef.current}
+            onLongPressCallBack={onLongPressCallBack}
+            getUi={getUi}
+            themes={themes}
           />
         )}
       </ScrollView>
@@ -133,18 +163,19 @@ export const TopTabNano = ({
   }
 
   return (
-    <View style={[style, {flex: 1}]}>
+    <View style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
           totalData={uiElements}
           navigation={navigation}
-          unModifiedTotalData={uiElementsRef.current}
           logicObject={logicObject}
+          unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onPressCallBack}
-          route={route}
-          databaseConfigObject={databaseConfigObject}
-          customComponents={customComponents}
+          onLongPressCallBack={onLongPressCallBack}
+          customComponents={customeCompsRef.current}
+          getUi={getUi}
+          themes={themes}
         />
       )}
     </View>

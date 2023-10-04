@@ -9,6 +9,10 @@ function TopTabScreen({
   navigation,
 
   route,
+  customComponents,
+  unModifiedScreen,
+  themes,
+  moduleParameters,
 }) {
   return (
     <TopTabNano
@@ -21,6 +25,10 @@ function TopTabScreen({
       onStart={screen.onStart}
       onEnd={screen.onEnd}
       route={route}
+      customComponents={customComponents}
+      moduleParameters={moduleParameters}
+      themes={themes}
+      unModifiedScreen={unModifiedScreen}
     />
   );
 }

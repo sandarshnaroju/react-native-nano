@@ -42,16 +42,6 @@ const Nano = ({
   const clonedScreenStyles = cloneDeep(style);
 
   const getUi = nameKey => {
-    // console.log(
-    //   'sssss',
-    //   getElementObjectByKey(uiElementsRef.current, nameKey)['props']['style'][
-    //     'color'
-    //   ],
-    //   getElementObjectByKey(uiElementsRef.current, nameKey)['value'],
-    //   getElementObjectByKey(uiElements, nameKey)['value'],
-    //   getElementObjectByKey(uiElements, nameKey)['props']['style']['color'],
-    // );
-
     return getElementObjectByKey(clonedElementsRef.current, nameKey);
   };
 

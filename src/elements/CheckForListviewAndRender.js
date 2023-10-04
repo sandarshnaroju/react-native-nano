@@ -95,6 +95,11 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
+          customComponents={customComponents}
+          // moduleParameters={moduleParameters}
+
+          unModifiedScreen={unModifiedElemOb}
+          getUi={getUi}
         />
       );
 
@@ -112,8 +117,12 @@ function CheckForListviewAndRender({
           funProps={funProps}
           logicObject={logicObject}
           themes={themes}
+          customComponents={customComponents}
+          // moduleParameters={moduleParameters}
+          unModifiedScreen={unModifiedElemOb}
         />
       );
+
     case NANO.BOTTOM_TABS:
       return (
         <NanoBottomTabs
@@ -128,6 +137,9 @@ function CheckForListviewAndRender({
           funProps={funProps}
           logicObject={logicObject}
           themes={themes}
+          customComponents={customComponents}
+          // moduleParameters={moduleParameters}
+          unModifiedScreen={unModifiedElemOb}
         />
       );
 

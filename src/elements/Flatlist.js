@@ -1,8 +1,10 @@
 import {isFunction} from 'lodash';
 import React from 'react';
 import {FlatList, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {GetContextProvider} from '../context/DataContext';
 import {
   executeAFunction,
+  getInterceptedFunctionProps,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
@@ -16,6 +18,13 @@ function NanoFlatlist({
   keyExtractor,
   extraItemviewProps,
   props,
+  customComponents,
+  themes,
+  propParameters,
+  getUi,
+  onPressCallBack,
+  unModifiedElemOb,
+  uniqueKey,
 }) {
   const renderItem = ({item, index}) => {
     let mapperResult = null;
@@ -27,18 +36,44 @@ function NanoFlatlist({
       itemView['content'],
       mapperResult,
     );
+    const elemOb = {
+      ...itemView,
+      // component: this.props.itemView['component'],
 
+      value: mapper['value'],
+      // props: this.props.itemView['props'],
+      content: modifiedContent,
+      // onPress: this.props.itemView['onPress'],
+    };
+    const uniq = executeAFunction(uniqueKey, data);
+
+    // const funProps = getInterceptedFunctionProps({
+    //   eleObject: elemOb,
+    //   props: {
+    //     logicObject: logicObject,
+    //     moduleParams: propParameters,
+    //     componentParams: {
+    //       index,
+    //       itemData: item,
+    //       listData: data,
+    //     },
+    //     getUi: getUi,
+    //     setUi: onPressCallBack,
+    //   },
+    //   onPressCallBack: onPressCallBack,
+    // });
     return (
       <UniversalElement
-        elemObj={{
-          component: itemView['component'],
-          value: mapperResult['value'],
-          props: itemView['props'],
-          content: modifiedContent,
-          onClick: itemView['onClick'],
-        }}
+        elemObj={elemOb}
         navigation={navigation}
-        onPress={() => onPress(index, item, data)}
+        customComponents={customComponents}
+        getUi={getUi}
+        onPressCallBack={onPressCallBack}
+        propParameters={propParameters}
+        recyclerListViewFunctionProps={null}
+        themes={themes}
+        unModifiedElemOb={unModifiedElemOb}
+        uniqueKey={uniq + index}
       />
     );
   };

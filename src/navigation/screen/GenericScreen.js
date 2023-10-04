@@ -80,75 +80,23 @@ const GenericScreen = ({
   useEffect(() => {
     setScreenData(screenObj);
   }, [screenObj]);
-  // const checkUpdatedScreenUrlAndChangeUi = async ({
-  //   instantUpdate,
-  //   remoteMessage,
-  // }) => {
-  //   const changedScreen = JSON.parse(remoteMessage['data']['updated']);
-  //   const updatedUiElements = await fetchScreenAndStoreInDb({
-  //     screenUrl: changedScreen['url'],
-  //     code_hash: remoteMessage['data']['code_hash'],
-  //   });
-  //   // console.log('screen url', screenUrl, changedScreen['url']);
 
-  //   if (
-  //     screenUrl != null &&
-  //     screenUrl === changedScreen['url'] &&
-  //     instantUpdate
-  //   ) {
-  //     setScreenData(updatedUiElements);
-  //   }
-  // };
-  // useEffect(() => {
-  //   if (Firebase) {
-  //     Firebase.getOnMessage(async remoteMessage => {
-  //       if (
-  //         remoteMessage != null &&
-  //         remoteMessage['data'] != null &&
-  //         remoteMessage['data']['updated'] != null
-  //       ) {
-  //         checkUpdatedScreenUrlAndChangeUi({
-  //           instantUpdate: remoteMessage['data']['reload'],
-  //           remoteMessage,
-  //         });
-  //       }
-  //     });
-  //   }
-  //   if (Firebase) {
-  //     return Firebase.unSubscribeOnMessage();
-  //   }
+  // if (screenData != null) {
+  //   switch (screenData.component) {
+  //     case NANO.TOP_TABS:
+  //       return (
+  //         <NanoTopTabs
+  //           drawerObj={screenData}
+  //           customComponents={customComponents}
+  //           navigation={navigation}
+  //           route={route}
+  //         />
+  //       );
 
-  //   // if (Platform.OS == 'android') {
-  //   //   const unsubscribe = messaging.default().onMessage(async remoteMessage => {
-  //   //     if (
-  //   //       remoteMessage != null &&
-  //   //       remoteMessage['data'] != null &&
-  //   //       remoteMessage['data']['updated'] != null
-  //   //     ) {
-  //   //       checkUpdatedScreenUrlAndChangeUi({
-  //   //         instantUpdate: remoteMessage['data']['reload'],
-  //   //         remoteMessage,
-  //   //       });
-  //   //     }
-  //   //   });
-  //   //   return unsubscribe;
-  //   // }
-  // }, []);
-  // console.log('in genericscreen.js', screenData['screen']['v1'][0]['value']);
-  if (screenData != null) {
-    switch (screenData.component) {
-      case NANO.TOP_TABS:
-        return (
-          <NanoTopTabs
-            drawerObj={screenData}
-            customComponents={customComponents}
-          />
-        );
-
-      default:
-        break;
-    }
-  }
+  //     default:
+  //       break;
+  //   }
+  // }
 
   return (
     <Nano
