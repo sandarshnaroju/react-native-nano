@@ -1,10 +1,9 @@
 import Realm from 'realm';
-// import {DataBaseConfig} from '../../../../../nano.config';
-const DataBaseConfig = null;
-const TABLE_NANO_SETUP = 'nano-setup';
+import {DataBaseConfig} from '../../../../../nano.config';
+const TABLE_KEY_VALUE = 'key-value';
 
 const nanoSchema = {
-  name: TABLE_NANO_SETUP,
+  name: TABLE_KEY_VALUE,
   properties: {
     key: 'string',
     value: 'string',
@@ -23,14 +22,10 @@ class Database {
       schemaVersion: 1,
     };
 
-    if (
-      DataBaseConfig != null &&
-      DataBaseConfig.schema != null &&
-      DataBaseConfig.schemaVersion != null
-    ) {
+    if (DataBaseConfig != null && DataBaseConfig.schema != null) {
       realmConfigObj = {
+        ...DataBaseConfig,
         schema: [nanoSchema, ...DataBaseConfig.schema],
-        schemaVersion: DataBaseConfig.schemaVersion,
       };
     }
 
@@ -42,6 +37,13 @@ class Database {
         // console.log('Instance create failed');
         props.initCallBack(null);
       });
+  }
+  getRealmInstance() {
+    if (this.realmInstance != null) {
+      return this.realmInstance;
+    } else {
+      return null;
+    }
   }
   setData(table, data) {
     if (this.realmInstance != null) {
@@ -60,33 +62,14 @@ class Database {
       return null;
     }
   }
-  setNanoConfig(key, value) {
+  getData(table) {
     if (this.realmInstance != null) {
-      const allData = this.realmInstance.objects(TABLE_NANO_SETUP);
-      const matched = allData.filtered(`key == '${key}'`);
-
-      if (matched != null && matched.length > 0) {
-        this.realmInstance.write(() => {
-          matched[0]['value'] = value;
-        });
-
-        return true;
-      } else {
-        return this.setData(TABLE_NANO_SETUP, {
-          key,
-          value,
-        });
-      }
+      return this.realmInstance.objects(table);
+    } else {
+      return null;
     }
   }
-
-  getNanoConfig(key) {
-    const val = this.realmInstance.objectForPrimaryKey(TABLE_NANO_SETUP, key);
-    // console.log('getConfig', key, val);
-
-    return val;
-  }
-  setDataInDatabase(table, dataObj, primaryKey) {
+  updateData(table, primaryKey, dataObj) {
     this.realmInstance.write(() => {
       const tableObj = this.realmInstance
         .objects(table)
@@ -98,6 +81,52 @@ class Database {
         }
       });
     });
+  }
+  deleteData(table, primaryKeyName, primaryKeyValue) {
+    if (this.realmInstance != null) {
+      this.realmInstance.write(() => {
+        const allData = this.realmInstance.objects(table);
+        const matched = allData.filtered(
+          `${primaryKeyName} == ${primaryKeyValue}`,
+        );
+        this.realmInstance.delete(matched);
+      });
+    }
+  }
+  setValue(key, value) {
+    if (this.realmInstance != null) {
+      const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
+      const matched = allData.filtered(`key == '${key}'`);
+
+      if (matched != null && matched.length > 0) {
+        this.realmInstance.write(() => {
+          matched[0]['value'] = value;
+        });
+
+        return true;
+      } else {
+        return this.setData(TABLE_KEY_VALUE, {
+          key,
+          value,
+        });
+      }
+    }
+  }
+
+  getValue(key) {
+    const val = this.realmInstance.objectForPrimaryKey(TABLE_KEY_VALUE, key);
+    // console.log('getConfig', key, val);
+
+    return val;
+  }
+  deleteValue(key) {
+    if (this.realmInstance != null) {
+      this.realmInstance.write(() => {
+        const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
+        const matched = allData.filtered(`key == '${key}'`);
+        this.realmInstance.delete(matched);
+      });
+    }
   }
 }
 var database = null;

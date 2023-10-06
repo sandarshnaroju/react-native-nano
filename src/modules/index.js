@@ -22,21 +22,21 @@ const deviceDimensions = {
 const getModuleParams = ({callBack}) => {
   const database = getDatabase(callBack);
   const notifications = getNotification();
-  const Permissions = getPermissionInstance();
+  const permissions = getPermissionInstance();
   const session = getSession();
 
   const moduleParameters = {
-    db: database,
+    database,
     notifications,
-    Permissions,
+    permissions,
     session,
     deviceDimensions,
     // ...CustomGoogleSignIn,
 
-    ...DeviceInfo,
+    deviceInfo: DeviceInfo,
   };
   if (ImagePicker) {
-    moduleParameters['ImagePicker'] = ImagePicker;
+    moduleParameters['imagePicker'] = ImagePicker;
   }
   return moduleParameters;
   // return {};
