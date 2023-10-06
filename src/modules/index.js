@@ -53,8 +53,6 @@ const getModuleParams = ({callBack}) => {
     permissions,
     session,
     dimensions: deviceDimensions,
-    // ...CustomGoogleSignIn,
-
     deviceInfo: DeviceInfo,
     alert: Alert,
     linking: Linking,
@@ -63,7 +61,7 @@ const getModuleParams = ({callBack}) => {
     appearance: Appearance,
     appState: AppState,
     interactionManager: InteractionManager,
-    paneResponder: PanResponder,
+    panResponder: PanResponder,
     platform: Platform,
     pixelRatio: PixelRatio,
     backHandler: BackHandler,
@@ -73,7 +71,6 @@ const getModuleParams = ({callBack}) => {
     animated: Animated,
     easing: Easing,
     systrace: Systrace,
-
     vibration: Vibration,
     settings: Settings,
     accessibilityInfo: AccessibilityInfo,
