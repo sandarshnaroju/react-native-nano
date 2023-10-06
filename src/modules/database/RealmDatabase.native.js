@@ -103,7 +103,6 @@ class Database {
       });
     }
   }
-
   setValue(key, value) {
     if (this.realmInstance != null) {
       const allData = this.realmInstance.objects(TABLE_KEY_VALUE);

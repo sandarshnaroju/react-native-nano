@@ -7,8 +7,14 @@ class Session {
   getValue(key) {
     return sessionObj[key];
   }
+  deleteValue(key) {
+    sessionObj[key] = null;
+  }
   getAllValues() {
     return sessionObj;
+  }
+  deleteAllValues() {
+    sessionObj = {};
   }
 }
 var sess = null;
