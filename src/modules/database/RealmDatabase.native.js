@@ -93,6 +93,16 @@ class Database {
       });
     }
   }
+
+  clearData(table) {
+    if (this.realmInstance != null) {
+      this.realmInstance.write(() => {
+        const allData = this.realmInstance.objects(table);
+
+        this.realmInstance.delete(allData);
+      });
+    }
+  }
   setValue(key, value) {
     if (this.realmInstance != null) {
       const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
@@ -125,6 +135,24 @@ class Database {
         const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
         const matched = allData.filtered(`key == '${key}'`);
         this.realmInstance.delete(matched);
+      });
+    }
+  }
+
+  clearValues() {
+    if (this.realmInstance != null) {
+      this.realmInstance.write(() => {
+        const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
+
+        this.realmInstance.delete(allData);
+      });
+    }
+  }
+
+  deleteAll() {
+    if (this.realmInstance != null) {
+      this.realmInstance.write(() => {
+        this.realmInstance.deleteAll();
       });
     }
   }
