@@ -94,7 +94,7 @@ class Database {
     }
   }
 
-  clearData(table) {
+  deleteAllData(table) {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
         const allData = this.realmInstance.objects(table);
@@ -103,6 +103,7 @@ class Database {
       });
     }
   }
+
   setValue(key, value) {
     if (this.realmInstance != null) {
       const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
@@ -139,7 +140,7 @@ class Database {
     }
   }
 
-  clearValues() {
+  deleteAllValues() {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
         const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
