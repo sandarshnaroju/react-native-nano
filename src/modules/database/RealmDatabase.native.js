@@ -12,24 +12,15 @@ const nanoSchema = {
 };
 
 class Database {
-  async init(configObject) {
-    this.realmInstance = await Realm.open(configObject);
+  async init() {
+    if (this.realmInstance == null) {
+      this.realmInstance = await Realm.open(this.config);
+    }
   }
 
   constructor(props) {
-    let realmConfigObj = {
-      schema: [nanoSchema],
-      schemaVersion: 1,
-    };
-
-    if (DataBaseConfig != null && DataBaseConfig.schema != null) {
-      realmConfigObj = {
-        ...DataBaseConfig,
-        schema: [nanoSchema, ...DataBaseConfig.schema],
-      };
-    }
-
-    this.init(realmConfigObj)
+    this.config = props.realmConfigObj;
+    this.init()
       .then(() => {
         props.initCallBack(true);
       })
@@ -38,7 +29,7 @@ class Database {
         props.initCallBack(null);
       });
   }
-  getRealmInstance() {
+  async getRealmInstance() {
     if (this.realmInstance != null) {
       return this.realmInstance;
     } else {
@@ -69,14 +60,14 @@ class Database {
       return null;
     }
   }
-  updateData(table, primaryKey, dataObj) {
+  updateData(table, primaryKeyName, primaryKeyValue, dataObj) {
     this.realmInstance.write(() => {
       const tableObj = this.realmInstance
         .objects(table)
-        .filtered(`${primaryKey} = '${dataObj[primaryKey]}'`);
-
+        .find(data => data[primaryKeyName] == primaryKeyValue);
+      console.log('tableObj: ', tableObj);
       Object.keys(dataObj).forEach(eachKey => {
-        if (eachKey != primaryKey) {
+        if (eachKey != primaryKeyName) {
           tableObj[eachKey] = dataObj[eachKey];
         }
       });
@@ -86,8 +77,8 @@ class Database {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
         const allData = this.realmInstance.objects(table);
-        const matched = allData.filtered(
-          `${primaryKeyName} == ${primaryKeyValue}`,
+        const matched = allData.find(
+          data => data[primaryKeyName] == primaryKeyValue,
         );
         this.realmInstance.delete(matched);
       });
@@ -124,10 +115,12 @@ class Database {
   }
 
   getValue(key) {
-    const val = this.realmInstance.objectForPrimaryKey(TABLE_KEY_VALUE, key);
-    // console.log('getConfig', key, val);
+    if (this.realmInstance != null) {
+      const val = this.realmInstance.objectForPrimaryKey(TABLE_KEY_VALUE, key);
 
-    return val;
+      return val;
+    }
+    return null;
   }
   deleteValue(key) {
     if (this.realmInstance != null) {
@@ -149,7 +142,7 @@ class Database {
     }
   }
 
-  deleteAll() {
+  deleteAllTables() {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
         this.realmInstance.deleteAll();
@@ -166,8 +159,19 @@ const getDatabase = callBack => {
   try {
     if (database == null) {
       require('realm');
+      let realmConfigObj = {
+        schema: [nanoSchema],
+        schemaVersion: 1,
+      };
 
-      database = new Database({initCallBack});
+      if (DataBaseConfig != null && DataBaseConfig.schema != null) {
+        realmConfigObj = {
+          ...DataBaseConfig,
+          schema: [nanoSchema, ...DataBaseConfig.schema],
+        };
+      }
+
+      database = new Database({initCallBack, realmConfigObj});
     }
   } catch (e) {
     database = null;

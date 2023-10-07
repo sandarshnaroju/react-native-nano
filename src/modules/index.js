@@ -43,6 +43,7 @@ const deviceDimensions = {
 
 const getModuleParams = ({callBack}) => {
   const database = getDatabase(callBack);
+  database.init();
   const notifications = getNotification();
   const permissions = getPermissionInstance();
   const session = getSession();

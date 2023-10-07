@@ -14,19 +14,6 @@ import {THEMES} from '../../../../../nano.config';
 const Stack = createNativeStackNavigator();
 enableScreens();
 
-const processCustomComp = custArray => {
-  // const mod = [];
-  // if (custArray && custArray.length > 0) {
-  //   custArray.forEach(component => {
-  //     const temp = {};
-  //     temp.component = <component.component nanoProps={1} />;
-  //     mod.push({...component, ...temp});
-  //   });
-  // }
-  // return mod;
-  return custArray;
-};
-
 const RNNano = ({
   screens,
   uriScreens,
@@ -43,15 +30,13 @@ const RNNano = ({
   if (screens == null) {
     screens = [LoadingScreen];
   }
+
   const getAllScreensData = () => {
     fetchAllScreens()
       .then(s => {
-        // console.log('all screens', s, typeof s);
         setNetworkScreens(s);
       })
-      .catch(e => {
-        // console.log('eeee', e);
-      });
+      .catch(e => {});
   };
   const realDbInitCallback = db => {
     database = db;
@@ -59,6 +44,7 @@ const RNNano = ({
       getAllScreensData();
     }
   };
+
   const defaultParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
@@ -68,7 +54,6 @@ const RNNano = ({
   useEffect(() => {
     getAllScreensData();
   }, []);
-  const preProcessedCustomCompArray = processCustomComp(customComponents);
 
   return (
     <Provider>
@@ -89,7 +74,7 @@ const RNNano = ({
                           screenUrl={screnObj['url']}
                           isMultiScreen={true}
                           moduleParameters={moduleParameters}
-                          customComponents={preProcessedCustomCompArray}
+                          customComponents={customComponents}
                           themes={themes}
                         />
                       )}
@@ -110,7 +95,7 @@ const RNNano = ({
                           screenObj={screenObj}
                           isMultiScreen={true}
                           moduleParameters={moduleParameters}
-                          customComponents={preProcessedCustomCompArray}
+                          customComponents={customComponents}
                           themes={themes}
                         />
                       )}

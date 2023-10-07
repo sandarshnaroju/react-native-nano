@@ -100,6 +100,15 @@ export default class RecycleTestComponent extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.onElementLoaded({
+      getUi: this.props.getUi,
+      onPressCallBack: this.props.onPressCallBack,
+      loadedElemObject: this.props.unModifiedElemOb,
+      propParameters: this.props.propParameters,
+    });
+  }
+
   //Given type and data return the view component
   _rowRenderer(type, data, index) {
     //You can return any view here, CellContainer has no special significance

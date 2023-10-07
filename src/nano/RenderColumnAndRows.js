@@ -18,7 +18,6 @@ const GetRowElements = ({
   unModifiedRowElementsArray,
 }) => {
   const rowelements = [];
-  // console.log('roww arra', rowElementsArray[0]['value']);
 
   if (
     rowElementsArray != null &&
@@ -26,13 +25,9 @@ const GetRowElements = ({
     rowElementsArray.length > 0
   ) {
     rowElementsArray.forEach((eleObject, index) => {
-      // console.log('nammme', eleObject['name']);
-
-      // if (eleObject != null && eleObject['name'] != null) {
-      //   // console.log('inside');
-
-      //   nameShortcutObject[eleObject['name']] = [rowKey, index];
-      // }
+      if (Object.keys(propParameters).length < 3) {
+        // console.log('elele', eleObject['component']);
+      }
 
       rowelements.push(
         <CheckForListviewAndRender
@@ -75,8 +70,6 @@ const RenderColoumViews = ({
   themes,
   unModifiedTotalData,
 }) => {
-  // console.log('RenderColoumViews', customCompRef.current);
-
   const elements = [];
   if (totalData != null) {
     Object.keys(totalData).forEach((key, index) => {

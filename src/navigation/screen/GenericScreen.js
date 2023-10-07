@@ -3,12 +3,8 @@ import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import getModuleParams from '../../modules';
 import Nano from '../../nano/Nano';
-import NANO from '../../utils/Constants';
-import NanoTopTabs from '../toptabs/TopTabs';
-import {
-  fetchScreenAndStoreInDb,
-  fetchScreenFromDb,
-} from '../../modules/nano-sync/NanoSync';
+
+import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
 import {RELOAD_TIME} from '../../../../../nano.config';
 // import getFirebase from '../../modules/firebase/Firebase';
 // const Firebase = getFirebase();
@@ -80,23 +76,6 @@ const GenericScreen = ({
   useEffect(() => {
     setScreenData(screenObj);
   }, [screenObj]);
-
-  // if (screenData != null) {
-  //   switch (screenData.component) {
-  //     case NANO.TOP_TABS:
-  //       return (
-  //         <NanoTopTabs
-  //           drawerObj={screenData}
-  //           customComponents={customComponents}
-  //           navigation={navigation}
-  //           route={route}
-  //         />
-  //       );
-
-  //     default:
-  //       break;
-  //   }
-  // }
 
   return (
     <Nano

@@ -126,8 +126,17 @@ const getElementAsPerComponent = ({
         themes,
       });
     };
+
     // ! onPressCallback is a function that takes the complete JSON data and setstates it.
     // ! Use this funtion to modify UI.
+    const onElementLoad = loadedElemObject => {
+      onElementLoaded({
+        getUi: getUi,
+        onPressCallBack: onPressCallBack,
+        loadedElemObject,
+        propParameters: propParameters,
+      });
+    };
 
     switch (elemObjAfterThemesSet['component']) {
       case NANO.BUTTON:
@@ -137,7 +146,7 @@ const getElementAsPerComponent = ({
           <NanoButton
             elementProps={elementProps}
             key={'button' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -147,7 +156,7 @@ const getElementAsPerComponent = ({
           <NanoText
             key={'text' + index}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -156,7 +165,7 @@ const getElementAsPerComponent = ({
           <NanoModal
             key={'text' + index}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -166,7 +175,7 @@ const getElementAsPerComponent = ({
           <NanoActivityIndicator
             key={'activityindicator' + index}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -175,7 +184,7 @@ const getElementAsPerComponent = ({
           <NanoImage
             elementProps={elementProps}
             key={'image' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -185,7 +194,7 @@ const getElementAsPerComponent = ({
           <NanoIconButton
             elementProps={elementProps}
             key={'iconbutton' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -194,7 +203,7 @@ const getElementAsPerComponent = ({
           <NanoAvatarIcon
             elementProps={elementProps}
             key={'avatarIcon' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -204,7 +213,7 @@ const getElementAsPerComponent = ({
             elementProps={elementProps}
             key={'avatarimage' + index}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -214,7 +223,7 @@ const getElementAsPerComponent = ({
             key={'avatar text' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -224,7 +233,7 @@ const getElementAsPerComponent = ({
             key={'badge text' + index}
             getViewItems={renderChildren}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -236,7 +245,7 @@ const getElementAsPerComponent = ({
           <NanoCheckBox
             key={'checkbox' + index}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -245,7 +254,7 @@ const getElementAsPerComponent = ({
           <NanoChip
             elementProps={elementProps}
             key={'chip' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -254,7 +263,7 @@ const getElementAsPerComponent = ({
           <NanoFab
             key={'fab' + index}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
         );
@@ -264,7 +273,7 @@ const getElementAsPerComponent = ({
             key={'progress bar' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -274,7 +283,7 @@ const getElementAsPerComponent = ({
             elemObjAfterThemesSet={elemObjAfterThemesSet}
             getViewItems={renderChildren}
             key={'radio button' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -284,7 +293,7 @@ const getElementAsPerComponent = ({
             elementProps={elementProps}
             key={'switch' + index}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.TEXT_INPUT:
@@ -293,7 +302,7 @@ const getElementAsPerComponent = ({
             elementProps={elementProps}
             key={'textinput' + index}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.SEARCH_BAR:
@@ -302,7 +311,7 @@ const getElementAsPerComponent = ({
             getViewItems={renderChildren}
             elementProps={elementProps}
             key={'searchbar' + index}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.BANNER:
@@ -311,7 +320,7 @@ const getElementAsPerComponent = ({
             key={'banner' + index}
             getViewItems={renderChildren}
             elementProps={elementProps}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -321,7 +330,7 @@ const getElementAsPerComponent = ({
             elementProps={elementProps}
             key={'divider' + index}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.CARD:
@@ -330,7 +339,7 @@ const getElementAsPerComponent = ({
             key={'CARD' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.CARD_CONTENT:
@@ -339,7 +348,7 @@ const getElementAsPerComponent = ({
             key={'CARD_CONTENT' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.CARD_ACTION:
@@ -348,7 +357,7 @@ const getElementAsPerComponent = ({
             key={'CARD_ACTIONS' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.CARD_TITLE:
@@ -357,7 +366,7 @@ const getElementAsPerComponent = ({
             key={'CARD_title' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.CARD_COVER:
@@ -366,7 +375,7 @@ const getElementAsPerComponent = ({
             key={'CARD_cover' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.DIALOG:
@@ -375,7 +384,7 @@ const getElementAsPerComponent = ({
             key={'dialog' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.DIALOG_CONTENT:
@@ -384,7 +393,7 @@ const getElementAsPerComponent = ({
             key={'dialog_content' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.DIALOG_ACTION:
@@ -393,7 +402,7 @@ const getElementAsPerComponent = ({
             key={'dialog_ACTIONS' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.DIALOG_TITLE:
@@ -402,7 +411,7 @@ const getElementAsPerComponent = ({
             key={'dialog_title' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.DIALOG_SCROLLAREA:
@@ -411,7 +420,7 @@ const getElementAsPerComponent = ({
             key={'dialog_scrollview' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 
@@ -421,7 +430,7 @@ const getElementAsPerComponent = ({
             key={'videoplayer' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
       case NANO.YOUTUBE_PLAYER:
@@ -430,7 +439,7 @@ const getElementAsPerComponent = ({
             key={'youtubeplayer' + index}
             elementProps={elementProps}
             getViewItems={renderChildren}
-            onElementLoaded={onElementLoaded}
+            onElementLoaded={onElementLoad}
           />
         );
 

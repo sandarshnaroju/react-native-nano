@@ -8,24 +8,37 @@ export const requestDataFromUrlAsPerNetworkData = ({
 }) => {
   switch (requestType) {
     case 'fetch':
-      fetch(requestObj['fetch']['url'], requestObj['fetch'])
+      fetch(requestObj['props']['url'], requestObj['props'])
         .then(response => response.json())
         .then(response => {
-          executeAFunction(requestObj['onSuccess'], {response, ...props});
+          executeAFunction(requestObj['onSuccess'], {
+            methodValues: response,
+            ...props,
+          });
         })
+
         .catch(error => {
           console.log('Error:', error);
-          executeAFunction(requestObj['onFailure'], {error, ...props});
+          executeAFunction(requestObj['onFailure'], {
+            methodValues: error,
+            ...props,
+          });
         });
       break;
     case 'axios':
-      axios(requestObj['axios'])
+      axios(requestObj['props'])
         .then(response => {
-          executeAFunction(requestObj['onSuccess'], {response, ...props});
+          executeAFunction(requestObj['onSuccess'], {
+            methodValues: response,
+            ...props,
+          });
         })
         .catch(error => {
           console.log('Error:', error);
-          executeAFunction(requestObj['onFailure'], {error, ...props});
+          executeAFunction(requestObj['onFailure'], {
+            methodValues: error,
+            ...props,
+          });
         });
       break;
 

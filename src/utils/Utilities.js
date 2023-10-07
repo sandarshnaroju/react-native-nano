@@ -505,12 +505,7 @@ export const fetchDataBasedOnNetworkObject = ({
   if (elementObject != null && elementObject['network'] != null) {
     if (elementObject['network']['action'] === 'onStart') {
       requestDataFromUrlAsPerNetworkData({
-        requestType:
-          elementObject['network']['fetch'] != null
-            ? 'fetch'
-            : elementObject['network']['axios'] != null
-            ? 'axios'
-            : '',
+        requestType: elementObject['network']['use'],
         requestObj: elementObject['network'],
         props: {
           moduleParams: propParameters,
@@ -522,13 +517,13 @@ export const fetchDataBasedOnNetworkObject = ({
     }
   }
 };
+
 export const onElementLoaded = ({
   loadedElemObject,
   getUi,
   onPressCallBack,
   propParameters,
 }) => {
-  // console.log('onElement loaded', loadedElemObject['component']);
   fetchDataBasedOnNetworkObject({
     elementObject: loadedElemObject,
     getUi,
@@ -538,7 +533,7 @@ export const onElementLoaded = ({
 };
 
 const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
-  return function (...args) {
+  return function (args) {
     const newArgs = {
       methodValues: args,
       ...extraParams,
@@ -550,12 +545,7 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
 
 const dummy = (props, elemObj) => {
   requestDataFromUrlAsPerNetworkData({
-    requestType:
-      elemObj['network']['fetch'] != null
-        ? 'fetch'
-        : elemObj['network']['axios'] != null
-        ? 'axios'
-        : '',
+    requestType: elemObj['network']['use'],
     requestObj: elemObj['network'],
     props,
   });

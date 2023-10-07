@@ -129,7 +129,6 @@ const Nano = ({
     }
   };
 
-  // console.log('traversingg', uiElements['v1'][0]['value']);
   let screenStylesWithThemet = clonedScreenStyles;
   if (themes != null && themes.length > 0) {
     screenStylesWithThemet = modifyElemObjAsPerTheme(
@@ -138,6 +137,7 @@ const Nano = ({
       context,
     );
   }
+
   if (scroll) {
     return (
       <ScrollView

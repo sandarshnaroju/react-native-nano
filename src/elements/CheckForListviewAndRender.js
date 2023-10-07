@@ -60,6 +60,7 @@ function CheckForListviewAndRender({
       }
       const heightWeightFormattedElemObj =
         heightAndWidthFormatterForComponentObj(unModifiedElemOb);
+
       return (
         <RecycleTestComponent
           {...heightWeightFormattedElemObj}
@@ -69,6 +70,7 @@ function CheckForListviewAndRender({
           onLongPress={onLongPress}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
+          onElementLoaded={onElementLoaded}
           funProps={funProps}
           getUi={getUi}
           logicObject={logicObject}
@@ -96,8 +98,7 @@ function CheckForListviewAndRender({
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
           customComponents={customComponents}
-          // moduleParameters={moduleParameters}
-
+          moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
           getUi={getUi}
         />
@@ -118,7 +119,7 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           themes={themes}
           customComponents={customComponents}
-          // moduleParameters={moduleParameters}
+          moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
         />
       );
@@ -138,7 +139,7 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           themes={themes}
           customComponents={customComponents}
-          // moduleParameters={moduleParameters}
+          moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
         />
       );
