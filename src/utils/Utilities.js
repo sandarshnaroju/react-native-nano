@@ -1,4 +1,3 @@
-import {cloneDeep} from 'lodash';
 import * as React from 'react';
 
 import {Dimensions} from 'react-native';
@@ -41,7 +40,6 @@ export const modifyNestedValue = (obj, keys, newValue) => {
 
   const lastKey = keys[keys.length - 1];
   currentObj[lastKey] = newValue;
-  // currentObj = newValue;
 };
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
@@ -58,10 +56,7 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
           mapperRes[element.name] !== null
         ) {
           element.value = mapperRes[element.name]['value'];
-          // const newProps = {
-          //   ...element.props,
-          //   ...mapperRes[element.name]['props'],
-          // };
+        
           const newProps = mergeObjects(
             element.props,
             mapperRes[element.name]['props'],
@@ -122,9 +117,7 @@ export const checkNameAndRenderCustomComponent = ({
     compsArray.length > 0
   ) {
     const reqComp = compsArray.find(comp => comp['name'] === componentName);
-    if (componentName === 'video') {
-      // console.log('custome comp', elementProps, onElementLoaded);
-    }
+   
     if (reqComp) {
       const Comp = reqComp['component'];
 
@@ -145,14 +138,11 @@ export const checkNameAndRenderCustomComponent = ({
 };
 
 export const executeAFunction = (func, props) => {
-  // console.log('executeAFunction', func);
   const isItFunction = isFunction(func);
   if (typeof mapper !== 'string' && isItFunction) {
-    // console.log('runnning function it is function');
     return func(props);
   } else {
     if (func != null && typeof func === 'string') {
-      // console.log('runnning function');
 
       let copy = new Function('return ' + func)();
 
@@ -167,7 +157,6 @@ var dynamicValues = {
   'screen.width': SCREEN_WIDTH,
 };
 function evaluateMathExpression(expression) {
-  // console.log('hahahaha', expression);
 
   var operators = ['+', '-', '*', '/'];
   if (
@@ -197,7 +186,7 @@ function evaluateMathExpression(expression) {
         if (!isNaN(num)) {
           numbers.push(num);
         } else {
-          // console.log('errror', expression);
+          // 
           // throw new Error('Invalid expression');
         }
       }
@@ -255,19 +244,17 @@ function evaluateMathExpression(expression) {
 }
 
 function replaceStringsWithNumbers(obj) {
-  // let obj = cloneDeep(hObj);
-  // let obj = propObj;
+
   if (typeof obj === 'object') {
     for (var key in obj) {
       if (key != null && key.indexOf('on') !== 0) {
         if (typeof obj[key] === 'string') {
-          // console.log('helllo', obj[key]);
           const hreplaced = obj[key].replace(
             /{{([^}]+)}}/g,
             function (match, okey) {
               // Check if the dynamic value exists
               if (dynamicValues.hasOwnProperty(okey)) {
-                // console.log('hello', key, obj[key]);
+                // 
 
                 return dynamicValues[okey] + '';
               }
@@ -280,7 +267,6 @@ function replaceStringsWithNumbers(obj) {
 
           var numericValue = parseFloat(evaluateMathExpression(hreplaced));
           if (key === 'height') {
-            // console.log('replaced', hreplaced, typeof hreplaced, numericValue);
           }
           if (!isNaN(numericValue)) {
             obj[key] = numericValue;
@@ -349,10 +335,7 @@ function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
       if (obj[key] != null) {
         if (typeof obj[key] === 'string' && functionKeysArray.includes(key)) {
           obj[key] = executeAFunction(obj[key], functionDimensionsProps);
-          // console.log('keyyy', key, obj[key], obj);
-          // if (obj[key].includes('((') === 0) {
-          //   obj[key] = eval(obj[key]);
-          // }
+          
         } else if (typeof obj[key] === 'object') {
           findAndSendPropsToImmediatlyInvokedFunctions(obj[key]); // Recursively handle nested objects
         }
@@ -361,127 +344,43 @@ function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
   }
 }
 export const heightAndWidthFormatterForComponentObj = compObj => {
-  // var dynamicValues = {
-  //   'window.height': 200.0,
-  //   'window.width': WINDOW_WIDTH,
-  //   'screen.height': SCREEN_HEIGHT,
-  //   'screen.width': SCREEN_WIDTH,
-  // };
-  // var stringsArray = [
-  //   'window.height',
-  //   'window.width',
-  //   'screen.height',
-  //   'screen.width',
-  // ];
-  // var regex = new RegExp(stringsArray.join('|'), 'g');
-  // findAndSendPropsToImmediatlyInvokedFunctions(compObj);
-  // replaceStringsWithNumbers(compObj);
-  // if (compObj != null) {
-  //   console.log('helllo', compObj['itemHeight'], compObj['component']);
-  // }
-
-  // function replace(key, value) {
-  //   if (key == 'height') {
-  //     console.log('cc', value);
-
-  //     let change = parseFloat(
-  //       value.replace(/{{([^}]+)}}/g, function (match, key) {
-  //         // Check if the dynamic value exists
-  //         if (dynamicValues.hasOwnProperty(key)) {
-  //           console.log(
-  //             'hello',
-  //             dynamicValues[key],
-  //             typeof dynamicValues[key],
-  //             match,
-  //             key,
-  //           );
-  //           return dynamicValues[key] + '';
-  //         }
-  //         // If the dynamic value doesn't exist, return the original placeholder
-  //         return match;
-  //       }),
-  //     );
-  //     return change;
-  //   }
-  //   return value;
-  // }
-  // const stringified = JSON.stringify(compObj, replace);
-  // const mapObj = {
-  //   '"{{window.height}}"': WINDOW_HEIGHT,
-  //   '{{window.width}}': WINDOW_WIDTH,
-  //   '{{screen.height}}': SCREEN_HEIGHT,
-  //   '{{screen.width}}': SCREEN_WIDTH,
-  // };
-
-  // const hreplaced = stringified.replace(/{{([^}]+)}}/g, function (match, key) {
-  //   // Check if the dynamic value exists
-  //   if (dynamicValues.hasOwnProperty(key)) {
-  //     console.log(
-  //       'hello',
-  //       dynamicValues[key],
-  //       typeof dynamicValues[key],
-  //       match,
-  //       key,
-  //     );
-
-  //     return dynamicValues[key] + '';
-  //   }
-  //   // If the dynamic value doesn't exist, return the original placeholder
-  //   return match;
-  // });
-
+ 
   return compObj;
 };
 export const heightAndWidthFormatter = props => {
   if (props != null && typeof props == 'object') {
     Object.keys(props).forEach(ke => {
-      // console.log('Ke', props[ke]);
       if (
         typeof props[ke] === 'object' &&
         !Array.isArray(props[ke]) &&
         props[ke] !== null
       ) {
         Object.keys(props[ke]).forEach(innerKe => {
-          // console.log('hello', props[ke][innerKe].includes('@{height}'));
           if (
             props[ke][innerKe] != null &&
             JSON.stringify(props[ke][innerKe]).includes('{{')
           ) {
-            // console.log(
-            //   'exisits',
-            //   JSON.stringify(props[ke][innerKe]).includes('@'),
-            // );
+           
             const newProp = {};
 
             const existing = props[ke][innerKe];
-            // // props[ke][innerKe] = 100;
             const mapObj = {
               '{{window.height}}': WINDOW_HEIGHT,
               '{{window.width}}': WINDOW_WIDTH,
               '{{screen.height}}': SCREEN_HEIGHT,
               '{{screen.width}}': SCREEN_WIDTH,
             };
-            // // if (existing != null && existing.includes('{{height}}')) {
             const hreplaced = existing.replace(
               /{{window.height}}|{{window.width}}|{{screen.height}}|{{screen.width}}/g,
               function (matched) {
                 return mapObj[matched];
               },
             );
-            // // }
-            // // const wreplaced = existing.replace(/{{width}}/g, WINDOW_HEIGHT);
+        
             const newNumber = eval(hreplaced);
             newProp[innerKe] = newNumber;
 
-            // console.log(
-            //   'hiii',
-            //   newNumber,
-            //   typeof newNumber,
-            //   existing,
-            //   typeof existing,
-            //   // replaced,
-            // );
-            // props[ke]
+         
             props[ke][innerKe] = newNumber;
           }
         });

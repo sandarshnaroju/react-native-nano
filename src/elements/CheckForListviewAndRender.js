@@ -3,7 +3,6 @@ import React from 'react';
 import {GetContextProvider} from '../context/DataContext';
 import {getPlatform} from '../modules/platform/platform';
 import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
-// import DrawerNavigation from '../navigation/drawer/Drawer';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
 import NANO from '../utils/Constants';
 import {
@@ -43,14 +42,10 @@ function CheckForListviewAndRender({
   ) {
     return null;
   }
+
   switch (unModifiedElemOb['component']) {
     case NANO.LIST_VIEW:
-      // console.log('list data', elemOb);
-      // console.log(
-      //   'ssssss',
-      //   elemOb['listData'],
-      //   propParameters['uiElements']['v1'][0]['listData'],
-      // );
+      
 
       if (
         unModifiedElemOb['hide'] != null &&
@@ -82,8 +77,7 @@ function CheckForListviewAndRender({
       );
 
     case NANO.FLAT_LIST:
-      // console.log('flatlist', elemOb);
-      // return null;
+      
       return (
         <NanoFlatlist
           {...unModifiedElemOb}
@@ -144,15 +138,7 @@ function CheckForListviewAndRender({
         />
       );
 
-    // case NANO.DRAWER:
-    //   return (
-    //     <DrawerNavigation
-    //       drawerObj={unModifiedElemOb}
-    //       navigation={navigation}
-    //       route={route}
-    //       databaseConfigObject={databaseConfigObject}
-    //     />
-    //   );
+   
 
     default:
       const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
@@ -233,4 +219,3 @@ function areEqual(prevProps, nextProps) {
 }
 export default React.memo(CheckForListviewAndRender, areEqual);
 
-// export default CheckForListviewAndRender;

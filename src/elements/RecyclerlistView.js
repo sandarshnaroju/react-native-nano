@@ -83,7 +83,6 @@ export default class RecycleTestComponent extends React.Component {
     this._rowRenderer = this._rowRenderer.bind(this);
 
     //Since component should always render once data has changed, make data provider part of the state
-    // console.log('list data', this.props.listData);
     this.state = {
       dataProvider: dataProvider.cloneWithRows(this.props.listData),
     };
@@ -120,38 +119,21 @@ export default class RecycleTestComponent extends React.Component {
         }
 
         // ! mapper takes value of data supplied to listview one by one and returns an object with name of the element as key and value as the required value to be set to the element.
-        // console.log('mapper', mapper);
 
         const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
           this.props.itemView['content'],
           mapper,
         );
-        // console.log(
-        //   '🚀 ~ file: RecyclerlistView.js:120 ~ RecycleTestComponent ~ _rowRenderer ~ modifiedContent:',
-        //   modifiedContent,
-        // );
+      
         const uniq = executeAFunction(this.props.uniqueKey, data);
         const elemOb = {
           ...this.props.itemView,
-          // component: this.props.itemView['component'],
 
           value: mapper['value'],
-          // props: this.props.itemView['props'],
           content: modifiedContent,
-          // onPress: this.props.itemView['onPress'],
         };
-        // console.log('inside listrecyceler', this.props.itemView['onPress']);
 
-        // const originalObj = cloneDeep(this.props.unModifiedElemOb);
-        // let elemObjAfterThemesSet = originalObj;
-
-        // if (this.props.themes != null && this.props.themes.length > 0) {
-        //   elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-        //     originalObj,
-        //     this.props.themes,
-        //     this.props.context,
-        //   );
-        // }
+     
 
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
@@ -211,11 +193,7 @@ export default class RecycleTestComponent extends React.Component {
       onPressCallBack: this.props.onPressCallBack,
     });
 
-    // if (this.props != null && this.props['name'] != null) {
-    //   // console.log('inside');
-
-    //   nameShortcutObject[this.props['name']] = [];
-    // }
+ 
 
     return (
       <View

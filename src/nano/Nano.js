@@ -61,12 +61,10 @@ const Nano = ({
   }, [screen]);
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-      // console.log('callled traverse function', uiElementsRef.current);
 
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
-        // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
           logicObject[onStart]({
             moduleParams: propParameters,

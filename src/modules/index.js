@@ -26,7 +26,6 @@ import {
   Settings,
   AccessibilityInfo,
 } from 'react-native';
-// import CustomGoogleSignIn from './googleSignin/GoogleSignIn';
 import ImagePicker from './imagepicker/ImagePicker';
 import DeviceInfo from './deviceinfo/DeviceInfo';
 
@@ -80,6 +79,5 @@ const getModuleParams = ({callBack}) => {
     moduleParameters['imagePicker'] = ImagePicker;
   }
   return moduleParameters;
-  // return {};
 };
 export default getModuleParams;

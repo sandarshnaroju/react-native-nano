@@ -4,7 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens';
 import getModuleParams from '../../modules';
-// import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
 import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';

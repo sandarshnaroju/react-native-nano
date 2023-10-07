@@ -6,8 +6,7 @@ import Nano from '../../nano/Nano';
 
 import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
 import {RELOAD_TIME} from '../../../../../nano.config';
-// import getFirebase from '../../modules/firebase/Firebase';
-// const Firebase = getFirebase();
+
 
 const GenericScreen = ({
   navigation,
@@ -26,7 +25,6 @@ const GenericScreen = ({
   let database;
   var timeut = null;
   const fetchScreenFromNetwork = uri => {
-    // console.log('fetching screen');
 
     fetchScreenFromDb({
       screenUrl: uri,
@@ -34,7 +32,6 @@ const GenericScreen = ({
       .then(screenN => {
         if (__DEV__) {
           timeut = setTimeout(() => {
-            // console.log('fetching again');
 
             fetchScreenFromNetwork(uri);
           }, RELOAD_TIME);
@@ -43,7 +40,7 @@ const GenericScreen = ({
         setScreenData(screenN);
       })
       .catch(e => {
-        console.log('eerer', e);
+        
       });
   };
 
@@ -62,7 +59,6 @@ const GenericScreen = ({
   }
 
   useEffect(() => {
-    // console.log(' in useeffect', isMultiScreen);
 
     if (isMultiScreen && screenUrl != null) {
       fetchScreenFromNetwork(screenUrl);

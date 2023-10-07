@@ -33,7 +33,6 @@ function TopTabScreen({
   );
 }
 
-// export default TopTabScreen;
 function areEqual(prevProps, nextProps) {
   /*
     return true if passing nextProps to render would return

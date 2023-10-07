@@ -25,9 +25,7 @@ const GetRowElements = ({
     rowElementsArray.length > 0
   ) {
     rowElementsArray.forEach((eleObject, index) => {
-      if (Object.keys(propParameters).length < 3) {
-        // console.log('elele', eleObject['component']);
-      }
+     
 
       rowelements.push(
         <CheckForListviewAndRender
@@ -52,7 +50,6 @@ const GetRowElements = ({
       );
     });
   }
-  // console.log('rowshortcut ', nameShortcutObject);
 
   return rowelements;
 };

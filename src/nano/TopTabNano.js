@@ -62,12 +62,10 @@ export const TopTabNano = ({
   }, [screen]);
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-      // console.log('callled traverse function', uiElementsRef.current);
 
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
-        // console.log('onStart', clonedElementsRef, uiElementsRef.current);
         if (logicObject != null && logicObject[onStart] != null) {
           logicObject[onStart]({
             moduleParams: propParameters,
@@ -130,7 +128,6 @@ export const TopTabNano = ({
     }
   };
 
-  // console.log('traversingg', uiElements['v1'][0]['value']);
   let screenStylesWithThemet = clonedScreenStyles;
   if (themes != null && themes.length > 0) {
     screenStylesWithThemet = modifyElemObjAsPerTheme(
@@ -181,4 +178,3 @@ export const TopTabNano = ({
     </View>
   );
 };
-// export default TopTabNano;

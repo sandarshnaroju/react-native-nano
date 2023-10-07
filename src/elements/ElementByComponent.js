@@ -82,8 +82,7 @@ const getElementAsPerComponent = ({
       return null;
     }
 
-    // const heightWeightFormattedElemObj =
-    //   heightAndWidthFormatterForComponentObj(elemObjAfterThemesSet);
+   
 
     let funProps = null;
 
@@ -91,7 +90,6 @@ const getElementAsPerComponent = ({
       funProps = recyclerListViewFunctionProps;
       // this has to be for the parent view of the itemview. Its children wont have recyclerListViewFunctionProps
 
-      // console.log('funccc', funProps !== {});
     } else {
       funProps = getInterceptedFunctionProps({
         eleObject: elemObjAfterThemesSet,
@@ -140,8 +138,7 @@ const getElementAsPerComponent = ({
 
     switch (elemObjAfterThemesSet['component']) {
       case NANO.BUTTON:
-        // const gggg = elementProps['onPress'];
-        // console.log('BUTTTon', gggg(), gggg);
+       
         return (
           <NanoButton
             elementProps={elementProps}
@@ -238,8 +235,7 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.CHECKBOX:
-        // const ddd = elementProps['onPress'];
-        // console.log('elel', ddd(), ddd);
+     
 
         return (
           <NanoCheckBox
@@ -485,7 +481,6 @@ const getElementAsPerComponent = ({
         );
 
       default:
-        // console.log('custome comp', elementProps, onElementLoaded);
 
         const custom = checkNameAndRenderCustomComponent({
           componentName: elemObjAfterThemesSet['component'],

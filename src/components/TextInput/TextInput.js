@@ -8,7 +8,6 @@ function TextInput({elementProps, getViewItems, onElementLoaded}) {
   return (
     <PaperTextInput
       {...elementProps['props']}
-      // style={{}}
       scrollEnabled={false}
       value={elementProps['value']}
       {...elementProps}

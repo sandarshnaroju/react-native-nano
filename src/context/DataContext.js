@@ -11,7 +11,6 @@ function ContextProvider(props) {
   const themeStringRef = useRef(null);
   const [themeString, setThemeString] = useState(themeStringRef.current);
   const themesRef = useRef(props.themes);
-  // console.log('sss', props.themes);
 
   const setTheme = themeName => {
     themeStringRef.current = themeName;

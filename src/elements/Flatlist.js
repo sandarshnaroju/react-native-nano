@@ -1,11 +1,7 @@
-import {isFunction} from 'lodash';
 import React from 'react';
-import {FlatList, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-import {GetContextProvider} from '../context/DataContext';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import {
-  executeAFunction,
-  getInterceptedFunctionProps,
-  replaceValuesInItemViewObjectsAsperDataGiven,
+  executeAFunction, replaceValuesInItemViewObjectsAsperDataGiven
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
@@ -38,30 +34,13 @@ function NanoFlatlist({
     );
     const elemOb = {
       ...itemView,
-      // component: this.props.itemView['component'],
 
       value: mapper['value'],
-      // props: this.props.itemView['props'],
       content: modifiedContent,
-      // onPress: this.props.itemView['onPress'],
     };
     const uniq = executeAFunction(uniqueKey, data);
 
-    // const funProps = getInterceptedFunctionProps({
-    //   eleObject: elemOb,
-    //   props: {
-    //     logicObject: logicObject,
-    //     moduleParams: propParameters,
-    //     componentParams: {
-    //       index,
-    //       itemData: item,
-    //       listData: data,
-    //     },
-    //     getUi: getUi,
-    //     setUi: onPressCallBack,
-    //   },
-    //   onPressCallBack: onPressCallBack,
-    // });
+   
     return (
       <UniversalElement
         elemObj={elemOb}

@@ -37,7 +37,6 @@ class Database {
         props.initCallBack(true);
       })
       .catch(() => {
-        // console.log('Instance create failed');
         props.initCallBack(null);
       });
   }
@@ -71,7 +70,6 @@ class Database {
     return true;
   }
   getDataByPrimaryKey(table, key) {
-    // return readRow(table, key);
     const reqTableData = window.localStorage.getItem(table);
     const parsedTableData = JSON.parse(reqTableData) || {data: []};
     const dataArray = parsedTableData['data'];
