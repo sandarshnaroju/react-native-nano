@@ -41,25 +41,19 @@ export const getAuthTokenAndStoreInRealm = () => {
         const curr = Date.now();
         const expiryTime = json.data.expires_in * 1000 + curr;
 
-        Realm.setNanoConfig(
-          DATABASE_CONSTANTS.EXPIRY_TIME_STAMP,
-          expiryTime + '',
-        );
-        Realm.setNanoConfig(DATABASE_CONSTANTS.AUTH, json.data.access_token);
-        Realm.setNanoConfig(DATABASE_CONSTANTS.PUBLIC_KEY, json.data.key);
+        Realm.setValue(DATABASE_CONSTANTS.EXPIRY_TIME_STAMP, expiryTime + '');
+        Realm.setValue(DATABASE_CONSTANTS.AUTH, json.data.access_token);
+        Realm.setValue(DATABASE_CONSTANTS.PUBLIC_KEY, json.data.key);
 
         return json.data.access_token;
       }
     })
-    .catch(err => {
-
-      
-    });
+    .catch(err => {});
 };
 
 const checkValidityAndGetAuth = async () => {
-  let authToken = Realm.getNanoConfig(DATABASE_CONSTANTS.AUTH);
-  let expiryTime = Realm.getNanoConfig(DATABASE_CONSTANTS.EXPIRY_TIME_STAMP);
+  let authToken = Realm.getValue(DATABASE_CONSTANTS.AUTH);
+  let expiryTime = Realm.getValue(DATABASE_CONSTANTS.EXPIRY_TIME_STAMP);
   const curr = Date.now();
 
   if (
@@ -75,7 +69,7 @@ const checkValidityAndGetAuth = async () => {
   return authToken['value'];
 };
 const isDataVerified = async ({message, signature}) => {
-  const publicKeyObj = Realm.getNanoConfig(DATABASE_CONSTANTS.PUBLIC_KEY);
+  const publicKeyObj = Realm.getValue(DATABASE_CONSTANTS.PUBLIC_KEY);
   const publicKey = Base64.atob(publicKeyObj['value']);
   let isVerified = false;
 
@@ -88,12 +82,10 @@ const isDataVerified = async ({message, signature}) => {
     RSA.SHA256withRSA,
   ).catch(e => {
     isVerified = false;
-    
   });
 
   return isVerified;
 };
-
 
 export const fetchScreenAndStoreInDb = async ({screenUrl, code_hash = ''}) => {
   try {
@@ -124,7 +116,7 @@ export const fetchScreenAndStoreInDb = async ({screenUrl, code_hash = ''}) => {
             const decoded = Base64.atob(json.data.data.json);
             const parsedCode = JSON.parse(decoded);
 
-            Realm.setNanoConfig(screenUrl, JSON.stringify(json.data.data));
+            Realm.setValue(screenUrl, JSON.stringify(json.data.data));
             return parsedCode;
           } else {
             return null;
@@ -134,12 +126,9 @@ export const fetchScreenAndStoreInDb = async ({screenUrl, code_hash = ''}) => {
         }
       })
       .catch(err => {
-        
         return null;
       });
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 };
 export const fetchScreenFromDb = async ({screenUrl}) => {
   const auth = await checkValidityAndGetAuth();
@@ -147,7 +136,7 @@ export const fetchScreenFromDb = async ({screenUrl}) => {
     return null;
   }
   if (screenUrl) {
-    const existingScreenCodeObj = Realm.getNanoConfig(screenUrl);
+    const existingScreenCodeObj = Realm.getValue(screenUrl);
 
     if (
       existingScreenCodeObj != null &&
@@ -186,7 +175,7 @@ export const fetchAllScreens = async () => {
     Accept: 'application/json',
     Authorization: 'Bearer ' + auth,
   };
- 
+
   return axios({
     method: 'POST'.toLowerCase(),
     url: FETCH_ALL_SCREENS,
@@ -206,13 +195,11 @@ export const fetchAllScreens = async () => {
         } else {
           return null;
         }
-
       } else {
         return null;
       }
     })
     .catch(err => {
-      
       return null;
     });
 };
