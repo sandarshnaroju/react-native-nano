@@ -56,7 +56,7 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
           mapperRes[element.name] !== null
         ) {
           element.value = mapperRes[element.name]['value'];
-        
+
           const newProps = mergeObjects(
             element.props,
             mapperRes[element.name]['props'],
@@ -117,7 +117,7 @@ export const checkNameAndRenderCustomComponent = ({
     compsArray.length > 0
   ) {
     const reqComp = compsArray.find(comp => comp['name'] === componentName);
-   
+
     if (reqComp) {
       const Comp = reqComp['component'];
 
@@ -143,7 +143,6 @@ export const executeAFunction = (func, props) => {
     return func(props);
   } else {
     if (func != null && typeof func === 'string') {
-
       let copy = new Function('return ' + func)();
 
       return copy(props);
@@ -157,7 +156,6 @@ var dynamicValues = {
   'screen.width': SCREEN_WIDTH,
 };
 function evaluateMathExpression(expression) {
-
   var operators = ['+', '-', '*', '/'];
   if (
     (expression != null && expression.includes('/')) ||
@@ -186,7 +184,7 @@ function evaluateMathExpression(expression) {
         if (!isNaN(num)) {
           numbers.push(num);
         } else {
-          // 
+          //
           // throw new Error('Invalid expression');
         }
       }
@@ -244,7 +242,6 @@ function evaluateMathExpression(expression) {
 }
 
 function replaceStringsWithNumbers(obj) {
-
   if (typeof obj === 'object') {
     for (var key in obj) {
       if (key != null && key.indexOf('on') !== 0) {
@@ -254,7 +251,7 @@ function replaceStringsWithNumbers(obj) {
             function (match, okey) {
               // Check if the dynamic value exists
               if (dynamicValues.hasOwnProperty(okey)) {
-                // 
+                //
 
                 return dynamicValues[okey] + '';
               }
@@ -335,7 +332,6 @@ function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
       if (obj[key] != null) {
         if (typeof obj[key] === 'string' && functionKeysArray.includes(key)) {
           obj[key] = executeAFunction(obj[key], functionDimensionsProps);
-          
         } else if (typeof obj[key] === 'object') {
           findAndSendPropsToImmediatlyInvokedFunctions(obj[key]); // Recursively handle nested objects
         }
@@ -344,7 +340,6 @@ function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
   }
 }
 export const heightAndWidthFormatterForComponentObj = compObj => {
- 
   return compObj;
 };
 export const heightAndWidthFormatter = props => {
@@ -360,7 +355,6 @@ export const heightAndWidthFormatter = props => {
             props[ke][innerKe] != null &&
             JSON.stringify(props[ke][innerKe]).includes('{{')
           ) {
-           
             const newProp = {};
 
             const existing = props[ke][innerKe];
@@ -376,11 +370,10 @@ export const heightAndWidthFormatter = props => {
                 return mapObj[matched];
               },
             );
-        
+
             const newNumber = eval(hreplaced);
             newProp[innerKe] = newNumber;
 
-         
             props[ke][innerKe] = newNumber;
           }
         });
@@ -395,6 +388,7 @@ export const heightAndWidthFormatter = props => {
 ////////////////////////// Universal Element Functions ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
+
 export const fetchDataBasedOnNetworkObject = ({
   elementObject,
   propParameters,

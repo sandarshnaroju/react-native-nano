@@ -1,5 +1,29 @@
 const {default: axios} = require('axios');
-const {executeAFunction} = require('../../utils/Utilities');
+const {executeAFunction, isFunction} = require('../../utils/Utilities');
+
+const checkNetworkPropsObjectAndRunFunctionsAndSetThoseValuesIfExists = ({
+  networkObjProps,
+  functionProps,
+}) => {
+  const newObj = {};
+
+  if (networkObjProps != null && typeof networkObjProps === 'object') {
+    Object.keys(networkObjProps).forEach(eachKey => {
+      if (
+        networkObjProps[eachKey] != null &&
+        isFunction(networkObjProps[eachKey])
+      ) {
+        const res = executeAFunction(networkObjProps[eachKey], functionProps);
+        newObj[eachKey] = res;
+      } else {
+        newObj[eachKey] = networkObjProps[eachKey];
+      }
+    });
+    return newObj;
+  } else {
+    return networkObjProps;
+  }
+};
 
 export const requestDataFromUrlAsPerNetworkData = ({
   requestType,
@@ -8,7 +32,12 @@ export const requestDataFromUrlAsPerNetworkData = ({
 }) => {
   switch (requestType) {
     case 'fetch':
-      fetch(requestObj['props']['url'], requestObj['props'])
+      const actualNetworkObj =
+        checkNetworkPropsObjectAndRunFunctionsAndSetThoseValuesIfExists({
+          networkObjProps: requestObj['props'],
+          functionProps: props,
+        });
+      fetch(actualNetworkObj['url'], actualNetworkObj)
         .then(response => response.json())
         .then(response => {
           executeAFunction(requestObj['onSuccess'], {
@@ -26,7 +55,13 @@ export const requestDataFromUrlAsPerNetworkData = ({
         });
       break;
     case 'axios':
-      axios(requestObj['props'])
+      const axiosActualNetworkObj =
+        checkNetworkPropsObjectAndRunFunctionsAndSetThoseValuesIfExists({
+          networkObjProps: requestObj['props'],
+          functionProps: props,
+        });
+
+      axios(axiosActualNetworkObj)
         .then(response => {
           executeAFunction(requestObj['onSuccess'], {
             methodValues: response,
