@@ -11,13 +11,17 @@ export const getElementObjectByKey = (uiElements, nameKey) => {
     const pathsArray = nameShortcutObject[nameKey];
 
     let temp = uiElements;
+
     if (pathsArray != null && pathsArray.length > 0) {
+      if (pathsArray.includes('screen')) {
+        pathsArray.splice(0, pathsArray.indexOf('screen') + 1);
+      }
+
       for (let index = 0; index < pathsArray.length; index++) {
         temp = temp[pathsArray[index]];
       }
       return temp;
     }
-
   }
 };
 
@@ -46,15 +50,12 @@ export const traverseThroughInputJsonAndCreateNameSHortcut = (
             );
           } else {
             if (key === 'name') {
-
               if (!nameShortcutObject[value]) {
                 nameShortcutObject[value] = [];
               }
 
-             
-
               nameShortcutObject[value] = keys;
-            } 
+            }
           }
         }
       }

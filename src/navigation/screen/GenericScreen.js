@@ -7,7 +7,6 @@ import Nano from '../../nano/Nano';
 import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
 import {RELOAD_TIME} from '../../../../../nano.config';
 
-
 const GenericScreen = ({
   navigation,
   logic,
@@ -25,23 +24,19 @@ const GenericScreen = ({
   let database;
   var timeut = null;
   const fetchScreenFromNetwork = uri => {
-
     fetchScreenFromDb({
       screenUrl: uri,
     })
       .then(screenN => {
         if (__DEV__) {
           timeut = setTimeout(() => {
-
             fetchScreenFromNetwork(uri);
           }, RELOAD_TIME);
         }
 
         setScreenData(screenN);
       })
-      .catch(e => {
-        
-      });
+      .catch(e => {});
   };
 
   const realDbInitCallback = db => {
@@ -59,7 +54,6 @@ const GenericScreen = ({
   }
 
   useEffect(() => {
-
     if (isMultiScreen && screenUrl != null) {
       fetchScreenFromNetwork(screenUrl);
     }

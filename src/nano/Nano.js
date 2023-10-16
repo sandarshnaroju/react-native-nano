@@ -61,7 +61,6 @@ const Nano = ({
   }, [screen]);
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {

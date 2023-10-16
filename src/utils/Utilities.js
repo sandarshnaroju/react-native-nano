@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import getElementAsPerComponent from '../elements/ElementByComponent';
-import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
+import { requestDataFromUrlAsPerNetworkData } from '../modules/network/Network';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -435,6 +435,7 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
     executeAFunction(originalFn, newArgs);
   };
 };
+
 
 const dummy = (props, elemObj) => {
   requestDataFromUrlAsPerNetworkData({

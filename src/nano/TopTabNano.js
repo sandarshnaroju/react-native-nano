@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
 import isFunction from 'lodash/isFunction';
@@ -18,6 +18,7 @@ import {
   modifyNestedValue,
 } from '../utils/Utilities';
 import {GetContextProvider} from '../context/DataContext';
+import {useFocusEffect} from '@react-navigation/native';
 export const TopTabNano = ({
   screen,
   style,
@@ -60,9 +61,9 @@ export const TopTabNano = ({
 
     setUiElements(uiElementsRef.current);
   }, [screen]);
+
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-
       traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {

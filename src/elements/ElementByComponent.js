@@ -34,6 +34,7 @@ import NanoText from '../components/Text/Text';
 import NanoTextInput from '../components/TextInput/TextInput';
 import NanoVideoPlayer from '../components/videoplayer/VideoPlayer';
 import NanoYoutubePlayer from '../components/youtube/YoutubePlayer';
+import NanoScrollView from '../components/scrollview/Scrollview';
 import {getPlatform} from '../modules/platform/platform';
 import NANO from '../utils/Constants';
 import {
@@ -82,14 +83,11 @@ const getElementAsPerComponent = ({
       return null;
     }
 
-   
-
     let funProps = null;
 
     if (recyclerListViewFunctionProps != null) {
       funProps = recyclerListViewFunctionProps;
       // this has to be for the parent view of the itemview. Its children wont have recyclerListViewFunctionProps
-
     } else {
       funProps = getInterceptedFunctionProps({
         eleObject: elemObjAfterThemesSet,
@@ -138,7 +136,6 @@ const getElementAsPerComponent = ({
 
     switch (elemObjAfterThemesSet['component']) {
       case NANO.BUTTON:
-       
         return (
           <NanoButton
             elementProps={elementProps}
@@ -235,8 +232,6 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.CHECKBOX:
-     
-
         return (
           <NanoCheckBox
             key={'checkbox' + index}
@@ -347,6 +342,16 @@ const getElementAsPerComponent = ({
             onElementLoaded={onElementLoad}
           />
         );
+      case NANO.SCROLL_VIEW:
+        return (
+          <NanoScrollView
+            key={'SCROLL_VIEW' + index}
+            elementProps={elementProps}
+            getViewItems={renderChildren}
+            onElementLoaded={onElementLoad}
+          />
+        );
+
       case NANO.CARD_ACTION:
         return (
           <NanoCardActions
@@ -481,7 +486,6 @@ const getElementAsPerComponent = ({
         );
 
       default:
-
         const custom = checkNameAndRenderCustomComponent({
           componentName: elemObjAfterThemesSet['component'],
           compsArray: customComponents,
@@ -496,7 +500,7 @@ const getElementAsPerComponent = ({
         return;
     }
   }
-  return <Text key={'error' + index}> {' Error   jj'} </Text>;
+  return <Text key={'error' + index}> {'No such component'} </Text>;
 };
 
 export default getElementAsPerComponent;

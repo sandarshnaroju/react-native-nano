@@ -2,7 +2,7 @@ import React from 'react';
 
 import isEqual from 'lodash/isEqual';
 
-import {TopTabNano} from '../../nano/TopTabNano';
+import { TopTabNano } from '../../nano/TopTabNano';
 
 function TopTabScreen({
   screen,
