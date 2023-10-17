@@ -519,6 +519,7 @@ export const getViewItems = ({
         getUi,
         recyclerListViewFunctionProps: null,
         themes,
+        uniqueKey,
       });
 
       elements.push(oitem);
