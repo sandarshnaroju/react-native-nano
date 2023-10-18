@@ -9,7 +9,7 @@ Nano helps you to develop complex mobile apps with low code (in JSON).
 
 ## Links 
 
-[nanoapp.dev](https://www.nanoapp.dev/) | [Playground](https://www.nanoapp.dev/#live)
+[nanoapp.dev](https://www.nanoapp.dev/) | [Playground](https://sandarshnaroju.github.io/) 
 
 ## What is it ?
 
@@ -25,7 +25,7 @@ Nano helps you to develop complex mobile apps with low code (in JSON).
 
 ## DEMO
 
-Live Demo is [here](https://www.nanoapp.dev/#live). 
+Try it [here](https://sandarshnaroju.github.io/). 
 
 
 ## Documentation
@@ -34,16 +34,26 @@ For more detailed documentation please [click here](https://docs.nanoapp.dev/doc
 
 ## How to Install ?
 
-#### For Existing Apps:
-You can install `react-native-nano` in your react-native app by using the below command.
-
-    npm install react-native-nano --save
-
 #### For Newer Apps:
 For newer apps, we recommend you to create new Nano app by using below command.
 
-    npx rn-nano init MyFirstNanoProject
- 
+for latest version
+``` shell
+    npx rn-nano init MyFirstNanoProject 
+```
+
+for specific versions of `react-native` and `react-native-nano` versions
+``` shell
+    npx rn-nano init MyFirstNanoProject --nano-version 1.0.115 --react-native-version 0.72.6 
+```
+
+#### For Existing Apps:
+You can install `react-native-nano` in your react-native app by using the below command.
+
+``` shell
+    npm install react-native-nano --save
+```
+
 The above command will install necessary packages to run `react-native-nano` with `react-native` . You can use all `react-native` commands to `start` and `run` in Android and IOS.
 
 ## How to use ?
@@ -76,7 +86,7 @@ const screen = {
 
 ```
 
-Nano makes it easy to place components in horizontal and vertical directions in a screen. it uses horizontal and vertical keys read more about them [here](https://react-native-nano.gitbook.io/welcome/guide/understanding-layout). 
+Nano makes it easy to place components in horizontal and vertical directions in a screen. It uses horizontal and vertical keys read more about them [here](https://docs.nanoapp.dev/docs/guide/understanding-layout). 
 
 And after that simply add it to the RNNano component like below
 
