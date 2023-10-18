@@ -2,7 +2,7 @@ import React from 'react';
 
 import isEqual from 'lodash/isEqual';
 
-import { TopTabNano } from '../../nano/TopTabNano';
+import {TopTabNano} from '../../nano/TopTabNano';
 
 function TopTabScreen({
   screen,
@@ -29,6 +29,8 @@ function TopTabScreen({
       moduleParameters={moduleParameters}
       themes={themes}
       unModifiedScreen={unModifiedScreen}
+      onPause={screen != null ? screen.onPause : null}
+      onResume={screen != null ? screen.onResume : null}
     />
   );
 }

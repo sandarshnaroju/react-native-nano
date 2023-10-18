@@ -77,6 +77,8 @@ const GenericScreen = ({
       screenName={screenData != null ? screenData.name : null}
       onStart={screenData != null ? screenData.onStart : null}
       onEnd={screenData != null ? screenData.onEnd : null}
+      onPause={screenData != null ? screenData.onPause : null}
+      onResume={screenData != null ? screenData.onResume : null}
       route={route}
       moduleParameters={moduleParameters}
       customComponents={customComponents}

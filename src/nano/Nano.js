@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -16,6 +16,7 @@ import {
   traverseThroughInputJsonAndCreateNameSHortcut,
 } from '../utils/UiKeysMapper';
 import {GetContextProvider} from '../context/DataContext';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Nano = ({
   screen,
@@ -31,6 +32,8 @@ const Nano = ({
   customComponents,
   themes,
   unModifiedScreen,
+  onPause,
+  onResume,
 }) => {
   const uiElementsRef = useRef(screen);
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
@@ -59,9 +62,55 @@ const Nano = ({
 
     setUiElements(uiElementsRef.current);
   }, [screen]);
+  useFocusEffect(
+    useCallback(() => {
+      let createShortCutTimeout = setTimeout(() => {
+        traverseThroughInputJsonAndCreateNameSHortcut(
+          uiElementsRef.current,
+          [],
+        );
+
+        if (onResume != null) {
+          if (logicObject != null && logicObject[onResume] != null) {
+            logicObject[onResume]({
+              moduleParams: propParameters,
+              setUi: onPressCallBack,
+              getUi,
+            });
+          } else {
+            executeAFunction(onResume, {
+              moduleParams: propParameters,
+              setUi: onPressCallBack,
+              getUi,
+            });
+          }
+        }
+      }, 1);
+      return () => {
+        if (createShortCutTimeout) {
+          clearTimeout(createShortCutTimeout);
+        }
+        if (onPause != null) {
+          if (logicObject != null && logicObject[onPause] != null) {
+            logicObject[onPause]({
+              moduleParams: propParameters,
+              setUi: onPressCallBack,
+              getUi,
+            });
+          } else {
+            executeAFunction(onPause, {
+              moduleParams: propParameters,
+              setUi: onPressCallBack,
+              getUi,
+            });
+          }
+        }
+      };
+    }, [screenName, route]),
+  );
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+      // traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
         if (logicObject != null && logicObject[onStart] != null) {
