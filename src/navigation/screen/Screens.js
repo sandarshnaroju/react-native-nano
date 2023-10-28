@@ -10,7 +10,10 @@ import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import {Provider} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
 import {THEMES} from '../../../../../nano.config';
+import Toast from 'react-native-toast-message';
+
 const Stack = createNativeStackNavigator();
+
 enableScreens();
 
 const RNNano = ({
@@ -30,12 +33,14 @@ const RNNano = ({
     screens = [LoadingScreen];
   }
 
+  // console.log('hehhehehehhe');
+
   const getAllScreensData = () => {
-    fetchAllScreens()
-      .then(s => {
-        setNetworkScreens(s);
-      })
-      .catch(e => {});
+    // fetchAllScreens()
+    //   .then(s => {
+    //     setNetworkScreens(s);
+    //   })
+    //   .catch(e => {});
   };
   const realDbInitCallback = db => {
     database = db;
@@ -103,6 +108,7 @@ const RNNano = ({
                 })
               : null}
           </Stack.Navigator>
+          <Toast />
         </NavigationContainer>
       </DataContext>
     </Provider>

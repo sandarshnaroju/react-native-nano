@@ -28,7 +28,7 @@ import {
 } from 'react-native';
 import ImagePicker from './imagepicker/ImagePicker';
 import DeviceInfo from './deviceinfo/DeviceInfo';
-
+import Toast from 'react-native-toast-message';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -74,6 +74,7 @@ const getModuleParams = ({callBack}) => {
     vibration: Vibration,
     settings: Settings,
     accessibilityInfo: AccessibilityInfo,
+    toast: Toast,
   };
   if (ImagePicker) {
     moduleParameters['imagePicker'] = ImagePicker;
