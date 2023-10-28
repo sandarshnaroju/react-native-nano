@@ -45,8 +45,6 @@ function CheckForListviewAndRender({
 
   switch (unModifiedElemOb['component']) {
     case NANO.LIST_VIEW:
-      
-
       if (
         unModifiedElemOb['hide'] != null &&
         unModifiedElemOb['hide'] == true
@@ -77,7 +75,6 @@ function CheckForListviewAndRender({
       );
 
     case NANO.FLAT_LIST:
-      
       return (
         <NanoFlatlist
           {...unModifiedElemOb}
@@ -137,8 +134,6 @@ function CheckForListviewAndRender({
           unModifiedScreen={unModifiedElemOb}
         />
       );
-
-   
 
     default:
       const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
@@ -218,4 +213,3 @@ function areEqual(prevProps, nextProps) {
   }
 }
 export default React.memo(CheckForListviewAndRender, areEqual);
-

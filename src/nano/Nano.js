@@ -62,6 +62,7 @@ const Nano = ({
 
     setUiElements(uiElementsRef.current);
   }, [screen]);
+
   useFocusEffect(
     useCallback(() => {
       let createShortCutTimeout = setTimeout(() => {
@@ -106,11 +107,12 @@ const Nano = ({
           }
         }
       };
-    }, [screenName, route]),
+    }, []),
   );
+
   useEffect(() => {
-    let createShortCutTimeout = setTimeout(() => {
-      // traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+    const createShortCutTimeout = setTimeout(() => {
+      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
         if (logicObject != null && logicObject[onStart] != null) {
@@ -128,6 +130,7 @@ const Nano = ({
         }
       }
     }, 1);
+
     return () => {
       if (createShortCutTimeout) {
         clearTimeout(createShortCutTimeout);
@@ -148,7 +151,7 @@ const Nano = ({
         }
       }
     };
-  }, [screenName, route]);
+  }, []);
 
   const onPressCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {

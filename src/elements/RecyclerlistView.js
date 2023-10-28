@@ -124,7 +124,7 @@ export default class RecycleTestComponent extends React.Component {
           this.props.itemView['content'],
           mapper,
         );
-      
+
         const uniq = executeAFunction(this.props.uniqueKey, data);
         const elemOb = {
           ...this.props.itemView,
@@ -132,8 +132,6 @@ export default class RecycleTestComponent extends React.Component {
           value: mapper['value'],
           content: modifiedContent,
         };
-
-     
 
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
@@ -192,8 +190,6 @@ export default class RecycleTestComponent extends React.Component {
       },
       onPressCallBack: this.props.onPressCallBack,
     });
-
- 
 
     return (
       <View

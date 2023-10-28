@@ -16,9 +16,12 @@ export const getElementObjectByKey = (uiElements, nameKey) => {
       if (pathsArray.includes('screen')) {
         pathsArray.splice(0, pathsArray.indexOf('screen') + 1);
       }
+      // console.log('pathsArray', pathsArray, temp);
 
       for (let index = 0; index < pathsArray.length; index++) {
-        temp = temp[pathsArray[index]];
+        if (temp != null && pathsArray[index] != null) {
+          temp = temp[pathsArray[index]];
+        }
       }
       return temp;
     }

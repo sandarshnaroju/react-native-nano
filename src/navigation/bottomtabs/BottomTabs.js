@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import TopTabScreen from '../toptabs/TopTabScreen';
-import { GetContextProvider } from '../../context/DataContext';
-import { modifyElemObjAsPerTheme } from '../../utils/Utilities';
+import {GetContextProvider} from '../../context/DataContext';
+import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -16,7 +16,6 @@ const GetScreens = ({
   moduleParameters,
 }) => {
   const drawerScreens = [];
-
 
   if (content != null && content.length > 0) {
     content.forEach((screen, index) => {
@@ -61,7 +60,6 @@ function NanoBottomTabs({
       context,
     );
   }
-
 
   return (
     <Tab.Navigator {...navigatorPropsWithThemesSet}>

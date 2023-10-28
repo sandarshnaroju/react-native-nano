@@ -1,11 +1,9 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
-import isFunction from 'lodash/isFunction';
 
 import {ScrollView} from 'react-native';
 import {View} from 'react-native-animatable';
-import getModuleParams from '../modules';
 import RenderColoumViews from './RenderColumnAndRows';
 import {
   getElementObjectByKey,
@@ -44,7 +42,6 @@ export const TopTabNano = ({
 
   const clonedElementsRef = useRef(cloneDeep(screen));
   const clonedScreenStyles = cloneDeep(style);
-
   const getUi = nameKey => {
     return getElementObjectByKey(clonedElementsRef.current, nameKey);
   };
@@ -108,12 +105,12 @@ export const TopTabNano = ({
           }
         }
       };
-    }, [screenName, route]),
+    }, []),
   );
 
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-      // traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
         if (logicObject != null && logicObject[onStart] != null) {
@@ -151,7 +148,7 @@ export const TopTabNano = ({
         }
       }
     };
-  }, [screenName, route]);
+  }, []);
 
   const onPressCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {
