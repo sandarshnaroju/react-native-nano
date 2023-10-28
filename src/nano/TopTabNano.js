@@ -80,8 +80,6 @@ export const TopTabNano = ({
               getUi,
             });
           } else {
-            console.log('exuxuxu');
-
             executeAFunction(onResume, {
               moduleParams: propParameters,
               setUi: onPressCallBack,
