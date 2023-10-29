@@ -51,6 +51,7 @@ export const TopTabNano = ({
 
     route,
     ...moduleParameters,
+    theme: context,
   };
 
   useEffect(() => {
