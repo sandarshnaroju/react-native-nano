@@ -27,14 +27,11 @@ function ContextProvider(props) {
 
   const [themeString, setThemeString] = useState(themeStringRef.current);
   const setTheme = themeName => {
-    // console.log('setheme');
-
     if (themesRef.current != null && themesRef.current.length > 0) {
       const selectedThemObj = themesRef.current.find(themeObj => {
         return themeObj['name'] == themeName;
       });
       setIsDark(selectedThemObj['isDark']);
-      // console.log('setheme inside', themeName, selectedThemObj);
 
       themeStringRef.current = themeName;
       setThemeString(themeStringRef.current);

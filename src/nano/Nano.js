@@ -53,7 +53,6 @@ const Nano = ({
 
     route,
     ...moduleParameters,
-    theme: context,
   };
 
   useEffect(() => {
