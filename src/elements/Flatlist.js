@@ -72,7 +72,7 @@ function NanoFlatlist({
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}
-        recyclerListViewFunctionProps={null}
+        recyclerListViewFunctionProps={funProps}
         themes={themes}
         unModifiedElemOb={elemOb}
         uniqueKey={uniq + index}
