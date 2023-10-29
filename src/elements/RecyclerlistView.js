@@ -137,7 +137,10 @@ export default class RecycleTestComponent extends React.Component {
           eleObject: elemOb,
           props: {
             logicObject: this.props.logicObject,
-            moduleParams: this.props.propParameters,
+            moduleParams: {
+              ...this.props.propParameters,
+              theme: this.props.context,
+            },
             componentParams: {
               index,
               itemData: data,
@@ -185,7 +188,14 @@ export default class RecycleTestComponent extends React.Component {
     const recyclerProps = getInterceptedFunctionProps({
       eleObject: this.props,
       props: {
-        ...this.props.propParameters,
+        moduleParams: {
+          ...this.props.propParameters,
+          theme: this.props.context,
+        },
+        componentParams: {
+          listData: this.props.listData,
+        },
+        getUi: this.props.getUi,
         setUi: this.props.onPressCallBack,
       },
       onPressCallBack: this.props.onPressCallBack,

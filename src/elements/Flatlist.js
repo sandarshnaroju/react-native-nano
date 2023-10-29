@@ -1,7 +1,9 @@
 import React from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {FlatList, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {
-  executeAFunction, replaceValuesInItemViewObjectsAsperDataGiven
+  executeAFunction,
+  getInterceptedFunctionProps,
+  replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
 
@@ -21,6 +23,8 @@ function NanoFlatlist({
   onPressCallBack,
   unModifiedElemOb,
   uniqueKey,
+  context,
+  logicObject,
 }) {
   const renderItem = ({item, index}) => {
     let mapperResult = null;
@@ -38,12 +42,31 @@ function NanoFlatlist({
       value: mapper['value'],
       content: modifiedContent,
     };
-    const uniq = executeAFunction(uniqueKey, data);
+    const uniq = executeAFunction(uniqueKey, item);
+    const funProps = getInterceptedFunctionProps({
+      eleObject: elemOb,
+      props: {
+        logicObject: logicObject,
+        moduleParams: {
+          ...propParameters,
+          theme: context,
+        },
+        componentParams: {
+          index,
+          itemData: item,
+          listData: data,
+        },
+        getUi: getUi,
+        setUi: onPressCallBack,
+      },
+      onPressCallBack: onPressCallBack,
+    });
+    // console.log('keyyy', uniq + index);
 
-   
     return (
       <UniversalElement
-        elemObj={elemOb}
+        key={uniq + index}
+        elemObj={funProps}
         navigation={navigation}
         customComponents={customComponents}
         getUi={getUi}
@@ -51,7 +74,7 @@ function NanoFlatlist({
         propParameters={propParameters}
         recyclerListViewFunctionProps={null}
         themes={themes}
-        unModifiedElemOb={unModifiedElemOb}
+        unModifiedElemOb={elemOb}
         uniqueKey={uniq + index}
       />
     );
@@ -63,7 +86,7 @@ function NanoFlatlist({
         data={data}
         renderItem={renderItem}
         keyExtractor={eachdata => {
-          return executeAFunction(keyExtractor, eachdata);
+          return executeAFunction(uniqueKey, eachdata);
         }}
       />
     </SafeAreaView>

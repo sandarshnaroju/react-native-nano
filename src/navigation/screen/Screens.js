@@ -34,11 +34,11 @@ const RNNano = ({
   }
 
   const getAllScreensData = () => {
-    fetchAllScreens()
-      .then(s => {
-        setNetworkScreens(s);
-      })
-      .catch(e => {});
+    // fetchAllScreens()
+    //   .then(s => {
+    //     setNetworkScreens(s);
+    //   })
+    //   .catch(e => {});
   };
   const realDbInitCallback = db => {
     database = db;
