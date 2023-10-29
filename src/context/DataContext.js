@@ -7,14 +7,28 @@ export function GetContextProvider() {
 }
 
 function ContextProvider(props) {
-  const [isDark, setIsDark] = useState(Appearance.getColorScheme() == 'dark');
-  const themeStringRef = useRef(null);
-  const [themeString, setThemeString] = useState(themeStringRef.current);
   const themesRef = useRef(props.themes);
+  const themeStringRef = useRef(
+    themesRef.current != null && themesRef.current.length > 0
+      ? themesRef.current[0]['name']
+      : null,
+  );
+  const [isDark, setIsDark] = useState(
+    themesRef.current != null && themesRef.current.length > 0
+      ? themesRef.current[0]['isDark']
+      : null,
+  );
 
+  const [themeString, setThemeString] = useState(themeStringRef.current);
   const setTheme = themeName => {
-    themeStringRef.current = themeName;
-    setThemeString(themeStringRef.current);
+    if (themesRef.current != null && themesRef.current.length > 0) {
+      const selectedThemObj = themesRef.current.find(themeObj => {
+        return themeObj['name'] == themeName;
+      });
+      setIsDark(selectedThemObj['isDark']);
+      themeStringRef.current = themeName;
+      setThemeString(themeStringRef.current);
+    }
   };
   const listener = () => {
     const theme = Appearance.getColorScheme();
