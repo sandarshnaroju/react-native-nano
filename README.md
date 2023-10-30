@@ -9,7 +9,7 @@ Nano helps you to develop complex mobile apps with low code (in JSON).
 
 ## Links 
 
-[nanoapp.dev](https://www.nanoapp.dev/) | [Playground](https://sandarshnaroju.github.io/) 
+[nanoapp.dev](https://www.nanoapp.dev/) | [Playground](https://code.nanoapp.dev/) 
 
 ## What is it ?
 
@@ -25,7 +25,7 @@ Nano helps you to develop complex mobile apps with low code (in JSON).
 
 ## DEMO
 
-Try it [here](https://sandarshnaroju.github.io/). 
+Try it [here](https://code.nanoapp.dev/). 
 
 
 ## Documentation
