@@ -2,8 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
 
-import {ScrollView} from 'react-native';
-import {View} from 'react-native-animatable';
+import {ScrollView, SafeAreaView, View} from 'react-native';
 import {
   executeAFunction,
   modifyElemObjAsPerTheme,
@@ -211,7 +210,7 @@ const Nano = ({
   }
 
   return (
-    <View style={[screenStylesWithThemet, {flex: 1}]}>
+    <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
           totalData={uiElements}
@@ -226,7 +225,7 @@ const Nano = ({
           themes={themes}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 export default Nano;
