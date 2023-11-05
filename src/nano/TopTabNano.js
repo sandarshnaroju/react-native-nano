@@ -40,7 +40,7 @@ export const TopTabNano = ({
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElementsRef = useRef(screen);
+  const clonedElementsRef = useRef(cloneDeep(screen));
   const clonedScreenStyles = cloneDeep(style);
   const getUi = nameKey => {
     return getElementObjectByKey(clonedElementsRef.current, nameKey);
@@ -54,7 +54,7 @@ export const TopTabNano = ({
   };
 
   useEffect(() => {
-    // clonedElementsRef.current = screen;
+    clonedElementsRef.current = screen;
 
     uiElementsRef.current = screen;
 
