@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
 
-import {ScrollView} from 'react-native';
-import {View} from 'react-native-animatable';
+import {SafeAreaView, ScrollView} from 'react-native';
+
 import RenderColoumViews from './RenderColumnAndRows';
 import {
   getElementObjectByKey,
@@ -40,7 +40,7 @@ export const TopTabNano = ({
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElementsRef = useRef(cloneDeep(screen));
+  const clonedElementsRef = useRef(screen);
   const clonedScreenStyles = cloneDeep(style);
   const getUi = nameKey => {
     return getElementObjectByKey(clonedElementsRef.current, nameKey);
@@ -54,7 +54,7 @@ export const TopTabNano = ({
   };
 
   useEffect(() => {
-    clonedElementsRef.current = cloneDeep(screen);
+    // clonedElementsRef.current = screen;
 
     uiElementsRef.current = screen;
 
@@ -73,13 +73,13 @@ export const TopTabNano = ({
           if (logicObject != null && logicObject[onResume] != null) {
             logicObject[onResume]({
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           } else {
             executeAFunction(onResume, {
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           }
@@ -93,13 +93,13 @@ export const TopTabNano = ({
           if (logicObject != null && logicObject[onPause] != null) {
             logicObject[onPause]({
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           } else {
             executeAFunction(onPause, {
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           }
@@ -116,13 +116,13 @@ export const TopTabNano = ({
         if (logicObject != null && logicObject[onStart] != null) {
           logicObject[onStart]({
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         } else {
           executeAFunction(onStart, {
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         }
@@ -136,13 +136,13 @@ export const TopTabNano = ({
         if (logicObject != null && logicObject[onEnd] != null) {
           logicObject[onEnd]({
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         } else {
           executeAFunction(onEnd, {
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         }
@@ -150,7 +150,8 @@ export const TopTabNano = ({
     };
   }, []);
 
-  const onPressCallBack = (key = null, valueObject = null, commit = true) => {
+  // setUI component
+  const onSetUiCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
@@ -195,7 +196,7 @@ export const TopTabNano = ({
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
-            onPressCallBack={onPressCallBack}
+            onPressCallBack={onSetUiCallBack}
             customComponents={customeCompsRef.current}
             onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
@@ -207,7 +208,7 @@ export const TopTabNano = ({
   }
 
   return (
-    <View style={[screenStylesWithThemet, {flex: 1}]}>
+    <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
           totalData={uiElements}
@@ -215,13 +216,13 @@ export const TopTabNano = ({
           logicObject={logicObject}
           unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
           propParameters={propParameters}
-          onPressCallBack={onPressCallBack}
+          onPressCallBack={onSetUiCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
           getUi={getUi}
           themes={themes}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };

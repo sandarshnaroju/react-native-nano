@@ -74,13 +74,13 @@ const Nano = ({
           if (logicObject != null && logicObject[onResume] != null) {
             logicObject[onResume]({
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           } else {
             executeAFunction(onResume, {
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           }
@@ -94,13 +94,13 @@ const Nano = ({
           if (logicObject != null && logicObject[onPause] != null) {
             logicObject[onPause]({
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           } else {
             executeAFunction(onPause, {
               moduleParams: propParameters,
-              setUi: onPressCallBack,
+              setUi: onSetUiCallBack,
               getUi,
             });
           }
@@ -117,13 +117,13 @@ const Nano = ({
         if (logicObject != null && logicObject[onStart] != null) {
           logicObject[onStart]({
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         } else {
           executeAFunction(onStart, {
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         }
@@ -138,13 +138,13 @@ const Nano = ({
         if (logicObject != null && logicObject[onEnd] != null) {
           logicObject[onEnd]({
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         } else {
           executeAFunction(onEnd, {
             moduleParams: propParameters,
-            setUi: onPressCallBack,
+            setUi: onSetUiCallBack,
             getUi,
           });
         }
@@ -152,7 +152,7 @@ const Nano = ({
     };
   }, []);
 
-  const onPressCallBack = (key = null, valueObject = null, commit = true) => {
+  const onSetUiCallBack = (key = null, valueObject = null, commit = true) => {
     if (key != null) {
       const objNameShortcuts = getNameSHortcutObject();
       const pathArray = objNameShortcuts[key];
@@ -198,7 +198,7 @@ const Nano = ({
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
-            onPressCallBack={onPressCallBack}
+            onPressCallBack={onSetUiCallBack}
             customComponents={customeCompsRef.current}
             onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
@@ -218,7 +218,7 @@ const Nano = ({
           logicObject={logicObject}
           unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
           propParameters={propParameters}
-          onPressCallBack={onPressCallBack}
+          onPressCallBack={onSetUiCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
           getUi={getUi}

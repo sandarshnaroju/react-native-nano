@@ -1,12 +1,9 @@
-import {cloneDeep, isFunction} from 'lodash';
 import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
 import {
   executeAFunction,
-  modifyElemObjAsPerTheme,
-  nameShortcutObject,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';

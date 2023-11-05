@@ -36,6 +36,7 @@ function CheckForListviewAndRender({
 }) {
   const context = GetContextProvider();
   if (
+    unModifiedElemOb != null &&
     unModifiedElemOb['platform'] != null &&
     unModifiedElemOb['platform'].length > 0 &&
     !unModifiedElemOb['platform'].includes(getPlatform())
