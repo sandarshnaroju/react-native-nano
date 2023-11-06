@@ -38,7 +38,7 @@ const Nano = ({
   const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
-
+  const defaultScreensRef = useRef(null);
   const customeCompsRef = useRef(customComponents);
 
   const clonedScreenStyles = cloneDeep(style);
@@ -55,8 +55,12 @@ const Nano = ({
   };
 
   useEffect(() => {
-    if (!isEqual(screen, uiElementsRef.current)) {
+    if (!isEqual(defaultScreensRef.current, screen)) {
+      defaultScreensRef.current = cloneDeep(screen);
+
       uiElementsRef.current = screen;
+      setUiElements(uiElementsRef.current);
+    } else {
       setUiElements(uiElementsRef.current);
     }
   }, [screen]);

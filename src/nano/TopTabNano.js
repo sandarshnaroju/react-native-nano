@@ -36,6 +36,8 @@ export const TopTabNano = ({
   onResume,
 }) => {
   const uiElementsRef = useRef(screen);
+  const defaultScreensRef = useRef(null);
+
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
 
@@ -54,8 +56,12 @@ export const TopTabNano = ({
   };
 
   useEffect(() => {
-    if (!isEqual(screen, uiElementsRef.current)) {
+    if (!isEqual(defaultScreensRef.current, screen)) {
+      defaultScreensRef.current = cloneDeep(screen);
+
       uiElementsRef.current = screen;
+      setUiElements(uiElementsRef.current);
+    } else {
       setUiElements(uiElementsRef.current);
     }
   }, [screen]);
