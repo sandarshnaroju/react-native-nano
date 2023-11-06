@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import getElementAsPerComponent from '../elements/ElementByComponent';
-import { requestDataFromUrlAsPerNetworkData } from '../modules/network/Network';
+import {requestDataFromUrlAsPerNetworkData} from '../modules/network/Network';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
@@ -40,6 +40,7 @@ export const modifyNestedValue = (obj, keys, newValue) => {
 
   const lastKey = keys[keys.length - 1];
   currentObj[lastKey] = newValue;
+  // return currentObj;
 };
 export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content,
@@ -436,7 +437,6 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
   };
 };
 
-
 const dummy = (props, elemObj) => {
   requestDataFromUrlAsPerNetworkData({
     requestType: elemObj['network']['use'],
@@ -530,7 +530,7 @@ export const getViewItems = ({
 };
 
 export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
-  if (typeof compObj === 'object') {
+  if (typeof compObj === 'object' && contextObj) {
     for (var key in compObj) {
       if (compObj[key] != null) {
         if (

@@ -166,6 +166,7 @@ export default class RecycleTestComponent extends React.Component {
             themes={this.props.themes}
             customComponents={this.props.customComponents}
             getUi={this.props.getUi}
+            context={this.props.context}
           />
         );
 

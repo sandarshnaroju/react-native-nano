@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 
 import {SafeAreaView, ScrollView} from 'react-native';
 
@@ -40,10 +41,9 @@ export const TopTabNano = ({
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElementsRef = useRef(cloneDeep(screen));
   const clonedScreenStyles = cloneDeep(style);
   const getUi = nameKey => {
-    return getElementObjectByKey(clonedElementsRef.current, nameKey);
+    return getElementObjectByKey(uiElementsRef.current, nameKey);
   };
 
   const propParameters = {
@@ -54,11 +54,10 @@ export const TopTabNano = ({
   };
 
   useEffect(() => {
-    clonedElementsRef.current = screen;
-
-    uiElementsRef.current = screen;
-
-    setUiElements(uiElementsRef.current);
+    if (!isEqual(screen, uiElementsRef.current)) {
+      uiElementsRef.current = screen;
+      setUiElements(uiElementsRef.current);
+    }
   }, [screen]);
 
   useFocusEffect(
@@ -191,8 +190,7 @@ export const TopTabNano = ({
         style={screenStylesWithThemet}>
         {uiElements != null && (
           <RenderColoumViews
-            totalData={uiElements}
-            unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
+            unModifiedTotalData={cloneDeep(uiElementsRef.current)}
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
@@ -201,6 +199,7 @@ export const TopTabNano = ({
             onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
             themes={themes}
+            context={context}
           />
         )}
       </ScrollView>
@@ -211,16 +210,16 @@ export const TopTabNano = ({
     <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
-          totalData={uiElements}
           navigation={navigation}
           logicObject={logicObject}
-          unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
+          unModifiedTotalData={cloneDeep(uiElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onSetUiCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
           getUi={getUi}
           themes={themes}
+          context={context}
         />
       )}
     </SafeAreaView>

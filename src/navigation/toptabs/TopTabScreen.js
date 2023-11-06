@@ -13,6 +13,7 @@ function TopTabScreen({
   unModifiedScreen,
   themes,
   moduleParameters,
+  context,
 }) {
   return (
     <TopTabNano
@@ -30,6 +31,7 @@ function TopTabScreen({
       themes={themes}
       unModifiedScreen={unModifiedScreen}
       onPause={screen != null ? screen.onPause : null}
+      context={context}
       onResume={screen != null ? screen.onResume : null}
     />
   );

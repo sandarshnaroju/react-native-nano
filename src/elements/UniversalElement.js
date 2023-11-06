@@ -3,8 +3,6 @@ import React from 'react';
 import getElementAsPerComponent from './ElementByComponent';
 
 function UniversalElement({
-  elemObj,
-
   customComponents,
   uniqueKey,
 
@@ -15,6 +13,7 @@ function UniversalElement({
   getUi,
   themes,
   unModifiedElemOb,
+  context,
 }) {
   const elemObjAfterThemesSet = unModifiedElemOb;
 
@@ -29,6 +28,7 @@ function UniversalElement({
     recyclerListViewFunctionProps,
     uniqueKey,
     themes,
+    context,
   });
 
   if (elemObjAfterThemesSet != null && elemObjAfterThemesSet['animation']) {

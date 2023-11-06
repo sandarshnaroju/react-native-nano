@@ -44,7 +44,6 @@ import {
   modifyElemObjAsPerTheme,
   onElementLoaded,
 } from '../utils/Utilities';
-import {GetContextProvider} from '../context/DataContext';
 
 const getElementAsPerComponent = ({
   elemOb,
@@ -57,8 +56,8 @@ const getElementAsPerComponent = ({
   customComponents,
   uniqueKey,
   themes,
+  context,
 }) => {
-  const context = GetContextProvider();
   let elemObjAfterThemesSet = elemOb;
 
   if (themes != null && themes.length > 0) {

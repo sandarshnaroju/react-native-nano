@@ -1,6 +1,5 @@
 import isEqual from 'lodash/isEqual';
 import React from 'react';
-import {GetContextProvider} from '../context/DataContext';
 import {getPlatform} from '../modules/platform/platform';
 import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
@@ -18,7 +17,6 @@ import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 
 function CheckForListviewAndRender({
-  elemOb,
   navigation,
   onPress,
   onLongPress,
@@ -33,8 +31,8 @@ function CheckForListviewAndRender({
   index,
   themes,
   unModifiedElemOb,
+  context,
 }) {
-  const context = GetContextProvider();
   if (
     unModifiedElemOb != null &&
     unModifiedElemOb['platform'] != null &&
@@ -52,6 +50,7 @@ function CheckForListviewAndRender({
       ) {
         return null;
       }
+
       const heightWeightFormattedElemObj =
         heightAndWidthFormatterForComponentObj(unModifiedElemOb);
 
@@ -111,6 +110,7 @@ function CheckForListviewAndRender({
           funProps={funProps}
           logicObject={logicObject}
           themes={themes}
+          context={context}
           customComponents={customComponents}
           moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
@@ -131,6 +131,7 @@ function CheckForListviewAndRender({
           funProps={funProps}
           logicObject={logicObject}
           themes={themes}
+          context={context}
           customComponents={customComponents}
           moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
@@ -169,7 +170,6 @@ function CheckForListviewAndRender({
           onElementLoaded,
           onPressCallBack,
           propParameters,
-
           uniqueKey: uniKey,
         });
       };
@@ -188,7 +188,6 @@ function CheckForListviewAndRender({
 
       return (
         <UniversalElement
-          elemObj={elemOb}
           customComponents={customComponents}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
@@ -197,6 +196,7 @@ function CheckForListviewAndRender({
           uniqueKey={index}
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
+          context={context}
         />
       );
   }

@@ -4,7 +4,6 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import TopTabScreen from './TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
-import {GetContextProvider} from '../../context/DataContext';
 const Tab = createMaterialTopTabNavigator();
 
 const GetScreens = ({
@@ -14,6 +13,7 @@ const GetScreens = ({
   unModifiedScreen,
   themes,
   moduleParameters,
+  context,
 }) => {
   const drawerScreens = [];
 
@@ -33,6 +33,7 @@ const GetScreens = ({
               moduleParameters={moduleParameters}
               themes={themes}
               unModifiedScreen={unModifiedScreen}
+              context={context}
             />
           )}
         </Tab.Screen>,
@@ -49,9 +50,8 @@ function NanoTopTabs({
   unModifiedScreen,
   themes,
   moduleParameters,
+  context,
 }) {
-  const context = GetContextProvider();
-
   let navigatorPropsWithThemesSet = drawerObj.navigatorProps;
   if (themes != null && themes.length > 0) {
     navigatorPropsWithThemesSet = modifyElemObjAsPerTheme(
@@ -69,6 +69,7 @@ function NanoTopTabs({
         moduleParameters: moduleParameters,
         themes: themes,
         unModifiedScreen: unModifiedScreen,
+        context,
       })}
     </Tab.Navigator>
   );

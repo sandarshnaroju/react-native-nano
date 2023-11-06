@@ -61,7 +61,6 @@ function NanoFlatlist({
       },
       onPressCallBack: onPressCallBack,
     });
-    // console.log('keyyy', uniq + index);
 
     return (
       <UniversalElement
@@ -76,6 +75,7 @@ function NanoFlatlist({
         themes={themes}
         unModifiedElemOb={elemOb}
         uniqueKey={uniq + index}
+        context={context}
       />
     );
   };

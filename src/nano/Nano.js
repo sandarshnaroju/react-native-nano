@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 
 import {ScrollView, SafeAreaView, View} from 'react-native';
 import {
@@ -34,17 +35,16 @@ const Nano = ({
   onPause,
   onResume,
 }) => {
-  const uiElementsRef = useRef(screen);
+  const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
 
   const customeCompsRef = useRef(customComponents);
 
-  const clonedElementsRef = useRef(cloneDeep(screen));
   const clonedScreenStyles = cloneDeep(style);
 
   const getUi = nameKey => {
-    return getElementObjectByKey(clonedElementsRef.current, nameKey);
+    return getElementObjectByKey(uiElementsRef.current, nameKey);
   };
 
   const propParameters = {
@@ -55,11 +55,10 @@ const Nano = ({
   };
 
   useEffect(() => {
-    clonedElementsRef.current = cloneDeep(screen);
-
-    uiElementsRef.current = screen;
-
-    setUiElements(uiElementsRef.current);
+    if (!isEqual(screen, uiElementsRef.current)) {
+      uiElementsRef.current = screen;
+      setUiElements(uiElementsRef.current);
+    }
   }, [screen]);
 
   useFocusEffect(
@@ -193,8 +192,7 @@ const Nano = ({
         style={screenStylesWithThemet}>
         {uiElements != null && (
           <RenderColoumViews
-            totalData={uiElements}
-            unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
+            unModifiedTotalData={cloneDeep(uiElementsRef.current)}
             navigation={navigation}
             logicObject={logicObject}
             propParameters={propParameters}
@@ -203,6 +201,7 @@ const Nano = ({
             onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
             themes={themes}
+            context={context}
           />
         )}
       </ScrollView>
@@ -213,16 +212,16 @@ const Nano = ({
     <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
       {uiElements != null && (
         <RenderColoumViews
-          totalData={uiElements}
           navigation={navigation}
           logicObject={logicObject}
-          unModifiedTotalData={cloneDeep(clonedElementsRef.current)}
+          unModifiedTotalData={cloneDeep(uiElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onSetUiCallBack}
           onLongPressCallBack={onLongPressCallBack}
           customComponents={customeCompsRef.current}
           getUi={getUi}
           themes={themes}
+          context={context}
         />
       )}
     </SafeAreaView>

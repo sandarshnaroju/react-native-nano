@@ -1,10 +1,8 @@
 import {View} from 'react-native';
 import CheckForListviewAndRender from '../elements/CheckForListviewAndRender';
-import {isFunction} from '../utils/Utilities';
 import React from 'react';
 
 const GetRowElements = ({
-  rowElementsArray,
   rowKey,
   navigation,
   onPressCallBack,
@@ -16,34 +14,30 @@ const GetRowElements = ({
   getUi,
   themes,
   unModifiedRowElementsArray,
+  context,
 }) => {
   const rowelements = [];
 
   if (
-    rowElementsArray != null &&
-    typeof rowElementsArray == 'object' &&
-    rowElementsArray.length > 0
+    unModifiedRowElementsArray != null &&
+    typeof unModifiedRowElementsArray == 'object' &&
+    unModifiedRowElementsArray.length > 0
   ) {
-    rowElementsArray.forEach((eleObject, index) => {
+    unModifiedRowElementsArray.forEach((eleObject, index) => {
       rowelements.push(
         <CheckForListviewAndRender
           key={index}
           index={index}
-          elemOb={eleObject}
-          unModifiedElemOb={
-            unModifiedRowElementsArray != null
-              ? unModifiedRowElementsArray[index]
-              : null
-          }
+          unModifiedElemOb={eleObject}
           navigation={navigation}
           route={route}
           propParameters={propParameters}
           customComponents={customComponents}
-          // funProps={funProps}
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           getUi={getUi}
           themes={themes}
+          context={context}
         />,
       );
     });
@@ -53,7 +47,6 @@ const GetRowElements = ({
 };
 
 const RenderColoumViews = ({
-  totalData,
   navigation,
   logicObject,
   propParameters,
@@ -64,10 +57,11 @@ const RenderColoumViews = ({
   getUi,
   themes,
   unModifiedTotalData,
+  context,
 }) => {
   const elements = [];
-  if (totalData != null) {
-    Object.keys(totalData).forEach((key, index) => {
+  if (unModifiedTotalData != null) {
+    Object.keys(unModifiedTotalData).forEach((key, index) => {
       if (key != null && key.slice(0, 1) === 'h') {
         elements.push(
           <View
@@ -77,7 +71,6 @@ const RenderColoumViews = ({
             key={key + index + 1}>
             <GetRowElements
               navigation={navigation}
-              rowElementsArray={totalData[key]}
               unModifiedRowElementsArray={
                 unModifiedTotalData != null ? unModifiedTotalData[key] : null
               }
@@ -90,6 +83,7 @@ const RenderColoumViews = ({
               route={route}
               getUi={getUi}
               themes={themes}
+              context={context}
             />
           </View>,
         );
@@ -97,7 +91,6 @@ const RenderColoumViews = ({
         elements.push(
           <GetRowElements
             navigation={navigation}
-            rowElementsArray={totalData[key]}
             rowKey={key}
             unModifiedRowElementsArray={
               unModifiedTotalData != null ? unModifiedTotalData[key] : null
@@ -111,6 +104,7 @@ const RenderColoumViews = ({
             route={route}
             getUi={getUi}
             themes={themes}
+            context={context}
           />,
         );
       }
