@@ -47,5 +47,6 @@ const NANO = {
   MODAL: 'modal',
   VIDEO: 'video',
   SCROLL_VIEW: 'scroll_view',
+  HELPER_TEXT: 'helper_text',
 };
 export default NANO;

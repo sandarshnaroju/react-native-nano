@@ -16,6 +16,12 @@ import NanoCardTitle from '../components/CardTitle/CardTitle';
 
 import NanoCheckBox from '../components/CheckBox/CheckBox';
 import NanoChip from '../components/Chip/Chip';
+import NanoHelperText from '../components/HelperText/HelperText';
+
+import NanoSegmentedButtons from '../components/SegmentedButtons/SegmentedButtons';
+
+import NanoToolTip from '../components/ToolTip/ToolTip';
+
 import NanoDialog from '../components/Dialog/Dialog';
 import NanoDialogActions from '../components/DialogActions/DialogActions';
 import NanoDialogContent from '../components/DialogContent/DialogContent';
@@ -244,6 +250,33 @@ const getElementAsPerComponent = ({
           <NanoChip
             elementProps={elementProps}
             key={'chip' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+      case NANO.HELPER_TEXT:
+        return (
+          <NanoHelperText
+            elementProps={elementProps}
+            key={'helptext' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+      case NANO.TOOLTIP:
+        return (
+          <NanoToolTip
+            elementProps={elementProps}
+            key={'tooltip' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+      case NANO.SEGMENTED_BUTTONS:
+        return (
+          <NanoSegmentedButtons
+            elementProps={elementProps}
+            key={'segmentedbuttons' + index}
             onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />
