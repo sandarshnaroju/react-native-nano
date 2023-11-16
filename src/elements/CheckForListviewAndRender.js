@@ -41,16 +41,12 @@ function CheckForListviewAndRender({
   ) {
     return null;
   }
+  if (unModifiedElemOb['hide'] != null && unModifiedElemOb['hide'] == true) {
+    return null;
+  }
 
   switch (unModifiedElemOb['component']) {
     case NANO.LIST_VIEW:
-      if (
-        unModifiedElemOb['hide'] != null &&
-        unModifiedElemOb['hide'] == true
-      ) {
-        return null;
-      }
-
       const heightWeightFormattedElemObj =
         heightAndWidthFormatterForComponentObj(unModifiedElemOb);
 
