@@ -63,6 +63,7 @@ const getElementAsPerComponent = ({
   uniqueKey,
   themes,
   context,
+  componentParams,
 }) => {
   let elemObjAfterThemesSet = elemOb;
 
@@ -92,12 +93,15 @@ const getElementAsPerComponent = ({
 
     if (recyclerListViewFunctionProps != null) {
       funProps = recyclerListViewFunctionProps;
+
       // this has to be for the parent view of the itemview. Its children wont have recyclerListViewFunctionProps
     } else {
       funProps = getInterceptedFunctionProps({
         eleObject: elemObjAfterThemesSet,
+
         props: {
           moduleParams: {...propParameters, theme: context},
+          componentParams,
 
           setUi: onPressCallBack,
           getUi: getUi,
@@ -125,6 +129,7 @@ const getElementAsPerComponent = ({
         recyclerListViewFunctionProps,
         uniqueKey: uniKey,
         themes,
+        componentParams,
       });
     };
 
@@ -493,6 +498,7 @@ const getElementAsPerComponent = ({
                 recyclerListViewFunctionProps,
                 uniqueKey,
                 themes,
+                componentParams,
               })}
             </TouchableOpacity>
           );
@@ -513,6 +519,7 @@ const getElementAsPerComponent = ({
               recyclerListViewFunctionProps,
               uniqueKey,
               themes,
+              componentParams,
             })}
           </View>
         );

@@ -505,6 +505,7 @@ export const getViewItems = ({
   getUi,
   recyclerListViewFunctionProps,
   themes,
+  componentParams,
 }) => {
   const elements = [];
   if (content != null && content.length > 0) {
@@ -513,11 +514,12 @@ export const getViewItems = ({
         customComponents,
         elemOb: elemet,
         index: index + uniqueKey,
-
+        componentParams,
         onPressCallBack,
         propParameters,
         getUi,
         recyclerListViewFunctionProps: null,
+
         themes,
         uniqueKey,
       });

@@ -15,7 +15,7 @@ let activityIndicator = {
 };
 
 let LoadingScreen = {
-  name: 'Welcome',
+  name: 'NANO_Welcome',
   screen: {
     v1: [activityIndicator],
   },

@@ -9,7 +9,12 @@ import LoadingScreen from '../../demoscreens/loading/Loading';
 import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
 import {Provider} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
-import {THEMES} from '../../../../../nano.config';
+import {
+  THEMES,
+  APP_URL,
+  CLIENT_SECRET,
+  CLIENT_ID,
+} from '../../../../../nano.config';
 import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
@@ -32,9 +37,35 @@ const RNNano = ({
   if (screens == null) {
     screens = [LoadingScreen];
   }
+  const checkIfScreenIsJustDeafultLoadingScreen = givenScreens => {
+    if (givenScreens != null && givenScreens.length == 1) {
+      if (
+        givenScreens[0] != null &&
+        typeof givenScreens[0] == 'object' &&
+        givenScreens[0]['name'] == 'NANO_Welcome'
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  };
+  const shouldFetchScreensFromServer = () => {
+    if (
+      CLIENT_ID != null &&
+      CLIENT_SECRET != null &&
+      APP_URL != null &&
+      CLIENT_ID.length > 6 &&
+      CLIENT_SECRET.length > 6 &&
+      APP_URL.indexOf('nanoapp.dev') > 0
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   const getAllScreensData = () => {
-    if (screens == null || (screens != null && screens.length == 0)) {
+    if (checkIfScreenIsJustDeafultLoadingScreen(screens)) {
       fetchAllScreens()
         .then(s => {
           setNetworkScreens(s);

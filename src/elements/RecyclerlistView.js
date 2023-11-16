@@ -129,7 +129,11 @@ export default class RecycleTestComponent extends React.Component {
           value: mapper['value'],
           content: modifiedContent,
         };
-
+        const componentParams = {
+          index,
+          itemData: data,
+          listData: this.props.listData,
+        };
         const funProps = getInterceptedFunctionProps({
           eleObject: elemOb,
           props: {
@@ -138,11 +142,7 @@ export default class RecycleTestComponent extends React.Component {
               ...this.props.propParameters,
               theme: this.props.context,
             },
-            componentParams: {
-              index,
-              itemData: data,
-              listData: this.props.listData,
-            },
+            componentParams: componentParams,
             getUi: this.props.getUi,
             setUi: this.props.onPressCallBack,
           },
@@ -167,6 +167,7 @@ export default class RecycleTestComponent extends React.Component {
             customComponents={this.props.customComponents}
             getUi={this.props.getUi}
             context={this.props.context}
+            componentParams={componentParams}
           />
         );
 

@@ -37,6 +37,8 @@ export const getAuthTokenAndStoreInRealm = () => {
     headers: headers,
   })
     .then(json => {
+      console.log('hello');
+
       if (json != null && json.data != null && json.data.access_token != null) {
         const curr = Date.now();
         const expiryTime = json.data.expires_in * 1000 + curr;
@@ -48,7 +50,9 @@ export const getAuthTokenAndStoreInRealm = () => {
         return json.data.access_token;
       }
     })
-    .catch(err => {});
+    .catch(err => {
+      console.log('error', err);
+    });
 };
 
 const checkValidityAndGetAuth = async () => {

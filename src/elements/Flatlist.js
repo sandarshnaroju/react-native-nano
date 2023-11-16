@@ -42,7 +42,13 @@ function NanoFlatlist({
       value: mapper['value'],
       content: modifiedContent,
     };
+
     const uniq = executeAFunction(uniqueKey, item);
+    const componentParams = {
+      index,
+      itemData: data,
+      listData: this.props.listData,
+    };
     const funProps = getInterceptedFunctionProps({
       eleObject: elemOb,
       props: {
@@ -51,11 +57,7 @@ function NanoFlatlist({
           ...propParameters,
           theme: context,
         },
-        componentParams: {
-          index,
-          itemData: item,
-          listData: data,
-        },
+        componentParams: componentParams,
         getUi: getUi,
         setUi: onPressCallBack,
       },
@@ -76,6 +78,7 @@ function NanoFlatlist({
         unModifiedElemOb={elemOb}
         uniqueKey={uniq + index}
         context={context}
+        componentParams={componentParams}
       />
     );
   };

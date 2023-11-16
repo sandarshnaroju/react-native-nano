@@ -14,6 +14,7 @@ function UniversalElement({
   themes,
   unModifiedElemOb,
   context,
+  componentParams,
 }) {
   const elemObjAfterThemesSet = unModifiedElemOb;
 
@@ -29,6 +30,7 @@ function UniversalElement({
     uniqueKey,
     themes,
     context,
+    componentParams,
   });
 
   if (elemObjAfterThemesSet != null && elemObjAfterThemesSet['animation']) {
