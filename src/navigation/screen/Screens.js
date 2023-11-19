@@ -14,6 +14,7 @@ import {
   APP_URL,
   CLIENT_SECRET,
   CLIENT_ID,
+  NAVIGATION_LINKING,
 } from '../../../../../nano.config';
 import Toast from 'react-native-toast-message';
 
@@ -37,6 +38,7 @@ const RNNano = ({
   if (screens == null) {
     screens = [LoadingScreen];
   }
+
   const checkIfScreenIsJustDeafultLoadingScreen = givenScreens => {
     if (givenScreens != null && givenScreens.length == 1) {
       if (
@@ -93,7 +95,7 @@ const RNNano = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        <NavigationContainer>
+        <NavigationContainer linking={NAVIGATION_LINKING}>
           <Stack.Navigator>
             {networkScreens != null && networkScreens.length > 0
               ? networkScreens.map((screnObj, index) => {
