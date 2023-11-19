@@ -17,6 +17,7 @@ import {
   NAVIGATION_LINKING,
 } from '../../../../../nano.config';
 import Toast from 'react-native-toast-message';
+import {executeAFunction} from '../../utils/Utilities';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const RNNano = ({
   customComponents,
   customModules,
   themes,
+  appStart,
 }) => {
   const [networkScreens, setNetworkScreens] = useState([]);
   if (themes == null) {
@@ -90,6 +92,9 @@ const RNNano = ({
 
   useEffect(() => {
     getAllScreensData();
+    executeAFunction(appStart, {
+      moduleParams: moduleParameters,
+    });
   }, []);
 
   return (
