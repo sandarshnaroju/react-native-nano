@@ -6,14 +6,14 @@ function Modal({elementProps, getViewItems, onElementLoaded}) {
   }, []);
 
   return (
-    <Portal>
+    <Portal.Host>
       <PaperModal
         {...elementProps['props']}
         {...elementProps}
         visible={elementProps['value']}>
         {getViewItems(elementProps['content'], true, onElementLoaded)}
       </PaperModal>
-    </Portal>
+    </Portal.Host>
   );
 }
 

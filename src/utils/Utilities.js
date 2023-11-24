@@ -58,11 +58,8 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
         ) {
           element.value = mapperRes[element.name]['value'];
 
-          const newProps = mergeObjects(
-            element.props,
-            mapperRes[element.name]['props'],
-          );
-          element.props = newProps;
+          const newProps = mergeObjects(element, mapperRes[element.name]);
+          element = newProps;
         } else {
           element.value = mapperRes[element.name];
         }

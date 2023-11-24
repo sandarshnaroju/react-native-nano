@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -33,6 +33,7 @@ const RNNano = ({
   appStart,
 }) => {
   const [networkScreens, setNetworkScreens] = useState([]);
+  const navigationRef = useRef(null);
   if (themes == null) {
     themes = THEMES;
   }
@@ -92,15 +93,26 @@ const RNNano = ({
 
   useEffect(() => {
     getAllScreensData();
-    executeAFunction(appStart, {
-      moduleParams: moduleParameters,
-    });
   }, []);
 
   return (
     <Provider>
       <DataContext themes={themes}>
-        <NavigationContainer linking={NAVIGATION_LINKING}>
+        <NavigationContainer
+          ref={r => {
+            navigationRef.current = r;
+          }}
+          onReady={e => {
+            const moduleParametersWithNavigationRef = {
+              ...customModules,
+              ...defaultParameters,
+              navigation: navigationRef.current,
+            };
+            executeAFunction(appStart, {
+              moduleParams: moduleParametersWithNavigationRef,
+            });
+          }}
+          linking={NAVIGATION_LINKING}>
           <Stack.Navigator>
             {networkScreens != null && networkScreens.length > 0
               ? networkScreens.map((screnObj, index) => {
