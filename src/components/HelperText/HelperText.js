@@ -8,7 +8,7 @@ function HelperText({elementProps, getViewItems, onElementLoaded}) {
 
   return (
     <NanoHelperText {...elementProps} {...elementProps['props']}>
-      {getViewItems(elementProps['content'], true, onElementLoaded)}
+      {elementProps['value']}
     </NanoHelperText>
   );
 }
