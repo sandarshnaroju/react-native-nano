@@ -93,7 +93,6 @@ const getElementAsPerComponent = ({
 
     if (recyclerListViewFunctionProps != null) {
       funProps = recyclerListViewFunctionProps;
-      // console.log('ss', Object.keys(recyclerListViewFunctionProps));
 
       // this has to be for the parent view of the itemview. Its children wont have recyclerListViewFunctionProps
     } else {
@@ -114,12 +113,7 @@ const getElementAsPerComponent = ({
       ...elemObjAfterThemesSet,
       ...funProps,
     };
-    if (
-      elemObjAfterThemesSet &&
-      elemObjAfterThemesSet['component'] == 'card_view'
-    ) {
-      console.log('ss', elemObjAfterThemesSet['component'], componentParams);
-    }
+
     const renderChildren = (
       contentArr,
       shouldOnpPressAllowed,

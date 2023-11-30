@@ -43,7 +43,7 @@ const RNNano = ({
     themes = THEMES;
   }
   let database;
-  if (LOAD_PRIORITY != null && LOAD_PRIORITY == 'dynamic') {
+  if (LOAD_PRIORITY != null && LOAD_PRIORITY === 'dynamic') {
     screens = [LoadingScreen];
   }
 
@@ -75,8 +75,7 @@ const RNNano = ({
   };
 
   const getAllScreensData = () => {
-    if (checkIfScreenIsJustDeafultLoadingScreen(screens)) {
-      // setNetworkScreens(fetchAllScreensFromDB());
+    if (LOAD_PRIORITY != null && LOAD_PRIORITY === 'dynamic') {
       fetchAllScreensFromDB()
         .then(s => {
           setNetworkScreens(s);
@@ -98,7 +97,6 @@ const RNNano = ({
   const moduleParameters = {...customModules, ...defaultParameters};
 
   useEffect(() => {
-    // getAllScreensData();
     EventRegister.addEventListener('nano-all-screens-load', v => {
       if (v) {
         getAllScreensData();

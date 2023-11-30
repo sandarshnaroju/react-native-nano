@@ -60,11 +60,7 @@ const GenericScreen = ({
       fetchScreenFromNetwork(screenUrl);
     }
     EventRegister.addEventListener('nano-single-screen-load', url => {
-      // console.log('single screen evnet ccalled', url);
-
       if (url && screenUrl && url === screenUrl) {
-        // console.log('event single screen received', url);
-
         fetchScreenFromNetwork(screenUrl);
       }
     });
