@@ -6,7 +6,7 @@ function Button({elementProps, getViewItems, onElementLoaded}) {
     onElementLoaded(elementProps);
   }, []);
   return (
-    <PaperButton {...elementProps['props']} {...elementProps}>
+    <PaperButton {...elementProps['props']} {...elementProps} disabled={false}>
       {elementProps['value']}
     </PaperButton>
   );

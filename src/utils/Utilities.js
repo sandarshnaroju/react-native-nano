@@ -86,6 +86,7 @@ export const DATABASE_CONSTANTS = {
   AUTH: 'auth',
   EXPIRY_TIME_STAMP: 'expiry_time',
   PUBLIC_KEY: 'PUBLIC_KEY',
+  NAME_AND_SCREEN_URL_OBJECT: 'nano_name_and_screen_url_object',
 };
 
 export const isFunction = functionToCheck => {

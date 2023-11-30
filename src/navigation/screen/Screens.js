@@ -6,7 +6,11 @@ import {enableScreens} from 'react-native-screens';
 import getModuleParams from '../../modules';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
-import {fetchAllScreens} from '../../modules/nano-sync/NanoSync';
+import {EventRegister} from 'react-native-event-listeners';
+import {
+  fetchAllScreens,
+  fetchAllScreensFromDB,
+} from '../../modules/dbSync/DBSync';
 import {Provider} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
 import {
@@ -15,6 +19,7 @@ import {
   CLIENT_SECRET,
   CLIENT_ID,
   NAVIGATION_LINKING,
+  LOAD_PRIORITY,
 } from '../../../../../nano.config';
 import Toast from 'react-native-toast-message';
 import {executeAFunction} from '../../utils/Utilities';
@@ -38,7 +43,7 @@ const RNNano = ({
     themes = THEMES;
   }
   let database;
-  if (screens == null) {
+  if (LOAD_PRIORITY != null && LOAD_PRIORITY == 'dynamic') {
     screens = [LoadingScreen];
   }
 
@@ -71,7 +76,8 @@ const RNNano = ({
 
   const getAllScreensData = () => {
     if (checkIfScreenIsJustDeafultLoadingScreen(screens)) {
-      fetchAllScreens()
+      // setNetworkScreens(fetchAllScreensFromDB());
+      fetchAllScreensFromDB()
         .then(s => {
           setNetworkScreens(s);
         })
@@ -92,7 +98,12 @@ const RNNano = ({
   const moduleParameters = {...customModules, ...defaultParameters};
 
   useEffect(() => {
-    getAllScreensData();
+    // getAllScreensData();
+    EventRegister.addEventListener('nano-all-screens-load', v => {
+      if (v) {
+        getAllScreensData();
+      }
+    });
   }, []);
 
   return (

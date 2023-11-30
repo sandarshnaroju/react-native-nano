@@ -4,8 +4,9 @@ import {useRoute} from '@react-navigation/native';
 import getModuleParams from '../../modules';
 import Nano from '../../nano/Nano';
 
-import {fetchScreenFromDb} from '../../modules/nano-sync/NanoSync';
+import {fetchScreenFromDb} from '../../modules/dbSync/DBSync';
 import {RELOAD_TIME} from '../../../../../nano.config';
+import {EventRegister} from 'react-native-event-listeners';
 
 const GenericScreen = ({
   navigation,
@@ -23,6 +24,7 @@ const GenericScreen = ({
 
   let database;
   var timeut = null;
+
   const fetchScreenFromNetwork = uri => {
     fetchScreenFromDb({
       screenUrl: uri,
@@ -57,6 +59,16 @@ const GenericScreen = ({
     if (isMultiScreen && screenUrl != null) {
       fetchScreenFromNetwork(screenUrl);
     }
+    EventRegister.addEventListener('nano-single-screen-load', url => {
+      // console.log('single screen evnet ccalled', url);
+
+      if (url && screenUrl && url === screenUrl) {
+        // console.log('event single screen received', url);
+
+        fetchScreenFromNetwork(screenUrl);
+      }
+    });
+
     return () => {
       if (timeut) {
         clearTimeout(timeut);

@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.138",
+  "version": "1.0.139",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -43,7 +43,8 @@
     "react-native-webview": "^13.3.1",
     "react-native-youtube-iframe": "^2.3.0",
     "realm": "^11.3.1",
-    "recyclerlistview": "^4.2.0"
+    "recyclerlistview": "^4.2.0",
+    "react-native-event-listeners": "^1.0.7"
   },
   "peerDependencies": {
     "@notifee/react-native": "^7.4.0",
