@@ -1,3 +1,3 @@
-import AppBarAction from './AppBarAction';
+import NanoAppBarAction from './AppBarAction';
 
-export default AppBarAction;
+export default NanoAppBarAction;

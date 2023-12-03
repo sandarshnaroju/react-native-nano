@@ -50,7 +50,10 @@ import {
   modifyElemObjAsPerTheme,
   onElementLoaded,
 } from '../utils/Utilities';
-
+import NanoAppBarAction from '../components/AppBarAction/AppBarAction';
+import NanoAppBarBackAction from '../components/AppBarBackAction';
+import NanoAppBarHeader from '../components/AppBarHeader/AppBarHeader';
+import NanoAppBarContent from '../components/AppBarContent/AppBarContent';
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -256,6 +259,46 @@ const getElementAsPerComponent = ({
           <NanoChip
             elementProps={elementProps}
             key={'chip' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+
+      case NANO.APPBAR_ACTION:
+        return (
+          <NanoAppBarAction
+            elementProps={elementProps}
+            key={'appbaraction' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+
+      case NANO.APPBAR_BACK_ACTION:
+        return (
+          <NanoAppBarBackAction
+            elementProps={elementProps}
+            key={'appbarbackaction' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+
+      case NANO.APPBAR_HEADER:
+        return (
+          <NanoAppBarHeader
+            elementProps={elementProps}
+            key={'appbarheader' + index}
+            onElementLoaded={onElementLoad}
+            getViewItems={renderChildren}
+          />
+        );
+
+      case NANO.APPBAR_CONTENT:
+        return (
+          <NanoAppBarContent
+            elementProps={elementProps}
+            key={'appbarcontent' + index}
             onElementLoaded={onElementLoad}
             getViewItems={renderChildren}
           />

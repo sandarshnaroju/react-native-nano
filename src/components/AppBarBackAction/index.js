@@ -1,3 +1,3 @@
-import AppBarBackAction from './AppBarBackAction';
+import NanoAppBarBackAction from './AppBarBackAction';
 
-export default AppBarBackAction;
+export default NanoAppBarBackAction;

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Appbar} from 'react-native-paper';
 
-function AppBarAction({
+function NanoAppBarAction({
   elementProps,
 
   getViewItems,
@@ -13,4 +13,4 @@ function AppBarAction({
   return <Appbar.Action {...elementProps['props']} {...elementProps} />;
 }
 
-export default AppBarAction;
+export default NanoAppBarAction;

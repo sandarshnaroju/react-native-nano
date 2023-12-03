@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Appbar} from 'react-native-paper';
 
-function AppBarHeader({elementProps, getViewItems, onElementLoaded}) {
+function NanoAppBarHeader({elementProps, getViewItems, onElementLoaded}) {
   useEffect(() => {
     onElementLoaded(elementProps);
   }, []);
@@ -13,4 +13,4 @@ function AppBarHeader({elementProps, getViewItems, onElementLoaded}) {
   );
 }
 
-export default AppBarHeader;
+export default NanoAppBarHeader;

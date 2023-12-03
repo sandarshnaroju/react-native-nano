@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Appbar} from 'react-native-paper';
 
-function AppBarContent({
+function NanoAppBarContent({
   elementProps,
 
   getViewItems,
@@ -13,4 +13,4 @@ function AppBarContent({
   return <Appbar.Content {...elementProps['props']} {...elementProps} />;
 }
 
-export default AppBarContent;
+export default NanoAppBarContent;

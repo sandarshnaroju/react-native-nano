@@ -48,5 +48,9 @@ const NANO = {
   VIDEO: 'video',
   SCROLL_VIEW: 'scroll_view',
   HELPER_TEXT: 'helper_text',
+  APPBAR_ACTION: 'appbar_action',
+  APPBAR_BACK_ACTION: 'appbar_back_action',
+  APPBAR_CONTENT: 'appbar_content',
+  APPBAR_HEADER: 'appbar_header',
 };
 export default NANO;

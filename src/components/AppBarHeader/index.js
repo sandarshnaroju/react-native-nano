@@ -1,3 +1,3 @@
-import AppBarHeader from './AppBarHeader';
+import NanoAppBarHeader from './AppBarHeader';
 
-export default AppBarHeader;
+export default NanoAppBarHeader;

@@ -1,3 +1,3 @@
-import AppBarContent from './AppBarContent';
+import NanoAppBarContent from './AppBarContent';
 
-export default AppBarContent;
+export default NanoAppBarContent;

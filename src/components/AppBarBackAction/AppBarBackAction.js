@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Appbar} from 'react-native-paper';
 
-function AppBarBackAction({
+function NanoAppBarBackAction({
   elementProps,
 
   getViewItems,
@@ -13,4 +13,4 @@ function AppBarBackAction({
   return <Appbar.BackAction {...elementProps['props']} {...elementProps} />;
 }
 
-export default AppBarBackAction;
+export default NanoAppBarBackAction;
