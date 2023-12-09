@@ -1,153 +1,168 @@
-// import {DataBaseConfig} from '../../../../../nano.config';
-const DataBaseConfig = null;
-const TABLE_NANO_SETUP = 'nano-setup';
+import {DataBaseConfig} from '../../../../../nano.config';
 const nanoSchema = {
-  name: TABLE_NANO_SETUP,
+  name: TABLE_KEY_VALUE,
   properties: {
     key: 'string',
     value: 'string',
   },
   primaryKey: 'key',
 };
+const TABLE_KEY_VALUE = 'key-value';
+let localStorage = window.localStorage;
 
 class Database {
-  async init(configObject) {
-    // this.realmInstance = await Realm.open(configObject);
+  constructor(props) {
+    this.config = props.schema;
+    this.init();
+    // props.initCallBack(true);
+    if (DataBaseConfig && DataBaseConfig.schema) {
+      DataBaseConfig.schema.forEach(eachSchema => {
+        localStorage.setItem(
+          'metadata' + eachSchema.name,
+          eachSchema.primaryKey,
+        );
+      });
+    }
   }
 
-  constructor(props) {
-    let realmConfigObj = {
-      schema: [nanoSchema],
-      schemaVersion: 1,
-    };
-
-    if (
-      DataBaseConfig != null &&
-      DataBaseConfig.schema != null &&
-      DataBaseConfig.schemaVersion != null
-    ) {
-      realmConfigObj = {
-        schema: [nanoSchema, ...DataBaseConfig.schema],
-        schemaVersion: DataBaseConfig.schemaVersion,
-      };
-    }
-
-    this.init(realmConfigObj)
-      .then(() => {
-        props.initCallBack(true);
-      })
-      .catch(() => {
-        props.initCallBack(null);
-      });
+  init() {
+    // No need to initialize anything for localStorage
   }
 
   setData(table, data) {
-    const reqTableData = window.localStorage.getItem(table);
-    const parsedTableData = JSON.parse(reqTableData) || {data: []};
-    const dataArray = parsedTableData['data'];
-    const primKey = parsedTableData['primaryKey'];
-
-    let reqKeyValuePairIndex = -1;
-    if (dataArray && primKey) {
-      reqKeyValuePairIndex = dataArray.findIndex(
-        obj => obj[primKey] === data[primKey],
-      );
+    const existing = localStorage.getItem(table);
+    if (existing != null) {
+      const parsedExisting = JSON.parse(existing);
+      if (
+        parsedExisting != null &&
+        parsedExisting.length > 0 &&
+        Array.isArray(parsedExisting)
+      ) {
+        const primaryKey = localStorage.getItem('metadata' + table);
+        const alreadyExistingIndex = parsedExisting.findIndex(
+          o => o[primaryKey] == data[primaryKey],
+        );
+        if (alreadyExistingIndex > -1) {
+          parsedExisting.splice(alreadyExistingIndex, 1);
+        }
+        const updated = [...parsedExisting, data];
+        localStorage.setItem(table, JSON.stringify(updated));
+      }
     } else {
-      return false;
+      localStorage.setItem(table, JSON.stringify([data]));
     }
-    if (reqKeyValuePairIndex >= 0) {
-      dataArray.splice(reqKeyValuePairIndex, 1, data);
-    } else {
-      dataArray.push(data);
-    }
-    window.localStorage.setItem(
-      TABLE_NANO_SETUP,
-      JSON.stringify({
-        data: dataArray,
-        primaryKey: nanoSchema.primaryKey,
-      }),
-    );
-    return true;
   }
+
   getDataByPrimaryKey(table, key) {
-    const reqTableData = window.localStorage.getItem(table);
-    const parsedTableData = JSON.parse(reqTableData) || {data: []};
-    const dataArray = parsedTableData['data'];
-    const primKey = parsedTableData['primaryKey'];
-    let reqKeyValuePairIndex = -1;
-    if (dataArray) {
-      reqKeyValuePairIndex = dataArray.find(obj => obj[primKey] === key);
-      return reqKeyValuePairIndex;
-    } else {
-      return null;
+    const data = localStorage.getItem(table);
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const primaryKey = localStorage.getItem('metadata' + table);
+      const required = parsedData.find(o => o[primaryKey] == key);
+      return required || null;
     }
+    return null;
   }
-  setNanoConfig(key, value) {
-    const reqTableData = window.localStorage.getItem(TABLE_NANO_SETUP);
-    const parsedTableData = JSON.parse(reqTableData) || {data: []};
-    const dataArray = parsedTableData['data'];
-    let reqKeyValuePairIndex = -1;
 
-    if (dataArray) {
-      reqKeyValuePairIndex = dataArray.findIndex(
-        obj => Object.keys(obj)[0] === key,
+  getData(table) {
+    const data = localStorage.getItem(table);
+    return data ? JSON.parse(data) : null;
+  }
+
+  updateData(table, primaryKeyName, primaryKeyValue, dataObj) {
+    const data = localStorage.getItem(table);
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const requiredIndex = parsedData.findIndex(
+        o => o[primaryKeyName] == primaryKeyValue,
       );
-    } else {
-      return false;
+      if (requiredIndex > -1) {
+        parsedData.splice(requiredIndex, 1);
+      }
+      const updated = [...parsedData, dataObj];
+      localStorage.setItem(table, JSON.stringify(updated));
     }
-
-    const obj = {};
-    obj[key] = value;
-    if (reqKeyValuePairIndex >= 0) {
-      dataArray.splice(reqKeyValuePairIndex, 1, obj);
-    } else {
-      dataArray.push(obj);
-    }
-    window.localStorage.setItem(
-      TABLE_NANO_SETUP,
-      JSON.stringify({
-        data: dataArray,
-        primaryKey: nanoSchema.primaryKey,
-      }),
-    );
-    return true;
   }
 
-  getNanoConfig(key) {
-    const reqTableData = window.localStorage.getItem(TABLE_NANO_SETUP);
-    const parsedTableData = JSON.parse(reqTableData) || {data: []};
-    const dataArray = parsedTableData['data'];
-    let reqKeyValuePairIndex = -1;
-    if (dataArray) {
-      reqKeyValuePairIndex = dataArray.findIndex(
-        obj => Object.keys(obj)[0] === key,
+  deleteData(table, primaryKeyName, primaryKeyValue) {
+    const data = localStorage.getItem(table);
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const requiredIndex = parsedData.findIndex(
+        o => o[primaryKeyName] == primaryKeyValue,
       );
-    } else {
-      return null;
-    }
-
-    if (reqKeyValuePairIndex !== -1) {
-      return dataArray[reqKeyValuePairIndex];
-    } else {
-      return null;
+      if (requiredIndex > -1) {
+        parsedData.splice(requiredIndex, 1);
+      }
+      localStorage.setItem(table, JSON.stringify(parsedData));
     }
   }
-  setDataInDatabase(table, dataObj, primaryKey) {}
+
+  deleteAllData(table) {
+    localStorage.removeItem(table);
+  }
+
+  setValue(key, value) {
+    const data = localStorage.getItem(TABLE_KEY_VALUE);
+
+    const parsedData = data ? JSON.parse(data) : [];
+    if (
+      parsedData != null &&
+      parsedData.length >= 0 &&
+      Array.isArray(parsedData)
+    ) {
+      const requiredIndex = parsedData.findIndex(o => o['key'] == key);
+      if (requiredIndex > -1) {
+        parsedData[requiredIndex]['value'] = value;
+      } else {
+        parsedData.push({key, value});
+      }
+    }
+    localStorage.setItem(TABLE_KEY_VALUE, JSON.stringify(parsedData));
+  }
+
+  getValue(key) {
+    const data = localStorage.getItem(TABLE_KEY_VALUE);
+
+    if (data) {
+      const parsedData = JSON.parse(data);
+
+      const required = parsedData.find(o => o.key == key);
+
+      return required || null;
+    }
+    return null;
+  }
+
+  deleteValue(key) {
+    const data = localStorage.getItem(TABLE_KEY_VALUE);
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const requiredIndex = parsedData.findIndex(o => o['key'] == key);
+      if (requiredIndex > -1) {
+        parsedData.splice(requiredIndex, 1);
+      }
+
+      localStorage.setItem(TABLE_KEY_VALUE, JSON.stringify(parsedData));
+    }
+  }
+
+  deleteAllValues() {
+    localStorage.removeItem(TABLE_KEY_VALUE);
+  }
+
+  deleteAllTables() {
+    localStorage.clear();
+  }
 }
-var database = null;
 
-const getDatabase = callBack => {
-  const initCallBack = () => {
-    callBack(database);
-  };
-  try {
-    if (database == null) {
-      database = new Database({initCallBack});
-    }
-  } catch (e) {
-    database = null;
+let database = null;
+
+const getDatabase = (callBack, customSchema) => {
+  if (database == null) {
+    database = new Database({initCallBack: callBack, schema: customSchema});
   }
-
   return database;
 };
+
 export default getDatabase;

@@ -43,7 +43,8 @@ const RNNano = ({
     themes = THEMES;
   }
   let database;
-  if (LOAD_PRIORITY != null && LOAD_PRIORITY === 'dynamic') {
+
+  if (screens == null) {
     screens = [LoadingScreen];
   }
 
@@ -107,68 +108,70 @@ const RNNano = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        <NavigationContainer
-          ref={r => {
-            navigationRef.current = r;
-          }}
-          onReady={e => {
-            const moduleParametersWithNavigationRef = {
-              ...customModules,
-              ...defaultParameters,
-              navigation: navigationRef.current,
-            };
-            executeAFunction(appStart, {
-              moduleParams: moduleParametersWithNavigationRef,
-            });
-          }}
-          linking={NAVIGATION_LINKING}>
-          <Stack.Navigator>
-            {networkScreens != null && networkScreens.length > 0
-              ? networkScreens.map((screnObj, index) => {
-                  return (
-                    <Stack.Screen
-                      key={screnObj.screen_identifier}
-                      name={screnObj.name}
-                      options={{headerShown: false}}
-                      {...screnObj.screenProps}>
-                      {props => (
-                        <GenericScreen
-                          {...props}
-                          screenUrl={screnObj['url']}
-                          isMultiScreen={true}
-                          moduleParameters={moduleParameters}
-                          customComponents={customComponents}
-                          themes={themes}
-                        />
-                      )}
-                    </Stack.Screen>
-                  );
-                })
-              : screens != null && screens.length > 0
-              ? screens.map((screenObj, index) => {
-                  return (
-                    <Stack.Screen
-                      key={screenObj.name}
-                      {...screenObj.screenProps}
-                      name={screenObj.name}>
-                      {props => (
-                        <GenericScreen
-                          {...props}
-                          logic={screenObj.logic}
-                          screenObj={screenObj}
-                          isMultiScreen={true}
-                          moduleParameters={moduleParameters}
-                          customComponents={customComponents}
-                          themes={themes}
-                        />
-                      )}
-                    </Stack.Screen>
-                  );
-                })
-              : null}
-          </Stack.Navigator>
-          <Toast />
-        </NavigationContainer>
+        {(networkScreens != null || screens != null) && (
+          <NavigationContainer
+            ref={r => {
+              navigationRef.current = r;
+            }}
+            onReady={e => {
+              const moduleParametersWithNavigationRef = {
+                ...customModules,
+                ...defaultParameters,
+                navigation: navigationRef.current,
+              };
+              executeAFunction(appStart, {
+                moduleParams: moduleParametersWithNavigationRef,
+              });
+            }}
+            linking={NAVIGATION_LINKING}>
+            <Stack.Navigator>
+              {networkScreens != null && networkScreens.length > 0
+                ? networkScreens.map((screnObj, index) => {
+                    return (
+                      <Stack.Screen
+                        key={screnObj.screen_identifier}
+                        name={screnObj.name}
+                        options={{headerShown: false}}
+                        {...screnObj.screenProps}>
+                        {props => (
+                          <GenericScreen
+                            {...props}
+                            screenUrl={screnObj['url']}
+                            isMultiScreen={true}
+                            moduleParameters={moduleParameters}
+                            customComponents={customComponents}
+                            themes={themes}
+                          />
+                        )}
+                      </Stack.Screen>
+                    );
+                  })
+                : screens != null && screens.length > 0
+                ? screens.map((screenObj, index) => {
+                    return (
+                      <Stack.Screen
+                        key={screenObj.name}
+                        {...screenObj.screenProps}
+                        name={screenObj.name}>
+                        {props => (
+                          <GenericScreen
+                            {...props}
+                            logic={screenObj.logic}
+                            screenObj={screenObj}
+                            isMultiScreen={true}
+                            moduleParameters={moduleParameters}
+                            customComponents={customComponents}
+                            themes={themes}
+                          />
+                        )}
+                      </Stack.Screen>
+                    );
+                  })
+                : null}
+            </Stack.Navigator>
+            <Toast />
+          </NavigationContainer>
+        )}
       </DataContext>
     </Provider>
   );

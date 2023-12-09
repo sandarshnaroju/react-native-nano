@@ -64,7 +64,7 @@ class Database {
       const tableObj = this.realmInstance
         .objects(table)
         .find(data => data[primaryKeyName] == primaryKeyValue);
-   
+
       Object.keys(dataObj).forEach(eachKey => {
         if (eachKey != primaryKeyName) {
           tableObj[eachKey] = dataObj[eachKey];
@@ -93,6 +93,7 @@ class Database {
       });
     }
   }
+
   setValue(key, value) {
     if (this.realmInstance != null) {
       const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
