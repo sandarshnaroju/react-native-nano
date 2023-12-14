@@ -1,6 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens';
 import getModuleParams from '../../modules';
@@ -11,7 +14,7 @@ import {
   fetchAllScreens,
   fetchAllScreensFromDB,
 } from '../../modules/dbSync/DBSync';
-import {Provider} from 'react-native-paper';
+import {Provider, Text} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
 import {
   THEMES,
@@ -37,8 +40,8 @@ const RNNano = ({
   themes,
   appStart,
 }) => {
-  const [networkScreens, setNetworkScreens] = useState([]);
-  const navigationRef = useRef(null);
+  const [networkScreens, setNetworkScreens] = useState(null);
+  const navigationRef = useNavigationContainerRef(null);
   if (themes == null) {
     themes = THEMES;
   }
@@ -108,16 +111,15 @@ const RNNano = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        {(networkScreens != null || screens != null) && (
+        {LOAD_PRIORITY && LOAD_PRIORITY === 'dynamic' && (
           <NavigationContainer
-            ref={r => {
-              navigationRef.current = r;
-            }}
+            independent={true}
+            ref={navigationRef}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
                 ...customModules,
                 ...defaultParameters,
-                navigation: navigationRef.current,
+                navigation: navigationRef,
               };
               executeAFunction(appStart, {
                 moduleParams: moduleParametersWithNavigationRef,
@@ -125,28 +127,54 @@ const RNNano = ({
             }}
             linking={NAVIGATION_LINKING}>
             <Stack.Navigator>
-              {networkScreens != null && networkScreens.length > 0
-                ? networkScreens.map((screnObj, index) => {
-                    return (
-                      <Stack.Screen
-                        key={screnObj.screen_identifier}
-                        name={screnObj.name}
-                        options={{headerShown: false}}
-                        {...screnObj.screenProps}>
-                        {props => (
-                          <GenericScreen
-                            {...props}
-                            screenUrl={screnObj['url']}
-                            isMultiScreen={true}
-                            moduleParameters={moduleParameters}
-                            customComponents={customComponents}
-                            themes={themes}
-                          />
-                        )}
-                      </Stack.Screen>
-                    );
-                  })
-                : screens != null && screens.length > 0
+              {LOAD_PRIORITY &&
+              LOAD_PRIORITY === 'dynamic' &&
+              networkScreens != null &&
+              networkScreens.length > 0 ? (
+                networkScreens.map((screnObj, index) => {
+                  return (
+                    <Stack.Screen
+                      key={screnObj.screen_identifier}
+                      name={screnObj.name}
+                      options={{headerShown: false}}
+                      {...screnObj.screenProps}>
+                      {props => (
+                        <GenericScreen
+                          {...props}
+                          screenUrl={screnObj['url']}
+                          isMultiScreen={true}
+                          moduleParameters={moduleParameters}
+                          customComponents={customComponents}
+                          themes={themes}
+                        />
+                      )}
+                    </Stack.Screen>
+                  );
+                })
+              ) : (
+                <Stack.Screen name={'Loading'} options={{headerShown: false}}>
+                  {props => (
+                    <GenericScreen
+                      {...props}
+                      logic={LoadingScreen.logic}
+                      screenObj={LoadingScreen}
+                      isMultiScreen={true}
+                      moduleParameters={moduleParameters}
+                      customComponents={customComponents}
+                      themes={themes}
+                    />
+                  )}
+                </Stack.Screen>
+              )}
+            </Stack.Navigator>
+            <Toast />
+          </NavigationContainer>
+        )}
+
+        {LOAD_PRIORITY && LOAD_PRIORITY === 'static' && screens != null && (
+          <NavigationContainer>
+            <Stack.Navigator>
+              {screens != null && screens.length > 0
                 ? screens.map((screenObj, index) => {
                     return (
                       <Stack.Screen
@@ -169,7 +197,6 @@ const RNNano = ({
                   })
                 : null}
             </Stack.Navigator>
-            <Toast />
           </NavigationContainer>
         )}
       </DataContext>

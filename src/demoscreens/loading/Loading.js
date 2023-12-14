@@ -7,7 +7,7 @@ let activityIndicator = {
   props: {
     style: {
       fontSize: 20,
-
+      color: 'blue',
       marginTop: 20,
       marginHorizontal: 20,
     },
