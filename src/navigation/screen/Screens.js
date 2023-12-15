@@ -171,7 +171,7 @@ const RNNano = ({
           </NavigationContainer>
         )}
 
-        {LOAD_PRIORITY && LOAD_PRIORITY === 'static' && screens != null && (
+        {screens != null && (
           <NavigationContainer>
             <Stack.Navigator>
               {screens != null && screens.length > 0
@@ -197,6 +197,7 @@ const RNNano = ({
                   })
                 : null}
             </Stack.Navigator>
+            <Toast />
           </NavigationContainer>
         )}
       </DataContext>
