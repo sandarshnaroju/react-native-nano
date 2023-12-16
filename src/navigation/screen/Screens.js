@@ -111,7 +111,7 @@ const RNNano = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        {LOAD_PRIORITY && LOAD_PRIORITY === 'dynamic' && (
+        {LOAD_PRIORITY && LOAD_PRIORITY === 'dynamic' ? (
           <NavigationContainer
             independent={true}
             ref={navigationRef}
@@ -169,13 +169,7 @@ const RNNano = ({
             </Stack.Navigator>
             <Toast />
           </NavigationContainer>
-        )}
-
-        {((LOAD_PRIORITY != null &&
-          LOAD_PRIORITY === 'static' &&
-          screens != null) ||
-          ((LOAD_PRIORITY === null || typeof LOAD_PRIORITY === 'undefined') &&
-            screens != null)) && (
+        ) : (
           <NavigationContainer>
             <Stack.Navigator>
               {screens != null && screens.length > 0
