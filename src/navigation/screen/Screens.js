@@ -171,7 +171,11 @@ const RNNano = ({
           </NavigationContainer>
         )}
 
-        {screens != null && (
+        {((LOAD_PRIORITY != null &&
+          LOAD_PRIORITY === 'static' &&
+          screens != null) ||
+          ((LOAD_PRIORITY === null || typeof LOAD_PRIORITY === 'undefined') &&
+            screens != null)) && (
           <NavigationContainer>
             <Stack.Navigator>
               {screens != null && screens.length > 0
