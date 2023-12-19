@@ -7,7 +7,7 @@ const checkNetworkPropsObjectAndRunFunctionsAndSetThoseValuesIfExists = ({
 }) => {
   const newObj = {};
 
-  if (networkObjProps != null && typeof networkObjProps === 'object') {
+  if (networkObjProps != null && typeof networkObjProps == 'object') {
     Object.keys(networkObjProps).forEach(eachKey => {
       if (
         networkObjProps[eachKey] != null &&

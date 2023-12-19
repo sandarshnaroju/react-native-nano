@@ -52,7 +52,7 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
     content.forEach(element => {
       if (element != null && element.name != null) {
         if (
-          typeof mapperRes[element.name] === 'object' &&
+          typeof mapperRes[element.name] == 'object' &&
           !Array.isArray(mapperRes[element.name]) &&
           mapperRes[element.name] !== null
         ) {
@@ -91,7 +91,7 @@ export const DATABASE_CONSTANTS = {
 
 export const isFunction = functionToCheck => {
   if (functionToCheck instanceof Function) {
-    if (typeof functionToCheck === 'function') {
+    if (typeof functionToCheck == 'function') {
       if (
         Object.prototype.toString.call(functionToCheck) == '[object Function]'
       ) {
@@ -115,7 +115,7 @@ export const checkNameAndRenderCustomComponent = ({
     Array.isArray(compsArray) &&
     compsArray.length > 0
   ) {
-    const reqComp = compsArray.find(comp => comp['name'] === componentName);
+    const reqComp = compsArray.find(comp => comp['name'] == componentName);
 
     if (reqComp) {
       const Comp = reqComp['component'];
@@ -141,7 +141,7 @@ export const executeAFunction = (func, props) => {
   if (typeof mapper !== 'string' && isItFunction) {
     return func(props);
   } else {
-    if (func != null && typeof func === 'string') {
+    if (func != null && typeof func == 'string') {
       let copy = new Function('return ' + func)();
 
       return copy(props);
@@ -171,7 +171,7 @@ function evaluateMathExpression(expression) {
     for (var i = 0; i < parts.length; i++) {
       var part = parts[i].trim();
 
-      if (part.length === 0) {
+      if (part.length == 0) {
         continue;
       }
 
@@ -201,7 +201,7 @@ function evaluateMathExpression(expression) {
         }
       }
 
-      if (operatorIndex === -1) {
+      if (operatorIndex == -1) {
         throw new Error('Invalid expression');
       }
 
@@ -241,10 +241,10 @@ function evaluateMathExpression(expression) {
 }
 
 function replaceStringsWithNumbers(obj) {
-  if (typeof obj === 'object') {
+  if (typeof obj == 'object') {
     for (var key in obj) {
       if (key != null && key.indexOf('on') !== 0) {
-        if (typeof obj[key] === 'string') {
+        if (typeof obj[key] == 'string') {
           const hreplaced = obj[key].replace(
             /{{([^}]+)}}/g,
             function (match, okey) {
@@ -262,12 +262,12 @@ function replaceStringsWithNumbers(obj) {
           obj[key] = hreplaced;
 
           var numericValue = parseFloat(evaluateMathExpression(hreplaced));
-          if (key === 'height') {
+          if (key == 'height') {
           }
           if (!isNaN(numericValue)) {
             obj[key] = numericValue;
           }
-        } else if (typeof obj[key] === 'object') {
+        } else if (typeof obj[key] == 'object') {
           replaceStringsWithNumbers(obj[key]); // Recursively handle nested objects
         }
       }
@@ -326,12 +326,12 @@ const functionKeysArray = [
   'itemWidth',
 ];
 function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
-  if (typeof obj === 'object') {
+  if (typeof obj == 'object') {
     for (var key in obj) {
       if (obj[key] != null) {
-        if (typeof obj[key] === 'string' && functionKeysArray.includes(key)) {
+        if (typeof obj[key] == 'string' && functionKeysArray.includes(key)) {
           obj[key] = executeAFunction(obj[key], functionDimensionsProps);
-        } else if (typeof obj[key] === 'object') {
+        } else if (typeof obj[key] == 'object') {
           findAndSendPropsToImmediatlyInvokedFunctions(obj[key]); // Recursively handle nested objects
         }
       }
@@ -345,7 +345,7 @@ export const heightAndWidthFormatter = props => {
   if (props != null && typeof props == 'object') {
     Object.keys(props).forEach(ke => {
       if (
-        typeof props[ke] === 'object' &&
+        typeof props[ke] == 'object' &&
         !Array.isArray(props[ke]) &&
         props[ke] !== null
       ) {
@@ -395,7 +395,7 @@ export const fetchDataBasedOnNetworkObject = ({
   getUi,
 }) => {
   if (elementObject != null && elementObject['network'] != null) {
-    if (elementObject['network']['action'] === 'onStart') {
+    if (elementObject['network']['action'] == 'onStart') {
       requestDataFromUrlAsPerNetworkData({
         requestType: elementObject['network']['use'],
         requestObj: elementObject['network'],
@@ -454,13 +454,13 @@ export const getInterceptedFunctionProps = ({
   const funArray = {};
 
   const functionWithOnKeys = Object.keys(eleObject).filter(
-    propKey => propKey.indexOf('on') === 0,
+    propKey => propKey.indexOf('on') == 0,
   );
 
   if (
     eleObject != null &&
     eleObject['network'] != null &&
-    eleObject['network']['action'] === 'onPress'
+    eleObject['network']['action'] == 'onPress'
   ) {
     functionWithOnKeys.push('onPress');
   }
@@ -480,7 +480,7 @@ export const getInterceptedFunctionProps = ({
     if (
       eleObject != null &&
       eleObject['network'] != null &&
-      eleObject['network']['action'] === 'onPress'
+      eleObject['network']['action'] == 'onPress'
     ) {
       funArray[propKey] = withExtraParams(() => {
         onPressNetwork(func, props, eleObject);
@@ -530,11 +530,11 @@ export const getViewItems = ({
 };
 
 export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
-  if (typeof compObj === 'object' && contextObj) {
+  if (typeof compObj == 'object' && contextObj) {
     for (var key in compObj) {
       if (compObj[key] != null) {
         if (
-          typeof compObj[key] === 'string' &&
+          typeof compObj[key] == 'string' &&
           (key.includes('color') || key.includes('Color'))
         ) {
           const userGivenColorString = compObj[key];
@@ -554,7 +554,7 @@ export const modifyElemObjAsPerTheme = (compObj, themes, contextObj) => {
           ) {
             compObj[key] = selectedThemObj['colors'][userGivenColorString];
           }
-        } else if (typeof compObj[key] === 'object') {
+        } else if (typeof compObj[key] == 'object') {
           modifyElemObjAsPerTheme(compObj[key], themes, contextObj); // Recursively handle nested objects
         }
       }

@@ -79,7 +79,7 @@ const RNNano = ({
   };
 
   const getAllScreensData = () => {
-    if (LOAD_PRIORITY != null && LOAD_PRIORITY === 'dynamic') {
+    if (LOAD_PRIORITY != null && LOAD_PRIORITY == 'dynamic') {
       fetchAllScreensFromDB()
         .then(s => {
           setNetworkScreens(s);
@@ -111,7 +111,7 @@ const RNNano = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        {LOAD_PRIORITY && LOAD_PRIORITY === 'dynamic' ? (
+        {LOAD_PRIORITY && LOAD_PRIORITY == 'dynamic' ? (
           <NavigationContainer
             ref={navigationRef}
             onReady={e => {
@@ -127,7 +127,7 @@ const RNNano = ({
             linking={NAVIGATION_LINKING}>
             <Stack.Navigator>
               {LOAD_PRIORITY &&
-              LOAD_PRIORITY === 'dynamic' &&
+              LOAD_PRIORITY == 'dynamic' &&
               networkScreens != null &&
               networkScreens.length > 0 ? (
                 networkScreens.map((screnObj, index) => {

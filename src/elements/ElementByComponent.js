@@ -80,7 +80,7 @@ const getElementAsPerComponent = ({
   ) {
     if (
       elemObjAfterThemesSet['hide'] != null &&
-      elemObjAfterThemesSet['hide'] === true
+      elemObjAfterThemesSet['hide'] == true
     ) {
       return null;
     }

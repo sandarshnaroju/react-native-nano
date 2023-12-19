@@ -29,7 +29,7 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
 const getInterceptedFunctionProps = ({eleObject, props, onPressCallBack}) => {
   const funArray = {};
   Object.keys(eleObject)
-    .filter(propKey => propKey.indexOf('on') === 0)
+    .filter(propKey => propKey.indexOf('on') == 0)
     .forEach(propKey => {
       funArray[propKey] = withExtraParams(
         eleObject[propKey],

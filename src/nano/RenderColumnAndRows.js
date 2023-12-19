@@ -62,7 +62,7 @@ const RenderColoumViews = ({
   const elements = [];
   if (unModifiedTotalData != null) {
     Object.keys(unModifiedTotalData).forEach((key, index) => {
-      if (key != null && key.slice(0, 1) === 'h') {
+      if (key != null && key.slice(0, 1) == 'h') {
         elements.push(
           <View
             style={{
@@ -87,7 +87,7 @@ const RenderColoumViews = ({
             />
           </View>,
         );
-      } else if (key != null && key.slice(0, 1) === 'v') {
+      } else if (key != null && key.slice(0, 1) == 'v') {
         elements.push(
           <GetRowElements
             navigation={navigation}

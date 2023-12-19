@@ -31,7 +31,7 @@ export const traverseThroughInputJsonAndCreateNameSHortcut = (
   jsonData,
   keys = [],
 ) => {
-  if (typeof jsonData === 'object' && jsonData !== null) {
+  if (typeof jsonData == 'object' && jsonData !== null) {
     if (Array.isArray(jsonData)) {
       jsonData.forEach((item, index) => {
         traverseThroughInputJsonAndCreateNameSHortcut(
@@ -44,14 +44,14 @@ export const traverseThroughInputJsonAndCreateNameSHortcut = (
       for (const key in jsonData) {
         if (jsonData.hasOwnProperty(key)) {
           const value = jsonData[key];
-          if (typeof value === 'object' && value !== null) {
+          if (typeof value == 'object' && value !== null) {
             traverseThroughInputJsonAndCreateNameSHortcut(
               value,
               keys.concat(key),
               nameShortcutObject,
             );
           } else {
-            if (key === 'name') {
+            if (key == 'name') {
               if (!nameShortcutObject[value]) {
                 nameShortcutObject[value] = [];
               }
