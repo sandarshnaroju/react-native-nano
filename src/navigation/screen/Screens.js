@@ -113,7 +113,6 @@ const RNNano = ({
       <DataContext themes={themes}>
         {LOAD_PRIORITY && LOAD_PRIORITY === 'dynamic' ? (
           <NavigationContainer
-            independent={true}
             ref={navigationRef}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
@@ -170,7 +169,19 @@ const RNNano = ({
             <Toast />
           </NavigationContainer>
         ) : (
-          <NavigationContainer>
+          <NavigationContainer
+            ref={navigationRef}
+            linking={NAVIGATION_LINKING}
+            onReady={e => {
+              const moduleParametersWithNavigationRef = {
+                ...customModules,
+                ...defaultParameters,
+                navigation: navigationRef,
+              };
+              executeAFunction(appStart, {
+                moduleParams: moduleParametersWithNavigationRef,
+              });
+            }}>
             <Stack.Navigator>
               {screens != null && screens.length > 0
                 ? screens.map((screenObj, index) => {
