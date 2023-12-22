@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.150",
+  "version": "1.0.151",
   "description": "Simplifies react native development",
   "main": "index.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "react-native-video": "^5.2.1",
     "react-native-webview": "^13.3.1",
     "react-native-youtube-iframe": "^2.3.0",
-    "realm": "^11.3.1",
+    "realm": "^11.10.2",
     "recyclerlistview": "^4.2.0",
     "react-native-event-listeners": "^1.0.7"
   },
