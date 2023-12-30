@@ -425,7 +425,7 @@ export const onElementLoaded = ({
 };
 
 const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
-  return function (args) {
+  return function (...args) {
     const newArgs = {
       methodValues: args,
       ...extraParams,
