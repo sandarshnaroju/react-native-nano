@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   NavigationContainer,
@@ -10,11 +10,8 @@ import getModuleParams from '../../modules';
 import GenericScreen from './GenericScreen';
 import LoadingScreen from '../../demoscreens/loading/Loading';
 import {EventRegister} from 'react-native-event-listeners';
-import {
-  fetchAllScreens,
-  fetchAllScreensFromDB,
-} from '../../modules/dbSync/DBSync';
-import {Provider, Text} from 'react-native-paper';
+import {fetchAllScreensFromDB} from '../../modules/dbSync/DBSync';
+import {Provider} from 'react-native-paper';
 import DataContext from '../../context/DataContext';
 import {
   THEMES,
