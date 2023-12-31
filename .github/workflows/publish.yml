@@ -1,6 +1,10 @@
 name: "publish npm"
 
-on: push
+on:
+  push:
+    branches:
+      - production
+
 
 jobs:
     publish:
