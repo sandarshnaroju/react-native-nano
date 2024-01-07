@@ -1,4 +1,3 @@
-import getSession from '../modules/session/Session';
 
 var nameShortcutObject = {};
 

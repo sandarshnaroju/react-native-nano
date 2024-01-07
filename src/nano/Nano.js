@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 
-import {ScrollView, SafeAreaView, View} from 'react-native';
+import {ScrollView, SafeAreaView} from 'react-native';
 import {
   executeAFunction,
   modifyElemObjAsPerTheme,
