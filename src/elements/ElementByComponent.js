@@ -54,6 +54,7 @@ import NanoAppBarAction from '../components/AppBarAction/AppBarAction';
 import NanoAppBarBackAction from '../components/AppBarBackAction';
 import NanoAppBarHeader from '../components/AppBarHeader/AppBarHeader';
 import NanoAppBarContent from '../components/AppBarContent/AppBarContent';
+import AnimatedView from '../components/AnimatedView';
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -432,7 +433,15 @@ const getElementAsPerComponent = ({
             onElementLoaded={onElementLoad}
           />
         );
-
+      case NANO.ANIMATED_VIEW:
+        return (
+          <AnimatedView
+            key={'animated_view' + index}
+            elementProps={elementProps}
+            getViewItems={renderChildren}
+            onElementLoaded={onElementLoad}
+          />
+        );
       case NANO.CARD_ACTION:
         return (
           <NanoCardActions

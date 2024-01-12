@@ -77,8 +77,26 @@ const GenericScreen = ({
 
   return (
     <Nano
-      scroll={false}
-      style={screenData != null && screenData.style ? screenData.style : {}}
+      scroll={
+        screenData != null &&
+        screenData.props != null &&
+        screenData.props.scroll != null
+          ? screenData.props.scroll
+          : false
+      }
+      scrollViewProps={
+        screenData != null &&
+        screenData.props != null &&
+        screenData.props.scrollViewProps != null
+          ? screenData.props.scrollViewProps
+          : {}
+      }
+      
+      style={
+        screenData != null && screenData.props != null && screenData.props.style
+          ? screenData.props.style
+          : {}
+      }
       screen={screenData != null ? screenData.screen : null}
       navigation={navigation}
       logicObject={logic}

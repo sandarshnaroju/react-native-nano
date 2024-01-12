@@ -34,6 +34,7 @@ const Nano = ({
   unModifiedScreen,
   onPause,
   onResume,
+  scrollViewProps,
 }) => {
   const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
@@ -190,10 +191,20 @@ const Nano = ({
   }
 
   if (scroll) {
+    let scrollViewPropsWithTheme = scrollViewProps;
+    if (themes != null && themes.length > 0) {
+      scrollViewPropsWithTheme = modifyElemObjAsPerTheme(
+        scrollViewProps,
+        themes,
+        context,
+      );
+    }
+
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={screenStylesWithThemet}>
+        style={screenStylesWithThemet}
+        {...scrollViewPropsWithTheme}>
         {uiElements != null && (
           <RenderColoumViews
             unModifiedTotalData={cloneDeep(uiElementsRef.current)}
@@ -213,7 +224,7 @@ const Nano = ({
   }
 
   return (
-    <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
+    <SafeAreaView style={[{flex: 1}, screenStylesWithThemet]}>
       {uiElements != null && (
         <RenderColoumViews
           navigation={navigation}

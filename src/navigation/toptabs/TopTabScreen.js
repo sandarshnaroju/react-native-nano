@@ -17,11 +17,26 @@ function TopTabScreen({
 }) {
   return (
     <TopTabNano
-      scroll={false}
+      scroll={
+        screen != null && screen.props != null && screen.props.scroll != null
+          ? screen.props.scroll
+          : false
+      }
+      scrollViewProps={
+        screen != null &&
+        screen.props != null &&
+        screen.props.scrollViewProps != null
+          ? screen.props.scrollViewProps
+          : {}
+      }
+      style={
+        screen != null && screen.props != null && screen.props.style
+          ? screen.props.style
+          : {}
+      }
       screen={screen.screen}
       navigation={navigation}
       logicObject={screen.logic}
-      style={screen != null && screen.style ? screen.style : {}}
       screenName={screen.name}
       onStart={screen.onStart}
       onEnd={screen.onEnd}

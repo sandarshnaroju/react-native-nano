@@ -34,6 +34,7 @@ export const TopTabNano = ({
   unModifiedScreen,
   onPause,
   onResume,
+  scrollViewProps,
 }) => {
   const uiElementsRef = useRef(screen);
   const defaultScreensRef = useRef(null);
@@ -190,10 +191,19 @@ export const TopTabNano = ({
     );
   }
   if (scroll) {
+    let scrollViewPropsWithTheme = scrollViewProps;
+    if (themes != null && themes.length > 0) {
+      scrollViewPropsWithTheme = modifyElemObjAsPerTheme(
+        scrollViewProps,
+        themes,
+        context,
+      );
+    }
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={screenStylesWithThemet}>
+        style={screenStylesWithThemet}
+        {...scrollViewPropsWithTheme}>
         {uiElements != null && (
           <RenderColoumViews
             unModifiedTotalData={cloneDeep(uiElementsRef.current)}
@@ -213,7 +223,7 @@ export const TopTabNano = ({
   }
 
   return (
-    <SafeAreaView style={[screenStylesWithThemet, {flex: 1}]}>
+    <SafeAreaView style={[{flex: 1}, screenStylesWithThemet]}>
       {uiElements != null && (
         <RenderColoumViews
           navigation={navigation}

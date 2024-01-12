@@ -128,12 +128,18 @@ const RNNano = ({
               networkScreens != null &&
               networkScreens.length > 0 ? (
                 networkScreens.map((screnObj, index) => {
+                  const screenProps =
+                    screnObj != null &&
+                    screnObj.props != null &&
+                    screnObj.props.screenProps != null
+                      ? screnObj.props.screenProps
+                      : {};
                   return (
                     <Stack.Screen
                       key={screnObj.screen_identifier}
                       name={screnObj.name}
                       options={{headerShown: false}}
-                      {...screnObj.screenProps}>
+                      {...screenProps}>
                       {props => (
                         <GenericScreen
                           {...props}
@@ -182,10 +188,16 @@ const RNNano = ({
             <Stack.Navigator>
               {screens != null && screens.length > 0
                 ? screens.map((screenObj, index) => {
+                    const screenProps =
+                      screenObj != null &&
+                      screenObj.props != null &&
+                      screenObj.props.screenProps != null
+                        ? screenObj.props.screenProps
+                        : {};
                     return (
                       <Stack.Screen
                         key={screenObj.name}
-                        {...screenObj.screenProps}
+                        {...screenProps}
                         name={screenObj.name}>
                         {props => (
                           <GenericScreen
