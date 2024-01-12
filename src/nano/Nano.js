@@ -201,10 +201,7 @@ const Nano = ({
     }
 
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={screenStylesWithThemet}
-        {...scrollViewPropsWithTheme}>
+      <ScrollView {...scrollViewPropsWithTheme}>
         {uiElements != null && (
           <RenderColoumViews
             unModifiedTotalData={cloneDeep(uiElementsRef.current)}
@@ -224,7 +221,7 @@ const Nano = ({
   }
 
   return (
-    <SafeAreaView style={[{flex: 1}, screenStylesWithThemet]}>
+    <SafeAreaView style={screenStylesWithThemet}>
       {uiElements != null && (
         <RenderColoumViews
           navigation={navigation}

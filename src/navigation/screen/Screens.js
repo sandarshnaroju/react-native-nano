@@ -138,7 +138,6 @@ const RNNano = ({
                     <Stack.Screen
                       key={screnObj.screen_identifier}
                       name={screnObj.name}
-                      options={{headerShown: false}}
                       {...screenProps}>
                       {props => (
                         <GenericScreen
