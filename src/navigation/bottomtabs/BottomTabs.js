@@ -19,11 +19,14 @@ const GetScreens = ({
 
   if (content != null && content.length > 0) {
     content.forEach((screen, index) => {
+      const screenProps =
+        screen != null &&
+        screen.props != null &&
+        screen.props.screenProps != null
+          ? screen.props.screenProps
+          : {};
       drawerScreens.push(
-        <Tab.Screen
-          {...screen.screenProps}
-          key={screen.name}
-          name={screen.name}>
+        <Tab.Screen {...screenProps} key={screen.name} name={screen.name}>
           {props => (
             <TopTabScreen
               {...props}
