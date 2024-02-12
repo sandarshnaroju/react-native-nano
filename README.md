@@ -81,7 +81,9 @@ const screen = {
     screen: {
 	v1: [text],
     },
-    style: { flex: 1, justifyContent: 'center' },
+    props:{
+        style: { flex: 1, justifyContent: 'center' }, 
+    }	
 };
 
 ```
@@ -163,7 +165,9 @@ const screen = {
     screen: {
 	v1: [countText, increaseCountButton],
     },
-    style: { flex: 1, justifyContent: 'center' },
+    props:{
+        style: { flex: 1, justifyContent: 'center' },
+    }
 };
 
 ```	
