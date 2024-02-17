@@ -30,6 +30,7 @@ enableScreens();
 
 const RNNano = ({
   screens,
+  props,
   uriScreens,
   clientId,
   customComponents,
@@ -121,8 +122,9 @@ const RNNano = ({
                 moduleParams: moduleParametersWithNavigationRef,
               });
             }}
-            linking={NAVIGATION_LINKING}>
-            <Stack.Navigator>
+            linking={NAVIGATION_LINKING}
+            {...props?.navigationContainerProps}>
+            <Stack.Navigator {...props?.stackNavigatorProps}>
               {LOAD_PRIORITY &&
               LOAD_PRIORITY == 'dynamic' &&
               networkScreens != null &&
@@ -183,8 +185,9 @@ const RNNano = ({
               executeAFunction(appStart, {
                 moduleParams: moduleParametersWithNavigationRef,
               });
-            }}>
-            <Stack.Navigator>
+            }}
+            {...props?.navigationContainerProps}>
+            <Stack.Navigator {...props?.stackNavigatorProps}>
               {screens != null && screens.length > 0
                 ? screens.map((screenObj, index) => {
                     const screenProps =
