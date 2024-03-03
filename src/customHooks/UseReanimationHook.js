@@ -20,7 +20,6 @@ export const useReanimationHook = ({elementProps}) => {
 
   let animatedStylesRef = useRef({});
   let animatedPropsRef = useRef({});
-  const kerala = useSharedValue(50);
 
   if (
     elementProps != null &&
@@ -78,10 +77,8 @@ export const useReanimationHook = ({elementProps}) => {
     index,
     onAnimationFinish,
   }) => {
-    // console.log('kekakka', singleAnimationObject);
     switch (singleAnimationObject['type']) {
       case 'timing':
-        console.log('Enna panra');
         animatedStylesRef.current[styleKeyTobeAnimated].value = withDelay(
           singleAnimationObject['delay'] != null &&
             typeof singleAnimationObject['delay'] == 'number'
@@ -223,10 +220,6 @@ export const useReanimationHook = ({elementProps}) => {
           singleAnimationObject['animType'] != null &&
           singleAnimationObject['animType']['type'] != null
         ) {
-          // console.log(
-          //   'Valueuue',
-          //   singleAnimationObject['componentProps']['style'][styleKeyTobeAnimated],
-          // );
           switch (singleAnimationObject['animType']['type']) {
             case 'clamp':
               if (
@@ -245,12 +238,6 @@ export const useReanimationHook = ({elementProps}) => {
                   styleKeyTobeAnimated
                 ].forEach((transformObj, ind) => {
                   Object.keys(transformObj).forEach(transformObjKey => {
-                    console.log(
-                      'Interpolated',
-                      singleAnimationObject['componentProps']['style'][
-                        styleKeyTobeAnimated
-                      ][ind][transformObjKey],
-                    );
                     animatedStylesRef.current[styleKeyTobeAnimated].value = [
                       ...singleAnimationObject['componentProps']['style'][
                         styleKeyTobeAnimated
@@ -327,7 +314,6 @@ export const useReanimationHook = ({elementProps}) => {
         let finished = 0;
         const onAnimationFinish = index => {
           finished++;
-          console.log('ON animation finish', index);
 
           if (finished == keysArray.length) {
             if (
@@ -341,7 +327,6 @@ export const useReanimationHook = ({elementProps}) => {
                 singleTypeAnimationObject,
               });
             } else {
-              console.log('Series animations finished');
             }
           }
         };
@@ -399,7 +384,6 @@ export const useReanimationHook = ({elementProps}) => {
   startAnimation(elementProps);
   useEffect(() => {
     EventRegister.addEventListener('animation' + elementProps['name'], v => {
-      // console.log('ssksksk', JSON.parse(v));
       startAnimation(JSON.parse(v));
     });
   }, []);
