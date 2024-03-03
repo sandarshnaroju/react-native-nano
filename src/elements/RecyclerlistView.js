@@ -196,6 +196,7 @@ export default class RecycleTestComponent extends React.Component {
         },
         getUi: this.props.getUi,
         setUi: this.props.onPressCallBack,
+        animateUi: this.props.animateUi,
       },
       onPressCallBack: this.props.onPressCallBack,
     });

@@ -15,6 +15,7 @@ import {
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
+import {animateUi} from '../customHooks/UseReanimationHook';
 
 function CheckForListviewAndRender({
   navigation,
@@ -67,6 +68,7 @@ function CheckForListviewAndRender({
           unModifiedElemOb={unModifiedElemOb}
           context={context}
           customComponents={customComponents}
+          animateUi={animateUi}
         />
       );
 

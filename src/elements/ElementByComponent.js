@@ -1,6 +1,6 @@
 import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
-import React from 'react';
+import React, {useRef} from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
 import NanoAvatarIcon from '../components/AvatarIcon/AvatarIcon';
 import NanoAvatarImage from '../components/AvatarImage';
@@ -55,6 +55,10 @@ import NanoAppBarBackAction from '../components/AppBarBackAction';
 import NanoAppBarHeader from '../components/AppBarHeader/AppBarHeader';
 import NanoAppBarContent from '../components/AppBarContent/AppBarContent';
 import AnimatedView from '../components/AnimatedView';
+
+import ReanimatedText from '../components/ReanimatedText/ReanimatedText';
+
+import {animateUi} from '../customHooks/UseReanimationHook';
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -68,7 +72,9 @@ const getElementAsPerComponent = ({
   themes,
   context,
   componentParams,
+  animatedValueRef = null,
 }) => {
+  const animatedValueRef2 = useRef(animatedValueRef?.current);
   let elemObjAfterThemesSet = elemOb;
 
   if (themes != null && themes.length > 0) {
@@ -109,6 +115,7 @@ const getElementAsPerComponent = ({
 
           setUi: onPressCallBack,
           getUi: getUi,
+          animateUi: animateUi,
         },
       });
     }
@@ -442,6 +449,7 @@ const getElementAsPerComponent = ({
             onElementLoaded={onElementLoad}
           />
         );
+
       case NANO.CARD_ACTION:
         return (
           <NanoCardActions
@@ -576,6 +584,9 @@ const getElementAsPerComponent = ({
             })}
           </View>
         );
+
+      case NANO.REANIMATED_TEXT:
+        return <ReanimatedText elementProps={elementProps} />;
 
       default:
         const custom = checkNameAndRenderCustomComponent({

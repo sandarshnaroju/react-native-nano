@@ -91,7 +91,6 @@ const GenericScreen = ({
           ? screenData.props.scrollViewProps
           : {}
       }
-      
       style={
         screenData != null && screenData.props != null && screenData.props.style
           ? screenData.props.style

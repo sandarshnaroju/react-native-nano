@@ -17,7 +17,6 @@ import {
 } from '../utils/UiKeysMapper';
 import {GetContextProvider} from '../context/DataContext';
 import {useFocusEffect} from '@react-navigation/native';
-
 const Nano = ({
   screen,
   style,

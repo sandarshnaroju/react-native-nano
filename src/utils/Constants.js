@@ -53,6 +53,8 @@ const NANO = {
   APPBAR_CONTENT: 'appbar_content',
   APPBAR_HEADER: 'appbar_header',
   ANIMATED_VIEW: 'animated_view',
-
+  REANIMATED_VIEW: 'reanimated_view',
+  REANIMATED_IMAGE: 'reanimated_image',
+  REANIMATED_TEXT: 'reanimated_text',
 };
 export default NANO;

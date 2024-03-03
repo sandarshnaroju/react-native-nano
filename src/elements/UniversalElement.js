@@ -33,9 +33,13 @@ function UniversalElement({
     componentParams,
   });
 
-  if (elemObjAfterThemesSet != null && elemObjAfterThemesSet['animation']) {
+  if (
+    elemObjAfterThemesSet != null &&
+    elemObjAfterThemesSet['animation'] != null &&
+    elemObjAfterThemesSet['animation']['simple']
+  ) {
     return (
-      <Animatable.View {...elemObjAfterThemesSet['animation']}>
+      <Animatable.View {...elemObjAfterThemesSet['animation']['simple']}>
         {displayItem}
       </Animatable.View>
     );
