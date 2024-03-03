@@ -1,6 +1,6 @@
 import {TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native-paper';
-import React, {useRef} from 'react';
+import React from 'react';
 import NanoActivityIndicator from '../components/ActivityIndicator';
 import NanoAvatarIcon from '../components/AvatarIcon/AvatarIcon';
 import NanoAvatarImage from '../components/AvatarImage';
@@ -74,7 +74,6 @@ const getElementAsPerComponent = ({
   componentParams,
   animatedValueRef = null,
 }) => {
-  const animatedValueRef2 = useRef(animatedValueRef?.current);
   let elemObjAfterThemesSet = elemOb;
 
   if (themes != null && themes.length > 0) {

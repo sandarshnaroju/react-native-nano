@@ -17,22 +17,4 @@ const ReanimatedText = ({elementProps}) => {
 };
 export default ReanimatedText;
 
-const AnimatedTextComponent = ({
-  elementProps,
-  animatedProps,
-  animatedStylesNewRef,
-}) => {
-  return (
-    <Animated.Text
-      style={[
-        {fontWeight: 'bold', backgroundColor: 'pink'},
-        animatedStylesNewRef.current,
-      ]}
-      animatedProps={animatedProps}
-      // {...elementProps['props']}
-      {...elementProps}>
-      {' '}
-      {elementProps['value']}
-    </Animated.Text>
-  );
-};
+
