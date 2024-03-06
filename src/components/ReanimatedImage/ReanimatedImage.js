@@ -1,22 +1,24 @@
 import Animated from 'react-native-reanimated';
 import React, {useEffect} from 'react';
-const ReanimatedText = ({
+const ReanimatedImage = ({
   elementProps,
-  animatedStyles,
-  animatedProps,
   getViewItems,
   onElementLoaded,
+  animatedStyles,
+  animatedProps,
 }) => {
   useEffect(() => {
     onElementLoaded(elementProps);
   }, []);
+
   return (
-    <Animated.Text
+    <Animated.Image
       style={[animatedStyles.current]}
       animatedProps={animatedProps}
-      {...elementProps}>
-      {elementProps['value']}
-    </Animated.Text>
+      {...elementProps['props']}
+      {...elementProps}
+      source={elementProps['value']}
+    />
   );
 };
-export default ReanimatedText;
+export default ReanimatedImage;

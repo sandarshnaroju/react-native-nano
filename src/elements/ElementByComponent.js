@@ -56,9 +56,9 @@ import NanoAppBarHeader from '../components/AppBarHeader/AppBarHeader';
 import NanoAppBarContent from '../components/AppBarContent/AppBarContent';
 import AnimatedView from '../components/AnimatedView';
 
-import ReanimatedText from '../components/ReanimatedText/ReanimatedText';
+import {animateUi} from '../hooks/UseReanimationHook';
 
-import {animateUi} from '../customHooks/UseReanimationHook';
+import ReanimatedHOC from './ReanimatedHOC';
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -583,9 +583,33 @@ const getElementAsPerComponent = ({
             })}
           </View>
         );
+      case NANO.REANIMATED_VIEW:
+        return (
+          <ReanimatedHOC
+            elementProps={elementProps}
+            getViewItems={renderChildren}
+            onElementLoaded={onElementLoad}
+            elemObjAfterThemesSet={elemObjAfterThemesSet}
+            index={index}
+          />
+        );
 
       case NANO.REANIMATED_TEXT:
-        return <ReanimatedText elementProps={elementProps} />;
+        return (
+          <ReanimatedHOC
+            elementProps={elementProps}
+            getViewItems={renderChildren}
+            onElementLoaded={onElementLoad}
+          />
+        );
+      case NANO.REANIMATED_IMAGE:
+        return (
+          <ReanimatedHOC
+            elementProps={elementProps}
+            getViewItems={renderChildren}
+            onElementLoaded={onElementLoad}
+          />
+        );
 
       default:
         const custom = checkNameAndRenderCustomComponent({

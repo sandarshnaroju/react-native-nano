@@ -56,5 +56,7 @@ const NANO = {
   REANIMATED_VIEW: 'reanimated_view',
   REANIMATED_IMAGE: 'reanimated_image',
   REANIMATED_TEXT: 'reanimated_text',
+  REANIMATED_COMPONENT: 'reanimated_component',
+  REANIMATED_FLATLIST: 'reanimated_flatlist',
 };
 export default NANO;

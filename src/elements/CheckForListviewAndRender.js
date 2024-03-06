@@ -15,7 +15,8 @@ import {
 import NanoFlatlist from './Flatlist';
 import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
-import {animateUi} from '../customHooks/UseReanimationHook';
+import {animateUi} from '../hooks/UseReanimationHook';
+import ReanimatedFlatlist from './ReanimatedFlatlist';
 
 function CheckForListviewAndRender({
   navigation,
@@ -75,6 +76,28 @@ function CheckForListviewAndRender({
     case NANO.FLAT_LIST:
       return (
         <NanoFlatlist
+          {...unModifiedElemOb}
+          navigation={navigation}
+          onPress={onPress}
+          onLongPress={onLongPress}
+          route={route}
+          onPressCallBack={onPressCallBack}
+          propParameters={propParameters}
+          funProps={funProps}
+          logicObject={logicObject}
+          themes={themes}
+          unModifiedElemOb={unModifiedElemOb}
+          customComponents={customComponents}
+          moduleParameters={propParameters}
+          unModifiedScreen={unModifiedElemOb}
+          context={context}
+          getUi={getUi}
+        />
+      );
+
+    case NANO.REANIMATED_FLATLIST:
+      return (
+        <ReanimatedFlatlist
           {...unModifiedElemOb}
           navigation={navigation}
           onPress={onPress}
