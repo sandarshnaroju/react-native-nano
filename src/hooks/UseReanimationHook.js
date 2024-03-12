@@ -238,20 +238,18 @@ export const useReanimationHook = ({elementProps}) => {
                   styleKeyTobeAnimated
                 ].forEach((transformObj, ind) => {
                   Object.keys(transformObj).forEach(transformObjKey => {
-                    animatedStylesRef.current[styleKeyTobeAnimated].value = [
-                      ...singleAnimationObject['componentProps']['style'][
+                    const tempObj = {};
+                    tempObj[transformObjKey] = interpolate(
+                      singleAnimationObject['componentProps']['style'][
                         styleKeyTobeAnimated
-                      ],
-                      {
-                        translateY: interpolate(
-                          singleAnimationObject['componentProps']['style'][
-                            styleKeyTobeAnimated
-                          ][ind][transformObjKey],
-                          singleAnimationObject['animType']['input'],
-                          singleAnimationObject['animType']['output'],
-                          singleAnimationObject['animType']['type'],
-                        ),
-                      },
+                      ][ind][transformObjKey],
+                      singleAnimationObject['animType']['input'],
+                      singleAnimationObject['animType']['output'],
+                      singleAnimationObject['animType']['type'],
+                    );
+
+                    animatedStylesRef.current[styleKeyTobeAnimated].value = [
+                      tempObj,
                     ];
                   });
                 });
@@ -266,6 +264,7 @@ export const useReanimationHook = ({elementProps}) => {
                     singleAnimationObject['animType']['type'],
                   );
               }
+
               onAnimationFinish();
 
               break;
@@ -387,5 +386,6 @@ export const useReanimationHook = ({elementProps}) => {
       startAnimation(JSON.parse(v));
     });
   }, []);
+
   return [animatedStylesRef, animatedPropsRef];
 };

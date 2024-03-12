@@ -74,7 +74,11 @@ function CheckForListviewAndRender({
       );
 
     case NANO.FLAT_LIST:
-      if (unModifiedElemOb != null && unModifiedElemOb['animation'] != null) {
+      if (
+        unModifiedElemOb != null &&
+        unModifiedElemOb['animation'] != null &&
+        unModifiedElemOb['animation']['advanced'] != null
+      ) {
         return (
           <ReanimatedFlatlist
             {...unModifiedElemOb}

@@ -167,7 +167,11 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.TEXT:
-        if (elementProps && elementProps['animation'] != null) {
+        if (
+          elementProps &&
+          elementProps['animation'] != null &&
+          elementProps['animation']['advanced'] != null
+        ) {
           return (
             <ReanimatedHOC
               elementProps={elementProps}
@@ -204,7 +208,11 @@ const getElementAsPerComponent = ({
           />
         );
       case NANO.IMAGE:
-        if (elementProps && elementProps['animation'] != null) {
+        if (
+          elementProps &&
+          elementProps['animation'] != null &&
+          elementProps['animation']['advanced'] != null
+        ) {
           return (
             <ReanimatedHOC
               elementProps={elementProps}
@@ -560,7 +568,11 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.VIEW:
-        if (elementProps && elementProps['animation']) {
+        if (
+          elementProps &&
+          elementProps['animation'] != null &&
+          elementProps['animation']['advanced'] != null
+        ) {
           return (
             <ReanimatedHOC
               elementProps={elementProps}
