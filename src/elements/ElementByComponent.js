@@ -59,6 +59,7 @@ import AnimatedView from '../components/AnimatedView';
 import {animateUi} from '../hooks/UseReanimationHook';
 
 import ReanimatedHOC from './ReanimatedHOC';
+import ReanimatedComponent from '../components/ReanimatedComponent';
 const getElementAsPerComponent = ({
   elemOb,
   index = null,
@@ -72,7 +73,6 @@ const getElementAsPerComponent = ({
   themes,
   context,
   componentParams,
-  animatedValueRef = null,
 }) => {
   let elemObjAfterThemesSet = elemOb;
 
@@ -167,6 +167,15 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.TEXT:
+        if (elementProps && elementProps['animation'] != null) {
+          return (
+            <ReanimatedHOC
+              elementProps={elementProps}
+              getViewItems={renderChildren}
+              onElementLoaded={onElementLoad}
+            />
+          );
+        }
         return (
           <NanoText
             key={'text' + index}
@@ -195,6 +204,15 @@ const getElementAsPerComponent = ({
           />
         );
       case NANO.IMAGE:
+        if (elementProps && elementProps['animation'] != null) {
+          return (
+            <ReanimatedHOC
+              elementProps={elementProps}
+              getViewItems={renderChildren}
+              onElementLoaded={onElementLoad}
+            />
+          );
+        }
         return (
           <NanoImage
             elementProps={elementProps}
@@ -542,6 +560,17 @@ const getElementAsPerComponent = ({
         );
 
       case NANO.VIEW:
+        if (elementProps && elementProps['animation']) {
+          return (
+            <ReanimatedHOC
+              elementProps={elementProps}
+              getViewItems={renderChildren}
+              onElementLoaded={onElementLoad}
+              elemObjAfterThemesSet={elemObjAfterThemesSet}
+              index={index}
+            />
+          );
+        }
         if (elemObjAfterThemesSet['onPress'] != null) {
           return (
             <TouchableOpacity
@@ -583,31 +612,27 @@ const getElementAsPerComponent = ({
             })}
           </View>
         );
-      case NANO.REANIMATED_VIEW:
-        return (
-          <ReanimatedHOC
-            elementProps={elementProps}
-            getViewItems={renderChildren}
-            onElementLoaded={onElementLoad}
-            elemObjAfterThemesSet={elemObjAfterThemesSet}
-            index={index}
-          />
-        );
 
-      case NANO.REANIMATED_TEXT:
+      case NANO.REANIMATED_COMPONENT:
+        const customComp = getViewItems({
+          content: elementProps['content'],
+          customComponents,
+          getUi,
+
+          onPressCallBack,
+          propParameters,
+          recyclerListViewFunctionProps,
+          uniqueKey,
+          themes,
+          componentParams,
+        });
+
         return (
-          <ReanimatedHOC
+          <ReanimatedComponent
             elementProps={elementProps}
             getViewItems={renderChildren}
             onElementLoaded={onElementLoad}
-          />
-        );
-      case NANO.REANIMATED_IMAGE:
-        return (
-          <ReanimatedHOC
-            elementProps={elementProps}
-            getViewItems={renderChildren}
-            onElementLoaded={onElementLoad}
+            component={customComp}
           />
         );
 

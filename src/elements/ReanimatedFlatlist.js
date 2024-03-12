@@ -86,6 +86,7 @@ const ReanimatedFlatlist = ({
       />
     );
   };
+
   return (
     <Animated.FlatList
       data={data}

@@ -74,30 +74,30 @@ function CheckForListviewAndRender({
       );
 
     case NANO.FLAT_LIST:
+      if (unModifiedElemOb != null && unModifiedElemOb['animation'] != null) {
+        return (
+          <ReanimatedFlatlist
+            {...unModifiedElemOb}
+            navigation={navigation}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            route={route}
+            onPressCallBack={onPressCallBack}
+            propParameters={propParameters}
+            funProps={funProps}
+            logicObject={logicObject}
+            themes={themes}
+            unModifiedElemOb={unModifiedElemOb}
+            customComponents={customComponents}
+            moduleParameters={propParameters}
+            unModifiedScreen={unModifiedElemOb}
+            context={context}
+            getUi={getUi}
+          />
+        );
+      }
       return (
         <NanoFlatlist
-          {...unModifiedElemOb}
-          navigation={navigation}
-          onPress={onPress}
-          onLongPress={onLongPress}
-          route={route}
-          onPressCallBack={onPressCallBack}
-          propParameters={propParameters}
-          funProps={funProps}
-          logicObject={logicObject}
-          themes={themes}
-          unModifiedElemOb={unModifiedElemOb}
-          customComponents={customComponents}
-          moduleParameters={propParameters}
-          unModifiedScreen={unModifiedElemOb}
-          context={context}
-          getUi={getUi}
-        />
-      );
-
-    case NANO.REANIMATED_FLATLIST:
-      return (
-        <ReanimatedFlatlist
           {...unModifiedElemOb}
           navigation={navigation}
           onPress={onPress}

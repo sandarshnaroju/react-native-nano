@@ -18,7 +18,7 @@ const ReanimatedHOC = ({
   });
   if (elementProps != null && elementProps['component'] != null) {
     switch (elementProps['component']) {
-      case NANO.REANIMATED_IMAGE:
+      case NANO.IMAGE:
         return (
           <ReanimatedImage
             elementProps={elementProps}
@@ -28,7 +28,7 @@ const ReanimatedHOC = ({
             onElementLoaded={onElementLoaded}
           />
         );
-      case NANO.REANIMATED_TEXT:
+      case NANO.TEXT:
         return (
           <ReanimatedText
             elementProps={elementProps}
@@ -38,7 +38,7 @@ const ReanimatedHOC = ({
             onElementLoaded={onElementLoaded}
           />
         );
-      case NANO.REANIMATED_VIEW:
+      case NANO.VIEW:
         if (elemObjAfterThemesSet['onPress'] != null) {
           return (
             <TouchableOpacity
