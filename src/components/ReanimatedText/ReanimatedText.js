@@ -12,7 +12,7 @@ const ReanimatedText = ({
   }, []);
   return (
     <Animated.Text
-      style={[animatedStyles.current]}
+      style={[elementProps?.props?.style, animatedStyles.current]}
       animatedProps={animatedProps}
       {...elementProps}>
       {elementProps['value']}

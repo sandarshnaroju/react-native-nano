@@ -13,7 +13,7 @@ const ReanimatedImage = ({
 
   return (
     <Animated.Image
-      style={[animatedStyles.current]}
+      style={[elementProps?.props?.style, animatedStyles.current]}
       animatedProps={animatedProps}
       {...elementProps['props']}
       {...elementProps}

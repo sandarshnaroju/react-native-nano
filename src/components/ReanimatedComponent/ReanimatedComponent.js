@@ -28,7 +28,7 @@ const ReanimatedComponent = ({elementProps, component}) => {
 
   return (
     <MyAnimatedComponent
-      style={[animatedStyles.current]}
+      style={[elementProps?.props?.style, animatedStyles.current]}
       animatedProps={animatedProps}
     />
   );

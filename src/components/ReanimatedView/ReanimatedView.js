@@ -13,7 +13,7 @@ const ReanimatedView = ({
   }, []);
   return (
     <Animated.View
-      style={[animatedStyles.current]}
+      style={[elementProps?.props?.style, animatedStyles.current]}
       animatedProps={animatedProps}
       {...elementProps}>
       {getViewItems(elementProps['content'], true, onElementLoaded)}

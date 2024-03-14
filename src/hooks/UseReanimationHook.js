@@ -20,7 +20,6 @@ export const useReanimationHook = ({elementProps}) => {
 
   let animatedStylesRef = useRef({});
   let animatedPropsRef = useRef({});
-
   if (
     elementProps != null &&
     elementProps['animation'] != null &&
@@ -49,18 +48,22 @@ export const useReanimationHook = ({elementProps}) => {
                         singleAnimationObject['componentProps']['style'],
                       ).forEach((animKey, i) => {
                         animatedStylesRef.current[animKey] = useSharedValue(
-                          elementProps['props']['style'][animKey],
+                          singleAnimationObject['componentProps']['style'][
+                            animKey
+                          ],
                         );
                       });
                     }
                   } else {
                     // useAnimatedProps
-                    animatedPropsRef.current = useAnimatedProps(() => {
-                      return {
-                        style: {},
-                        ...elementProps['props'],
-                      };
-                    });
+                    if (elementProps != null && elementProps['props'] != null) {
+                      animatedPropsRef.current = useAnimatedProps(() => {
+                        return {
+                          style: {},
+                          ...elementProps['props'],
+                        };
+                      });
+                    }
                   }
                 },
               );
@@ -217,10 +220,10 @@ export const useReanimationHook = ({elementProps}) => {
       case 'continuous':
         if (
           singleAnimationObject != null &&
-          singleAnimationObject['animType'] != null &&
-          singleAnimationObject['animType']['type'] != null
+          singleAnimationObject['animationProps'] != null &&
+          singleAnimationObject['animationProps']['type'] != null
         ) {
-          switch (singleAnimationObject['animType']['type']) {
+          switch (singleAnimationObject['animationProps']['type']) {
             case 'clamp':
               if (
                 styleKeyTobeAnimated == 'transform' &&
@@ -234,34 +237,35 @@ export const useReanimationHook = ({elementProps}) => {
                   styleKeyTobeAnimated
                 ].length > 0
               ) {
+                let modifiedTransformArray = [];
                 singleAnimationObject['componentProps']['style'][
                   styleKeyTobeAnimated
                 ].forEach((transformObj, ind) => {
+                  const tempObj = {};
+
                   Object.keys(transformObj).forEach(transformObjKey => {
-                    const tempObj = {};
                     tempObj[transformObjKey] = interpolate(
                       singleAnimationObject['componentProps']['style'][
                         styleKeyTobeAnimated
                       ][ind][transformObjKey],
-                      singleAnimationObject['animType']['input'],
-                      singleAnimationObject['animType']['output'],
-                      singleAnimationObject['animType']['type'],
+                      singleAnimationObject['animationProps']['input'],
+                      singleAnimationObject['animationProps']['output'],
+                      singleAnimationObject['animationProps']['type'],
                     );
-
-                    animatedStylesRef.current[styleKeyTobeAnimated].value = [
-                      tempObj,
-                    ];
                   });
+                  modifiedTransformArray.push(tempObj);
                 });
+                animatedStylesRef.current[styleKeyTobeAnimated].value =
+                  modifiedTransformArray;
               } else {
                 animatedStylesRef.current[styleKeyTobeAnimated].value =
                   interpolate(
                     singleAnimationObject['componentProps']['style'][
                       styleKeyTobeAnimated
                     ],
-                    singleAnimationObject['animType']['input'],
-                    singleAnimationObject['animType']['output'],
-                    singleAnimationObject['animType']['type'],
+                    singleAnimationObject['animationProps']['input'],
+                    singleAnimationObject['animationProps']['output'],
+                    singleAnimationObject['animationProps']['type'],
                   );
               }
 
