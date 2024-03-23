@@ -6,16 +6,16 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens';
-import getModuleParams from './src/core/modules';
+import getModuleParams from './core/modules';
 import {
   GenericScreen,
   ScreenObjType,
-} from './src/core/navigation/Nano';
-import LoadingScreen from './src/Loading';
+} from './core/navigation/Nano';
+import LoadingScreen from './Loading';
 import {EventRegister} from 'react-native-event-listeners';
-import {fetchAllScreensFromDB} from './src/core/modules/dbSync/DBSync';
+import {fetchAllScreensFromDB} from './core/modules/dbSync/DBSync';
 import {Provider} from 'react-native-paper';
-import DataContext from './src/core/context/DataContext';
+import DataContext from './core/context/DataContext';
 import {
   THEMES,
   APP_URL,
@@ -23,9 +23,9 @@ import {
   CLIENT_ID,
   NAVIGATION_LINKING,
   LOAD_PRIORITY,
-} from '../../nano.config';
+} from '../../../nano.config';
 import Toast from 'react-native-toast-message';
-import {executeAFunction} from './src/core/utils/Utilities';
+import {executeAFunction} from './core/utils/Utilities';
 
 const Stack = createNativeStackNavigator();
 
