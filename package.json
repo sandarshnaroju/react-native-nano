@@ -2,7 +2,7 @@
   "name": "react-native-nano",
   "version": "1.0.157",
   "description": "Simplifies react native development",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
