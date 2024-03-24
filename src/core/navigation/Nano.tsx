@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import getModuleParams from '../modules';
-import Nano from '../nano/Screen';
+import Screen from '../nano/Screen';
 
 import {fetchScreenFromDb} from '../modules/dbSync/DBSync';
 import {RELOAD_TIME} from '../../../../../nano.config';
@@ -43,7 +43,7 @@ type Props = {
   moduleParameters;
   themes;
 };
-export const GenericScreen = ({
+export const Nano = ({
   navigation,
   logic,
 
@@ -111,7 +111,7 @@ export const GenericScreen = ({
   }, [screenObj]);
 
   return (
-    <Nano
+    <Screen
       scroll={
         screenData != null &&
         screenData.props != null &&

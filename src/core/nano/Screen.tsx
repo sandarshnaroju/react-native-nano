@@ -23,7 +23,7 @@ import {
 } from '../utils/UiKeysMapper';
 import {GetContextProvider} from '../context/DataContext';
 import {useFocusEffect} from '@react-navigation/native';
-interface NanoProps {
+interface ScreenProps {
   screen: any;
   style: any;
   navigation: any;
@@ -41,7 +41,7 @@ interface NanoProps {
   onResume: string;
   scrollViewProps: any;
 }
-const Nano: React.FC<NanoProps> = ({
+const Screen: React.FC<ScreenProps> = ({
   screen,
   style,
   navigation,
@@ -265,4 +265,4 @@ const Nano: React.FC<NanoProps> = ({
     </SafeAreaView>
   );
 };
-export default Nano;
+export default Screen;

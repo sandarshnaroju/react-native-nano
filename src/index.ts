@@ -1,5 +1,5 @@
-import RNNano from './NanoApp';
+import NanoApp from './NanoApp';
 import NANO from './Constants';
-import {GenericScreen as Nano} from './core/navigation/Nano';
+import {Nano} from './core/navigation/Nano';
 
-export {RNNano, NANO, Nano};
+export {NanoApp, NANO, Nano};

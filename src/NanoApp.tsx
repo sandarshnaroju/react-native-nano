@@ -7,10 +7,7 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens';
 import getModuleParams from './core/modules';
-import {
-  GenericScreen,
-  ScreenObjType,
-} from './core/navigation/Nano';
+import {Nano, ScreenObjType} from './core/navigation/Nano';
 import LoadingScreen from './Loading';
 import {EventRegister} from 'react-native-event-listeners';
 import {fetchAllScreensFromDB} from './core/modules/dbSync/DBSync';
@@ -41,7 +38,7 @@ type Props = {
   themes;
   appStart;
 };
-const RNNano = ({
+const NanoApp = ({
   screens,
   props,
   uriScreens,
@@ -50,6 +47,7 @@ const RNNano = ({
   customModules,
   themes,
   appStart,
+  kerala,
 }: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
   const navigationRef = useNavigationContainerRef(null);
@@ -155,7 +153,7 @@ const RNNano = ({
                       name={screnObj.name}
                       {...screenProps}>
                       {prop => (
-                        <GenericScreen
+                        <Nano
                           {...prop}
                           screenUrl={screnObj['url']}
                           isMultiScreen={true}
@@ -170,7 +168,7 @@ const RNNano = ({
               ) : (
                 <Stack.Screen name={'Loading'} options={{headerShown: false}}>
                   {props => (
-                    <GenericScreen
+                    <Nano
                       {...props}
                       logic={LoadingScreen.logic}
                       screenObj={LoadingScreen}
@@ -215,7 +213,7 @@ const RNNano = ({
                         {...screenProps}
                         name={screenObj.name}>
                         {props => (
-                          <GenericScreen
+                          <Nano
                             {...props}
                             logic={screenObj.logic}
                             screenObj={screenObj}
@@ -238,4 +236,4 @@ const RNNano = ({
   );
 };
 
-export default RNNano;
+export default NanoApp;
