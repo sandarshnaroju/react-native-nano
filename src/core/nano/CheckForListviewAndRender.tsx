@@ -22,6 +22,7 @@ interface Props {
   onLongPress: () => void;
   index: number;
   [key: string]: any;
+  packages;
 }
 
 function CheckForListviewAndRender({
@@ -29,7 +30,6 @@ function CheckForListviewAndRender({
   onPress,
   onLongPress,
   route,
-  customComponents,
   databaseConfigObject,
   propParameters,
   funProps,
@@ -40,6 +40,7 @@ function CheckForListviewAndRender({
   themes,
   unModifiedElemOb,
   context,
+  packages,
 }: Props): ReactElement {
   if (
     unModifiedElemOb != null &&
@@ -66,6 +67,7 @@ function CheckForListviewAndRender({
           route={route}
           onLongPress={onLongPress}
           onPressCallBack={onPressCallBack}
+          packages={packages}
           propParameters={propParameters}
           onElementLoaded={onElementLoaded}
           funProps={funProps}
@@ -74,7 +76,6 @@ function CheckForListviewAndRender({
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
           context={context}
-          customComponents={customComponents}
           animateUi={animateUi}
         />
       );
@@ -94,15 +95,16 @@ function CheckForListviewAndRender({
             route={route}
             onPressCallBack={onPressCallBack}
             propParameters={propParameters}
+            packages={packages}
             funProps={funProps}
             logicObject={logicObject}
             themes={themes}
             unModifiedElemOb={unModifiedElemOb}
-            customComponents={customComponents}
             moduleParameters={propParameters}
             unModifiedScreen={unModifiedElemOb}
             context={context}
             getUi={getUi}
+            packages={packages}
           />
         );
       }
@@ -119,9 +121,9 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
-          customComponents={customComponents}
           moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
+          packages={packages}
           context={context}
           getUi={getUi}
         />
@@ -142,9 +144,9 @@ function CheckForListviewAndRender({
           logicObject={logicObject}
           themes={themes}
           context={context}
-          customComponents={customComponents}
           moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
+          packages={packages}
         />
       );
 
@@ -162,69 +164,69 @@ function CheckForListviewAndRender({
           funProps={funProps}
           logicObject={logicObject}
           themes={themes}
+          packages={packages}
           context={context}
-          customComponents={customComponents}
           moduleParameters={propParameters}
           unModifiedScreen={unModifiedElemOb}
+          packages={packages}
         />
       );
 
     default:
-      const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-        unModifiedElemOb,
-        themes,
-        context,
-      );
-      const customfunProps = getInterceptedFunctionProps({
-        eleObject: elemObjAfterThemesSet,
-        props: {
-          moduleParams: {...propParameters, theme: context},
+      // const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
+      //   unModifiedElemOb,
+      //   themes,
+      //   context,
+      // );
+      // const customfunProps = getInterceptedFunctionProps({
+      //   eleObject: elemObjAfterThemesSet,
+      //   props: {
+      //     moduleParams: {...propParameters, theme: context},
 
-          setUi: onPressCallBack,
-          getUi: getUi,
-        },
-      });
-      const elementProps = {
-        ...elemObjAfterThemesSet,
-        ...customfunProps,
-      };
-      const getViewItemsUpdated = (
-        contentArr,
-        shouldOnpPressAllowed,
-        onComponentLoaded,
-        uniKey = index,
-      ) => {
-        return getViewItems({
-          content: contentArr,
-          customComponents,
-          getUi,
-          onElementLoaded,
-          onPressCallBack,
-          propParameters,
-          uniqueKey: uniKey,
-        });
-      };
-      const Custom = checkNameAndRenderCustomComponent({
-        componentName: elemObjAfterThemesSet['component'],
-        compsArray: customComponents,
-        props: propParameters,
-        onElementLoaded: onElementLoaded,
-        elementProps,
-        getViewItems: getViewItemsUpdated,
-      });
+      //     setUi: onPressCallBack,
+      //     getUi: getUi,
+      //   },
+      // });
+      // const elementProps = {
+      //   ...elemObjAfterThemesSet,
+      //   ...customfunProps,
+      // };
+      // const getViewItemsUpdated = (
+      //   contentArr,
+      //   shouldOnpPressAllowed,
+      //   onComponentLoaded,
+      //   uniKey = index,
+      // ) => {
+      //   return getViewItems({
+      //     content: contentArr,
+      //     getUi,
+      //     onElementLoaded,
+      //     onPressCallBack,
+      //     propParameters,
+      //     uniqueKey: uniKey,
+      //   });
+      // };
 
-      if (Custom) {
-        return Custom;
-      }
+      // const Custom = checkNameAndRenderCustomComponent({
+      //   componentName: elemObjAfterThemesSet['component'],
+      //   props: propParameters,
+      //   onElementLoaded: onElementLoaded,
+      //   elementProps,
+      //   getViewItems: getViewItemsUpdated,
+      // });
+
+      // if (Custom) {
+      //   return Custom;
+      // }
 
       return (
         <UniversalElement
-          customComponents={customComponents}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
           getUi={getUi}
           key={index}
           uniqueKey={index}
+          packages={packages}
           themes={themes}
           unModifiedElemOb={unModifiedElemOb}
           context={context}

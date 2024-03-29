@@ -39,9 +39,9 @@ type Props = {
   screenObj: ScreenObjType;
   screenUrl: string | null;
   isMultiScreen: boolean;
-  customComponents;
   moduleParameters;
   themes;
+  packages;
 };
 export const Nano = ({
   navigation,
@@ -50,9 +50,9 @@ export const Nano = ({
   screenObj,
   screenUrl = null,
   isMultiScreen,
-  customComponents,
   moduleParameters,
   themes,
+  packages,
 }: Props) => {
   const route = navigation ? useRoute() : null;
   const [screenData, setScreenData] = useState(screenObj);
@@ -60,7 +60,7 @@ export const Nano = ({
   let database;
   var timeut = null;
 
-  const fetchScreenFromNetwork = uri => {
+  const fetchScreenFromNetwork = (uri: string): void => {
     fetchScreenFromDb({
       screenUrl: uri,
     })
@@ -141,22 +141,8 @@ export const Nano = ({
       onResume={screenData != null ? screenData.onResume : null}
       route={route}
       moduleParameters={moduleParameters}
-      customComponents={customComponents}
       themes={themes}
+      packages={packages}
     />
   );
 };
-
-// const areEqual = (prevProps, nextProps) => {
-//   /*
-//       return true if passing nextProps to render would return
-//       the same result as passing prevProps to render,
-//       otherwise return false
-//       */
-//   if (isEqual(nextProps, prevProps)) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// };
-// export default GenericScreen;

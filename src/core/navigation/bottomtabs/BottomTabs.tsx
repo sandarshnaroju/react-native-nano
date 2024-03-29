@@ -15,20 +15,20 @@ interface Screen {
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  customComponents: any;
   unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
   context: any;
+  packages;
 }
 const GetScreens: React.FC<GetScreensProps> = ({
   content,
   navigation,
-  customComponents,
   unModifiedScreen,
   themes,
   moduleParameters,
   context,
+  packages,
 }) => {
   const drawerScreens = [];
 
@@ -47,11 +47,11 @@ const GetScreens: React.FC<GetScreensProps> = ({
               {...props}
               screen={screen}
               navigation={navigation}
-              customComponents={customComponents}
               moduleParameters={moduleParameters}
               themes={themes}
               context={context}
               unModifiedScreen={unModifiedScreen}
+              packages={packages}
             />
           )}
         </Tab.Screen>,
@@ -63,21 +63,21 @@ const GetScreens: React.FC<GetScreensProps> = ({
 interface NanoBottomTabsProps {
   // drawerObj: DrawerObject; // Adjust type as per your DrawerObject type
   // navigation: Navigation; // Adjust type as per your Navigation type
-  customComponents: any;
   unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
+  packages;
 }
 
 const NanoBottomTabs: React.FC<NanoBottomTabsProps> = ({
   drawerObj,
   navigation,
-  customComponents,
   unModifiedScreen,
   themes,
   moduleParameters,
   context,
+  packages,
 }) => {
   let navigatorPropsWithThemesSet = drawerObj.navigatorProps;
   if (themes != null && themes.length > 0) {
@@ -93,11 +93,11 @@ const NanoBottomTabs: React.FC<NanoBottomTabsProps> = ({
       {GetScreens({
         content: drawerObj['content'],
         navigation: navigation,
-        customComponents: customComponents,
         moduleParameters: moduleParameters,
         themes: themes,
         unModifiedScreen: unModifiedScreen,
         context,
+        packages,
       })}
     </Tab.Navigator>
   );

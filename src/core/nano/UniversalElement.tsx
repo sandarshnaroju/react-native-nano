@@ -2,24 +2,24 @@ import * as Animatable from 'react-native-animatable';
 import React from 'react';
 import getElementAsPerComponent from './ElementByComponent';
 interface ElementProps {
-  customComponents: any;
   uniqueKey: string | number;
   propParameters: any;
   onPressCallBack: () => void;
   recyclerListViewFunctionProps: any;
   getUi: any;
   themes: any;
-  // unModifiedElemOb: any;
+  unModifiedElemOb: any;
   context: any;
   componentParams: any;
+  packages;
 }
 function UniversalElement({
-  customComponents,
   uniqueKey,
 
   propParameters,
   onPressCallBack,
   recyclerListViewFunctionProps,
+  packages,
 
   getUi,
   themes,
@@ -33,7 +33,6 @@ function UniversalElement({
     elemOb: elemObjAfterThemesSet,
     index: uniqueKey,
 
-    customComponents,
     getUi,
     onPressCallBack,
     propParameters,
@@ -42,6 +41,7 @@ function UniversalElement({
     themes,
     context,
     componentParams,
+    packages,
   });
 
   if (

@@ -11,7 +11,11 @@ interface Props {
   onElementLoaded: (elementProps: ElementProps) => void;
 }
 
-const Button: React.FC<Props> = ({elementProps, onElementLoaded}) => {
+const Button: React.FC<Props> = ({
+  elementProps,
+  getViewItems,
+  onElementLoaded,
+}) => {
   useEffect(() => {
     onElementLoaded(elementProps);
   }, []);

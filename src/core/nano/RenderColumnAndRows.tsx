@@ -10,11 +10,11 @@ interface GetRowElementsProps {
   logicObject: any;
   propParameters: any;
   route: any;
-  customComponents: any;
   getUi: any;
   themes: any;
   unModifiedRowElementsArray: RowElement[];
   context: any;
+  packages;
 }
 const GetRowElements: React.FC<GetRowElementsProps> = ({
   navigation,
@@ -22,11 +22,11 @@ const GetRowElements: React.FC<GetRowElementsProps> = ({
   logicObject,
   propParameters,
   route,
-  customComponents,
   getUi,
   themes,
   unModifiedRowElementsArray,
   context,
+  packages,
 }) => {
   const rowelements: JSX.Element[] = [];
 
@@ -44,12 +44,12 @@ const GetRowElements: React.FC<GetRowElementsProps> = ({
           navigation={navigation}
           route={route}
           propParameters={propParameters}
-          customComponents={customComponents}
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
           getUi={getUi}
           themes={themes}
           context={context}
+          packages={packages}
         />,
       );
     });
@@ -62,13 +62,12 @@ interface RenderColoumViewsProps {
   logicObject: any; // Adjust type as per your logic object
   propParameters: any;
   onPressCallBack: () => void;
-  onLongPressCallBack: () => void; // Adjust type as per your long press callback
   route: any; // Adjust type as per your route object
-  customComponents: any;
   getUi: any;
   themes: any;
   unModifiedTotalData: Record<string, any>; // Adjust type as per your data structure
   context: any;
+  packages;
 }
 
 const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
@@ -77,11 +76,11 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
   propParameters,
   onPressCallBack,
   route,
-  customComponents,
   getUi,
   themes,
   unModifiedTotalData,
   context,
+  packages,
 }) => {
   const elements = [];
   if (unModifiedTotalData != null) {
@@ -103,11 +102,11 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
               propParameters={propParameters}
               onPressCallBack={onPressCallBack}
               // onLongPressCallBack={onLongPressCallBack}
-              customComponents={customComponents}
               route={route}
               getUi={getUi}
               themes={themes}
               context={context}
+              packages={packages}
             />
           </View>,
         );
@@ -123,12 +122,11 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onPressCallBack}
-            // onLongPressCallBack={onLongPressCallBack}
-            customComponents={customComponents}
             route={route}
             getUi={getUi}
             themes={themes}
             context={context}
+            packages={packages}
           />,
         );
       }

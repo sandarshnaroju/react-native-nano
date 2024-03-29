@@ -589,7 +589,6 @@ export const getViewItems = ({
   content,
 
   uniqueKey,
-  customComponents,
   onPressCallBack,
   propParameters,
   getUi,
@@ -601,7 +600,6 @@ export const getViewItems = ({
   if (content != null && content.length > 0) {
     content.forEach((elemet, index) => {
       const oitem = getElementAsPerComponent({
-        customComponents,
         elemOb: elemet,
         index: index + uniqueKey,
         componentParams,

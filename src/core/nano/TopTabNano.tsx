@@ -29,12 +29,12 @@ interface NanoProps {
   onEnd: string;
   route: any;
   moduleParameters: any;
-  customComponents: any;
   themes: any;
   unModifiedScreen: any;
   onPause: string;
   onResume: string;
   scrollViewProps: any;
+  packages;
 }
 export const TopTabNano: React.FC<NanoProps> = ({
   screen,
@@ -47,20 +47,18 @@ export const TopTabNano: React.FC<NanoProps> = ({
   onEnd,
   route,
   moduleParameters,
-  customComponents,
   themes,
   unModifiedScreen,
   onPause,
   onResume,
   scrollViewProps,
+  packages,
 }) => {
   const uiElementsRef = useRef(screen);
   const defaultScreensRef = useRef(null);
 
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
-
-  const customeCompsRef = useRef(customComponents);
 
   const clonedScreenStyles = cloneDeep(style);
   const getUi = (nameKey: string) => {
@@ -230,11 +228,10 @@ export const TopTabNano: React.FC<NanoProps> = ({
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onSetUiCallBack}
-            customComponents={customeCompsRef.current}
-            onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
             themes={themes}
             context={context}
+            packages={packages}
           />
         )}
       </ScrollView>
@@ -250,10 +247,9 @@ export const TopTabNano: React.FC<NanoProps> = ({
           unModifiedTotalData={cloneDeep(uiElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onSetUiCallBack}
-          onLongPressCallBack={onLongPressCallBack}
-          customComponents={customeCompsRef.current}
           getUi={getUi}
           themes={themes}
+          packages={packages}
           context={context}
         />
       )}

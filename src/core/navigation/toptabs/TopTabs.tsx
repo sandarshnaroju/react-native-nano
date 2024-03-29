@@ -15,20 +15,20 @@ interface Screen {
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  customComponents: any;
   unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
   context: any;
+  packages;
 }
 const GetScreens: React.FC<GetScreensProps> = ({
   content,
   navigation,
-  customComponents,
   unModifiedScreen,
   themes,
   moduleParameters,
   context,
+  packages,
 }) => {
   const drawerScreens = [];
 
@@ -47,11 +47,11 @@ const GetScreens: React.FC<GetScreensProps> = ({
               {...props}
               screen={screen}
               navigation={navigation}
-              customComponents={customComponents}
               moduleParameters={moduleParameters}
               themes={themes}
               unModifiedScreen={unModifiedScreen}
               context={context}
+              packages={packages}
             />
           )}
         </Tab.Screen>,
@@ -67,20 +67,20 @@ interface DrawerObj {
 interface NanoTabsProps {
   drawerObj: DrawerObj;
   navigation: any; // Adjust type as per your navigation object type
-  customComponents: any;
   unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
+  packages;
 }
 const NanoTopTabs: React.FC<NanoTabsProps> = ({
   drawerObj,
   navigation,
-  customComponents,
   unModifiedScreen,
   themes,
   moduleParameters,
   context,
+  packages,
 }) => {
   let navigatorPropsWithThemesSet = drawerObj.navigatorProps;
   if (themes != null && themes.length > 0) {
@@ -95,28 +95,14 @@ const NanoTopTabs: React.FC<NanoTabsProps> = ({
       {GetScreens({
         content: drawerObj['content'],
         navigation,
-        customComponents: customComponents,
         moduleParameters: moduleParameters,
         themes: themes,
         unModifiedScreen: unModifiedScreen,
         context,
+        packages,
       })}
     </Tab.Navigator>
   );
 };
 
 export default NanoTopTabs;
-
-// function areEqual(prevProps, nextProps) {
-//   /*
-//     return true if passing nextProps to render would return
-//     the same result as passing prevPropos to render,
-//     otherwise return false
-//     */
-//   if (isEqual(nextProps, prevProps)) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-// export default React.memo(NanoTopTabs, areEqual);

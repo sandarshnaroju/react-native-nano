@@ -17,7 +17,6 @@ interface NanoFlatlistProps {
   keyExtractor: (item: Item, index: number) => string;
   extraItemviewProps: any;
   props: any;
-  customComponents: any;
   themes: any;
   propParameters: any;
   getUi: any;
@@ -26,6 +25,7 @@ interface NanoFlatlistProps {
   uniqueKey: (item: Item) => string;
   context: any;
   logicObject: any;
+  packages;
 }
 
 const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
@@ -37,7 +37,6 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
   keyExtractor,
   extraItemviewProps,
   props,
-  customComponents,
   themes,
   propParameters,
   getUi,
@@ -46,6 +45,7 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
   uniqueKey,
   context,
   logicObject,
+  packages,
 }) => {
   const renderItem = ({item, index}) => {
     let mapperResult = null;
@@ -90,7 +90,6 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
         key={uniq + index}
         elemObj={funProps}
         navigation={navigation}
-        customComponents={customComponents}
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}
@@ -100,6 +99,7 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
         uniqueKey={uniq + index}
         context={context}
         componentParams={componentParams}
+        packages={packages}
       />
     );
   };

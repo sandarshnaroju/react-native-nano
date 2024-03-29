@@ -16,7 +16,6 @@ interface ReanimatedFlatlistProps {
   keyExtractor: Function;
   extraItemviewProps: any;
   props: any;
-  customComponents: any;
   themes: any;
   propParameters: any;
   getUi: any;
@@ -25,6 +24,7 @@ interface ReanimatedFlatlistProps {
   uniqueKey: Function;
   context: any;
   logicObject: any;
+  packages;
   elementProps: any;
 }
 const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
@@ -36,7 +36,6 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
   keyExtractor,
   extraItemviewProps,
   props,
-  customComponents,
   themes,
   propParameters,
   getUi,
@@ -46,6 +45,7 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
   context,
   logicObject,
   elementProps,
+  packages,
 }) => {
   let [animatedStylesNewRef, animatedPropsRef] = useReanimationHook({
     elementProps,
@@ -93,7 +93,6 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
         key={uniq + index}
         elemObj={funProps}
         navigation={navigation}
-        customComponents={customComponents}
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}
@@ -103,6 +102,7 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
         uniqueKey={uniq + index}
         context={context}
         componentParams={componentParams}
+        packages={packages}
       />
     );
   };

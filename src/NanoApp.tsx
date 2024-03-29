@@ -23,31 +23,30 @@ import {
 } from '../../../nano.config';
 import Toast from 'react-native-toast-message';
 import {executeAFunction} from './core/utils/Utilities';
+import UIPackages from './libs';
 
 const Stack = createNativeStackNavigator();
 
 enableScreens();
+type screensType = ScreenObjType[];
 
 type Props = {
-  screens: ScreenObjType[];
+  screens: screensType;
   props;
   uriScreens;
   clientId;
-  customComponents;
-  customModules;
   themes;
   appStart;
+  packages;
 };
 const NanoApp = ({
   screens,
   props,
   uriScreens,
   clientId,
-  customComponents,
-  customModules,
   themes,
+  packages,
   appStart,
-  kerala,
 }: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
   const navigationRef = useNavigationContainerRef(null);
@@ -106,8 +105,26 @@ const NanoApp = ({
   const defaultParameters = getModuleParams({
     callBack: realDbInitCallback,
   });
+  const createCustomModuleObject = () => {
+    let temp = {};
+    if (UIPackages) {
+      UIPackages.forEach(singlePackage => {
+        const moduless = singlePackage?.package?.modules;
+        if (moduless != null && moduless.length > 0) {
+          moduless.forEach(singleModule => {
+            temp[singleModule.name] = singleModule.module;
+          });
+        }
+      });
+    }
 
-  const moduleParameters = {...customModules, ...defaultParameters};
+    return temp;
+  };
+
+  const moduleParameters = {
+    ...createCustomModuleObject(),
+    ...defaultParameters,
+  };
 
   useEffect(() => {
     EventRegister.addEventListener('nano-all-screens-load', v => {
@@ -125,7 +142,7 @@ const NanoApp = ({
             ref={navigationRef}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
-                ...customModules,
+                ...createCustomModuleObject(),
                 ...defaultParameters,
                 navigation: navigationRef,
               };
@@ -158,8 +175,8 @@ const NanoApp = ({
                           screenUrl={screnObj['url']}
                           isMultiScreen={true}
                           moduleParameters={moduleParameters}
-                          customComponents={customComponents}
                           themes={themes}
+                          packages={packages}
                         />
                       )}
                     </Stack.Screen>
@@ -174,8 +191,8 @@ const NanoApp = ({
                       screenObj={LoadingScreen}
                       isMultiScreen={true}
                       moduleParameters={moduleParameters}
-                      customComponents={customComponents}
                       themes={themes}
+                      packages={packages}
                     />
                   )}
                 </Stack.Screen>
@@ -189,7 +206,7 @@ const NanoApp = ({
             linking={NAVIGATION_LINKING}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
-                ...customModules,
+                ...createCustomModuleObject(),
                 ...defaultParameters,
                 navigation: navigationRef,
               };
@@ -219,8 +236,8 @@ const NanoApp = ({
                             screenObj={screenObj}
                             isMultiScreen={true}
                             moduleParameters={moduleParameters}
-                            customComponents={customComponents}
                             themes={themes}
+                            packages={packages}
                           />
                         )}
                       </Stack.Screen>

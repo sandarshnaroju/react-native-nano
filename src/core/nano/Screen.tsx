@@ -34,12 +34,12 @@ interface ScreenProps {
   onEnd: string;
   route: any;
   moduleParameters: any;
-  customComponents: any;
   themes: any;
   unModifiedScreen: any;
   onPause: string;
   onResume: string;
   scrollViewProps: any;
+  packages;
 }
 const Screen: React.FC<ScreenProps> = ({
   screen,
@@ -52,18 +52,18 @@ const Screen: React.FC<ScreenProps> = ({
   onEnd,
   route,
   moduleParameters,
-  customComponents,
   themes,
   unModifiedScreen,
   onPause,
   onResume,
+  packages,
+
   scrollViewProps,
 }): ReactElement => {
   const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
   const defaultScreensRef = useRef(null);
-  const customeCompsRef = useRef(customComponents);
 
   const clonedScreenStyles = cloneDeep(style);
 
@@ -235,10 +235,9 @@ const Screen: React.FC<ScreenProps> = ({
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onSetUiCallBack}
-            customComponents={customeCompsRef.current}
-            onLongPressCallBack={onLongPressCallBack}
             getUi={getUi}
             themes={themes}
+            packages={packages}
             context={context}
           />
         )}
@@ -255,9 +254,8 @@ const Screen: React.FC<ScreenProps> = ({
           unModifiedTotalData={cloneDeep(uiElementsRef.current)}
           propParameters={propParameters}
           onPressCallBack={onSetUiCallBack}
-          onLongPressCallBack={onLongPressCallBack}
-          customComponents={customeCompsRef.current}
           getUi={getUi}
+          packages={packages}
           themes={themes}
           context={context}
         />

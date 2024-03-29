@@ -36,13 +36,13 @@ interface RecycleTestComponentProps {
   logicObject: any;
   uniqueKey: Function;
   themes: any;
-  customComponents: any;
   context: any;
   itemWidth?: number;
   itemHeight?: number;
   mapper?: Function;
   itemView: any;
   props: any;
+  packages;
 }
 interface RecycleTestComponentState {
   dataProvider: DataProvider;
@@ -178,10 +178,10 @@ class RecycleTestComponent extends React.Component<
             // item={data}
             // listViewIndex={index}
             themes={this.props.themes}
-            customComponents={this.props.customComponents}
             getUi={this.props.getUi}
             context={this.props.context}
             componentParams={componentParams}
+            packages={this.props.packages}
           />
         );
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import NANO from '../../Constants';
-import ReanimatedImage from '../../libs/react-native-paper/components/ReanimatedImage';
-import ReanimatedText from '../../libs/react-native-paper/components/ReanimatedText';
+
 import {useReanimationHook} from '../hooks/UseReanimationHook';
 import {TouchableOpacity} from 'react-native';
-import ReanimatedView from '../../libs/react-native-paper/components/ReanimatedView';
 
 interface ElementProps {
   component: string;
@@ -17,6 +15,7 @@ interface Props {
   onElementLoaded: () => void;
   elemObjAfterThemesSet: {[key: string]: any};
   index: number;
+  requiredPackageObj: {};
 }
 
 const ReanimatedHOC: React.FC<Props> = ({
@@ -25,32 +24,19 @@ const ReanimatedHOC: React.FC<Props> = ({
   onElementLoaded,
   elemObjAfterThemesSet,
   index,
+
+  requiredPackageObj,
 }) => {
   let [animatedStylesNewRef, animatedPropsRef] = useReanimationHook({
     elementProps,
   });
+  const requiredComponentObj = requiredPackageObj.package.components.find(
+    t => t.name == 'reanimated_' + elemObjAfterThemesSet['component'],
+  );
+  const Component = requiredComponentObj.component;
+
   if (elementProps != null && elementProps['component'] != null) {
     switch (elementProps['component']) {
-      case NANO.IMAGE:
-        return (
-          <ReanimatedImage
-            elementProps={elementProps}
-            animatedProps={animatedPropsRef}
-            animatedStyles={animatedStylesNewRef}
-            getViewItems={getViewItems}
-            onElementLoaded={onElementLoaded}
-          />
-        );
-      case NANO.TEXT:
-        return (
-          <ReanimatedText
-            elementProps={elementProps}
-            animatedProps={animatedPropsRef}
-            animatedStyles={animatedStylesNewRef}
-            getViewItems={getViewItems}
-            onElementLoaded={onElementLoaded}
-          />
-        );
       case NANO.VIEW:
         if (elemObjAfterThemesSet['onPress'] != null) {
           return (
@@ -58,7 +44,7 @@ const ReanimatedHOC: React.FC<Props> = ({
               key={'TouchableOpacity' + index}
               {...elementProps['props']}
               {...elementProps}>
-              <ReanimatedView
+              <Component
                 key={'reanimated_view' + index}
                 elementProps={elementProps}
                 getViewItems={getViewItems}
@@ -71,7 +57,7 @@ const ReanimatedHOC: React.FC<Props> = ({
         }
 
         return (
-          <ReanimatedView
+          <Component
             key={'reanimated_view' + index}
             elementProps={elementProps}
             getViewItems={getViewItems}
@@ -82,7 +68,15 @@ const ReanimatedHOC: React.FC<Props> = ({
         );
 
       default:
-        return null;
+        return (
+          <Component
+            elementProps={elementProps}
+            animatedProps={animatedPropsRef}
+            animatedStyles={animatedStylesNewRef}
+            getViewItems={getViewItems}
+            onElementLoaded={onElementLoaded}
+          />
+        );
     }
   }
 };
