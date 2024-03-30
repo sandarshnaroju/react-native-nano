@@ -156,8 +156,6 @@ const getElementAsPerComponent: React.FC<Props> = ({
           return true;
         }
         return false;
-
-        // return true;
       });
 
       if (
@@ -168,7 +166,10 @@ const getElementAsPerComponent: React.FC<Props> = ({
         const requiredComponentObj = requiredPackageObj.package.components.find(
           t => t.name == elemObjAfterThemesSet['component'],
         );
-        if (requiredComponentObj.name == NANO.VIEW) {
+        if (
+          requiredComponentObj != null &&
+          requiredComponentObj.name == 'view'
+        ) {
           if (
             elementProps &&
             elementProps['animation'] != null &&

@@ -173,52 +173,6 @@ function CheckForListviewAndRender({
       );
 
     default:
-      // const elemObjAfterThemesSet = modifyElemObjAsPerTheme(
-      //   unModifiedElemOb,
-      //   themes,
-      //   context,
-      // );
-      // const customfunProps = getInterceptedFunctionProps({
-      //   eleObject: elemObjAfterThemesSet,
-      //   props: {
-      //     moduleParams: {...propParameters, theme: context},
-
-      //     setUi: onPressCallBack,
-      //     getUi: getUi,
-      //   },
-      // });
-      // const elementProps = {
-      //   ...elemObjAfterThemesSet,
-      //   ...customfunProps,
-      // };
-      // const getViewItemsUpdated = (
-      //   contentArr,
-      //   shouldOnpPressAllowed,
-      //   onComponentLoaded,
-      //   uniKey = index,
-      // ) => {
-      //   return getViewItems({
-      //     content: contentArr,
-      //     getUi,
-      //     onElementLoaded,
-      //     onPressCallBack,
-      //     propParameters,
-      //     uniqueKey: uniKey,
-      //   });
-      // };
-
-      // const Custom = checkNameAndRenderCustomComponent({
-      //   componentName: elemObjAfterThemesSet['component'],
-      //   props: propParameters,
-      //   onElementLoaded: onElementLoaded,
-      //   elementProps,
-      //   getViewItems: getViewItemsUpdated,
-      // });
-
-      // if (Custom) {
-      //   return Custom;
-      // }
-
       return (
         <UniversalElement
           onPressCallBack={onPressCallBack}
