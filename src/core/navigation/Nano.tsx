@@ -11,20 +11,18 @@ import NANO from '../../Constants';
 
 type NanoValue = keyof typeof NANO;
 
-type hor = 'v1' | 'h1';
 interface component {
   name?: string;
   component: NanoValue;
+  [key: string]: any;
 }
 
 export interface ScreenObjType {
   name: string;
   screen: {
-    [key: hor]: component[];
+    [key: string]: component[];
   };
-  props?: {
-    style?: React.CSSProperties;
-  };
+
   screenProps?: {
     options?: {
       headerShown?: boolean;
@@ -34,10 +32,10 @@ export interface ScreenObjType {
 }
 type Props = {
   navigation;
-  logic;
+  logic?;
 
-  screenObj: ScreenObjType;
-  screenUrl: string | null;
+  screenObj?: ScreenObjType;
+  screenUrl?: string | null;
   isMultiScreen: boolean;
   moduleParameters;
   themes;
@@ -134,7 +132,6 @@ export const Nano = ({
       screen={screenData != null ? screenData.screen : null}
       navigation={navigation}
       logicObject={logic}
-      screenName={screenData != null ? screenData.name : null}
       onStart={screenData != null ? screenData.onStart : null}
       onEnd={screenData != null ? screenData.onEnd : null}
       onPause={screenData != null ? screenData.onPause : null}

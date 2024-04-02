@@ -7,9 +7,9 @@ interface NanoAppBarBackActionProps {
   };
   getViewItems: (
     content: React.ReactNode,
-    onElementLoaded: (props: Appbar.BackActionProps) => void,
+    onElementLoaded: (props: any) => void,
   ) => React.ReactNode;
-  onElementLoaded: (props: Appbar.BackActionProps) => void;
+  onElementLoaded: (props: any) => void;
 }
 
 const NanoAppBarBackAction: React.FC<NanoAppBarBackActionProps> = ({
@@ -18,7 +18,7 @@ const NanoAppBarBackAction: React.FC<NanoAppBarBackActionProps> = ({
   onElementLoaded,
 }) => {
   useEffect(() => {
-    onElementLoaded(elementProps.props);
+    onElementLoaded(elementProps);
   }, []);
 
   return <Appbar.BackAction {...elementProps.props} />;

@@ -70,12 +70,12 @@ const ContextProvider: React.FC<ContextProviderProps> = props => {
 
   return (
     <Context.Provider
-      value={{
+      value={JSON.stringify({
         isDark,
         theme: themeString,
 
         setTheme,
-      }}>
+      })}>
       {props.children}
     </Context.Provider>
   );

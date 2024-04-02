@@ -12,16 +12,10 @@ interface NanoFlatlistProps {
   data: Item[];
   itemView: any;
   mapper?: Function;
-  navigation: any;
-  onPress: () => void;
-  keyExtractor: (item: Item, index: number) => string;
-  extraItemviewProps: any;
-  props: any;
   themes: any;
   propParameters: any;
   getUi: any;
   onPressCallBack: () => void;
-  unModifiedElemOb: any;
   uniqueKey: (item: Item) => string;
   context: any;
   logicObject: any;
@@ -32,16 +26,10 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
   data,
   itemView,
   mapper,
-  navigation,
-  onPress,
-  keyExtractor,
-  extraItemviewProps,
-  props,
   themes,
   propParameters,
   getUi,
   onPressCallBack,
-  unModifiedElemOb,
   uniqueKey,
   context,
   logicObject,
@@ -53,6 +41,7 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
       mapperResult = executeAFunction(mapper, item);
     }
 
+    
     const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
       itemView['content'],
       mapperResult,
@@ -67,8 +56,8 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
     const uniq = executeAFunction(uniqueKey, item);
     const componentParams = {
       index,
-      itemData: data,
-      listData: this.props.listData,
+      itemData: item,
+      listData: data,
     };
     const funProps = getInterceptedFunctionProps({
       eleObject: elemOb,
@@ -82,14 +71,12 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
         getUi: getUi,
         setUi: onPressCallBack,
       },
-      onPressCallBack: onPressCallBack,
+      // onPressCallBack: onPressCallBack,
     });
 
     return (
       <UniversalElement
         key={uniq + index}
-        elemObj={funProps}
-        navigation={navigation}
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}

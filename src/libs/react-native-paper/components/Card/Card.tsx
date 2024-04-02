@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Card as PaperCard, CardProps} from 'react-native-paper';
 
 interface ElementProps {
-  props: CardProps;
+  props: any;
   content: any;
 }
 

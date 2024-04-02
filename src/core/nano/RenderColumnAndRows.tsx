@@ -3,31 +3,27 @@ import CheckForListviewAndRender from './CheckForListviewAndRender';
 import React from 'react';
 interface RowElement {}
 interface GetRowElementsProps {
-  rowKey: string | number;
   navigation: any;
   onPressCallBack: () => void;
-  onLongPressCallBack: () => void;
   logicObject: any;
   propParameters: any;
-  route: any;
   getUi: any;
   themes: any;
   unModifiedRowElementsArray: RowElement[];
   context: any;
   packages;
 }
-const GetRowElements: React.FC<GetRowElementsProps> = ({
+const GetRowElements = ({
   navigation,
   onPressCallBack,
   logicObject,
   propParameters,
-  route,
   getUi,
   themes,
   unModifiedRowElementsArray,
   context,
   packages,
-}) => {
+}: GetRowElementsProps): JSX.Element => {
   const rowelements: JSX.Element[] = [];
 
   if (
@@ -36,13 +32,13 @@ const GetRowElements: React.FC<GetRowElementsProps> = ({
     unModifiedRowElementsArray.length > 0
   ) {
     unModifiedRowElementsArray.forEach((eleObject, index) => {
+    
       rowelements.push(
         <CheckForListviewAndRender
           key={index}
           index={index}
           unModifiedElemOb={eleObject}
           navigation={navigation}
-          route={route}
           propParameters={propParameters}
           logicObject={logicObject}
           onPressCallBack={onPressCallBack}
@@ -55,14 +51,13 @@ const GetRowElements: React.FC<GetRowElementsProps> = ({
     });
   }
 
-  return rowelements;
+  return <>{rowelements}</>;
 };
 interface RenderColoumViewsProps {
   navigation: any; // Adjust type as per your navigation object type
   logicObject: any; // Adjust type as per your logic object
   propParameters: any;
   onPressCallBack: () => void;
-  route: any; // Adjust type as per your route object
   getUi: any;
   themes: any;
   unModifiedTotalData: Record<string, any>; // Adjust type as per your data structure
@@ -70,19 +65,18 @@ interface RenderColoumViewsProps {
   packages;
 }
 
-const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
+const RenderColoumViews = ({
   navigation,
   logicObject,
   propParameters,
   onPressCallBack,
-  route,
   getUi,
   themes,
   unModifiedTotalData,
   context,
   packages,
-}) => {
-  const elements = [];
+}: RenderColoumViewsProps): JSX.Element => {
+  const elements: JSX.Element[] = [];
   if (unModifiedTotalData != null) {
     Object.keys(unModifiedTotalData).forEach((key, index) => {
       if (key != null && key.slice(0, 1) == 'h') {
@@ -97,12 +91,9 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
               unModifiedRowElementsArray={
                 unModifiedTotalData != null ? unModifiedTotalData[key] : null
               }
-              // rowKey={key}
               logicObject={logicObject}
               propParameters={propParameters}
               onPressCallBack={onPressCallBack}
-              // onLongPressCallBack={onLongPressCallBack}
-              route={route}
               getUi={getUi}
               themes={themes}
               context={context}
@@ -114,7 +105,6 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
         elements.push(
           <GetRowElements
             navigation={navigation}
-            // rowKey={key}
             unModifiedRowElementsArray={
               unModifiedTotalData != null ? unModifiedTotalData[key] : null
             }
@@ -122,7 +112,6 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
             logicObject={logicObject}
             propParameters={propParameters}
             onPressCallBack={onPressCallBack}
-            route={route}
             getUi={getUi}
             themes={themes}
             context={context}
@@ -133,6 +122,7 @@ const RenderColoumViews: React.FC<RenderColoumViewsProps> = ({
     });
   }
 
-  return elements;
+  return <>{elements}</>;
 };
+
 export default RenderColoumViews;

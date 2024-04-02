@@ -4,6 +4,7 @@ import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
 import {
   executeAFunction,
+  isFunction,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
@@ -29,7 +30,7 @@ const withExtraParams = (originalFn, extraParams, onPressCallBack) => {
 interface RecycleTestComponentProps {
   onElementLoaded: Function;
   getUi: any;
-  onPressCallBack: Function;
+  onPressCallBack: () => void;
   unModifiedElemOb: any;
   propParameters: any;
   listData: any[];
@@ -39,10 +40,11 @@ interface RecycleTestComponentProps {
   context: any;
   itemWidth?: number;
   itemHeight?: number;
-  mapper?: Function;
+  mapper?: (arg: any) => {};
   itemView: any;
   props: any;
   packages;
+  animateUi;
 }
 interface RecycleTestComponentState {
   dataProvider: DataProvider;
@@ -124,20 +126,18 @@ class RecycleTestComponent extends React.Component<
     });
   }
 
-  _rowRenderer(type: string, data: any, index: number): JSX.Element | null {
+  _rowRenderer(type: number, data: any, index: number): JSX.Element | null {
     switch (type) {
       case ViewTypes.FULL:
-        let mapper = null;
-        if (this.props.mapper) {
-          mapper = this.props.mapper(data);
-        }
+        const mapper = executeAFunction(this.props.mapper, data);
 
         const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
           this.props.itemView['content'],
           mapper,
         );
 
-        const uniq = this.props.uniqueKey(data);
+        const uniq = executeAFunction(this.props.uniqueKey, data);
+
         const elemOb = {
           ...this.props.itemView,
           value: mapper['value'],
@@ -170,7 +170,7 @@ class RecycleTestComponent extends React.Component<
             // elemObj={elemOb}
             // navigation={this.props.navigation}
             unModifiedElemOb={elemOb}
-            // onPressCallBack={this.props.onPressCallBack}
+            onPressCallBack={this.props.onPressCallBack}
             propParameters={this.props.propParameters}
             recyclerListViewFunctionProps={funProps}
             // logicObject={this.props.logicObject}
@@ -222,7 +222,9 @@ class RecycleTestComponent extends React.Component<
           rowRenderer={this._rowRenderer}
           {...this.props.props}
           {...recyclerProps}
-          extendedState={this.props.context}
+          extendedState={
+            this.props.context != null ? JSON.parse(this.props.context) : null
+          }
         />
       </View>
     );

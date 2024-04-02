@@ -11,11 +11,13 @@ interface ElementProps {
 
 interface Props {
   elementProps: ElementProps;
-  getViewItems: () => void;
-  onElementLoaded: () => void;
+  getViewItems: (arg1: any, arg2: any, arg3: any) => void;
+  onElementLoaded: (ElementProps) => void;
   elemObjAfterThemesSet: {[key: string]: any};
   index: number;
-  requiredPackageObj: {};
+  requiredPackageObj: {
+    package: {name: string; components: any[]};
+  };
 }
 
 const ReanimatedHOC: React.FC<Props> = ({

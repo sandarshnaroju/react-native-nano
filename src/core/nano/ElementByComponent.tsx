@@ -182,6 +182,7 @@ const getElementAsPerComponent: React.FC<Props> = ({
                 onElementLoaded={onElementLoad}
                 elemObjAfterThemesSet={elemObjAfterThemesSet}
                 index={index}
+                requiredPackageObj={requiredPackageObj}
               />
             );
           }
@@ -241,7 +242,6 @@ const getElementAsPerComponent: React.FC<Props> = ({
                 getViewItems={renderChildren}
                 onElementLoaded={onElementLoad}
                 elemObjAfterThemesSet={elemObjAfterThemesSet}
-                Component={Component}
                 requiredPackageObj={requiredPackageObj}
                 index={index}
               />

@@ -6,5 +6,6 @@ const NANO = {
   TOP_TABS: 'top_tabs',
   BOTTOM_BAR: 'bottom_bar',
   TOP_BAR: 'top_bar',
+  VIEW: 'view',
 };
 export default NANO;

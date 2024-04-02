@@ -79,7 +79,7 @@ export default {
     },
     {
       name: 'card_action',
-      component: Components.CardAction,
+      component: Components.CardActions,
     },
     {
       name: 'card_cover',
@@ -99,7 +99,7 @@ export default {
     },
     {
       name: 'dialog_action',
-      component: Components.DialogAction,
+      component: Components.DialogActions,
     },
     {
       name: 'dialog_scrollarea',
@@ -113,10 +113,7 @@ export default {
       name: 'segmented_buttons',
       component: Components.SegmentedButtons,
     },
-    {
-      name: 'snackbar',
-      component: Components.Snackbar,
-    },
+
     {
       name: 'tooltip',
       component: Components.Tooltip,
@@ -133,13 +130,13 @@ export default {
       name: 'modal',
       component: Components.Modal,
     },
-    {
-      name: 'video',
-      component: Components.Video,
-    },
+    // {
+    //   name: 'video',
+    //   component: Components.Video,
+    // },
     {
       name: 'scroll_view',
-      component: Components.ScrollView,
+      component: Components.Scrollview,
     },
     {
       name: 'helper_text',
@@ -147,19 +144,19 @@ export default {
     },
     {
       name: 'appbar_action',
-      component: Components.AppbarAction,
+      component: Components.NanoAppBarAction,
     },
     {
       name: 'appbar_back_action',
-      component: Components.AppbarBackAction,
+      component: Components.NanoAppBarBackAction,
     },
     {
       name: 'appbar_content',
-      component: Components.AppbarContent,
+      component: Components.NanoAppBarContent,
     },
     {
       name: 'appbar_header',
-      component: Components.AppbarHeader,
+      component: Components.NanoAppBarHeader,
     },
     {
       name: 'animated_view',

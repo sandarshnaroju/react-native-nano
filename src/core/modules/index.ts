@@ -25,8 +25,8 @@ import {
   Settings,
   AccessibilityInfo,
 } from 'react-native';
-import ImagePicker from './imagepicker/ImagePicker';
-import DeviceInfo from './deviceinfo/DeviceInfo';
+// import ImagePicker from './imagepicker/ImagePicker';
+// import DeviceInfo from './deviceinfo/DeviceInfo';
 import Toast from 'react-native-toast-message';
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -43,8 +43,8 @@ interface ModuleParameters {
   notifications: any;
   permissions: any;
   session: any;
-  dimensions: typeof Dimensions;
-  deviceInfo: any;
+  dimensions: typeof deviceDimensions;
+  // deviceInfo: any;
   alert: typeof Alert;
   linking: typeof Linking;
   share: typeof Share;
@@ -81,7 +81,7 @@ const getModuleParams = ({callBack}: {callBack: any}): ModuleParameters => {
     permissions,
     session,
     dimensions: deviceDimensions,
-    deviceInfo: DeviceInfo,
+    // deviceInfo: DeviceInfo,
     alert: Alert,
     linking: Linking,
     share: Share,
@@ -103,9 +103,9 @@ const getModuleParams = ({callBack}: {callBack: any}): ModuleParameters => {
     accessibilityInfo: AccessibilityInfo,
     toast: Toast,
   };
-  if (ImagePicker) {
-    moduleParameters['imagePicker'] = ImagePicker;
-  }
+  // if (ImagePicker) {
+  //   moduleParameters['imagePicker'] = ImagePicker;
+  // }
   return moduleParameters;
 };
 export default getModuleParams;

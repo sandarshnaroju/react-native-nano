@@ -4,6 +4,7 @@ import {Avatar, AvatarIconProps} from 'react-native-paper';
 interface ElementProps {
   [key: string]: any;
   props: AvatarIconProps;
+  icon: any;
 }
 
 interface AvatarImageProps {

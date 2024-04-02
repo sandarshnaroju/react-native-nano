@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, {useEffect} from 'react';
 function YoutubePlayer({elementProps, getViewItems, onElementLoaded}) {
   let ref = null;
 
   const onLoad = () => {
     onElementLoaded(elementProps);
   };
-  useState(() => {
+  useEffect(() => {
     if (ref) {
       ref.playVideo();
     }
-  }, [elementProps['value']]);
+  }, []);
 
   return (
     <iframe

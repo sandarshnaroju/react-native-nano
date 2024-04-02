@@ -14,7 +14,7 @@ const functionDimensionsProps = {
 };
 
 export const nameShortcutObject = {};
-export const mergeObjects = <T, U>(firstObj: T, secondObj: U): T & U => {
+export const mergeObjects = (firstObj: Object, secondObj: Object): any => {
   for (const p in secondObj) {
     if (
       typeof firstObj[p] === 'object' &&
@@ -27,7 +27,7 @@ export const mergeObjects = <T, U>(firstObj: T, secondObj: U): T & U => {
       firstObj[p] = secondObj[p];
     }
   }
-  return firstObj as T & U;
+  return firstObj;
 };
 export const modifyNestedValue = (
   obj: any,
@@ -64,6 +64,7 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content: ContentElement[],
   mapperRes: MapperRes,
 ): ContentElement[] => {
+
   const modifiedContent: ContentElement[] = [];
 
   if (content != null && content.length > 0) {
@@ -359,7 +360,7 @@ const functionKeysArray = [
   'itemHeight',
   'itemWidth',
 ];
-function findAndSendPropsToImmediatlyInvokedFunctions(obj, props) {
+function findAndSendPropsToImmediatlyInvokedFunctions(obj) {
   if (typeof obj == 'object') {
     for (var key in obj) {
       if (obj[key] != null) {
@@ -476,10 +477,6 @@ interface OnPressCallBack {
   (key: string | null, valueObject: any | null, commit?: boolean): void;
 }
 
-interface PropParameters {
-  [key: string]: any;
-}
-
 export const onElementLoaded = ({
   loadedElemObject,
   getUi,
@@ -526,10 +523,6 @@ const onPressNetwork = (onPressFunc, props, eleObject) => {
   return dummy(props, eleObject);
 };
 interface EleObject {
-  [key: string]: any;
-}
-
-interface Props {
   [key: string]: any;
 }
 
@@ -629,44 +622,41 @@ interface Theme {
   colors: {[key: string]: string};
 }
 
-interface ContextObj {
-  theme?: string;
-  isDark?: boolean;
-}
-
 export const modifyElemObjAsPerTheme = (
   compObj: CompObj,
   themes: Theme[],
-  contextObj: ContextObj,
+  contextString: any,
 ): CompObj => {
-  if (typeof compObj === 'object' && contextObj) {
-    for (const key in compObj) {
-      if (compObj[key] != null) {
-        if (
-          typeof compObj[key] === 'string' &&
-          (key.includes('color') || key.includes('Color'))
-        ) {
-          const userGivenColorString = compObj[key];
-
-          const selectedThemeObj = themes.find(themeObj => {
-            if (contextObj.theme) {
-              return themeObj.name === contextObj.theme;
-            }
-            return themeObj.isDark === contextObj.isDark;
-          });
-
+  if (contextString != null && contextString.length > 0) {
+    const contextObj = JSON.parse(contextString != null ? contextString : '{}');
+    if (typeof compObj === 'object' && contextObj) {
+      for (const key in compObj) {
+        if (compObj[key] != null) {
           if (
-            selectedThemeObj != null &&
-            selectedThemeObj.colors != null &&
-            selectedThemeObj.colors[userGivenColorString] != null
+            typeof compObj[key] === 'string' &&
+            (key.includes('color') || key.includes('Color'))
           ) {
-            compObj[key] = selectedThemeObj.colors[userGivenColorString];
+            const userGivenColorString = compObj[key];
+            const selectedThemeObj = themes.find(themeObj => {
+              if (contextObj.theme) {
+                return themeObj.name === contextObj.theme;
+              }
+              return themeObj.isDark === contextObj.isDark;
+            });
+            if (
+              selectedThemeObj != null &&
+              selectedThemeObj.colors != null &&
+              selectedThemeObj.colors[userGivenColorString] != null
+            ) {
+              compObj[key] = selectedThemeObj.colors[userGivenColorString];
+            }
+          } else if (typeof compObj[key] === 'object') {
+            modifyElemObjAsPerTheme(compObj[key], themes, contextObj); // Recursively handle nested objects
           }
-        } else if (typeof compObj[key] === 'object') {
-          modifyElemObjAsPerTheme(compObj[key], themes, contextObj); // Recursively handle nested objects
         }
       }
     }
+    return compObj;
   }
   return compObj;
 };

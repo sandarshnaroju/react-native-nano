@@ -11,16 +11,16 @@ interface ReanimatedFlatlistProps {
   data: any[];
   itemView: any;
   mapper?: Function;
-  navigation: any;
-  onPress: () => void;
-  keyExtractor: Function;
-  extraItemviewProps: any;
-  props: any;
+  // navigation: any;
+  // onPress: () => void;
+  // keyExtractor: Function;
+  // extraItemviewProps: any;
+  // props: any;
   themes: any;
   propParameters: any;
   getUi: any;
   onPressCallBack: () => void;
-  unModifiedElemOb: any;
+  // unModifiedElemOb: any;
   uniqueKey: Function;
   context: any;
   logicObject: any;
@@ -31,16 +31,16 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
   data,
   itemView,
   mapper,
-  navigation,
-  onPress,
-  keyExtractor,
-  extraItemviewProps,
-  props,
+  // navigation,
+  // onPress,
+  // keyExtractor,
+  // extraItemviewProps,
+  // props,
   themes,
   propParameters,
   getUi,
   onPressCallBack,
-  unModifiedElemOb,
+  // unModifiedElemOb,
   uniqueKey,
   context,
   logicObject,
@@ -70,8 +70,8 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
     const uniq = executeAFunction(uniqueKey, item);
     const componentParams = {
       index,
-      itemData: data,
-      listData: this.props.listData,
+      itemData: item,
+      listData: data,
     };
     const funProps = getInterceptedFunctionProps({
       eleObject: elemOb,
@@ -85,14 +85,14 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
         getUi: getUi,
         setUi: onPressCallBack,
       },
-      onPressCallBack: onPressCallBack,
+      // onPressCallBack: onPressCallBack,
     });
 
     return (
       <UniversalElement
         key={uniq + index}
-        elemObj={funProps}
-        navigation={navigation}
+        // elemObj={funProps}
+        // navigation={navigation}
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}

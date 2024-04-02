@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual';
 
 import {TopTabNano} from '../../nano/TopTabNano';
 import {ScrollViewProps} from 'react-native';
-interface Screen {
+export interface Screen {
   screen: any; // Adjust type as per your screen type
   logic: any;
   name: string;
@@ -16,6 +16,7 @@ interface Screen {
     scroll?: boolean;
     scrollViewProps?: ScrollViewProps;
     style?: any; // Adjust type as per your style type
+    screenProps?: any;
   };
 }
 
@@ -23,10 +24,10 @@ interface TopTabScreenProps {
   screen: Screen;
   navigation: any; // Adjust type as per your navigation object type
   route: any; // Adjust type as per your route object type
-  unModifiedScreen: any;
+  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  context: any;
+  // context: any;
   packages;
 }
 const TopTabScreen: React.FC<TopTabScreenProps> = ({
@@ -34,10 +35,10 @@ const TopTabScreen: React.FC<TopTabScreenProps> = ({
   navigation,
 
   route,
-  unModifiedScreen,
+  // unModifiedScreen,
   themes,
   moduleParameters,
-  context,
+  // context,
   packages,
 }) => {
   return (
@@ -62,15 +63,15 @@ const TopTabScreen: React.FC<TopTabScreenProps> = ({
       screen={screen.screen}
       navigation={navigation}
       logicObject={screen.logic}
-      screenName={screen.name}
+      // screenName={screen.name}
       onStart={screen.onStart}
       onEnd={screen.onEnd}
       route={route}
       moduleParameters={moduleParameters}
       themes={themes}
-      unModifiedScreen={unModifiedScreen}
+      // unModifiedScreen={unModifiedScreen}
       onPause={screen != null ? screen.onPause : null}
-      context={context}
+      // context={context}
       onResume={screen != null ? screen.onResume : null}
       packages={packages}
     />

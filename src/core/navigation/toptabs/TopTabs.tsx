@@ -2,34 +2,35 @@ import React from 'react';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import TopTabScreen from './TopTabScreen';
+import TopTabScreen, {Screen} from './TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
 const Tab = createMaterialTopTabNavigator();
-interface Screen {
-  name: string;
-  props?: {
-    screenProps?: any;
-  };
-}
+// interface Screen {
+//   name: string;
+//   props?: {
+//     screenProps?: any;
+//   };
+// }
 
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  unModifiedScreen: any;
+  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  context: any;
+  // context: any;
   packages;
+  [key: string]: any;
 }
-const GetScreens: React.FC<GetScreensProps> = ({
+const GetScreens = ({
   content,
   navigation,
-  unModifiedScreen,
+  // unModifiedScreen,
   themes,
   moduleParameters,
-  context,
+  // context,
   packages,
-}) => {
+}: GetScreensProps): any[] => {
   const drawerScreens = [];
 
   if (content != null && content.length > 0) {
@@ -49,8 +50,8 @@ const GetScreens: React.FC<GetScreensProps> = ({
               navigation={navigation}
               moduleParameters={moduleParameters}
               themes={themes}
-              unModifiedScreen={unModifiedScreen}
-              context={context}
+              // unModifiedScreen={unModifiedScreen}
+              // context={context}
               packages={packages}
             />
           )}
@@ -67,7 +68,7 @@ interface DrawerObj {
 interface NanoTabsProps {
   drawerObj: DrawerObj;
   navigation: any; // Adjust type as per your navigation object type
-  unModifiedScreen: any;
+  // unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
@@ -76,7 +77,7 @@ interface NanoTabsProps {
 const NanoTopTabs: React.FC<NanoTabsProps> = ({
   drawerObj,
   navigation,
-  unModifiedScreen,
+  // unModifiedScreen,
   themes,
   moduleParameters,
   context,
@@ -97,8 +98,8 @@ const NanoTopTabs: React.FC<NanoTabsProps> = ({
         navigation,
         moduleParameters: moduleParameters,
         themes: themes,
-        unModifiedScreen: unModifiedScreen,
-        context,
+        // unModifiedScreen: unModifiedScreen,
+        // context,
         packages,
       })}
     </Tab.Navigator>

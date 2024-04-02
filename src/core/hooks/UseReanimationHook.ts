@@ -11,6 +11,7 @@ import {
   withDelay,
   useAnimatedProps,
   interpolate,
+  ExtrapolationType,
 } from 'react-native-reanimated';
 export const animateUi = (objName, r) => {
   EventRegister.emit('animation' + objName, JSON.stringify(r));
@@ -78,7 +79,7 @@ export const useReanimationHook = ({elementProps}) => {
   interface SingleAnimationObject {
     type: string;
     delay?: number;
-    clamp?: number;
+    clamp?: any;
     componentProps: {
       style: {
         [key: string]: any;
@@ -92,7 +93,7 @@ export const useReanimationHook = ({elementProps}) => {
       reverse?: boolean;
     };
     animationProps?: {
-      type: string;
+      type: ExtrapolationType;
       input: number[];
       output: number[];
     };
@@ -105,7 +106,7 @@ export const useReanimationHook = ({elementProps}) => {
   }
 
   interface OnAnimationFinish {
-    (): void;
+    (any): void;
   }
   const runSingleStyleKeyValueAnimation = ({
     singleAnimationObject,
@@ -307,7 +308,7 @@ export const useReanimationHook = ({elementProps}) => {
                   );
               }
 
-              onAnimationFinish();
+              onAnimationFinish(index);
 
               break;
 
@@ -331,17 +332,20 @@ export const useReanimationHook = ({elementProps}) => {
         break;
     }
   };
+  // interface SingleTypeAnimationObject {
+  //   run: SingleAnimationObject[];
+  // }
   interface SingleTypeAnimationObject {
+    runIn: 'series' | 'parallel';
     run: SingleAnimationObject[];
   }
-
-  interface SingleAnimationObject {
-    componentProps: {
-      style: {
-        [key: string]: any;
-      };
-    };
-  }
+  // interface SingleAnimationObject {
+  //   componentProps: {
+  //     style: {
+  //       [key: string]: any;
+  //     };
+  //   };
+  // }
 
   interface OnAnimationFinish {
     (index: number): void;
@@ -404,23 +408,18 @@ export const useReanimationHook = ({elementProps}) => {
     animation?: {
       advanced?: {
         runIn: 'series' | 'parallel';
-        run: SingleTypeAnimationObject[];
+        run: SingleAnimationObject[];
       }[];
     };
   }
 
-  interface SingleTypeAnimationObject {
-    runIn: 'series' | 'parallel';
-    run: SingleAnimationObject[];
-  }
-
-  interface SingleAnimationObject {
-    componentProps: {
-      style: {
-        [key: string]: any;
-      };
-    };
-  }
+  // interface SingleAnimationObject {
+  //   componentProps: {
+  //     style: {
+  //       [key: string]: any;
+  //     };
+  //   };
+  // }
   const startAnimation = (element: Element) => {
     if (
       element != null &&
@@ -452,6 +451,8 @@ export const useReanimationHook = ({elementProps}) => {
                 runSingleStyleKeyValueAnimation({
                   styleKeyTobeAnimated,
                   singleAnimationObject,
+                  index: 0,
+                  onAnimationFinish: () => {},
                 });
               });
             });

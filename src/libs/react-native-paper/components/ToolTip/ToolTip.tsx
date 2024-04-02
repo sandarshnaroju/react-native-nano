@@ -11,7 +11,7 @@ interface Props {
     content: any,
     flag: boolean,
     onElementLoaded: (elementProps: ElementProps) => void,
-  ) => React.ReactNode;
+  ) => React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   onElementLoaded: (elementProps: ElementProps) => void;
 }
 const Tooltip: React.FC<Props> = ({

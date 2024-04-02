@@ -9,7 +9,7 @@ import RenderColoumViews from './RenderColumnAndRows';
 import {
   getElementObjectByKey,
   getNameSHortcutObject,
-  traverseThroughInputJsonAndCreateNameSHortcut,
+  traverseThroughInputJsonAndCreateNameShortcut,
 } from '../utils/UiKeysMapper';
 import {
   executeAFunction,
@@ -24,36 +24,32 @@ interface NanoProps {
   navigation: any;
   scroll: boolean;
   logicObject: any;
-  screenName: string;
-  onStart: string;
-  onEnd: string;
+  onStart: () => void;
+  onEnd: () => void;
   route: any;
   moduleParameters: any;
   themes: any;
-  unModifiedScreen: any;
-  onPause: string;
-  onResume: string;
+  onPause: () => void;
+  onResume: () => void;
   scrollViewProps: any;
   packages;
 }
-export const TopTabNano: React.FC<NanoProps> = ({
+export const TopTabNano = ({
   screen,
   style,
   navigation,
   scroll,
   logicObject,
-  screenName,
   onStart,
   onEnd,
   route,
   moduleParameters,
   themes,
-  unModifiedScreen,
   onPause,
   onResume,
   scrollViewProps,
   packages,
-}) => {
+}: NanoProps) => {
   const uiElementsRef = useRef(screen);
   const defaultScreensRef = useRef(null);
 
@@ -86,14 +82,14 @@ export const TopTabNano: React.FC<NanoProps> = ({
   useFocusEffect(
     useCallback(() => {
       let createShortCutTimeout = setTimeout(() => {
-        traverseThroughInputJsonAndCreateNameSHortcut(
+        traverseThroughInputJsonAndCreateNameShortcut(
           uiElementsRef.current,
           [],
         );
 
         if (onResume != null) {
-          if (logicObject != null && logicObject[onResume] != null) {
-            logicObject[onResume]({
+          if (logicObject != null && logicObject.onResume != null) {
+            logicObject.onResume({
               moduleParams: propParameters,
               setUi: onSetUiCallBack,
               getUi,
@@ -112,8 +108,8 @@ export const TopTabNano: React.FC<NanoProps> = ({
           clearTimeout(createShortCutTimeout);
         }
         if (onPause != null) {
-          if (logicObject != null && logicObject[onPause] != null) {
-            logicObject[onPause]({
+          if (logicObject != null && logicObject.onPause != null) {
+            logicObject.onPause({
               moduleParams: propParameters,
               setUi: onSetUiCallBack,
               getUi,
@@ -132,11 +128,11 @@ export const TopTabNano: React.FC<NanoProps> = ({
 
   useEffect(() => {
     let createShortCutTimeout = setTimeout(() => {
-      traverseThroughInputJsonAndCreateNameSHortcut(uiElementsRef.current, []);
+      traverseThroughInputJsonAndCreateNameShortcut(uiElementsRef.current, []);
 
       if (onStart != null) {
-        if (logicObject != null && logicObject[onStart] != null) {
-          logicObject[onStart]({
+        if (logicObject != null && logicObject.onStart != null) {
+          logicObject.onStart({
             moduleParams: propParameters,
             setUi: onSetUiCallBack,
             getUi,
@@ -155,8 +151,8 @@ export const TopTabNano: React.FC<NanoProps> = ({
         clearTimeout(createShortCutTimeout);
       }
       if (onEnd != null) {
-        if (logicObject != null && logicObject[onEnd] != null) {
-          logicObject[onEnd]({
+        if (logicObject != null && logicObject.onEnd != null) {
+          logicObject.onEnd({
             moduleParams: propParameters,
             setUi: onSetUiCallBack,
             getUi,

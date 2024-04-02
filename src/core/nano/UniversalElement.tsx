@@ -2,15 +2,15 @@ import * as Animatable from 'react-native-animatable';
 import React from 'react';
 import getElementAsPerComponent from './ElementByComponent';
 interface ElementProps {
-  uniqueKey: string | number;
+  uniqueKey: number;
   propParameters: any;
   onPressCallBack: () => void;
-  recyclerListViewFunctionProps: any;
+  recyclerListViewFunctionProps?: any;
   getUi: any;
   themes: any;
   unModifiedElemOb: any;
   context: any;
-  componentParams: any;
+  componentParams?: any;
   packages;
 }
 function UniversalElement({

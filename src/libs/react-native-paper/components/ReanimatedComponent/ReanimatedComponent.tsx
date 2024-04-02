@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {useReanimationHook} from '../../../../core/hooks/UseReanimationHook';
 
 const IntermidiateComponent = ({component}) => {
-  const temp = React.forwardRef((props, ref) => {
+  const temp = React.forwardRef((props: any, ref) => {
     const renderChildren = () => {
       return React.Children.map(component, child => {
         return React.cloneElement(child, {

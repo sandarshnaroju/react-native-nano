@@ -7,9 +7,9 @@ interface NanoAppBarActionProps {
   };
   getViewItems: (
     content: React.ReactNode,
-    onElementLoaded: (props: Appbar.ActionProps) => void,
+    onElementLoaded: (props: any) => void,
   ) => React.ReactNode;
-  onElementLoaded: (props: Appbar.ActionProps) => void;
+  onElementLoaded: (props: any) => void;
 }
 
 const NanoAppBarAction: React.FC<NanoAppBarActionProps> = ({
@@ -18,7 +18,7 @@ const NanoAppBarAction: React.FC<NanoAppBarActionProps> = ({
   onElementLoaded,
 }) => {
   useEffect(() => {
-    onElementLoaded(elementProps.props);
+    onElementLoaded(elementProps);
   }, []);
 
   return <Appbar.Action {...elementProps.props} />;

@@ -29,13 +29,11 @@ interface ScreenProps {
   navigation: any;
   scroll: boolean;
   logicObject: any;
-  screenName: string;
   onStart: string;
   onEnd: string;
   route: any;
   moduleParameters: any;
   themes: any;
-  unModifiedScreen: any;
   onPause: string;
   onResume: string;
   scrollViewProps: any;
@@ -47,19 +45,18 @@ const Screen: React.FC<ScreenProps> = ({
   navigation,
   scroll,
   logicObject,
-  screenName,
   onStart,
   onEnd,
   route,
   moduleParameters,
   themes,
-  unModifiedScreen,
   onPause,
   onResume,
   packages,
 
   scrollViewProps,
 }): ReactElement => {
+
   const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
@@ -196,14 +193,6 @@ const Screen: React.FC<ScreenProps> = ({
           setUiElements(uiElementsRef.current);
         }
       }
-    }
-  };
-
-  const onLongPressCallBack = modifiedElements => {
-    if (modifiedElements) {
-      const cloned = cloneDeep(modifiedElements);
-      uiElementsRef.current = cloned;
-      setUiElements(uiElementsRef.current);
     }
   };
 

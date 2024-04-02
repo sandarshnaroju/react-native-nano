@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Text as PaperText, TextProps} from 'react-native-paper';
 interface ElementProps {
-  props: TextProps;
+  // props: TextProps;
   content: any;
 }
 

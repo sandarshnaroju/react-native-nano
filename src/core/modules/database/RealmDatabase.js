@@ -1,4 +1,4 @@
-import {DataBaseConfig} from '../../../../../nano.config';
+import {DataBaseConfig} from '../../../../../../nano.config';
 const nanoSchema = {
   name: TABLE_KEY_VALUE,
   properties: {

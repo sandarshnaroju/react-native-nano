@@ -1,35 +1,29 @@
 import React from 'react';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import TopTabScreen from '../toptabs/TopTabScreen';
+import TopTabScreen, {Screen} from '../toptabs/TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
 
 const Tab = createMaterialBottomTabNavigator();
-interface Screen {
-  name: string;
-  props?: {
-    screenProps?: any;
-  };
-}
 
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  unModifiedScreen: any;
+  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  context: any;
+  // context: any;
   packages;
 }
-const GetScreens: React.FC<GetScreensProps> = ({
+const GetScreens = ({
   content,
   navigation,
-  unModifiedScreen,
+  // unModifiedScreen,
   themes,
   moduleParameters,
-  context,
+  // context,
   packages,
-}) => {
+}: GetScreensProps) => {
   const drawerScreens = [];
 
   if (content != null && content.length > 0) {
@@ -49,8 +43,8 @@ const GetScreens: React.FC<GetScreensProps> = ({
               navigation={navigation}
               moduleParameters={moduleParameters}
               themes={themes}
-              context={context}
-              unModifiedScreen={unModifiedScreen}
+              // context={context}
+              // unModifiedScreen={unModifiedScreen}
               packages={packages}
             />
           )}
@@ -61,24 +55,24 @@ const GetScreens: React.FC<GetScreensProps> = ({
   return drawerScreens;
 };
 interface NanoBottomTabsProps {
-  // drawerObj: DrawerObject; // Adjust type as per your DrawerObject type
-  // navigation: Navigation; // Adjust type as per your Navigation type
-  unModifiedScreen: any;
+  drawerObj: any;
+  navigation: any;
+  // unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
   packages;
 }
 
-const NanoBottomTabs: React.FC<NanoBottomTabsProps> = ({
+const NanoBottomTabs = ({
   drawerObj,
   navigation,
-  unModifiedScreen,
+  // unModifiedScreen,
   themes,
   moduleParameters,
   context,
   packages,
-}) => {
+}: NanoBottomTabsProps) => {
   let navigatorPropsWithThemesSet = drawerObj.navigatorProps;
   if (themes != null && themes.length > 0) {
     navigatorPropsWithThemesSet = modifyElemObjAsPerTheme(
@@ -95,8 +89,8 @@ const NanoBottomTabs: React.FC<NanoBottomTabsProps> = ({
         navigation: navigation,
         moduleParameters: moduleParameters,
         themes: themes,
-        unModifiedScreen: unModifiedScreen,
-        context,
+        // unModifiedScreen: unModifiedScreen,
+        // context,
         packages,
       })}
     </Tab.Navigator>

@@ -13,14 +13,7 @@ import {EventRegister} from 'react-native-event-listeners';
 import {fetchAllScreensFromDB} from './core/modules/dbSync/DBSync';
 import {Provider} from 'react-native-paper';
 import DataContext from './core/context/DataContext';
-import {
-  THEMES,
-  APP_URL,
-  CLIENT_SECRET,
-  CLIENT_ID,
-  NAVIGATION_LINKING,
-  LOAD_PRIORITY,
-} from '../../../nano.config';
+import * as NANOCONFIG from '../../../nano.config';
 import Toast from 'react-native-toast-message';
 import {executeAFunction} from './core/utils/Utilities';
 import UIPackages from './libs';
@@ -49,9 +42,9 @@ const NanoApp = ({
   appStart,
 }: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
-  const navigationRef = useNavigationContainerRef(null);
+  const navigationRef = useNavigationContainerRef();
   if (themes == null) {
-    themes = THEMES;
+    themes = NANOCONFIG.THEMES;
   }
   let database;
 
@@ -74,12 +67,12 @@ const NanoApp = ({
   };
   const shouldFetchScreensFromServer = () => {
     if (
-      CLIENT_ID != null &&
-      CLIENT_SECRET != null &&
-      APP_URL != null &&
-      CLIENT_ID.length > 6 &&
-      CLIENT_SECRET.length > 6 &&
-      APP_URL.indexOf('nanoapp.dev') > 0
+      NANOCONFIG.CLIENT_ID != null &&
+      NANOCONFIG.CLIENT_SECRET != null &&
+      NANOCONFIG.APP_URL != null &&
+      NANOCONFIG.CLIENT_ID.length > 6 &&
+      NANOCONFIG.CLIENT_SECRET.length > 6 &&
+      NANOCONFIG.APP_URL.indexOf('nanoapp.dev') > 0
     ) {
       return true;
     }
@@ -87,12 +80,17 @@ const NanoApp = ({
   };
 
   const getAllScreensData = () => {
-    if (LOAD_PRIORITY != null && LOAD_PRIORITY == 'dynamic') {
+    if (
+      NANOCONFIG.LOAD_PRIORITY != null &&
+      NANOCONFIG.LOAD_PRIORITY !== 'static'
+    ) {
       fetchAllScreensFromDB()
         .then(s => {
           setNetworkScreens(s);
         })
-        .catch(e => {});
+        .catch(e => {
+          // Handle error
+        });
     }
   };
   const realDbInitCallback = db => {
@@ -137,7 +135,7 @@ const NanoApp = ({
   return (
     <Provider>
       <DataContext themes={themes}>
-        {LOAD_PRIORITY && LOAD_PRIORITY == 'dynamic' ? (
+        {NANOCONFIG.LOAD_PRIORITY && NANOCONFIG.LOAD_PRIORITY !== 'static' ? (
           <NavigationContainer
             ref={navigationRef}
             onReady={e => {
@@ -150,11 +148,11 @@ const NanoApp = ({
                 moduleParams: moduleParametersWithNavigationRef,
               });
             }}
-            linking={NAVIGATION_LINKING}
+            linking={NANOCONFIG['NAVIGATION_LINKING']}
             {...props?.navigationContainerProps}>
             <Stack.Navigator {...props?.stackNavigatorProps}>
-              {LOAD_PRIORITY &&
-              LOAD_PRIORITY == 'dynamic' &&
+              {NANOCONFIG.LOAD_PRIORITY &&
+              NANOCONFIG.LOAD_PRIORITY == 'dynamic' &&
               networkScreens != null &&
               networkScreens.length > 0 ? (
                 networkScreens.map((screnObj: ScreenObjType, index) => {
@@ -203,7 +201,7 @@ const NanoApp = ({
         ) : (
           <NavigationContainer
             ref={navigationRef}
-            linking={NAVIGATION_LINKING}
+            linking={NANOCONFIG['NAVIGATION_LINKING']}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
                 ...createCustomModuleObject(),
