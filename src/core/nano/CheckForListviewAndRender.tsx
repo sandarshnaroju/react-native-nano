@@ -5,11 +5,7 @@ import NanoBottomTabs from '../navigation/bottomtabs/BottomTabs';
 import NanoTopTabs from '../navigation/toptabs/TopTabs';
 import NANO from '../../Constants';
 import {
-  checkNameAndRenderCustomComponent,
-  getInterceptedFunctionProps,
-  getViewItems,
   heightAndWidthFormatterForComponentObj,
-  modifyElemObjAsPerTheme,
   onElementLoaded,
 } from '../utils/Utilities';
 import NanoFlatlist from './Flatlist';
@@ -18,8 +14,6 @@ import UniversalElement from './UniversalElement';
 import {animateUi} from '../hooks/UseReanimationHook';
 import ReanimatedFlatlist from './ReanimatedFlatlist';
 interface Props {
-  // onPress: () => void;
-  // onLongPress: () => void;
   index: number;
   [key: string]: any;
   packages;
@@ -27,8 +21,6 @@ interface Props {
 
 function CheckForListviewAndRender({
   navigation,
-  // onPress,
-  // onLongPress,
 
   propParameters,
   funProps,
@@ -62,8 +54,6 @@ function CheckForListviewAndRender({
         <RecycleTestComponent
           {...heightWeightFormattedElemObj}
           navigation={navigation}
-          // onPress={onPress}
-          // onLongPress={onLongPress}
           onPressCallBack={onPressCallBack}
           packages={packages}
           propParameters={propParameters}
@@ -88,8 +78,6 @@ function CheckForListviewAndRender({
           <ReanimatedFlatlist
             {...unModifiedElemOb}
             navigation={navigation}
-            // onPress={onPress}
-            // onLongPress={onLongPress}
             onPressCallBack={onPressCallBack}
             propParameters={propParameters}
             packages={packages}
@@ -109,8 +97,6 @@ function CheckForListviewAndRender({
         <NanoFlatlist
           {...unModifiedElemOb}
           navigation={navigation}
-          // onPress={onPress}
-          // onLongPress={onLongPress}
           onPressCallBack={onPressCallBack}
           propParameters={propParameters}
           funProps={funProps}
@@ -130,17 +116,9 @@ function CheckForListviewAndRender({
         <NanoTopTabs
           drawerObj={unModifiedElemOb}
           navigation={navigation}
-          // onLongPress={onLongPress}
-          // databaseConfigObject={databaseConfigObject}
-          // onPressCallBack={onPressCallBack}
-          // propParameters={propParameters}
-          // unModifiedElemOb={unModifiedElemOb}
-          // funProps={funProps}
-          // logicObject={logicObject}
           themes={themes}
           context={context}
           moduleParameters={propParameters}
-          // unModifiedScreen={unModifiedElemOb}
           packages={packages}
         />
       );
@@ -150,19 +128,10 @@ function CheckForListviewAndRender({
         <NanoBottomTabs
           drawerObj={unModifiedElemOb}
           navigation={navigation}
-          // route={route}
-          // databaseConfigObject={databaseConfigObject}
-          // onLongPress={onLongPress}
-          // onPressCallBack={onPressCallBack}
-          // propParameters={propParameters}
-          // unModifiedElemOb={unModifiedElemOb}
-          // funProps={funProps}
-          // logicObject={logicObject}
           themes={themes}
           packages={packages}
           context={context}
           moduleParameters={propParameters}
-          // unModifiedScreen={unModifiedElemOb}
         />
       );
 

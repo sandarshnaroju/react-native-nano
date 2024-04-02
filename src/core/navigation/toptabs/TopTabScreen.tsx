@@ -24,10 +24,8 @@ interface TopTabScreenProps {
   screen: Screen;
   navigation: any; // Adjust type as per your navigation object type
   route: any; // Adjust type as per your route object type
-  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  // context: any;
   packages;
 }
 const TopTabScreen: React.FC<TopTabScreenProps> = ({
@@ -35,10 +33,8 @@ const TopTabScreen: React.FC<TopTabScreenProps> = ({
   navigation,
 
   route,
-  // unModifiedScreen,
   themes,
   moduleParameters,
-  // context,
   packages,
 }) => {
   return (
@@ -63,15 +59,12 @@ const TopTabScreen: React.FC<TopTabScreenProps> = ({
       screen={screen.screen}
       navigation={navigation}
       logicObject={screen.logic}
-      // screenName={screen.name}
       onStart={screen.onStart}
       onEnd={screen.onEnd}
       route={route}
       moduleParameters={moduleParameters}
       themes={themes}
-      // unModifiedScreen={unModifiedScreen}
       onPause={screen != null ? screen.onPause : null}
-      // context={context}
       onResume={screen != null ? screen.onResume : null}
       packages={packages}
     />

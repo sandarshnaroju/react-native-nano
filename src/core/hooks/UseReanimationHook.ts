@@ -332,20 +332,11 @@ export const useReanimationHook = ({elementProps}) => {
         break;
     }
   };
-  // interface SingleTypeAnimationObject {
-  //   run: SingleAnimationObject[];
-  // }
+
   interface SingleTypeAnimationObject {
     runIn: 'series' | 'parallel';
     run: SingleAnimationObject[];
   }
-  // interface SingleAnimationObject {
-  //   componentProps: {
-  //     style: {
-  //       [key: string]: any;
-  //     };
-  //   };
-  // }
 
   interface OnAnimationFinish {
     (index: number): void;
@@ -413,13 +404,6 @@ export const useReanimationHook = ({elementProps}) => {
     };
   }
 
-  // interface SingleAnimationObject {
-  //   componentProps: {
-  //     style: {
-  //       [key: string]: any;
-  //     };
-  //   };
-  // }
   const startAnimation = (element: Element) => {
     if (
       element != null &&

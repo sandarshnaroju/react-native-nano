@@ -41,7 +41,6 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
       mapperResult = executeAFunction(mapper, item);
     }
 
-    
     const modifiedContent = replaceValuesInItemViewObjectsAsperDataGiven(
       itemView['content'],
       mapperResult,
@@ -71,7 +70,6 @@ const NanoFlatlist: React.FC<NanoFlatlistProps> = ({
         getUi: getUi,
         setUi: onPressCallBack,
       },
-      // onPressCallBack: onPressCallBack,
     });
 
     return (

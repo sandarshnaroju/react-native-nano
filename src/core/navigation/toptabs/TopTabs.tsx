@@ -5,30 +5,20 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import TopTabScreen, {Screen} from './TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
 const Tab = createMaterialTopTabNavigator();
-// interface Screen {
-//   name: string;
-//   props?: {
-//     screenProps?: any;
-//   };
-// }
 
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  // context: any;
   packages;
   [key: string]: any;
 }
 const GetScreens = ({
   content,
   navigation,
-  // unModifiedScreen,
   themes,
   moduleParameters,
-  // context,
   packages,
 }: GetScreensProps): any[] => {
   const drawerScreens = [];
@@ -50,8 +40,6 @@ const GetScreens = ({
               navigation={navigation}
               moduleParameters={moduleParameters}
               themes={themes}
-              // unModifiedScreen={unModifiedScreen}
-              // context={context}
               packages={packages}
             />
           )}
@@ -68,7 +56,6 @@ interface DrawerObj {
 interface NanoTabsProps {
   drawerObj: DrawerObj;
   navigation: any; // Adjust type as per your navigation object type
-  // unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
@@ -77,7 +64,6 @@ interface NanoTabsProps {
 const NanoTopTabs: React.FC<NanoTabsProps> = ({
   drawerObj,
   navigation,
-  // unModifiedScreen,
   themes,
   moduleParameters,
   context,

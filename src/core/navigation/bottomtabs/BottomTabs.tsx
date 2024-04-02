@@ -9,19 +9,15 @@ const Tab = createMaterialBottomTabNavigator();
 interface GetScreensProps {
   content: Screen[];
   navigation: any; // Adjust type as per your navigation object type
-  // unModifiedScreen: any;
   themes: any;
   moduleParameters: any;
-  // context: any;
   packages;
 }
 const GetScreens = ({
   content,
   navigation,
-  // unModifiedScreen,
   themes,
   moduleParameters,
-  // context,
   packages,
 }: GetScreensProps) => {
   const drawerScreens = [];
@@ -43,8 +39,6 @@ const GetScreens = ({
               navigation={navigation}
               moduleParameters={moduleParameters}
               themes={themes}
-              // context={context}
-              // unModifiedScreen={unModifiedScreen}
               packages={packages}
             />
           )}
@@ -57,7 +51,6 @@ const GetScreens = ({
 interface NanoBottomTabsProps {
   drawerObj: any;
   navigation: any;
-  // unModifiedScreen: any;
   themes: any[];
   moduleParameters: any;
   context: any;
@@ -67,7 +60,6 @@ interface NanoBottomTabsProps {
 const NanoBottomTabs = ({
   drawerObj,
   navigation,
-  // unModifiedScreen,
   themes,
   moduleParameters,
   context,
@@ -89,8 +81,6 @@ const NanoBottomTabs = ({
         navigation: navigation,
         moduleParameters: moduleParameters,
         themes: themes,
-        // unModifiedScreen: unModifiedScreen,
-        // context,
         packages,
       })}
     </Tab.Navigator>

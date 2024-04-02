@@ -1,10 +1,8 @@
-import isEqual from 'lodash/isEqual';
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {DataProvider, LayoutProvider, RecyclerListView} from 'recyclerlistview';
 import {
   executeAFunction,
-  isFunction,
   replaceValuesInItemViewObjectsAsperDataGiven,
 } from '../utils/Utilities';
 import UniversalElement from './UniversalElement';
@@ -167,16 +165,10 @@ class RecycleTestComponent extends React.Component<
           <UniversalElement
             key={uniq + index}
             uniqueKey={uniq + index}
-            // elemObj={elemOb}
-            // navigation={this.props.navigation}
             unModifiedElemOb={elemOb}
             onPressCallBack={this.props.onPressCallBack}
             propParameters={this.props.propParameters}
             recyclerListViewFunctionProps={funProps}
-            // logicObject={this.props.logicObject}
-            // listData={this.props.listData}
-            // item={data}
-            // listViewIndex={index}
             themes={this.props.themes}
             getUi={this.props.getUi}
             context={this.props.context}

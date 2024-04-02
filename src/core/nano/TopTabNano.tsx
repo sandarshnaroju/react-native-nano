@@ -190,14 +190,6 @@ export const TopTabNano = ({
     }
   };
 
-  const onLongPressCallBack = modifiedElements => {
-    if (modifiedElements) {
-      const cloned = cloneDeep(modifiedElements);
-      uiElementsRef.current = cloned;
-      setUiElements(uiElementsRef.current);
-    }
-  };
-
   let screenStylesWithThemet = clonedScreenStyles;
   if (themes != null && themes.length > 0) {
     screenStylesWithThemet = modifyElemObjAsPerTheme(

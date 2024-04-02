@@ -34,16 +34,11 @@ export const getElementObjectByKey = (
 export const traverseThroughInputJsonAndCreateNameShortcut = (
   jsonData: any,
   keys: (string | number)[] = [],
-  // nameShortcutObject: NameShortcutObject = {},
 ): void => {
   if (typeof jsonData === 'object' && jsonData !== null) {
     if (Array.isArray(jsonData)) {
       jsonData.forEach((item, index) => {
-        traverseThroughInputJsonAndCreateNameShortcut(
-          item,
-          keys.concat(index),
-          // nameShortcutObject,
-        );
+        traverseThroughInputJsonAndCreateNameShortcut(item, keys.concat(index));
       });
     } else {
       for (const key in jsonData) {
@@ -53,7 +48,6 @@ export const traverseThroughInputJsonAndCreateNameShortcut = (
             traverseThroughInputJsonAndCreateNameShortcut(
               value,
               keys.concat(key),
-              // nameShortcutObject,
             );
           } else {
             if (key === 'name') {

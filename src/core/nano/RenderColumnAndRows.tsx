@@ -32,7 +32,6 @@ const GetRowElements = ({
     unModifiedRowElementsArray.length > 0
   ) {
     unModifiedRowElementsArray.forEach((eleObject, index) => {
-    
       rowelements.push(
         <CheckForListviewAndRender
           key={index}

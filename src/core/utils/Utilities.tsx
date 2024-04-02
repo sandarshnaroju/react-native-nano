@@ -499,7 +499,6 @@ export const onElementLoaded = ({
 export const withExtraParams = (
   originalFn: (...args: any[]) => void,
   extraParams: any,
-  // onPressCallBack: OnPressCallBack,
 ): ((...args: any[]) => void) => {
   return function (...args: any[]) {
     const newArgs = {

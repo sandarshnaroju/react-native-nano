@@ -11,16 +11,11 @@ interface ReanimatedFlatlistProps {
   data: any[];
   itemView: any;
   mapper?: Function;
-  // navigation: any;
-  // onPress: () => void;
-  // keyExtractor: Function;
-  // extraItemviewProps: any;
-  // props: any;
+ 
   themes: any;
   propParameters: any;
   getUi: any;
   onPressCallBack: () => void;
-  // unModifiedElemOb: any;
   uniqueKey: Function;
   context: any;
   logicObject: any;
@@ -31,16 +26,11 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
   data,
   itemView,
   mapper,
-  // navigation,
-  // onPress,
-  // keyExtractor,
-  // extraItemviewProps,
-  // props,
+
   themes,
   propParameters,
   getUi,
   onPressCallBack,
-  // unModifiedElemOb,
   uniqueKey,
   context,
   logicObject,
@@ -85,14 +75,11 @@ const ReanimatedFlatlist: React.FC<ReanimatedFlatlistProps> = ({
         getUi: getUi,
         setUi: onPressCallBack,
       },
-      // onPressCallBack: onPressCallBack,
     });
 
     return (
       <UniversalElement
         key={uniq + index}
-        // elemObj={funProps}
-        // navigation={navigation}
         getUi={getUi}
         onPressCallBack={onPressCallBack}
         propParameters={propParameters}
