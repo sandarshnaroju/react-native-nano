@@ -178,4 +178,7 @@ export default {
       module: true,
     },
   ],
+  onStart: () => {
+    console.log('onStart React native paper');
+  },
 };

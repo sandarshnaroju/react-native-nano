@@ -132,6 +132,24 @@ const NanoApp = ({
     });
   }, []);
 
+  const runOnStartFunctionsOfPackages = moduleParametersWithNavigationRef => {
+    let customPackages = [];
+
+    if (NANOCONFIG != null && NANOCONFIG.packages != null) {
+      customPackages = NANOCONFIG.packages;
+    } else {
+      if (packages) {
+        customPackages = packages;
+      }
+    }
+    customPackages.forEach(singlePackage => {
+      const customAppStart = singlePackage?.appStart;
+      executeAFunction(customAppStart, {
+        moduleParams: moduleParametersWithNavigationRef,
+      });
+    });
+  };
+
   return (
     <Provider>
       <DataContext themes={themes}>
@@ -144,6 +162,7 @@ const NanoApp = ({
                 ...defaultParameters,
                 navigation: navigationRef,
               };
+              runOnStartFunctionsOfPackages(moduleParametersWithNavigationRef);
               executeAFunction(appStart, {
                 moduleParams: moduleParametersWithNavigationRef,
               });
@@ -208,6 +227,8 @@ const NanoApp = ({
                 ...defaultParameters,
                 navigation: navigationRef,
               };
+              runOnStartFunctionsOfPackages(moduleParametersWithNavigationRef);
+
               executeAFunction(appStart, {
                 moduleParams: moduleParametersWithNavigationRef,
               });

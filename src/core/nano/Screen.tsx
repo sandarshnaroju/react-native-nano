@@ -56,7 +56,6 @@ const Screen: React.FC<ScreenProps> = ({
 
   scrollViewProps,
 }): ReactElement => {
-
   const uiElementsRef = useRef(cloneDeep(screen));
   const [uiElements, setUiElements] = useState(uiElementsRef.current);
   const context = GetContextProvider();
