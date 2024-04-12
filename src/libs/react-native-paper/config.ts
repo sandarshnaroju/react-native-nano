@@ -171,11 +171,4 @@ export default {
       component: Components.ReanimatedText,
     },
   ],
-
-  modules: [
-    {
-      name: 'my_component',
-      module: () => {},
-    },
-  ],
 };
