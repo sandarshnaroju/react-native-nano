@@ -175,7 +175,7 @@ export default {
   modules: [
     {
       name: 'my_component',
-      module: true,
+      module: () => {},
     },
   ],
 };
