@@ -60,7 +60,7 @@ The above command will install necessary packages to run `react-native-nano` wit
 
 ### Adding single screen:
 
-When using Nano, creating components is little bit different from a typical react native project. In Nano, we create component in the form of JSON and add it to RNNano component. Nano will render the component on screen. 
+When using Nano, creating components is little bit different from a typical react native project. In Nano, we create component in the form of JSON and add it to NanoApp component. Nano will render the component on screen. 
 
 For example, below is the text component.
 
@@ -90,14 +90,14 @@ const screen = {
 
 Nano makes it easy to place components in horizontal and vertical directions in a screen. It uses horizontal and vertical keys read more about them [here](https://docs.nanoapp.dev/docs/guide/understanding-layout). 
 
-And after that simply add it to the RNNano component like below
+And after that simply add it to the NanoApp component like below
 
 ``` javascript
 
-import {RNNano} from  'react-native-nano';
+import {NanoApp} from  'react-native-nano';
 ...
 const  App = () => {
-    return <RNNano screens={[screen]} />;
+    return <NanoApp screens={[screen]} />;
 };
 
 export  default  App;
@@ -106,11 +106,11 @@ export  default  App;
 
 ### Adding multiple Screens
 
-You can actually add as many screens as you want to RNNano component just like below
+You can actually add as many screens as you want to NanoApp component just like below
 
 ``` javascript
 const  App = () => {
-    return <RNNano screens={[
+    return <NanoApp screens={[
                              screen1, 
                              screen2, 
                              screen3, 
@@ -173,13 +173,13 @@ const screen = {
 ```	
 Nano makes it easy to place components in horizontal and vertical directions in a screen. it uses keys `v1`, `v2`, `v3`, `v4`, `v5` .....  `vn` to place components vertically and uses keys `h1`, `h2`, `h3`, `h4`, `h5` ..... `hn` to place components horizontally. 
 
-Now add the above screen to the `RNNano` component as shown below in the App.js file.
+Now add the above screen to the `NanoApp` component as shown below in the App.js file.
 
 ``` javascript
-import {RNNano} from  'react-native-nano';
+import {NanoApp} from  'react-native-nano';
 ...
 const  App = () => {
-    return <RNNano screens={[screen]} />;
+    return <NanoApp screens={[screen]} />;
 };
 export  default  App;
 ```
