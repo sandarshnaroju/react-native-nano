@@ -24,14 +24,14 @@ const Modal: React.FC<Props> = ({
   }, []);
 
   return (
-    <Portal.Host>
+    <Portal>
       <PaperModal
+        visible={elementProps['value']}
         {...elementProps['props']}
-        {...elementProps}
-        visible={elementProps['value']}>
+        {...elementProps}>
         {getViewItems(elementProps['content'], true, onElementLoaded)}
       </PaperModal>
-    </Portal.Host>
+    </Portal>
   );
 };
 

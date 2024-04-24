@@ -14,6 +14,7 @@ interface Props {
   ) => React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   onElementLoaded: (elementProps: ElementProps) => void;
 }
+
 const Tooltip: React.FC<Props> = ({
   elementProps,
   getViewItems,
@@ -24,8 +25,18 @@ const Tooltip: React.FC<Props> = ({
   }, []);
 
   return (
-    <NanoTooltip {...elementProps} {...elementProps['props']}>
-      {getViewItems(elementProps['content'], true, onElementLoaded)}
+    <NanoTooltip
+      title={elementProps['value'] != null ? elementProps['value'] : ''}
+      {...elementProps}
+      {...elementProps['props']}>
+      {
+        getViewItems(
+          elementProps['content'],
+          true,
+          onElementLoaded,
+          'tooltip',
+        )[0]
+      }
     </NanoTooltip>
   );
 };

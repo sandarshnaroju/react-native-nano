@@ -26,21 +26,12 @@ type screensType = ScreenObjType[];
 type Props = {
   screens: screensType;
   props;
-  uriScreens;
-  clientId;
   themes;
   appStart;
   packages;
 };
-const NanoApp = ({
-  screens,
-  props,
-  uriScreens,
-  clientId,
-  themes,
-  packages,
-  appStart,
-}: Props) => {
+
+const NanoApp = ({screens, props, themes, packages, appStart}: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
   const navigationRef = useNavigationContainerRef();
   if (themes == null) {
@@ -51,33 +42,6 @@ const NanoApp = ({
   if (screens == null) {
     screens = [LoadingScreen];
   }
-
-  const checkIfScreenIsJustDeafultLoadingScreen = givenScreens => {
-    if (givenScreens != null && givenScreens.length == 1) {
-      if (
-        givenScreens[0] != null &&
-        typeof givenScreens[0] == 'object' &&
-        givenScreens[0]['name'] == 'NANO_Welcome'
-      ) {
-        return true;
-      }
-      return false;
-    }
-    return false;
-  };
-  const shouldFetchScreensFromServer = () => {
-    if (
-      NANOCONFIG.CLIENT_ID != null &&
-      NANOCONFIG.CLIENT_SECRET != null &&
-      NANOCONFIG.APP_URL != null &&
-      NANOCONFIG.CLIENT_ID.length > 6 &&
-      NANOCONFIG.CLIENT_SECRET.length > 6 &&
-      NANOCONFIG.APP_URL.indexOf('nanoapp.dev') > 0
-    ) {
-      return true;
-    }
-    return false;
-  };
 
   const getAllScreensData = () => {
     if (
@@ -105,8 +69,17 @@ const NanoApp = ({
   });
   const createCustomModuleObject = () => {
     let temp = {};
-    if (UIPackages) {
-      UIPackages.forEach(singlePackage => {
+    let customPackages = [];
+    if (packages) {
+      customPackages = packages;
+    } else {
+      if (NANOCONFIG != null && NANOCONFIG.packages != null) {
+        customPackages = NANOCONFIG.packages;
+      }
+    }
+    const totalPackages = [...UIPackages, ...customPackages];
+    if (totalPackages) {
+      totalPackages.forEach(singlePackage => {
         const moduless = singlePackage?.package?.modules;
         if (moduless != null && moduless.length > 0) {
           moduless.forEach(singleModule => {
@@ -134,14 +107,14 @@ const NanoApp = ({
 
   const runOnStartFunctionsOfPackages = moduleParametersWithNavigationRef => {
     let customPackages = [];
-
-    if (NANOCONFIG != null && NANOCONFIG.packages != null) {
-      customPackages = NANOCONFIG.packages;
+    if (packages) {
+      customPackages = packages;
     } else {
-      if (packages) {
-        customPackages = packages;
+      if (NANOCONFIG != null && NANOCONFIG.packages != null) {
+        customPackages = NANOCONFIG.packages;
       }
     }
+
     customPackages.forEach(singlePackage => {
       const customAppStart = singlePackage?.appStart;
       executeAFunction(customAppStart, {
@@ -205,7 +178,7 @@ const NanoApp = ({
                     <Nano
                       {...props}
                       logic={LoadingScreen.logic}
-                      screenObj={LoadingScreen}
+                      screen={LoadingScreen}
                       isMultiScreen={true}
                       moduleParameters={moduleParameters}
                       themes={themes}
@@ -252,7 +225,7 @@ const NanoApp = ({
                           <Nano
                             {...props}
                             logic={screenObj.logic}
-                            screenObj={screenObj}
+                            screen={screenObj}
                             isMultiScreen={true}
                             moduleParameters={moduleParameters}
                             themes={themes}

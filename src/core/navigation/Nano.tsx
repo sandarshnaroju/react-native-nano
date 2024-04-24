@@ -34,7 +34,7 @@ type Props = {
   navigation;
   logic?;
 
-  screenObj?: ScreenObjType;
+  screen?: ScreenObjType;
   screenUrl?: string | null;
   isMultiScreen: boolean;
   moduleParameters;
@@ -45,7 +45,7 @@ export const Nano = ({
   navigation,
   logic,
 
-  screenObj,
+  screen,
   screenUrl = null,
   isMultiScreen,
   moduleParameters,
@@ -53,7 +53,7 @@ export const Nano = ({
   packages,
 }: Props) => {
   const route = navigation ? useRoute() : null;
-  const [screenData, setScreenData] = useState(screenObj);
+  const [screenData, setScreenData] = useState(screen);
 
   let database;
   var timeut = null;
@@ -105,8 +105,8 @@ export const Nano = ({
     };
   }, []);
   useEffect(() => {
-    setScreenData(screenObj);
-  }, [screenObj]);
+    setScreenData(screen);
+  }, [screen]);
 
   return (
     <Screen
