@@ -29,14 +29,7 @@ const Tooltip: React.FC<Props> = ({
       title={elementProps['value'] != null ? elementProps['value'] : ''}
       {...elementProps}
       {...elementProps['props']}>
-      {
-        getViewItems(
-          elementProps['content'],
-          true,
-          onElementLoaded,
-          'tooltip',
-        )[0]
-      }
+      {getViewItems(elementProps['content'], true, onElementLoaded)[0]}
     </NanoTooltip>
   );
 };

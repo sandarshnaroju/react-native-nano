@@ -230,7 +230,6 @@ const getElementAsPerComponent: React.FC<Props> = ({
           requiredComponentObj != null &&
           requiredComponentObj.component !== null
         ) {
-
           const Component = requiredComponentObj.component;
           if (
             elementProps &&

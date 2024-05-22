@@ -14,6 +14,7 @@ interface Props {
   ) => React.ReactNode;
   onElementLoaded: (elementProps: ElementProps) => void;
 }
+
 const ScrollView: React.FC<Props> = ({
   elementProps,
   getViewItems,
