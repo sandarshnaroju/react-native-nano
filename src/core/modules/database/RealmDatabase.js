@@ -158,7 +158,7 @@ class Database {
 
 let database = null;
 
-const getDatabase = (callBack, customSchema) => {
+const getDatabase = (customSchema, databaseName, callBack) => {
   if (database == null) {
     database = new Database({initCallBack: callBack, schema: customSchema});
   }

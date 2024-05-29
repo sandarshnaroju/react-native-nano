@@ -68,8 +68,16 @@ interface ModuleParameters {
   imagePicker?: any;
 }
 
-const getModuleParams = ({callBack}: {callBack: any}): ModuleParameters => {
-  const database = getDatabase(callBack);
+const getModuleParams = ({
+  databaseSchema,
+  callBack,
+  databaseName,
+}: {
+  databaseSchema?: any;
+  callBack: any;
+  databaseName: string;
+}): ModuleParameters => {
+  const database = getDatabase(databaseSchema, databaseName, callBack);
   database.init();
   const notifications = getNotification();
   const permissions = getPermissionInstance();

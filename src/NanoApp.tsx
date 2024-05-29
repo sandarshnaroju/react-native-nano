@@ -29,9 +29,18 @@ type Props = {
   themes;
   appStart;
   packages;
+  databaseSchema?;
 };
 
-const NanoApp = ({screens, props, themes, packages, appStart}: Props) => {
+const NanoApp = ({
+  screens,
+  props,
+  themes,
+  packages,
+  appStart,
+  databaseSchema,
+  databaseName,
+}: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
   const navigationRef = useNavigationContainerRef();
   if (themes == null) {
@@ -65,7 +74,9 @@ const NanoApp = ({screens, props, themes, packages, appStart}: Props) => {
   };
 
   const defaultParameters = getModuleParams({
+    databaseSchema: databaseSchema,
     callBack: realDbInitCallback,
+    databaseName: databaseName,
   });
   const createCustomModuleObject = () => {
     let temp = {};
