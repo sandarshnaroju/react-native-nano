@@ -57,7 +57,7 @@ const NanoApp = ({
       NANOCONFIG.LOAD_PRIORITY != null &&
       NANOCONFIG.LOAD_PRIORITY !== 'static'
     ) {
-      fetchAllScreensFromDB()
+      fetchAllScreensFromDB(databaseName)
         .then(s => {
           setNetworkScreens(s);
         })
@@ -178,6 +178,8 @@ const NanoApp = ({
                           moduleParameters={moduleParameters}
                           themes={themes}
                           packages={packages}
+                          databaseName={databaseName}
+                          databaseSchema={databaseSchema}
                         />
                       )}
                     </Stack.Screen>
@@ -194,6 +196,8 @@ const NanoApp = ({
                       moduleParameters={moduleParameters}
                       themes={themes}
                       packages={packages}
+                      databaseName={databaseName}
+                      databaseSchema={databaseSchema}
                     />
                   )}
                 </Stack.Screen>
@@ -241,6 +245,8 @@ const NanoApp = ({
                             moduleParameters={moduleParameters}
                             themes={themes}
                             packages={packages}
+                            databaseName={databaseName}
+                            databaseSchema={databaseSchema}
                           />
                         )}
                       </Stack.Screen>

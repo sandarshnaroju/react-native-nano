@@ -3,7 +3,6 @@ import Base64 from '../../utils/Base64';
 import {DATABASE_CONSTANTS} from '../../utils/Utilities';
 import getDatabase from '../database/RealmDatabase';
 
-const Realm = getDatabase();
 interface ScreenData {
   signature: string;
   json: string;
@@ -14,9 +13,13 @@ interface ExistingScreenCodeObj {
 }
 export const fetchScreenFromDb = async ({
   screenUrl,
+  databaseName,
 }: {
   screenUrl: string;
+  databaseName: string;
 }): Promise<any> => {
+  const Realm = getDatabase(null, databaseName, null);
+
   if (screenUrl) {
     const existingScreenCodeObj: ExistingScreenCodeObj | null =
       Realm.getValue(screenUrl);
@@ -43,7 +46,9 @@ export const fetchScreenFromDb = async ({
   return Promise.reject(null);
 };
 
-export const fetchAllScreensFromDB = async () => {
+export const fetchAllScreensFromDB = async (databaseName: string) => {
+  const Realm = getDatabase(null, databaseName, null);
+
   const allScreensObj = Realm.getValue(
     DATABASE_CONSTANTS.NAME_AND_SCREEN_URL_OBJECT,
   );

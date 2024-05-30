@@ -40,6 +40,8 @@ type Props = {
   moduleParameters;
   themes;
   packages;
+  databaseName?: string;
+  databaseSchema;
 };
 export const Nano = ({
   navigation,
@@ -51,6 +53,8 @@ export const Nano = ({
   moduleParameters,
   themes,
   packages,
+  databaseName,
+  databaseSchema,
 }: Props) => {
   const route = navigation ? useRoute() : null;
   const [screenData, setScreenData] = useState(screen);
@@ -61,6 +65,7 @@ export const Nano = ({
   const fetchScreenFromNetwork = (uri: string): void => {
     fetchScreenFromDb({
       screenUrl: uri,
+      databaseName,
     })
       .then(screenN => {
         if (__DEV__) {
@@ -85,6 +90,8 @@ export const Nano = ({
   if (moduleParameters == null) {
     moduleParameters = getModuleParams({
       callBack: realDbInitCallback,
+      databaseName,
+      databaseSchema,
     });
   }
 

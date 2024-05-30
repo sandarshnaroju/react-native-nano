@@ -10,45 +10,19 @@ const nanoSchema = {
   },
   primaryKey: 'key',
 };
-const getNanoSchema = databaseName => {
-  if (
-    databaseName != null &&
-    typeof databaseName == 'string' &&
-    databaseName.length > 0
-  ) {
-    return {
-      name: TABLE_KEY_VALUE + databaseName,
-      properties: {
-        key: 'string',
-        value: 'string',
-      },
-      primaryKey: 'key',
-    };
-  } else {
-    return nanoSchema;
-  }
-};
-const getNanoSchemaName = (databaseName = '') => {
-  if (
-    databaseName != null &&
-    typeof databaseName == 'string' &&
-    databaseName.length > 0
-  ) {
-    return TABLE_KEY_VALUE + databaseName;
-  } else {
-    return TABLE_KEY_VALUE;
-  }
-};
+
 class Database {
   async init() {
     if (this.realmInstance == null) {
-      this.realmInstance = await Realm.open(this.config);
+      this.realmInstance = new Realm({
+        ...this.config,
+        path: this.databaseName + '.realm',
+      });
     }
   }
 
   constructor(props) {
     this.config = props.realmConfigObj;
-
     this.databaseName = props.databaseName;
     this.init()
       .then(() => {
@@ -126,9 +100,8 @@ class Database {
 
   setValue(key, value) {
     if (this.realmInstance != null) {
-      const allData = this.realmInstance.objects(this.databaseName);
+      const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
       const matched = allData.filtered(`key == '${key}'`);
-
       if (matched != null && matched.length > 0) {
         this.realmInstance.write(() => {
           matched[0]['value'] = value;
@@ -136,7 +109,7 @@ class Database {
 
         return true;
       } else {
-        return this.setData(this.databaseName, {
+        return this.setData(TABLE_KEY_VALUE, {
           key,
           value,
         });
@@ -146,10 +119,7 @@ class Database {
 
   getValue(key) {
     if (this.realmInstance != null) {
-      const val = this.realmInstance.objectForPrimaryKey(
-        this.databaseName,
-        key,
-      );
+      const val = this.realmInstance.objectForPrimaryKey(TABLE_KEY_VALUE, key);
 
       return val;
     }
@@ -158,7 +128,7 @@ class Database {
   deleteValue(key) {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
-        const allData = this.realmInstance.objects(this.databaseName);
+        const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
         const matched = allData.filtered(`key == '${key}'`);
         this.realmInstance.delete(matched);
       });
@@ -168,7 +138,7 @@ class Database {
   deleteAllValues() {
     if (this.realmInstance != null) {
       this.realmInstance.write(() => {
-        const allData = this.realmInstance.objects(this.databaseName);
+        const allData = this.realmInstance.objects(TABLE_KEY_VALUE);
 
         this.realmInstance.delete(allData);
       });
@@ -182,40 +152,48 @@ class Database {
       });
     }
   }
+  getDataBaseName() {
+    return this.databaseName;
+  }
 }
 var database = null;
 
 const getDatabase = (databaseSchemaConfigObj, databaseName, callBack) => {
   const initCallBack = () => {
-    callBack(database);
+    if (callBack != null && typeof callBack == 'function') {
+      callBack(database);
+    }
   };
+
   try {
+    if (database != null && databaseName === database.getDataBaseName()) {
+      return database;
+    } else {
+      database = null;
+    }
     if (database == null) {
       require('realm');
       let realmConfigObj = {
-        schema: [getNanoSchema(databaseName)],
+        schema: [nanoSchema],
         schemaVersion: 1,
       };
       if (databaseSchemaConfigObj != null) {
         realmConfigObj = {
           ...databaseSchemaConfigObj,
-          schema: [
-            getNanoSchema(databaseName),
-            ...databaseSchemaConfigObj.schema,
-          ],
+          schema: [nanoSchema, ...databaseSchemaConfigObj.schema],
         };
       } else {
         if (DataBaseConfig != null && DataBaseConfig.schema != null) {
           realmConfigObj = {
             ...DataBaseConfig,
-            schema: [getNanoSchema(databaseName), ...DataBaseConfig.schema],
+            schema: [nanoSchema, ...DataBaseConfig.schema],
           };
         }
       }
       database = new Database({
         initCallBack,
         realmConfigObj,
-        databaseName: getNanoSchemaName(databaseName),
+        databaseName: databaseName,
       });
     }
   } catch (e) {
