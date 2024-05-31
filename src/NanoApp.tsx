@@ -89,7 +89,7 @@ const NanoApp = ({
     const totalPackages = [...UIPackages, ...customPackages];
     if (totalPackages) {
       totalPackages.forEach(singlePackage => {
-        const moduless = singlePackage?.package?.modules;
+        const moduless = singlePackage?.modules;
         if (moduless != null && moduless.length > 0) {
           moduless.forEach(singleModule => {
             temp[singleModule.name] = singleModule.module;
