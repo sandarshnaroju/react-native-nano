@@ -69,22 +69,20 @@ interface ModuleParameters {
 }
 
 const getModuleParams = ({
-  databaseSchema,
   callBack,
-  databaseName,
+  database,
 }: {
-  databaseSchema?: any;
   callBack: any;
-  databaseName: string;
+  database: object;
 }): ModuleParameters => {
-  const database = getDatabase(databaseSchema, databaseName, callBack);
-  database.init();
+  const databaseInstance = getDatabase(database, callBack);
+  databaseInstance.init();
   const notifications = getNotification();
   const permissions = getPermissionInstance();
   const session = getSession();
 
   const moduleParameters = {
-    database,
+    database: databaseInstance,
     notifications,
     permissions,
     session,

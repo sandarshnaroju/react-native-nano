@@ -29,7 +29,7 @@ type Props = {
   themes;
   appStart;
   packages;
-  databaseSchema?;
+  database?;
 };
 
 const NanoApp = ({
@@ -38,15 +38,14 @@ const NanoApp = ({
   themes,
   packages,
   appStart,
-  databaseSchema,
-  databaseName,
+  database,
 }: Props) => {
   const [networkScreens, setNetworkScreens] = useState(null);
   const navigationRef = useNavigationContainerRef();
   if (themes == null) {
     themes = NANOCONFIG.THEMES;
   }
-  let database;
+  let databaseInstance;
 
   if (screens == null) {
     screens = [LoadingScreen];
@@ -57,7 +56,7 @@ const NanoApp = ({
       NANOCONFIG.LOAD_PRIORITY != null &&
       NANOCONFIG.LOAD_PRIORITY !== 'static'
     ) {
-      fetchAllScreensFromDB(databaseName)
+      fetchAllScreensFromDB(database)
         .then(s => {
           setNetworkScreens(s);
         })
@@ -67,16 +66,15 @@ const NanoApp = ({
     }
   };
   const realDbInitCallback = db => {
-    database = db;
-    if (database != null) {
+    databaseInstance = db;
+    if (databaseInstance != null) {
       getAllScreensData();
     }
   };
 
   const defaultParameters = getModuleParams({
-    databaseSchema: databaseSchema,
     callBack: realDbInitCallback,
-    databaseName: databaseName,
+    database: database,
   });
   const createCustomModuleObject = () => {
     let temp = {};
@@ -178,8 +176,7 @@ const NanoApp = ({
                           moduleParameters={moduleParameters}
                           themes={themes}
                           packages={packages}
-                          databaseName={databaseName}
-                          databaseSchema={databaseSchema}
+                          database={database}
                         />
                       )}
                     </Stack.Screen>
@@ -196,8 +193,7 @@ const NanoApp = ({
                       moduleParameters={moduleParameters}
                       themes={themes}
                       packages={packages}
-                      databaseName={databaseName}
-                      databaseSchema={databaseSchema}
+                      database={database}
                     />
                   )}
                 </Stack.Screen>
@@ -245,8 +241,7 @@ const NanoApp = ({
                             moduleParameters={moduleParameters}
                             themes={themes}
                             packages={packages}
-                            databaseName={databaseName}
-                            databaseSchema={databaseSchema}
+                            database={database}
                           />
                         )}
                       </Stack.Screen>

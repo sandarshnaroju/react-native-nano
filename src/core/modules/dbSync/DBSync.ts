@@ -13,12 +13,12 @@ interface ExistingScreenCodeObj {
 }
 export const fetchScreenFromDb = async ({
   screenUrl,
-  databaseName,
+  database,
 }: {
   screenUrl: string;
-  databaseName: string;
+  database: object;
 }): Promise<any> => {
-  const Realm = getDatabase(null, databaseName, null);
+  const Realm = getDatabase(database, null);
 
   if (screenUrl) {
     const existingScreenCodeObj: ExistingScreenCodeObj | null =
@@ -46,8 +46,8 @@ export const fetchScreenFromDb = async ({
   return Promise.reject(null);
 };
 
-export const fetchAllScreensFromDB = async (databaseName: string) => {
-  const Realm = getDatabase(null, databaseName, null);
+export const fetchAllScreensFromDB = async (database: object) => {
+  const Realm = getDatabase(database, null);
 
   const allScreensObj = Realm.getValue(
     DATABASE_CONSTANTS.NAME_AND_SCREEN_URL_OBJECT,

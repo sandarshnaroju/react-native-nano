@@ -14,9 +14,14 @@ const nanoSchema = {
 class Database {
   async init() {
     if (this.realmInstance == null) {
+      const databaseFilePath =
+        this.databaseName != null && this.databaseName.length > 0
+          ? this.databaseName
+          : 'default.realm';
+
       this.realmInstance = new Realm({
         ...this.config,
-        path: this.databaseName + '.realm',
+        path: databaseFilePath,
       });
     }
   }
@@ -158,7 +163,7 @@ class Database {
 }
 var database = null;
 
-const getDatabase = (databaseSchemaConfigObj, databaseName, callBack) => {
+const getDatabase = (userDatabase, callBack) => {
   const initCallBack = () => {
     if (callBack != null && typeof callBack == 'function') {
       callBack(database);
@@ -166,7 +171,11 @@ const getDatabase = (databaseSchemaConfigObj, databaseName, callBack) => {
   };
 
   try {
-    if (database != null && databaseName === database.getDataBaseName()) {
+    if (
+      database != null &&
+      userDatabase != null &&
+      userDatabase.name === database.getDataBaseName()
+    ) {
       return database;
     } else {
       database = null;
@@ -177,10 +186,10 @@ const getDatabase = (databaseSchemaConfigObj, databaseName, callBack) => {
         schema: [nanoSchema],
         schemaVersion: 1,
       };
-      if (databaseSchemaConfigObj != null) {
+      if (userDatabase != null && userDatabase.config != null) {
         realmConfigObj = {
-          ...databaseSchemaConfigObj,
-          schema: [nanoSchema, ...databaseSchemaConfigObj.schema],
+          ...userDatabase?.config,
+          schema: [nanoSchema, ...userDatabase.config.schema],
         };
       } else {
         if (DataBaseConfig != null && DataBaseConfig.schema != null) {
@@ -193,7 +202,10 @@ const getDatabase = (databaseSchemaConfigObj, databaseName, callBack) => {
       database = new Database({
         initCallBack,
         realmConfigObj,
-        databaseName: databaseName,
+        databaseName:
+          userDatabase != null && userDatabase.name != null
+            ? userDatabase?.name
+            : 'default.realm',
       });
     }
   } catch (e) {
