@@ -138,6 +138,7 @@ const NanoApp = ({
         {NANOCONFIG.LOAD_PRIORITY && NANOCONFIG.LOAD_PRIORITY !== 'static' ? (
           <NavigationContainer
             ref={navigationRef}
+            independent={true}
             onReady={e => {
               const moduleParametersWithNavigationRef = {
                 ...createCustomModuleObject(),
