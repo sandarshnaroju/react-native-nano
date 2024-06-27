@@ -27,8 +27,8 @@ const Image: React.FC<Props> = ({
     <TouchableOpacity {...elementProps}>
       <PaperImage
         {...elementProps['props']}
+        source={{uri: elementProps['value']}}
         {...elementProps}
-        source={elementProps['value']}
       />
     </TouchableOpacity>
   );
