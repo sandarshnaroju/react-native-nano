@@ -164,6 +164,7 @@ const NanoApp = ({
                     screnObj.props.screenProps != null
                       ? screnObj.props.screenProps
                       : {};
+
                   return (
                     <Stack.Screen
                       key={screnObj.screen_identifier}

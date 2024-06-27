@@ -53,7 +53,6 @@ export const Nano = ({
   moduleParameters,
   themes,
   packages,
-
   database,
 }: Props) => {
   const route = navigation ? useRoute() : null;
@@ -73,7 +72,9 @@ export const Nano = ({
             fetchScreenFromNetwork(uri);
           }, RELOAD_TIME);
         }
-
+        if (screenN) {
+          navigation.setOptions(screenN?.props?.screenProps?.options);
+        }
         setScreenData(screenN);
       })
       .catch(e => {});
