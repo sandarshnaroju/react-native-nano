@@ -1,9 +1,8 @@
-import {TouchableOpacity, View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {TouchableOpacity, View, Dimensions} from 'react-native';
+import {ActivityIndicator, Text} from 'react-native-paper';
 import React from 'react';
 
 import {getPlatform} from '../modules/platform/platform';
-import NANO from '../../Constants';
 import {
   getInterceptedFunctionProps,
   getViewItems,
@@ -17,7 +16,8 @@ import ReanimatedHOC from './ReanimatedHOC';
 
 import UIPackages from '../../libs';
 import {packages as ConfigPackages} from '../../../../../nano.config';
-
+const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_WIDTH = Dimensions.get('window').width;
 interface Props {
   getUi: () => void;
   onPressCallBack: () => void;
@@ -262,7 +262,16 @@ const getElementAsPerComponent: React.FC<Props> = ({
       }
     }
   }
-  return <Text key={'error' + index}> {'No such component'} </Text>;
+  return (
+    <View
+      style={{
+        justifyContent: 'center',
+        height: WINDOW_HEIGHT,
+        width: WINDOW_WIDTH,
+      }}>
+      <ActivityIndicator size={25} key={'error' + index} />
+    </View>
+  );
 };
 
 export default getElementAsPerComponent;
