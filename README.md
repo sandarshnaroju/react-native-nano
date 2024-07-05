@@ -39,12 +39,12 @@ For newer apps, we recommend you to create new Nano app by using below command.
 
 for latest version
 ``` shell
-    npx rn-nano init MyFirstNanoProject 
+    npx use-nano init MyFirstNanoProject 
 ```
 
 for specific versions of `react-native` and `react-native-nano` versions
 ``` shell
-    npx rn-nano init MyFirstNanoProject --nano-version 1.0.115 --react-native-version 0.72.6 
+    npx use-nano init MyFirstNanoProject --nano-version 1.0.115 --react-native-version 0.72.6 
 ```
 
 #### For Existing Apps:
