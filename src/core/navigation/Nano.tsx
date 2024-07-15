@@ -113,6 +113,7 @@ export const Nano = ({
     };
   }, []);
   useEffect(() => {
+
     setScreenData(screen);
   }, [screen]);
 
