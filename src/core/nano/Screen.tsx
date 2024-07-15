@@ -75,6 +75,7 @@ const Screen: React.FC<ScreenProps> = ({
   };
 
   useEffect(() => {
+
     if (!isEqual(defaultScreensRef.current, screen)) {
       defaultScreensRef.current = cloneDeep(screen);
 
@@ -173,7 +174,7 @@ const Screen: React.FC<ScreenProps> = ({
         }
       }
     };
-  }, []);
+  }, [screen]);
   const onSetUiCallBack = (
     key: string | null = null,
     valueObject: any = null,
