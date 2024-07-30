@@ -75,6 +75,7 @@ export const Nano = ({
         if (screenN) {
           navigation.setOptions(screenN?.props?.screenProps?.options);
         }
+
         setScreenData(screenN);
       })
       .catch(e => {});
@@ -113,7 +114,6 @@ export const Nano = ({
     };
   }, []);
   useEffect(() => {
-
     setScreenData(screen);
   }, [screen]);
 

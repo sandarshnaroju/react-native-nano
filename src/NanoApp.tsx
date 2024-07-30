@@ -49,6 +49,8 @@ const NanoApp = ({
 
   if (screens == null) {
     screens = [LoadingScreen];
+  } else if (typeof screens === 'string') {
+    screens = JSON.parse(screens);
   }
 
   const getAllScreensData = () => {
@@ -131,7 +133,6 @@ const NanoApp = ({
       });
     });
   };
-
   return (
     <Provider>
       <DataContext themes={themes}>
