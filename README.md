@@ -125,7 +125,24 @@ export  default  App;
 
 ### Simple Counter App
 
-The following code is an app that increases number on button clicks.
+There are two ways to build Simple Counter App.
+
+1. We can either give our app code as a string to `NanoApp` (very useful to load apps for server)
+
+```javascript
+import {NanoApp} from  'react-native-nano';
+
+// below string contains entire Simple counter app code
+const screens = `[{"name":"CountScreen","screen":{"v1":[{"component":"text","name":"text","value":1,"props":{"style":{"fontSize":50,"alignSelf":"center","justifyContent":"center"}}},{"component":"button","value":"CLICK ME TO INCREASE","onPress":"({ setUi, getUi }) => {\n    const textObj = getUi(\"text\")\n    textObj.value = textObj.value + 5\n    setUi(\"text\", textObj)\n}"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`;
+
+const  App = () => {
+    return <NanoApp screens={screens} />;
+};
+export  default  App;
+```
+
+2. we can build our app using js objects. The following code is an app that increases number on button clicks.
+
 
 ``` javascript
 
