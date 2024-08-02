@@ -179,7 +179,7 @@ const  App = () => {
 export  default  App;
 ```
 
-2. we can build our app using js objects. The following code is an app that increases number on button clicks.
+2. We can build our app using js objects. The following code is an app that increases number on button clicks.
 
 
 ``` javascript
