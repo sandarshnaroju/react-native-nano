@@ -62,21 +62,23 @@ When using Nano, creating screens is little bit different from a typical react n
 
 ```javascript
 // as a string
-const screens = `[{"name":"CountScreen","screen":{"v1":[{"component":"text","name":"text","value":"Welcome to Nano"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`
+const screens = `[{"name":"Welcome","screen":{"v1":[{"component":"text","name":"text","value":"Welcome to Nano"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`
 ```
 or 
 
 ```javascript
+import { NANO } from  'react-native-nano';
+
+const text = {
+  component: NANO.TEXT,
+  name: 'text',
+  value: 'Welcome to Nano',
+};
+
 const screens = [{
-  name: 'CountScreen',
+  name: 'Welcome',
   screen: {
-    v1: [
-      {
-        component: 'text',
-        name: 'text',
-        value: 'Welcome to Nano',
-      },
-    ],
+   v1: [text],
   },
   props: {style: {flex: 1, justifyContent: 'center'}},
 }];
