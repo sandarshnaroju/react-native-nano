@@ -44,7 +44,7 @@ for latest version
 
 for specific versions of `react-native` and `react-native-nano` versions
 ``` shell
-    npx use-nano init MyFirstNanoProject --nano-version 1.0.115 --react-native-version 0.72.6 
+    npx use-nano init MyFirstNanoProject --nano-version 1.0.171 --react-native-version 0.72.6 
 ```
 
 #### For Existing Apps:
@@ -58,19 +58,18 @@ The above command will install necessary packages to run `react-native-nano` wit
 
 ## QuickStart 
 
-When using Nano, creating screens is little bit different from a typical react native project. In Nano, we create screens in the form of JSON string or Js Objects and add it to NanoApp component. Both methods are shown below.
+When using Nano, creating screens is little bit different from a typical react native project. In Nano, we create screens in the form of JSON string or javascript objects and add it to `NanoApp` component.
 
 ```javascript
 // as a string
 const screens = `[{"name":"Welcome","screen":{"v1":[{"component":"text","name":"text","value":"Welcome to Nano"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`
 ```
-or 
+<p align="center">OR</>
 
 ```javascript
-import { NANO } from  'react-native-nano';
-
+// as a JS object
 const text = {
-  component: NANO.TEXT,
+  component: 'text',
   name: 'text',
   value: 'Welcome to Nano',
 };
@@ -102,7 +101,7 @@ Both the above methods display a simple text "Welcome to Nano"
 
 ### Adding single screen:
 
-Below is text component rendered in a screen
+Below is text component rendered in a single screen
 
 ``` javascript
 
@@ -166,12 +165,12 @@ export  default  App;
 
 There are two ways to build Simple Counter App.
 
-1. We can either give our app code as a string to `NanoApp` (very useful to load apps for server)
+1. We can either give our app code as a string to `NanoApp` (very useful to load apps from server)
 
 ```javascript
 import {NanoApp} from  'react-native-nano';
 
-// below string contains entire Simple counter app code
+// below string contains entire simple counter app code
 const screens = `[{"name":"CountScreen","screen":{"v1":[{"component":"text","name":"text","value":1,"props":{"style":{"fontSize":50,"alignSelf":"center","justifyContent":"center"}}},{"component":"button","value":"CLICK ME TO INCREASE","onPress":"({ setUi, getUi }) => {\n    const textObj = getUi(\"text\")\n    textObj.value = textObj.value + 5\n    setUi(\"text\", textObj)\n}"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`;
 
 const  App = () => {
