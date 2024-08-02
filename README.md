@@ -171,7 +171,7 @@ There are two ways to build Simple Counter App.
 import {NanoApp} from  'react-native-nano';
 
 // below string contains entire simple counter app code
-const screens = `[{"name":"CountScreen","screen":{"v1":[{"component":"text","name":"text","value":1,"props":{"style":{"fontSize":50,"alignSelf":"center","justifyContent":"center"}}},{"component":"button","value":"CLICK ME TO INCREASE","onPress":"({ setUi, getUi }) => {\n    const textObj = getUi(\"text\")\n    textObj.value = textObj.value + 5\n    setUi(\"text\", textObj)\n}"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`;
+const screens = "[{\"name\":\"CountScreen\",\"screen\":{\"v1\":[{\"component\":\"text\",\"name\":\"text\",\"value\":1,\"props\":{\"style\":{\"fontSize\":50,\"alignSelf\":\"center\",\"justifyContent\":\"center\"}}},{\"component\":\"button\",\"value\":\"CLICK ME TO INCREASE\",\"onPress\":\"({setUi, getUi}) => {\\n      \\n      const textObj = getUi(\\\"text\\\")\\n          textObj.value = textObj.value + 1\\n          setUi(\\\"text\\\", textObj)\\n    }\"}]},\"props\":{\"style\":{\"flex\":1,\"justifyContent\":\"center\"}}}]"
 
 const  App = () => {
     return <NanoApp screens={screens} />;
