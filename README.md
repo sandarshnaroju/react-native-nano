@@ -56,6 +56,44 @@ You can install `react-native-nano` in your react-native app by using the below 
 
 The above command will install necessary packages to run `react-native-nano` with `react-native` . You can use all `react-native` commands to `start` and `run` in Android and IOS.
 
+## QuickStart 
+There are two ways to build your app with `react-native-nano`
+
+```javascript
+const screens = `[{"name":"CountScreen","screen":{"v1":[{"component":"text","name":"text","value":"Welcome to Nano"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`
+```
+or 
+
+```javascript
+const screens = [{
+  name: 'CountScreen',
+  screen: {
+    v1: [
+      {
+        component: 'text',
+        name: 'text',
+        value: 'Welcome to Nano',
+      },
+    ],
+  },
+  props: {style: {flex: 1, justifyContent: 'center'}},
+}];
+
+```
+And after that simply add it to the NanoApp component like below
+
+``` javascript
+
+import {NanoApp} from  'react-native-nano';
+...
+const  App = () => {
+    return <NanoApp screens={screens} />;
+};
+
+export  default  App;
+
+```
+Both the above methods display a simple text "Welcome to Nano"
 ## How to use ?
 
 ### Adding single screen:
