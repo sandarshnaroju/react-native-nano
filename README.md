@@ -44,7 +44,7 @@ for latest version
 
 for specific versions of `react-native` and `react-native-nano` versions
 ``` shell
-    npx use-nano init MyFirstNanoProject --nano-version 1.0.115 --react-native-version 0.72.6 
+    npx use-nano init MyFirstNanoProject --nano-version 1.0.171 --react-native-version 0.72.6 
 ```
 
 #### For Existing Apps:
@@ -56,14 +56,52 @@ You can install `react-native-nano` in your react-native app by using the below 
 
 The above command will install necessary packages to run `react-native-nano` with `react-native` . You can use all `react-native` commands to `start` and `run` in Android and IOS.
 
+## QuickStart 
+
+When using Nano, creating screens is little bit different from a typical react native project. In Nano, we create screens in the form of JSON string or javascript objects and add it to `NanoApp` component.
+
+```javascript
+// as a string
+const screens = "[{\"name\":\"Welcome\",\"screen\":{\"v1\":[{\"component\":\"text\",\"name\":\"text\",\"value\":\"Welcome to Nano\"}]},\"props\":{\"style\":{\"flex\":1,\"justifyContent\":\"center\",\"alignItems\":\"center\"}}}]"
+```
+<p align="center">OR</>
+
+```javascript
+// as a JS object
+const text = {
+  component: 'text',
+  name: 'text',
+  value: 'Welcome to Nano',
+};
+
+const screens = [{
+  name: 'Welcome',
+  screen: {
+   v1: [text],
+  },
+  props: {style: {flex: 1, justifyContent: 'center',alignItems: 'center'}},
+}];
+
+```
+And after that simply add it to the NanoApp component like below
+
+``` javascript
+
+import {NanoApp} from  'react-native-nano';
+...
+const  App = () => {
+    return <NanoApp screens={screens} />;
+};
+
+export  default  App;
+
+```
+Both the above methods display a simple text "Welcome to Nano"
 ## How to use ?
 
 ### Adding single screen:
 
-When using Nano, creating components is little bit different from a typical react native project. In Nano, we create component in the form of JSON and add it to NanoApp component. Nano will render the component on screen. 
-
-For example, below is the text component.
-
+Below is text component rendered in a single screen
 
 ``` javascript
 
@@ -125,7 +163,24 @@ export  default  App;
 
 ### Simple Counter App
 
-The following code is an app that increases number on button clicks.
+There are two ways to build Simple Counter App.
+
+1. We can either give our app code as a string to `NanoApp` (very useful to load apps from server)
+
+```javascript
+import {NanoApp} from  'react-native-nano';
+
+// below string contains entire simple counter app code
+const screens = "[{\"name\":\"CountScreen\",\"screen\":{\"v1\":[{\"component\":\"text\",\"name\":\"text\",\"value\":1,\"props\":{\"style\":{\"fontSize\":50,\"alignSelf\":\"center\",\"justifyContent\":\"center\"}}},{\"component\":\"button\",\"value\":\"CLICK ME TO INCREASE\",\"onPress\":\"({setUi, getUi}) => {\\n      \\n      const textObj = getUi(\\\"text\\\")\\n          textObj.value = textObj.value + 1\\n          setUi(\\\"text\\\", textObj)\\n    }\"}]},\"props\":{\"style\":{\"flex\":1,\"justifyContent\":\"center\"}}}]"
+
+const  App = () => {
+    return <NanoApp screens={screens} />;
+};
+export  default  App;
+```
+
+2. We can build our app using js objects. The following code is an app that increases number on button clicks.
+
 
 ``` javascript
 
