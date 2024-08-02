@@ -62,7 +62,7 @@ When using Nano, creating screens is little bit different from a typical react n
 
 ```javascript
 // as a string
-const screens = `[{"name":"Welcome","screen":{"v1":[{"component":"text","name":"text","value":"Welcome to Nano"}]},"props":{"style":{"flex":1,"justifyContent":"center"}}}]`
+const screens = "[{\"name\":\"Welcome\",\"screen\":{\"v1\":[{\"component\":\"text\",\"name\":\"text\",\"value\":\"Welcome to Nano\"}]},\"props\":{\"style\":{\"flex\":1,\"justifyContent\":\"center\",\"alignItems\":\"center\"}}}]"
 ```
 <p align="center">OR</>
 
@@ -79,7 +79,7 @@ const screens = [{
   screen: {
    v1: [text],
   },
-  props: {style: {flex: 1, justifyContent: 'center'}},
+  props: {style: {flex: 1, justifyContent: 'center',alignItems: 'center'}},
 }];
 
 ```
