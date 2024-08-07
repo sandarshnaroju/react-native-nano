@@ -69,13 +69,13 @@ export const Nano = ({
       .then(screenN => {
         if (__DEV__) {
           timeut = setTimeout(() => {
-            fetchScreenFromNetwork(uri);
+            // fetchScreenFromNetwork(uri);
           }, RELOAD_TIME);
         }
         if (screenN) {
           navigation.setOptions(screenN?.props?.screenProps?.options);
         }
-
+        // console.log('SCREEN', screenN); 
         setScreenData(screenN);
       })
       .catch(e => {});

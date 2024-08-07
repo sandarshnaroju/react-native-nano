@@ -130,7 +130,7 @@ const Screen: React.FC<ScreenProps> = ({
           }
         }
       };
-    }, []),
+    }, [screen]),
   );
 
   useEffect(() => {
@@ -175,6 +175,7 @@ const Screen: React.FC<ScreenProps> = ({
       }
     };
   }, [screen]);
+
   const onSetUiCallBack = (
     key: string | null = null,
     valueObject: any = null,

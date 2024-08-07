@@ -60,6 +60,7 @@ const NanoApp = ({
     ) {
       fetchAllScreensFromDB(database)
         .then(s => {
+
           setNetworkScreens(s);
         })
         .catch(e => {
@@ -70,7 +71,7 @@ const NanoApp = ({
   const realDbInitCallback = db => {
     databaseInstance = db;
     if (databaseInstance != null) {
-      getAllScreensData();
+      // getAllScreensData();
     }
   };
 
@@ -133,6 +134,7 @@ const NanoApp = ({
       });
     });
   };
+  console.log("NanoApp.tsx")
   return (
     <Provider>
       <DataContext themes={themes}>
