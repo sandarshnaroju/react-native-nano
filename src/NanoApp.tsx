@@ -134,7 +134,6 @@ const NanoApp = ({
       });
     });
   };
-  console.log("NanoApp.tsx")
   return (
     <Provider>
       <DataContext themes={themes}>
