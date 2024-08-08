@@ -48,7 +48,6 @@ export const fetchScreenFromDb = async ({
 
 export const fetchAllScreensFromDB = async (database: object) => {
   const Realm = getDatabase(database, null);
-
   const allScreensObj = Realm.getValue(
     DATABASE_CONSTANTS.NAME_AND_SCREEN_URL_OBJECT,
   );

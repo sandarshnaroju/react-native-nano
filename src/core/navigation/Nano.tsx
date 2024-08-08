@@ -75,7 +75,6 @@ export const Nano = ({
         if (screenN) {
           navigation.setOptions(screenN?.props?.screenProps?.options);
         }
-
         setScreenData(screenN);
       })
       .catch(e => {});
