@@ -13,6 +13,7 @@ import RecycleTestComponent from './RecyclerlistView';
 import UniversalElement from './UniversalElement';
 import {animateUi} from '../hooks/UseReanimationHook';
 import ReanimatedFlatlist from './ReanimatedFlatlist';
+import DrawerTabs from '../navigation/drawer/DrawerTabs';
 interface Props {
   index: number;
   [key: string]: any;
@@ -126,6 +127,17 @@ function CheckForListviewAndRender({
     case NANO.BOTTOM_TABS:
       return (
         <NanoBottomTabs
+          drawerObj={unModifiedElemOb}
+          navigation={navigation}
+          themes={themes}
+          packages={packages}
+          context={context}
+          moduleParameters={propParameters}
+        />
+      );
+    case NANO.DRAWER:
+      return (
+        <DrawerTabs
           drawerObj={unModifiedElemOb}
           navigation={navigation}
           themes={themes}
