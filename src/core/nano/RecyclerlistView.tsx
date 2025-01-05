@@ -212,7 +212,6 @@ class RecycleTestComponent extends React.Component<
           {...viewStyle},
         ]}>
         <RecyclerListView
-          style={{flex: 1}}
           layoutProvider={this._layoutProvider}
           dataProvider={this.state.dataProvider}
           rowRenderer={this._rowRenderer}

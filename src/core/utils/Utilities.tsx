@@ -109,14 +109,12 @@ export const DATABASE_CONSTANTS = {
 
 export const isFunction = (functionToCheck: any): boolean => {
   if (functionToCheck instanceof Function) {
-    console.log('functionToCheck', functionToCheck);
+
     if (typeof functionToCheck === 'function') {
-      console.log('type is function');
 
       if (
         Object.prototype.toString.call(functionToCheck) === '[object Function]'
       ) {
-        console.log('stringified obj is function');
 
         return true;
       }
