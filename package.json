@@ -1,6 +1,6 @@
 {
   "name": "react-native-nano",
-  "version": "1.0.174",
+  "version": "1.0.175",
   "description": "Simplifies react native development",
   "main": "src/index.ts",
   "scripts": {
@@ -23,6 +23,7 @@
     "@notifee/react-native": "^7.4.0",
     "@react-navigation/material-bottom-tabs": "^6.2.13",
     "@react-navigation/material-top-tabs": "^6.5.2",
+    "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "axios": "^1.2.4",
@@ -46,6 +47,7 @@
     "recyclerlistview": "^4.2.0",
     "react-native-event-listeners": "^1.0.7"
   },
+  
   "peerDependencies": {
     "@notifee/react-native": "^7.4.0",
     "react-native-pager-view": "^6.1.4",

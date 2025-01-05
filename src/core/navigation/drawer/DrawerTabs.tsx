@@ -1,10 +1,8 @@
-import React from 'react';
-
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import TopTabScreen, {Screen} from '../toptabs/TopTabScreen';
+import * as React from 'react';
+import {Button, View} from 'react-native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import TopTabScreen from '../toptabs/TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
-
-const Tab = createMaterialBottomTabNavigator();
 
 interface GetScreensProps {
   content: Screen[];
@@ -31,7 +29,7 @@ const GetScreens = ({
           ? screen.props.screenProps
           : {};
       drawerScreens.push(
-        <Tab.Screen {...screenProps} key={screen.name} name={screen.name}>
+        <Drawer.Screen {...screenProps} key={screen.name} name={screen.name}>
           {props => (
             <TopTabScreen
               {...props}
@@ -42,13 +40,14 @@ const GetScreens = ({
               packages={packages}
             />
           )}
-        </Tab.Screen>,
+        </Drawer.Screen>,
       );
     });
   }
   return drawerScreens;
 };
-interface NanoBottomTabsProps {
+const Drawer = createDrawerNavigator();
+interface NanoDrawerProps {
   drawerObj: any;
   navigation: any;
   themes: any[];
@@ -57,14 +56,14 @@ interface NanoBottomTabsProps {
   packages;
 }
 
-const NanoBottomTabs = ({
+const DrawerTabs = ({
   drawerObj,
   navigation,
   themes,
   moduleParameters,
   context,
   packages,
-}: NanoBottomTabsProps) => {
+}: NanoDrawerProps) => {
   let navigatorPropsWithThemesSet = drawerObj.navigatorProps;
   if (themes != null && themes.length > 0) {
     navigatorPropsWithThemesSet = modifyElemObjAsPerTheme(
@@ -73,9 +72,8 @@ const NanoBottomTabs = ({
       context,
     );
   }
-
   return (
-    <Tab.Navigator {...navigatorPropsWithThemesSet}>
+    <Drawer.Navigator {...navigatorPropsWithThemesSet}>
       {GetScreens({
         content: drawerObj['content'],
         navigation: navigation,
@@ -83,9 +81,7 @@ const NanoBottomTabs = ({
         themes: themes,
         packages,
       })}
-    </Tab.Navigator>
+    </Drawer.Navigator>
   );
 };
-
-export default NanoBottomTabs;
-
+export default DrawerTabs;
