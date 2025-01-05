@@ -205,7 +205,10 @@ class RecycleTestComponent extends React.Component<
     return (
       <View
         style={[
-          {height: this.totalHeight, width: this.totalWidth},
+          {
+            height: this.totalHeight,
+            width: this.totalWidth,
+          },
           {...viewStyle},
         ]}>
         <RecyclerListView

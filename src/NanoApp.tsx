@@ -55,12 +55,12 @@ const NanoApp = ({
 
   const getAllScreensData = () => {
     if (
-      NANOCONFIG.LOAD_PRIORITY != null &&
+      NANOCONFIG.LOAD_PRIORITY != null
+      &&
       NANOCONFIG.LOAD_PRIORITY !== 'static'
     ) {
       fetchAllScreensFromDB(database)
         .then(s => {
-
           setNetworkScreens(s);
         })
         .catch(e => {

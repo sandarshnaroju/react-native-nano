@@ -158,14 +158,11 @@ const getElementAsPerComponent: React.FC<Props> = ({
         return false;
       });
 
-      if (
-        requiredPackageObj != null &&
-        requiredPackageObj.package != null &&
-        requiredPackageObj.package.components != null
-      ) {
-        const requiredComponentObj = requiredPackageObj.package.components.find(
+      if (requiredPackageObj != null && requiredPackageObj.components != null) {
+        const requiredComponentObj = requiredPackageObj.components.find(
           t => t.name == elemObjAfterThemesSet['component'],
         );
+
         if (
           requiredComponentObj != null &&
           requiredComponentObj.name == 'view'
