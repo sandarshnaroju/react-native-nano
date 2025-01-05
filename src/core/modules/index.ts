@@ -1,3 +1,5 @@
+import {AxiosStatic} from 'axios';
+import Axios from './axios/Axios';
 import getDatabase from './database/RealmDatabase';
 import getNotification from './notifications/Notifications';
 
@@ -66,6 +68,7 @@ interface ModuleParameters {
   accessibilityInfo: typeof AccessibilityInfo;
   toast: any;
   imagePicker?: any;
+  axios: AxiosStatic;
 }
 
 const getModuleParams = ({
@@ -108,6 +111,7 @@ const getModuleParams = ({
     settings: Settings,
     accessibilityInfo: AccessibilityInfo,
     toast: Toast,
+    axios: Axios,
   };
   // if (ImagePicker) {
   //   moduleParameters['imagePicker'] = ImagePicker;
