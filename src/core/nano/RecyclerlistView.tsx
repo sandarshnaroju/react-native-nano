@@ -205,10 +205,14 @@ class RecycleTestComponent extends React.Component<
     return (
       <View
         style={[
-          {height: this.totalHeight, width: this.totalWidth},
+          {
+            height: this.totalHeight,
+            width: this.totalWidth,
+          },
           {...viewStyle},
         ]}>
         <RecyclerListView
+          style={{flex: 1}}
           layoutProvider={this._layoutProvider}
           dataProvider={this.state.dataProvider}
           rowRenderer={this._rowRenderer}
