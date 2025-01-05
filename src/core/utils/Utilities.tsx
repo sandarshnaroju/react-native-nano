@@ -64,7 +64,6 @@ export const replaceValuesInItemViewObjectsAsperDataGiven = (
   content: ContentElement[],
   mapperRes: MapperRes,
 ): ContentElement[] => {
-
   const modifiedContent: ContentElement[] = [];
 
   if (content != null && content.length > 0) {
@@ -110,10 +109,13 @@ export const DATABASE_CONSTANTS = {
 
 export const isFunction = (functionToCheck: any): boolean => {
   if (functionToCheck instanceof Function) {
+
     if (typeof functionToCheck === 'function') {
+
       if (
         Object.prototype.toString.call(functionToCheck) === '[object Function]'
       ) {
+
         return true;
       }
     }
