@@ -134,10 +134,7 @@ export default {
     //   name: 'video',
     //   component: Components.Video,
     // },
-    {
-      name: 'scroll_view',
-      component: Components.Scrollview,
-    },
+  
     {
       name: 'helper_text',
       component: Components.HelperText,
