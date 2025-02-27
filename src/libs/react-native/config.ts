@@ -49,6 +49,10 @@ export default {
       component: Components.RefreshControl,
     },
     {
+      name: 'scroll_view',
+      component: Components.Scrollview,
+    },
+    {
       name: 'status_bar',
       component: Components.StatusBar,
     },

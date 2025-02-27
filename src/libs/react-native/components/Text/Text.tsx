@@ -18,12 +18,12 @@ const Text: React.FC<Props> = ({
   useEffect(() => {
     onElementLoaded(elementProps);
   }, []);
-
   return (
     <NativeText {...elementProps.props} {...elementProps}  >
       {elementProps.value}
     </NativeText>
   );
 };
+
 
 export default Text;

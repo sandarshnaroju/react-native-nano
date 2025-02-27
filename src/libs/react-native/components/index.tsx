@@ -13,6 +13,7 @@ import Switch from './Switch';
 import TouchableHighlight from './TouchableHighlight';
 import TouchableOpacity from './TouchableOpacity';
 import TouchableWithoutFeedback from './TouchableWithoutFeedback';
+import Scrollview from './ScrollView';
 
 export default {
   ActivityIndicator,
@@ -30,4 +31,5 @@ export default {
   TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Scrollview,
 };
