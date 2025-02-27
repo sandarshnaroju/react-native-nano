@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Button, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import TopTabScreen from '../toptabs/TopTabScreen';
+import TopTabScreen, { Screen } from '../toptabs/TopTabScreen';
 import {modifyElemObjAsPerTheme} from '../../utils/Utilities';
 
 interface GetScreensProps {
@@ -28,6 +28,7 @@ const GetScreens = ({
         screen.props.screenProps != null
           ? screen.props.screenProps
           : {};
+
       drawerScreens.push(
         <Drawer.Screen {...screenProps} key={screen.name} name={screen.name}>
           {props => (

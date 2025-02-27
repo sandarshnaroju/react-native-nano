@@ -57,7 +57,7 @@ const NanoApp = ({
     if (
       NANOCONFIG.LOAD_PRIORITY != null
       &&
-      NANOCONFIG.LOAD_PRIORITY !== 'static'
+      NANOCONFIG.LOAD_PRIORITY !== "static"
     ) {
       fetchAllScreensFromDB(database)
         .then(s => {

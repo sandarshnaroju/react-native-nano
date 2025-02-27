@@ -1,5 +1,5 @@
 import {TouchableOpacity, View, Dimensions} from 'react-native';
-import {ActivityIndicator, Text} from 'react-native-paper';
+import {ActivityIndicator} from 'react-native';
 import React from 'react';
 
 import {getPlatform} from '../modules/platform/platform';
@@ -150,7 +150,7 @@ const getElementAsPerComponent: React.FC<Props> = ({
         const packageName =
           elemObjAfterThemesSet['package'] != null
             ? elemObjAfterThemesSet['package']
-            : 'react-native-paper';
+            : 'react-native';
 
         if (p.name === packageName) {
           return true;

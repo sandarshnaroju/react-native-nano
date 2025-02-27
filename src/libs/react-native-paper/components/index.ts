@@ -40,7 +40,7 @@ import ReanimatedComponent from './ReanimatedComponent';
 import ReanimatedImage from './ReanimatedImage';
 import ReanimatedText from './ReanimatedText';
 import ReanimatedView from './ReanimatedView';
-import Scrollview from './ScrollView';
+
 import SegmentedButtons from './SegmentedButtons';
 import Switch from './Switch';
 import Tooltip from './ToolTip';
@@ -94,6 +94,6 @@ export default {
   ReanimatedImage,
   ReanimatedText,
   ReanimatedView,
-  Scrollview,
+
   SegmentedButtons,
 };
