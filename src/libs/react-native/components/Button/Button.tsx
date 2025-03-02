@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Button as NativeButton} from 'react-native';
 interface ElementProps {
-    [key: string]: any;
-  }
+  [key: string]: any;
+}
 
 interface Props {
   elementProps: ElementProps;
@@ -20,9 +20,11 @@ const Button: React.FC<Props> = ({
   }, []);
 
   return (
-    <NativeButton {...elementProps.props} {...elementProps}>
-      {elementProps.value}
-    </NativeButton>
+    <NativeButton
+      {...elementProps.props}
+      {...elementProps}
+      title={elementProps.value}
+    />
   );
 };
 
