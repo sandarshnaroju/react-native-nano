@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {TextInput as NativeTextInput} from 'react-native';
 interface ElementProps {
-    [key: string]: any;
-  }
+  [key: string]: any;
+}
 
 interface Props {
   elementProps: ElementProps;
@@ -20,9 +20,11 @@ const TextInput: React.FC<Props> = ({
   }, []);
 
   return (
-    <NativeTextInput {...elementProps.props} {...elementProps}>
-      {elementProps.value}
-    </NativeTextInput>
+    <NativeTextInput
+      {...elementProps.props}
+      {...elementProps}
+      value={elementProps.value}
+    />
   );
 };
 
