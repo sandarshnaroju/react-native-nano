@@ -6,7 +6,11 @@ interface ElementProps {
 
 interface Props {
   elementProps: ElementProps;
-  getViewItems?: () => void;
+  getViewItems: (
+    content: any,
+    flag: boolean,
+    onElementLoaded: (elementProps: ElementProps) => void,
+  ) => React.ReactNode;
   onElementLoaded: (elementProps: ElementProps) => void;
 }
 
@@ -21,7 +25,7 @@ const Pressable: React.FC<Props> = ({
 
   return (
     <NativePressable {...elementProps.props} {...elementProps}>
-      {elementProps.value}
+      {getViewItems(elementProps['content'], true, onElementLoaded)}
     </NativePressable>
   );
 };
